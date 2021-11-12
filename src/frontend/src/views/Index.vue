@@ -110,19 +110,15 @@
               <div class="sheet__content ingredients">
                 <div class="ingredients__sauce">
                   <p>Основной соус:</p>
-                  <label
-                    v-for="{ id, name, value } in sauces"
+                  <RadioButton
+                    class="ingredients__input"
+                    v-for="{ id, name, value, checked } in sauces"
                     :key="id"
-                    class="radio ingredients__input"
-                  >
-                    <input
-                      type="radio"
-                      name="sauce"
-                      :value="value"
-                      checked
-                    >
-                    <span>{{ name }}</span>
-                  </label>
+                    name="sauces"
+                    :value="value"
+                    :checked="checked"
+                    :title="name"
+                  />
                 </div>
 
                 <div class="ingredients__filling">
@@ -208,9 +204,14 @@ import pizza from "@/static/pizza.json";
 import saucesValues from "@/common/enums/saucesValues.js";
 import doughValues from "@/common/enums/doughValues.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
+import RadioButton from '@/common/components/RadioButton.vue';
 
 export default {
   name: "Index",
+
+  components: {
+    RadioButton
+  },
 
   pizza,
 
@@ -230,9 +231,10 @@ export default {
     },
 
     sauces() {
-      return this.$options.pizza.sauces.map((sauce) => ({
+      return this.$options.pizza.sauces.map((sauce, _, sauces) => ({
         ...sauce,
         value: saucesValues[sauce.name],
+        checked: sauce === sauces[0],
       }));
     },
   },

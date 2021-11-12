@@ -75,10 +75,12 @@
           </div>
         </div>
 
-        <BuilderIngredientsSelector
-          :ingredients="ingredients"
-          :sauces="sauces"
-        />
+        <div class="content__ingredients">
+          <BuilderIngredientsSelector
+            :ingredients="ingredients"
+            :sauces="sauces"
+          />
+        </div>
 
         <div class="content__pizza">
           <label class="input">

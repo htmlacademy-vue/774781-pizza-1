@@ -101,66 +101,10 @@
             </div>
           </div>
 
-          <div class="content__ingredients">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">
-                Выберите ингредиенты
-              </h2>
-
-              <div class="sheet__content ingredients">
-                <div class="ingredients__sauce">
-                  <p>Основной соус:</p>
-                  <RadioButton
-                    class="ingredients__input"
-                    v-for="{ id, name, value, checked } in sauces"
-                    :key="id"
-                    name="sauces"
-                    :value="value"
-                    :checked="checked"
-                    :title="name"
-                  />
-                </div>
-
-                <div class="ingredients__filling">
-                  <p>Начинка:</p>
-
-                  <ul class="ingredients__list">
-                    <li
-                      class="ingredients__item"
-                      v-for="{ id, name, modifier } in ingredients"
-                      :key="id"
-                    >
-                      <span :class="`filling filling--${modifier}`">{{
-                        name
-                      }}</span>
-
-                      <div class="counter counter--orange ingredients__counter">
-                        <button
-                          type="button"
-                          class="counter__button counter__button--minus"
-                          disabled
-                        >
-                          <span class="visually-hidden">Меньше</span>
-                        </button>
-                        <input
-                          type="text"
-                          name="counter"
-                          class="counter__input"
-                          value="0"
-                        >
-                        <button
-                          type="button"
-                          class="counter__button counter__button--plus"
-                        >
-                          <span class="visually-hidden">Больше</span>
-                        </button>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <BuilderIngredientsSelector
+            :ingredients="ingredients"
+            :sauces="sauces"
+          />
 
           <div class="content__pizza">
             <label class="input">
@@ -204,13 +148,13 @@ import pizza from "@/static/pizza.json";
 import saucesValues from "@/common/enums/saucesValues.js";
 import doughValues from "@/common/enums/doughValues.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
-import RadioButton from '@/common/components/RadioButton.vue';
+import BuilderIngredientsSelector from '@/modules/builder/components/BuilderIngredientsSelector.vue'
 
 export default {
   name: "Index",
 
   components: {
-    RadioButton
+    BuilderIngredientsSelector,
   },
 
   pizza,

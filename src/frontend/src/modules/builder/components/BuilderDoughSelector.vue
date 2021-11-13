@@ -1,3 +1,43 @@
+<template>
+  <div class="sheet">
+    <h2 class="title title--small sheet__title">
+      Выберите тесто
+    </h2>
+
+    <div class="sheet__content dough">
+      <label
+        class="dough__input"
+        :class="`dough__input--${value}`"
+        v-for="{ id, name, description, value } in dough"
+        :key="id"
+      >
+        <input
+          type="radio"
+          name="dought"
+          :value="value"
+          class="visually-hidden"
+          checked
+        >
+        <b>{{ name }}</b>
+        <span>{{ description }}</span>
+      </label>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'BuilderDoughSelector',
+  props: {
+    dough: {
+      type: Array,
+      required: true,
+    },
+  }
+}
+</script>
+
+<style lang="scss" scoped>
 .dough__input {
   position: relative;
 
@@ -60,3 +100,4 @@
     }
   }
 }
+</style>

@@ -10,30 +10,7 @@
         </h1>
 
         <div class="content__dough">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">
-              Выберите тесто
-            </h2>
-
-            <div class="sheet__content dough">
-              <label
-                class="dough__input"
-                :class="`dough__input--${value}`"
-                v-for="{ id, name, description, value } in dough"
-                :key="id"
-              >
-                <input
-                  type="radio"
-                  name="dought"
-                  :value="value"
-                  class="visually-hidden"
-                  checked
-                >
-                <b>{{ name }}</b>
-                <span>{{ description }}</span>
-              </label>
-            </div>
-          </div>
+          <BuilderDoughSelector :dough="dough" />
         </div>
 
         <div class="content__diameter">
@@ -88,7 +65,11 @@ import pizza from "@/static/pizza.json";
 import saucesValues from "@/common/enums/saucesValues.js";
 import doughValues from "@/common/enums/doughValues.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
-import { BuilderSizeSelector, BuilderIngredientsSelector } from '@/modules/builder/components';
+import {
+  BuilderSizeSelector,
+  BuilderIngredientsSelector,
+  BuilderDoughSelector
+} from '@/modules/builder/components';
 
 export default {
   name: "Index",
@@ -96,6 +77,7 @@ export default {
   components: {
     BuilderIngredientsSelector,
     BuilderSizeSelector,
+    BuilderDoughSelector,
   },
 
   pizza,

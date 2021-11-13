@@ -39,7 +39,7 @@
           </div>
 
           <div class="content__result">
-            <p>Итого: 0 ₽</p>
+            <BuilderPriceCounter />
             <button
               type="button"
               class="button"
@@ -64,6 +64,7 @@ import {
   BuilderIngredientsSelector,
   BuilderDoughSelector,
   BuilderPizzaView,
+  BuilderPriceCounter,
 } from '@/modules/builder/components';
 
 export default {
@@ -74,6 +75,7 @@ export default {
     BuilderSizeSelector,
     BuilderDoughSelector,
     BuilderPizzaView,
+    BuilderPriceCounter,
   },
 
   pizza,

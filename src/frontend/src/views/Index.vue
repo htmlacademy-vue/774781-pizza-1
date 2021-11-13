@@ -55,10 +55,6 @@
 </template>
 
 <script>
-import pizza from "@/static/pizza.json";
-import saucesValues from "@/common/enums/saucesValues.js";
-import doughValues from "@/common/enums/doughValues.js";
-import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -69,7 +65,6 @@ import {
 
 export default {
   name: "Index",
-
   components: {
     BuilderIngredientsSelector,
     BuilderSizeSelector,
@@ -77,31 +72,19 @@ export default {
     BuilderPizzaView,
     BuilderPriceCounter,
   },
-
-  pizza,
-
-  computed: {
-    dough() {
-      return this.$options.pizza.dough.map((dough) => ({
-        ...dough,
-        value: doughValues[dough.name],
-      }));
+  props: {
+    dough: {
+      type: Array,
+      required: true,
     },
-
-    ingredients() {
-      return this.$options.pizza.ingredients.map((ingredient) => ({
-        ...ingredient,
-        modifier: ingredientModifiers[ingredient.name],
-      }));
+    ingredients: {
+      type: Array,
+      required: true,
     },
-
-    sauces() {
-      return this.$options.pizza.sauces.map((sauce, _, sauces) => ({
-        ...sauce,
-        value: saucesValues[sauce.name],
-        checked: sauce === sauces[0],
-      }));
-    },
-  },
+    sauces: {
+      type: Array,
+      required: true,
+    }
+  }
 };
 </script>

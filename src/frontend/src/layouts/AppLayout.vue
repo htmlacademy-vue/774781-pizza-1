@@ -1,7 +1,11 @@
 <template>
   <div>
     <AppHeader />
-    <Index />
+    <Index
+      :dough="dough"
+      :ingredients="ingredients"
+      :sauces="sauces"
+    />
   </div>
 </template>
 
@@ -14,6 +18,20 @@ export default {
   components: {
     AppHeader,
     Index,
+  },
+  props: {
+    dough: {
+      type: Array,
+      required: true,
+    },
+    ingredients: {
+      type: Array,
+      required: true,
+    },
+    sauces: {
+      type: Array,
+      required: true,
+    }
   }
 }
 </script>

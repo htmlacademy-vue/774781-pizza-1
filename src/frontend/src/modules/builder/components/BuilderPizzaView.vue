@@ -1,3 +1,20 @@
+<template>
+  <div class="pizza pizza--foundation--big-tomato">
+    <div class="pizza__wrapper">
+      <div class="pizza__filling pizza__filling--ananas" />
+      <div class="pizza__filling pizza__filling--bacon" />
+      <div class="pizza__filling pizza__filling--cheddar" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'BuilderPizzaView',
+}
+</script>
+
+<style lang="scss" scoped>
 .pizza {
   position: relative;
 
@@ -114,3 +131,4 @@
     background-image: url("~@/assets/img/filling-big/tomatoes.svg");
   }
 }
+</style>

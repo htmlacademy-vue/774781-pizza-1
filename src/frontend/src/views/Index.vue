@@ -35,13 +35,7 @@
           </label>
 
           <div class="content__constructor">
-            <div class="pizza pizza--foundation--big-tomato">
-              <div class="pizza__wrapper">
-                <div class="pizza__filling pizza__filling--ananas" />
-                <div class="pizza__filling pizza__filling--bacon" />
-                <div class="pizza__filling pizza__filling--cheddar" />
-              </div>
-            </div>
+            <BuilderPizzaView />
           </div>
 
           <div class="content__result">
@@ -68,7 +62,8 @@ import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
-  BuilderDoughSelector
+  BuilderDoughSelector,
+  BuilderPizzaView,
 } from '@/modules/builder/components';
 
 export default {
@@ -78,6 +73,7 @@ export default {
     BuilderIngredientsSelector,
     BuilderSizeSelector,
     BuilderDoughSelector,
+    BuilderPizzaView,
   },
 
   pizza,

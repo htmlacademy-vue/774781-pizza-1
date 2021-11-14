@@ -1,6 +1,11 @@
-import { DOUGH_LARGE, DOUGH_LIGHT } from '@/common/const.js';
+import {
+  DOUGH_LIGHT,
+  DOUGH_LIGHT_VALUE,
+  DOUGH_LARGE,
+  DOUGH_LARGE_VALUE,
+} from '@/common/const.js';
 
 export default {
-  [DOUGH_LIGHT]: "light",
-  [DOUGH_LARGE]: "large",
+  [DOUGH_LIGHT]: DOUGH_LIGHT_VALUE,
+  [DOUGH_LARGE]: DOUGH_LARGE_VALUE,
 };

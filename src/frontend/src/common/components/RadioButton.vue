@@ -7,6 +7,7 @@
       :name="name"
       :value="value"
       :checked="checked"
+      @change="$emit('change', value)"
     >
     <span>{{ title }}</span>
   </label>
@@ -15,6 +16,11 @@
 <script>
 export default {
   name: 'RadioButton',
+
+  model: {
+    prop: 'checked',
+    event: 'change',
+  },
 
   props: {
     name: {

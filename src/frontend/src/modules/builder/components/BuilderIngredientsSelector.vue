@@ -13,12 +13,13 @@
         <p>Основной соус:</p>
         <RadioButton
           class="ingredients__input"
-          v-for="{ id, name, value, checked } in sauces"
+          v-for="{ id, name, value } in sauces"
           :key="id"
           name="sauces"
-          :value="value"
-          :checked="checked"
           :title="name"
+          :value="value"
+          :checked="value === defaultChecked"
+          @change="$emit('change', value)"
         />
       </div>
 
@@ -55,13 +56,24 @@ export default {
     BaseTitle,
   },
 
+  model: {
+    prop: 'checked',
+    event: 'change',
+  },
+
   props: {
     ingredients: {
       type: Array,
       required: true,
     },
+
     sauces: {
       type: Array,
+      required: true,
+    },
+
+    defaultChecked: {
+      type: String,
       required: true,
     },
   },

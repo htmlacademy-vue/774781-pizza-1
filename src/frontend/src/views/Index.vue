@@ -25,6 +25,8 @@
           <BuilderIngredientsSelector
             :ingredients="ingredients"
             :sauces="sauces"
+            :default-checked="choosedSauce"
+            v-model="choosedSauce"
           />
         </div>
 

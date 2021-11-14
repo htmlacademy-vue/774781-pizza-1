@@ -40,10 +40,9 @@ export default {
     },
 
     sauces() {
-      return this.$options.pizza.sauces.map((sauce, _, sauces) => ({
+      return this.$options.pizza.sauces.map((sauce) => ({
         ...sauce,
         value: saucesValues[sauce.name],
-        checked: sauce === sauces[0],
       }));
     },
   },

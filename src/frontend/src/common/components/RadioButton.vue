@@ -31,8 +31,8 @@ export default {
     checked: {
       type: Boolean,
       default: false,
-    }
-  }
+    },
+  },
 }
 </script>
 

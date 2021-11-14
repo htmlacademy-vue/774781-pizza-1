@@ -47,7 +47,7 @@ export default {
 
   components: {
     RadioButton,
-    ItemCounter
+    ItemCounter,
   },
 
   props: {
@@ -58,8 +58,8 @@ export default {
     sauces: {
       type: Array,
       required: true,
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: 'BuilderPriceCounter'
+  name: 'BuilderPriceCounter',
 }
 </script>

@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'BuilderSizeSelector'
+  name: 'BuilderSizeSelector',
 }
 </script>
 

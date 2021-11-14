@@ -15,12 +15,18 @@
 import {
   DOUGH_LIGHT_VALUE,
   DOUGH_LARGE_VALUE,
+  SAUCE_TOMATO_VALUE,
+  SAUCE_CREAMY_VALUE,
 } from '@/common/const.js';
 
 export default {
   name: 'BuilderPizzaView',
   props: {
     dough: {
+      type: String,
+      required: true,
+    },
+    sauce: {
       type: String,
       required: true,
     },
@@ -32,12 +38,18 @@ export default {
     doughLarge() {
       return this.dough === DOUGH_LARGE_VALUE;
     },
+    sauceTomato() {
+      return this.sauce === SAUCE_TOMATO_VALUE;
+    },
+    sauceCreamy() {
+      return this.sauce === SAUCE_CREAMY_VALUE;
+    },
     mainClass() {
       return {
-        'pizza--foundation--big-creamy': this.doughLarge,
-        'pizza--foundation--big-tomato': this.doughLarge,
-        'pizza--foundation--small-creamy': this.doughLight,
-        'pizza--foundation--small-tomato': this.doughLight,
+        'pizza--foundation--big-creamy': this.doughLarge && this.sauceCreamy,
+        'pizza--foundation--big-tomato': this.doughLarge && this.sauceTomato,
+        'pizza--foundation--small-creamy': this.doughLight && this.sauceCreamy,
+        'pizza--foundation--small-tomato': this.doughLight && this.sauceTomato,
       }
     },
   },

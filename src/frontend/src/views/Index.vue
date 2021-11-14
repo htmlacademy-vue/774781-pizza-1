@@ -37,7 +37,10 @@
           />
 
           <div class="content__constructor">
-            <BuilderPizzaView :dough="choosedDough" />
+            <BuilderPizzaView
+              :dough="choosedDough"
+              :sauce="choosedSauce"
+            />
           </div>
 
           <div class="content__result">
@@ -57,7 +60,7 @@
 </template>
 
 <script>
-import { DOUGH_LIGHT_VALUE } from '@/common/const.js';
+import { DOUGH_LIGHT_VALUE, SAUCE_TOMATO_VALUE } from '@/common/const.js';
 import { BaseTitle, BaseInput } from '@/common/components';
 import {
   BuilderSizeSelector,
@@ -81,6 +84,7 @@ export default {
   data() {
     return {
       choosedDough: DOUGH_LIGHT_VALUE,
+      choosedSauce: SAUCE_TOMATO_VALUE,
     }
   },
   props: {

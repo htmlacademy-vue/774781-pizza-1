@@ -25,14 +25,12 @@
         </div>
 
         <div class="content__pizza">
-          <label class="input">
-            <span class="visually-hidden">Название пиццы</span>
-            <input
-              type="text"
-              name="pizza_name"
-              placeholder="Введите название пиццы"
-            >
-          </label>
+          <BaseInput
+            name="pizza_name"
+            title="Название пиццы"
+            placeholder="Введите название пиццы"
+            is-title-hidden
+          />
 
           <div class="content__constructor">
             <BuilderPizzaView />
@@ -55,7 +53,7 @@
 </template>
 
 <script>
-import { BaseTitle } from '@/common/components';
+import { BaseTitle, BaseInput } from '@/common/components';
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -68,6 +66,7 @@ export default {
   name: "Index",
   components: {
     BaseTitle,
+    BaseInput,
     BuilderIngredientsSelector,
     BuilderSizeSelector,
     BuilderDoughSelector,
@@ -86,7 +85,7 @@ export default {
     sauces: {
       type: Array,
       required: true,
-    }
-  }
+    },
+  },
 };
 </script>

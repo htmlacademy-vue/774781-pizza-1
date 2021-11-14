@@ -1,8 +1,12 @@
 <template>
   <div class="sheet">
-    <h2 class="title title--small sheet__title">
+    <BaseTitle
+      :level="2"
+      size="small"
+      class="sheet__title"
+    >
       Выберите ингредиенты
-    </h2>
+    </BaseTitle>
 
     <div class="sheet__content ingredients">
       <div class="ingredients__sauce">
@@ -40,7 +44,7 @@
 </template>
 
 <script>
-import { ItemCounter, RadioButton } from '@/common/components';
+import { BaseTitle, ItemCounter, RadioButton } from '@/common/components';
 
 export default {
   name: 'BuilderIngredientsSelector',
@@ -48,6 +52,7 @@ export default {
   components: {
     RadioButton,
     ItemCounter,
+    BaseTitle,
   },
 
   props: {

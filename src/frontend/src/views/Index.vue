@@ -10,7 +10,11 @@
         </BaseTitle>
 
         <div class="content__dough">
-          <BuilderDoughSelector :dough="dough" />
+          <BuilderDoughSelector
+            :dough="dough"
+            :default-checked="choosedDough"
+            v-model="choosedDough"
+          />
         </div>
 
         <div class="content__diameter">
@@ -53,6 +57,8 @@
 </template>
 
 <script>
+import { DOUGH_LIGHT } from '@/common/const.js';
+import doughValues from "@/common/enums/doughValues";
 import { BaseTitle, BaseInput } from '@/common/components';
 import {
   BuilderSizeSelector,
@@ -72,6 +78,11 @@ export default {
     BuilderDoughSelector,
     BuilderPizzaView,
     BuilderPriceCounter,
+  },
+  data() {
+    return {
+      choosedDough: doughValues[DOUGH_LIGHT],
+    }
   },
   props: {
     dough: {

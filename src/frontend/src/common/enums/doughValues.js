@@ -1,4 +1,6 @@
+import { DOUGH_LARGE, DOUGH_LIGHT } from '@/common/const.js';
+
 export default {
-  Тонкое: "light",
-  Толстое: "large",
+  [DOUGH_LIGHT]: "light",
+  [DOUGH_LARGE]: "large",
 };

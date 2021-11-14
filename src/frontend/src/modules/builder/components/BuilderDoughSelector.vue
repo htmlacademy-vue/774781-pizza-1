@@ -14,9 +14,10 @@
         <input
           type="radio"
           name="dought"
-          :value="value"
           class="visually-hidden"
-          checked
+          :value="value"
+          :checked="value === defaultChecked"
+          @change="$emit('change', value)"
         >
         <b>{{ name }}</b>
         <span>{{ description }}</span>
@@ -28,9 +29,17 @@
 <script>
 export default {
   name: 'BuilderDoughSelector',
+  model: {
+    prop: 'checked',
+    event: 'change',
+  },
   props: {
     dough: {
       type: Array,
+      required: true,
+    },
+    defaultChecked: {
+      type: String,
       required: true,
     },
   },

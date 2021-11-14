@@ -7,7 +7,7 @@ export default {
       {
         staticClass: 'title',
         class: {
-          'title--big': true,
+          'title--big': this.size === 'big',
           'title--small': this.size === 'small',
         },
       },
@@ -22,6 +22,9 @@ export default {
     size: {
       type: String,
       default: null,
+      validator: function(value) {
+        return ['small', 'big'].indexOf(value) !== -1
+      },
     },
   },
 };

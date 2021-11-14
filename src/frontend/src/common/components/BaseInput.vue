@@ -19,7 +19,7 @@ export default {
     },
     title: {
       type: String,
-      default: 'text',
+      required: true,
     },
     name: {
       type: String,

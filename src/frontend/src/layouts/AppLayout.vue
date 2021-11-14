@@ -31,7 +31,7 @@ export default {
     sauces: {
       type: Array,
       required: true,
-    }
-  }
+    },
+  },
 }
 </script>

@@ -1,8 +1,12 @@
 <template>
   <div class="sheet">
-    <h2 class="title title--small sheet__title">
+    <BaseTitle
+      :level="2"
+      size="small"
+      class="sheet__title"
+    >
       Выберите тесто
-    </h2>
+    </BaseTitle>
 
     <div class="sheet__content dough">
       <label
@@ -27,17 +31,26 @@
 </template>
 
 <script>
+import { BaseTitle } from '@/common/components';
+
 export default {
   name: 'BuilderDoughSelector',
+
+  components: {
+    BaseTitle,
+  },
+
   model: {
     prop: 'checked',
     event: 'change',
   },
+
   props: {
     dough: {
       type: Array,
       required: true,
     },
+
     defaultChecked: {
       type: String,
       required: true,

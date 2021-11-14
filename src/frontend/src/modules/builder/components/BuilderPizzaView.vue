@@ -1,5 +1,8 @@
 <template>
-  <div class="pizza pizza--foundation--big-tomato">
+  <div
+    class="pizza"
+    :class="mainClass"
+  >
     <div class="pizza__wrapper">
       <div class="pizza__filling pizza__filling--ananas" />
       <div class="pizza__filling pizza__filling--bacon" />
@@ -9,8 +12,35 @@
 </template>
 
 <script>
+import {
+  DOUGH_LIGHT_VALUE,
+  DOUGH_LARGE_VALUE,
+} from '@/common/const.js';
+
 export default {
   name: 'BuilderPizzaView',
+  props: {
+    dough: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    doughLight() {
+      return this.dough === DOUGH_LIGHT_VALUE;
+    },
+    doughLarge() {
+      return this.dough === DOUGH_LARGE_VALUE;
+    },
+    mainClass() {
+      return {
+        'pizza--foundation--big-creamy': this.doughLarge,
+        'pizza--foundation--big-tomato': this.doughLarge,
+        'pizza--foundation--small-creamy': this.doughLight,
+        'pizza--foundation--small-tomato': this.doughLight,
+      }
+    },
+  },
 }
 </script>
 

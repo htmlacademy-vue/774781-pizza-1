@@ -72,6 +72,7 @@ import {
 
 export default {
   name: "Index",
+
   components: {
     BaseTitle,
     BaseInput,
@@ -81,21 +82,25 @@ export default {
     BuilderPizzaView,
     BuilderPriceCounter,
   },
+
   data() {
     return {
       choosedDough: DOUGH_LIGHT_VALUE,
       choosedSauce: SAUCE_TOMATO_VALUE,
     }
   },
+
   props: {
     dough: {
       type: Array,
       required: true,
     },
+
     ingredients: {
       type: Array,
       required: true,
     },
+
     sauces: {
       type: Array,
       required: true,

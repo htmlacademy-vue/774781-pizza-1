@@ -12,23 +12,28 @@
 <script>
 export default {
   name: 'BaseInput',
+
   props: {
     type: {
       type: String,
       default: 'text',
     },
+
     title: {
       type: String,
       required: true,
     },
+
     name: {
       type: String,
       required: true,
     },
+
     placeholder: {
       type: String,
       default: null,
     },
+
     isTitleHidden: {
       type: Boolean,
       default: false,

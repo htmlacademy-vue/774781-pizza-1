@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'BaseTitle',
+
   render: function(createElement){
     return createElement(
       'h' + this.level,
@@ -14,11 +15,13 @@ export default {
       this.$slots.default,
     );
   },
+
   props: {
     level: {
       type: Number,
       default: 1,
     },
+
     size: {
       type: String,
       default: null,

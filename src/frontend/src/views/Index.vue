@@ -5,9 +5,9 @@
       method="post"
     >
       <div class="content__wrapper">
-        <h1 class="title title--big">
+        <BaseTitle size="big">
           Конструктор пиццы
-        </h1>
+        </BaseTitle>
 
         <div class="content__dough">
           <BuilderDoughSelector :dough="dough" />
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { BaseTitle } from '@/common/components';
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -66,6 +67,7 @@ import {
 export default {
   name: "Index",
   components: {
+    BaseTitle,
     BuilderIngredientsSelector,
     BuilderSizeSelector,
     BuilderDoughSelector,

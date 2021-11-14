@@ -4,15 +4,17 @@
       :dough="dough"
       :ingredients="ingredients"
       :sauces="sauces"
+      :sizes="sizes"
     />
   </div>
 </template>
 
 <script>
 import pizza from "@/static/pizza.json";
-import doughValues from "@/common/enums/doughValues";
-import ingredientModifiers from "@/common/enums/ingredientModifiers";
-import saucesValues from "@/common/enums/saucesValues";
+import doughValues from "@/common/enums/doughValues.js";
+import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
+import saucesValues from "@/common/enums/saucesValues.js";
+import sizesValues from "@/common/enums/sizesValues.js";
 import AppLayout from "@/layouts/AppLayout.vue";
 
 export default {
@@ -43,6 +45,13 @@ export default {
       return this.$options.pizza.sauces.map((sauce) => ({
         ...sauce,
         value: saucesValues[sauce.name],
+      }));
+    },
+
+    sizes() {
+      return this.$options.pizza.sizes.map((size) => ({
+        ...size,
+        value: sizesValues[size.multiplier],
       }));
     },
   },

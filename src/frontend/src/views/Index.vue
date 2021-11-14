@@ -18,7 +18,11 @@
         </div>
 
         <div class="content__diameter">
-          <BuilderSizeSelector />
+          <BuilderSizeSelector
+            :sizes="sizes"
+            :default-checked="choosedSize"
+            v-model="choosedSize"
+          />
         </div>
 
         <div class="content__ingredients">
@@ -62,7 +66,7 @@
 </template>
 
 <script>
-import { DOUGH_LIGHT_VALUE, SAUCE_TOMATO_VALUE } from '@/common/const.js';
+import { DOUGH_LIGHT_VALUE, SAUCE_TOMATO_VALUE, SIZE_SMALL_VALUE } from '@/common/const.js';
 import { BaseTitle, BaseInput } from '@/common/components';
 import {
   BuilderSizeSelector,
@@ -89,6 +93,7 @@ export default {
     return {
       choosedDough: DOUGH_LIGHT_VALUE,
       choosedSauce: SAUCE_TOMATO_VALUE,
+      choosedSize: SIZE_SMALL_VALUE,
     }
   },
 
@@ -104,6 +109,11 @@ export default {
     },
 
     sauces: {
+      type: Array,
+      required: true,
+    },
+
+    sizes: {
       type: Array,
       required: true,
     },

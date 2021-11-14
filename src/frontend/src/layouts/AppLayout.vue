@@ -5,6 +5,7 @@
       :dough="dough"
       :ingredients="ingredients"
       :sauces="sauces"
+      :sizes="sizes"
     />
   </div>
 </template>
@@ -29,6 +30,10 @@ export default {
       required: true,
     },
     sauces: {
+      type: Array,
+      required: true,
+    },
+    sizes: {
       type: Array,
       required: true,
     },

@@ -5,33 +5,20 @@
     </h2>
 
     <div class="sheet__content diameter">
-      <label class="diameter__input diameter__input--small">
+      <label
+        v-for="{ id, value, name } in sizes"
+        :key="id"
+        :class="`diameter__input diameter__input--${value}`"
+      >
         <input
           type="radio"
           name="diameter"
-          value="small"
+          :value="value"
           class="visually-hidden"
+          :checked="value === defaultChecked"
+          @change="$emit('change', value)"
         >
-        <span>23 см</span>
-      </label>
-      <label class="diameter__input diameter__input--normal">
-        <input
-          type="radio"
-          name="diameter"
-          value="normal"
-          class="visually-hidden"
-          checked
-        >
-        <span>32 см</span>
-      </label>
-      <label class="diameter__input diameter__input--big">
-        <input
-          type="radio"
-          name="diameter"
-          value="big"
-          class="visually-hidden"
-        >
-        <span>45 см</span>
+        <span>{{ name }}</span>
       </label>
     </div>
   </div>
@@ -40,6 +27,23 @@
 <script>
 export default {
   name: 'BuilderSizeSelector',
+
+  model: {
+    prop: 'checked',
+    event: 'change',
+  },
+
+  props: {
+    sizes: {
+      type: Array,
+      required: true,
+    },
+
+    defaultChecked: {
+      type: String,
+      required: true,
+    },
+  },
 }
 </script>
 

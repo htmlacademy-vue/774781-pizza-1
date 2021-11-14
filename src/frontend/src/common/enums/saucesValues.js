@@ -1,4 +1,11 @@
+import {
+  SAUCE_TOMATO_KEY,
+  SAUCE_TOMATO_VALUE,
+  SAUCE_CREAMY_KEY,
+  SAUCE_CREAMY_VALUE,
+} from '@/common/const.js';
+
 export default {
-  Томатный: "tomato",
-  Сливочный: "creamy",
+  [SAUCE_TOMATO_KEY]: SAUCE_TOMATO_VALUE,
+  [SAUCE_CREAMY_KEY]: SAUCE_CREAMY_VALUE,
 };

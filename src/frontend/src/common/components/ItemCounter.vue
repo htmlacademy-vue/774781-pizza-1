@@ -2,8 +2,9 @@
   <div class="counter">
     <button
       type="button"
+      @click="decrease"
       class="counter__button counter__button--minus"
-      disabled
+      :disabled="isNegative"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -11,10 +12,12 @@
       type="text"
       name="counter"
       class="counter__input"
-      value="0"
+      v-model.number="counter"
+      @blur="validateValue($event.target.value)"
     >
     <button
       type="button"
+      @click="increase"
       class="counter__button counter__button--plus"
     >
       <span class="visually-hidden">Больше</span>
@@ -25,6 +28,46 @@
 <script>
 export default {
   name: 'ItemCounter',
+
+  data() {
+    return {
+      counter: 0,
+    }
+  },
+
+  computed: {
+    isNegative() {
+      return this.counter <= 0;
+    },
+  },
+
+  methods: {
+    validateValue(value) {
+      const number = parseInt(value);
+
+      if (Number.isNaN(number)) {
+        this.counter = 0;
+      }
+
+      if (number <= 0) {
+        this.counter = 0;
+      }
+    },
+
+    increase() {
+      this.counter++;
+      this.$emit('increase', this.counter)
+    },
+
+    decrease() {
+      if (this.isNegative) {
+        return;
+      }
+
+      this.counter--;
+      this.$emit('decrease', this.counter)
+    },
+  },
 }
 </script>
 

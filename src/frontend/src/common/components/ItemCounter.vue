@@ -2,7 +2,7 @@
   <div class="counter">
     <button
       type="button"
-      @click="decrease"
+      @click="decrease()"
       class="counter__button counter__button--minus"
       :disabled="isNegative"
     >
@@ -17,7 +17,7 @@
     >
     <button
       type="button"
-      @click="increase"
+      @click="increase()"
       class="counter__button counter__button--plus"
     >
       <span class="visually-hidden">Больше</span>

@@ -36,7 +36,10 @@
               name
             }}</span>
 
-            <ItemCounter class="ingredients__counter" />
+            <ItemCounter
+              class="ingredients__counter"
+              @increase="add()"
+            />
           </li>
         </ul>
       </div>
@@ -75,6 +78,12 @@ export default {
     defaultChecked: {
       type: String,
       required: true,
+    },
+  },
+
+  methods: {
+    add(count) {
+      console.log(count);
     },
   },
 }

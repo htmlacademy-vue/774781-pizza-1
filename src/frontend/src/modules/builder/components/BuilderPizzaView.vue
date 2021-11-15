@@ -4,9 +4,12 @@
     :class="mainClass"
   >
     <div class="pizza__wrapper">
-      <div class="pizza__filling pizza__filling--ananas" />
-      <div class="pizza__filling pizza__filling--bacon" />
-      <div class="pizza__filling pizza__filling--cheddar" />
+      <div
+        v-for="(value, key) in ingredients"
+        :key="value"
+        class="pizza__filling"
+        :class="ingredientsClass(value, key)"
+      />
     </div>
   </div>
 </template>
@@ -21,29 +24,41 @@ import {
 
 export default {
   name: 'BuilderPizzaView',
+
   props: {
     dough: {
       type: String,
       required: true,
     },
+
     sauce: {
       type: String,
       required: true,
     },
+
+    ingredients: {
+      type: Object,
+      default: () => {},
+    },
   },
+
   computed: {
     doughLight() {
       return this.dough === DOUGH_LIGHT_VALUE;
     },
+
     doughLarge() {
       return this.dough === DOUGH_LARGE_VALUE;
     },
+
     sauceTomato() {
       return this.sauce === SAUCE_TOMATO_VALUE;
     },
+
     sauceCreamy() {
       return this.sauce === SAUCE_CREAMY_VALUE;
     },
+
     mainClass() {
       return {
         'pizza--foundation--big-creamy': this.doughLarge && this.sauceCreamy,
@@ -51,6 +66,16 @@ export default {
         'pizza--foundation--small-creamy': this.doughLight && this.sauceCreamy,
         'pizza--foundation--small-tomato': this.doughLight && this.sauceTomato,
       }
+    },
+  },
+
+  methods: {
+    ingredientsClass(count, name) {
+      return [
+        `pizza__filling--${name}`,
+        { 'pizza__filling--second': count === 2 },
+        { 'pizza__filling--third': count === 3 },
+      ]
     },
   },
 }

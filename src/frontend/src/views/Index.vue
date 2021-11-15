@@ -46,6 +46,7 @@
             <BuilderPizzaView
               :dough="choosedDough"
               :sauce="choosedSauce"
+              :ingredients="choosedIngredients"
             />
           </div>
 
@@ -94,6 +95,7 @@ export default {
       choosedDough: DOUGH_LIGHT_VALUE,
       choosedSauce: SAUCE_TOMATO_VALUE,
       choosedSize: SIZE_SMALL_VALUE,
+      choosedIngredients: {},
     }
   },
 

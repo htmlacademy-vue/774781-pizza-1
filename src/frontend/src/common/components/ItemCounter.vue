@@ -19,6 +19,7 @@
       type="button"
       @click="change(1)"
       class="counter__button counter__button--plus"
+      :disabled="isLimit"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -26,18 +27,24 @@
 </template>
 
 <script>
+import { counterLimit } from '@/common/const.js';
+
 export default {
   name: 'ItemCounter',
 
   data() {
     return {
-      counter: 0,
+      counter: counterLimit.MIN,
     }
   },
 
   computed: {
     isNegative() {
-      return this.counter <= 0;
+      return this.counter <= counterLimit.MIN;
+    },
+
+    isLimit() {
+      return this.counter >= counterLimit.MAX;
     },
   },
 
@@ -46,16 +53,20 @@ export default {
       const number = parseInt(value);
 
       if (Number.isNaN(number)) {
-        this.counter = 0;
+        this.counter = counterLimit.MIN;
       }
 
-      if (number <= 0) {
-        this.counter = 0;
+      if (number <= counterLimit.MIN) {
+        this.counter = counterLimit.MIN;
       }
     },
 
     change(multiplier) {
       if (multiplier > 0) {
+        if (this.isLimit) {
+          return;
+        }
+
         this.counter++;
       } else {
         if (this.isNegative) {

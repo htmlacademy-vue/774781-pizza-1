@@ -14,3 +14,8 @@ export const SIZE_BIG_KEY = 3;
 export const SIZE_SMALL_VALUE = 'small';
 export const SIZE_NORMAL_VALUE = 'normal';
 export const SIZE_BIG_VALUE = 'big';
+
+export const counterLimit = {
+  MIN: 0,
+  MAX: 3,
+}

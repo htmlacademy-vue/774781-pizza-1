@@ -2,7 +2,7 @@
   <div class="counter">
     <button
       type="button"
-      @click="decrease()"
+      @click="change(-1)"
       class="counter__button counter__button--minus"
       :disabled="isNegative"
     >
@@ -17,7 +17,7 @@
     >
     <button
       type="button"
-      @click="increase()"
+      @click="change(1)"
       class="counter__button counter__button--plus"
     >
       <span class="visually-hidden">Больше</span>
@@ -54,18 +54,18 @@ export default {
       }
     },
 
-    increase() {
-      this.counter++;
-      this.$emit('increase', this.counter)
-    },
+    change(multiplier) {
+      if (multiplier > 0) {
+        this.counter++;
+      } else {
+        if (this.isNegative) {
+          return;
+        }
 
-    decrease() {
-      if (this.isNegative) {
-        return;
+        this.counter--;
       }
 
-      this.counter--;
-      this.$emit('decrease', this.counter)
+      this.$emit('change', this.counter)
     },
   },
 }

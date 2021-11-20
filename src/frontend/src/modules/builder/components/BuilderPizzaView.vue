@@ -5,10 +5,10 @@
   >
     <div class="pizza__wrapper">
       <div
-        v-for="(value, key) in ingredients"
-        :key="value"
+        v-for="{ name, count } in ingredients"
+        :key="name"
         class="pizza__filling"
-        :class="ingredientsClass(value, key)"
+        :class="ingredientsClass(count, name)"
       />
     </div>
   </div>
@@ -37,8 +37,8 @@ export default {
     },
 
     ingredients: {
-      type: Object,
-      default: () => {},
+      type: Array,
+      default: () => [],
     },
   },
 
@@ -72,7 +72,7 @@ export default {
   methods: {
     ingredientsClass(count, name) {
       return [
-        `pizza__filling--${name}`,
+        { [`pizza__filling--${name}`]: count > 0 },
         { 'pizza__filling--second': count === 2 },
         { 'pizza__filling--third': count === 3 },
       ]

@@ -18,8 +18,8 @@
           name="sauces"
           :title="name"
           :value="value"
-          :checked="value === defaultChecked"
-          @change="$emit('change', value)"
+          :checked="value === defaultSauceChecked"
+          @change="$emit('selectSauce', value)"
         />
       </div>
 
@@ -38,7 +38,7 @@
 
             <ItemCounter
               class="ingredients__counter"
-              @increase="add()"
+              @change="changeIngredientsAmount($event, modifier)"
             />
           </li>
         </ul>
@@ -59,11 +59,6 @@ export default {
     BaseTitle,
   },
 
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
-
   props: {
     ingredients: {
       type: Array,
@@ -75,15 +70,20 @@ export default {
       required: true,
     },
 
-    defaultChecked: {
+    defaultSauceChecked: {
       type: String,
       required: true,
     },
   },
 
   methods: {
-    add(count) {
-      console.log(count);
+    changeIngredientsAmount(count, name) {
+      const ingredient = {
+        name,
+        count,
+      }
+
+      this.$emit('selectIngredients', ingredient);
     },
   },
 }

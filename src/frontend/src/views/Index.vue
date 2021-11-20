@@ -52,7 +52,7 @@
           </div>
 
           <div class="content__result">
-            <BuilderPriceCounter />
+            <BuilderPriceCounter :total-price="totalPrice" />
             <button
               type="button"
               class="button"
@@ -97,6 +97,7 @@ export default {
       selectedSauce: SAUCE_TOMATO_VALUE,
       selectedSize: SIZE_SMALL_VALUE,
       selectedIngredients: [],
+      totalPrice: 0,
     }
   },
 

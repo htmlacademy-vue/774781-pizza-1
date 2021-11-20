@@ -17,11 +17,6 @@
 export default {
   name: 'RadioButton',
 
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
-
   props: {
     name: {
       type: String,

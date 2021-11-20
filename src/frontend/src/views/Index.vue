@@ -12,16 +12,16 @@
         <div class="content__dough">
           <BuilderDoughSelector
             :dough="dough"
-            :default-checked="choosedDough"
-            v-model="choosedDough"
+            :default-checked="selectedDough"
+            v-model="selectedDough"
           />
         </div>
 
         <div class="content__diameter">
           <BuilderSizeSelector
             :sizes="sizes"
-            :default-checked="choosedSize"
-            v-model="choosedSize"
+            :default-checked="selectedSize"
+            v-model="selectedSize"
           />
         </div>
 
@@ -29,8 +29,9 @@
           <BuilderIngredientsSelector
             :ingredients="ingredients"
             :sauces="sauces"
-            :default-checked="choosedSauce"
-            v-model="choosedSauce"
+            :default-sauce-checked="selectedSauce"
+            @selectSauce="selectSauce($event)"
+            @selectIngredients="selectIngredients($event)"
           />
         </div>
 
@@ -44,9 +45,9 @@
 
           <div class="content__constructor">
             <BuilderPizzaView
-              :dough="choosedDough"
-              :sauce="choosedSauce"
-              :ingredients="choosedIngredients"
+              :dough="selectedDough"
+              :sauce="selectedSauce"
+              :ingredients="selectedIngredients"
             />
           </div>
 
@@ -92,10 +93,10 @@ export default {
 
   data() {
     return {
-      choosedDough: DOUGH_LIGHT_VALUE,
-      choosedSauce: SAUCE_TOMATO_VALUE,
-      choosedSize: SIZE_SMALL_VALUE,
-      choosedIngredients: {},
+      selectedDough: DOUGH_LIGHT_VALUE,
+      selectedSauce: SAUCE_TOMATO_VALUE,
+      selectedSize: SIZE_SMALL_VALUE,
+      selectedIngredients: [],
     }
   },
 
@@ -118,6 +119,22 @@ export default {
     sizes: {
       type: Array,
       required: true,
+    },
+  },
+
+  methods: {
+    selectSauce(souce) {
+      this.selectedSauce = souce;
+    },
+
+    selectIngredients(ingredirent) {
+      const existingIngredientIndex = this.selectedIngredients.findIndex((item) => item.name === ingredirent.name);
+
+      if (existingIngredientIndex !== -1) {
+        this.selectedIngredients.splice(existingIngredientIndex, 1);
+      }
+
+      this.selectedIngredients.push(ingredirent);
     },
   },
 };

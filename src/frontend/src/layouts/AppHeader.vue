@@ -1,17 +1,7 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <a
-        href="index.html"
-        class="logo"
-      >
-        <img
-          src="@/assets/img/logo.svg"
-          alt="V!U!E! Pizza logo"
-          width="90"
-          height="40"
-        >
-      </a>
+      <Logo />
     </div>
     <div class="header__cart">
       <a href="cart.html">0 ₽</a>
@@ -26,8 +16,13 @@
 </template>
 
 <script>
+import { Logo } from '@/common/components';
+
 export default {
   name: 'AppHeader',
+  components: {
+    Logo,
+  },
 }
 </script>
 

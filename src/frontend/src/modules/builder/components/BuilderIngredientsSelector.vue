@@ -13,13 +13,13 @@
         <p>Основной соус:</p>
         <RadioButton
           class="ingredients__input"
-          v-for="{ id, name, value } in sauces"
+          v-for="{ id, name, value, price } in sauces"
           :key="id"
           name="sauces"
           :title="name"
           :value="value"
           :checked="value === defaultSauceChecked"
-          @change="$emit('selectSauce', value)"
+          @change="updateSauce(value, price)"
         />
       </div>
 
@@ -29,7 +29,7 @@
         <ul class="ingredients__list">
           <li
             class="ingredients__item"
-            v-for="{ id, name, modifier } in ingredients"
+            v-for="{ id, name, modifier, price } in ingredients"
             :key="id"
           >
             <span :class="`filling filling--${modifier}`">{{
@@ -38,7 +38,7 @@
 
             <ItemCounter
               class="ingredients__counter"
-              @change="changeIngredientsAmount($event, modifier)"
+              @change="updateIngredients($event, modifier, price)"
             />
           </li>
         </ul>
@@ -77,10 +77,16 @@ export default {
   },
 
   methods: {
-    changeIngredientsAmount(count, name) {
+    updateSauce(value, price) {
+      this.$emit('selectSauce', value);
+      this.$emit('updateSaucePrice', price);
+    },
+
+    updateIngredients(count, name, price) {
       const ingredient = {
         name,
         count,
+        price,
       }
 
       this.$emit('selectIngredients', ingredient);

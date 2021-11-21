@@ -12,7 +12,7 @@
       <label
         class="dough__input"
         :class="`dough__input--${value}`"
-        v-for="{ id, name, description, value } in dough"
+        v-for="{ id, name, description, value, price } in dough"
         :key="id"
       >
         <input
@@ -21,7 +21,7 @@
           class="visually-hidden"
           :value="value"
           :checked="value === defaultChecked"
-          @change="$emit('change', value)"
+          @change="updateDough(value, price)"
         >
         <b>{{ name }}</b>
         <span>{{ description }}</span>
@@ -40,11 +40,6 @@ export default {
     BaseTitle,
   },
 
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
-
   props: {
     dough: {
       type: Array,
@@ -54,6 +49,13 @@ export default {
     defaultChecked: {
       type: String,
       required: true,
+    },
+  },
+
+  methods: {
+    updateDough(value, price) {
+      this.$emit('selectDough', value);
+      this.$emit('updateDoughPrice', price);
     },
   },
 }

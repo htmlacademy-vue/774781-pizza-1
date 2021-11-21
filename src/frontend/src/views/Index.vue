@@ -13,7 +13,8 @@
           <BuilderDoughSelector
             :dough="dough"
             :default-checked="selectedDough"
-            v-model="selectedDough"
+            @selectDough="selectDough($event)"
+            @updateDoughPrice="updateDoughPrice($event)"
           />
         </div>
 
@@ -21,7 +22,8 @@
           <BuilderSizeSelector
             :sizes="sizes"
             :default-checked="selectedSize"
-            v-model="selectedSize"
+            @selectSize="selectSize($event)"
+            @updateSizeMultiplier="updateSizeMultiplier($event)"
           />
         </div>
 
@@ -31,6 +33,7 @@
             :sauces="sauces"
             :default-sauce-checked="selectedSauce"
             @selectSauce="selectSauce($event)"
+            @updateSaucePrice="updateSaucePrice($event)"
             @selectIngredients="selectIngredients($event)"
           />
         </div>
@@ -97,7 +100,10 @@ export default {
       selectedSauce: SAUCE_TOMATO_VALUE,
       selectedSize: SIZE_SMALL_VALUE,
       selectedIngredients: [],
-      totalPrice: 0,
+      doughPrice: 300,
+      saucePrice: 50,
+      sizeMultiplier: 1,
+      ingredientsPrice: 0,
     }
   },
 
@@ -123,19 +129,52 @@ export default {
     },
   },
 
+  computed: {
+    totalPrice() {
+      return (this.doughPrice + this.saucePrice + this.ingredientsPrice) * this.sizeMultiplier;
+    },
+  },
+
   methods: {
-    selectSauce(souce) {
-      this.selectedSauce = souce;
+    selectDough(dough) {
+      this.selectedDough = dough;
+    },
+
+    updateDoughPrice(price) {
+      this.doughPrice = price;
+    },
+
+    selectSauce(sauce) {
+      this.selectedSauce = sauce;
+    },
+
+    updateSaucePrice(price) {
+      this.saucePrice = price;
+    },
+
+    selectSize(size) {
+      this.selectedSize = size;
+    },
+
+    updateSizeMultiplier(multiplier) {
+      this.sizeMultiplier = multiplier;
+    },
+
+    updateIngredientsPrice(ingredirents) {
+      this.ingredientsPrice = ingredirents
+        .filter(({count}) => count > 0)
+        .reduce((accumulator, { count, price }) => accumulator + price * count, 0);
     },
 
     selectIngredients(ingredirent) {
-      const existingIngredientIndex = this.selectedIngredients.findIndex((item) => item.name === ingredirent.name);
+      const existingIngredientIndex = this.selectedIngredients.findIndex(({ name }) => name === ingredirent.name);
 
       if (existingIngredientIndex !== -1) {
         this.selectedIngredients.splice(existingIngredientIndex, 1);
       }
 
       this.selectedIngredients.push(ingredirent);
+      this.updateIngredientsPrice(this.selectedIngredients);
     },
   },
 };

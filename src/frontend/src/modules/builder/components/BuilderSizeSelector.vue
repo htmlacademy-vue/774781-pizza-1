@@ -6,7 +6,7 @@
 
     <div class="sheet__content diameter">
       <label
-        v-for="{ id, value, name } in sizes"
+        v-for="{ id, value, name, multiplier } in sizes"
         :key="id"
         :class="`diameter__input diameter__input--${value}`"
       >
@@ -16,7 +16,7 @@
           :value="value"
           class="visually-hidden"
           :checked="value === defaultChecked"
-          @change="$emit('change', value)"
+          @change="updateSize(value, multiplier)"
         >
         <span>{{ name }}</span>
       </label>
@@ -28,11 +28,6 @@
 export default {
   name: 'BuilderSizeSelector',
 
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
-
   props: {
     sizes: {
       type: Array,
@@ -42,6 +37,13 @@ export default {
     defaultChecked: {
       type: String,
       required: true,
+    },
+  },
+
+  methods: {
+    updateSize(size, price) {
+      this.$emit('changeSize', size);
+      this.$emit('updateSizeMultiplier', price);
     },
   },
 }

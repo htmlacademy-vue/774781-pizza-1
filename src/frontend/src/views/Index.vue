@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import { DOUGH_LIGHT_VALUE, SAUCE_TOMATO_VALUE, SIZE_SMALL_VALUE } from '@/common/const.js';
 import { AppTitle, AppInput, AppButton } from '@/common/components';
 import {
   BuilderSizeSelector,
@@ -117,14 +116,14 @@ export default {
   data() {
     return {
       pizzaName: '',
-      selectedDough: DOUGH_LIGHT_VALUE,
-      selectedSauce: SAUCE_TOMATO_VALUE,
-      selectedSize: SIZE_SMALL_VALUE,
       selectedIngredients: [],
-      doughPrice: 300,
-      saucePrice: 50,
-      sizeMultiplier: 1,
       ingredientsPrice: 0,
+      selectedDough: this.dough[0].value,
+      selectedSauce: this.sauces[0].value,
+      selectedSize: this.sizes[1].value,
+      doughPrice: this.dough[0].price,
+      saucePrice: this.sauces[0].price,
+      sizeMultiplier: this.sizes[1].multiplier,
     }
   },
 

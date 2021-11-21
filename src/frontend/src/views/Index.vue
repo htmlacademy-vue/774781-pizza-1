@@ -57,12 +57,9 @@
 
           <div class="content__result">
             <BuilderPriceCounter :total-price="totalPrice" />
-            <button
-              type="button"
-              class="button"
-            >
-              Готовьте!
-            </button>
+            <BaseButton :disabled="true">
+              Готовьте
+            </BaseButton>
           </div>
         </div>
       </div>
@@ -72,7 +69,7 @@
 
 <script>
 import { DOUGH_LIGHT_VALUE, SAUCE_TOMATO_VALUE, SIZE_SMALL_VALUE } from '@/common/const.js';
-import { BaseTitle, BaseInput } from '@/common/components';
+import { BaseTitle, BaseInput, BaseButton } from '@/common/components';
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -87,6 +84,7 @@ export default {
   components: {
     BaseTitle,
     BaseInput,
+    BaseButton,
     BuilderIngredientsSelector,
     BuilderSizeSelector,
     BuilderDoughSelector,

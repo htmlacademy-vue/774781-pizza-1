@@ -1,3 +1,27 @@
+<template>
+  <button
+    type="button"
+    class="button"
+    :disabled="disabled"
+    v-on="$listeners"
+  >
+    <slot />
+  </button>
+</template>
+
+<script>
+export default {
+  name: 'BaseButton',
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+}
+</script>
+
+<style lang="scss">
 .button {
   $bl: &;
 
@@ -103,3 +127,4 @@
     color: $green-500;
   }
 }
+</style>

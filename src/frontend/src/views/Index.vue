@@ -44,6 +44,7 @@
             title="Название пиццы"
             placeholder="Введите название пиццы"
             is-title-hidden
+            @input="updatePizzaName($event)"
           />
 
           <div class="content__constructor">
@@ -59,7 +60,6 @@
             <button
               type="button"
               class="button"
-              disabled
             >
               Готовьте!
             </button>
@@ -96,6 +96,7 @@ export default {
 
   data() {
     return {
+      pizzaName: '',
       selectedDough: DOUGH_LIGHT_VALUE,
       selectedSauce: SAUCE_TOMATO_VALUE,
       selectedSize: SIZE_SMALL_VALUE,
@@ -175,6 +176,10 @@ export default {
 
       this.selectedIngredients.push(ingredirent);
       this.updateIngredientsPrice(this.selectedIngredients);
+    },
+
+    updatePizzaName(name) {
+      this.pizzaName = name;
     },
   },
 };

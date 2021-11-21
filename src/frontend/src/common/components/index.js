@@ -1,14 +1,14 @@
-import BaseTitle from './BaseTitle.vue';
-import BaseInput from './BaseInput.vue';
-import BaseButton from './BaseButton.vue';
+import AppTitle from './AppTitle.vue';
+import AppInput from './AppInput.vue';
+import AppButton from './AppButton.vue';
 import ItemCounter from './ItemCounter.vue';
 import RadioButton from './RadioButton.vue';
 import Logo from './Logo.vue';
 
 export {
-  BaseTitle,
-  BaseInput,
-  BaseButton,
+  AppTitle,
+  AppInput,
+  AppButton,
   ItemCounter,
   RadioButton,
   Logo,

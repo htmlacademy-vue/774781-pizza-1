@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'BaseInput',
+  name: 'AppInput',
 
   props: {
     type: {

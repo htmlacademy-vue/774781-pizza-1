@@ -5,9 +5,9 @@
       method="post"
     >
       <div class="content__wrapper">
-        <BaseTitle size="big">
+        <AppTitle size="big">
           Конструктор пиццы
-        </BaseTitle>
+        </AppTitle>
 
         <div class="content__dough">
           <BuilderDoughSelector
@@ -39,7 +39,7 @@
         </div>
 
         <div class="content__pizza">
-          <BaseInput
+          <AppInput
             name="pizza_name"
             title="Название пиццы"
             placeholder="Введите название пиццы"
@@ -57,9 +57,9 @@
 
           <div class="content__result">
             <BuilderPriceCounter :total-price="totalPrice" />
-            <BaseButton :disabled="true">
+            <AppButton :disabled="true">
               Готовьте
-            </BaseButton>
+            </AppButton>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
 
 <script>
 import { DOUGH_LIGHT_VALUE, SAUCE_TOMATO_VALUE, SIZE_SMALL_VALUE } from '@/common/const.js';
-import { BaseTitle, BaseInput, BaseButton } from '@/common/components';
+import { AppTitle, AppInput, AppButton } from '@/common/components';
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -82,9 +82,9 @@ export default {
   name: "Index",
 
   components: {
-    BaseTitle,
-    BaseInput,
-    BaseButton,
+    AppTitle,
+    AppInput,
+    AppButton,
     BuilderIngredientsSelector,
     BuilderSizeSelector,
     BuilderDoughSelector,

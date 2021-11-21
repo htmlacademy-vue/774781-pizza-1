@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'BaseTitle',
+  name: 'AppTitle',
 
   render: function(createElement){
     return createElement(

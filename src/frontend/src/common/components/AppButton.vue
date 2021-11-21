@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'BaseButton',
+  name: 'AppButton',
   props: {
     disabled: {
       type: Boolean,

@@ -1,12 +1,12 @@
 <template>
   <div class="sheet">
-    <BaseTitle
+    <AppTitle
       :level="2"
       size="small"
       class="sheet__title"
     >
       Выберите тесто
-    </BaseTitle>
+    </AppTitle>
 
     <div class="sheet__content dough">
       <label
@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import { BaseTitle } from '@/common/components';
+import { AppTitle } from '@/common/components';
 
 export default {
   name: 'BuilderDoughSelector',
 
   components: {
-    BaseTitle,
+    AppTitle,
   },
 
   props: {

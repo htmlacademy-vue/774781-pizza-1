@@ -2,20 +2,6 @@
 export default {
   name: 'AppTitle',
 
-  render: function(createElement){
-    return createElement(
-      'h' + this.level,
-      {
-        staticClass: 'title',
-        class: {
-          'title--big': this.size === 'big',
-          'title--small': this.size === 'small',
-        },
-      },
-      this.$slots.default,
-    );
-  },
-
   props: {
     level: {
       type: Number,
@@ -29,6 +15,20 @@ export default {
         return ['small', 'big'].indexOf(value) !== -1
       },
     },
+  },
+
+  render: function(createElement){
+    return createElement(
+      'h' + this.level,
+      {
+        staticClass: 'title',
+        class: {
+          'title--big': this.size === 'big',
+          'title--small': this.size === 'small',
+        },
+      },
+      this.$slots.default,
+    );
   },
 };
 </script>

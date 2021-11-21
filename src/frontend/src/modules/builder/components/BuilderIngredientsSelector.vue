@@ -12,9 +12,9 @@
       <div class="ingredients__sauce">
         <p>Основной соус:</p>
         <RadioButton
-          class="ingredients__input"
           v-for="{ id, name, value, price } in sauces"
           :key="id"
+          class="ingredients__input"
           name="sauces"
           :title="name"
           :value="value"
@@ -28,13 +28,11 @@
 
         <ul class="ingredients__list">
           <li
-            class="ingredients__item"
             v-for="{ id, name, modifier, price } in ingredients"
             :key="id"
+            class="ingredients__item"
           >
-            <span :class="`filling filling--${modifier}`">{{
-              name
-            }}</span>
+            <span :class="`filling filling--${modifier}`">{{ name }}</span>
 
             <ItemCounter
               class="ingredients__counter"
@@ -48,10 +46,10 @@
 </template>
 
 <script>
-import { AppTitle, ItemCounter, RadioButton } from '@/common/components';
+import { AppTitle, ItemCounter, RadioButton } from "@/common/components";
 
 export default {
-  name: 'BuilderIngredientsSelector',
+  name: "BuilderIngredientsSelector",
 
   components: {
     RadioButton,
@@ -78,8 +76,8 @@ export default {
 
   methods: {
     updateSauce(value, price) {
-      this.$emit('selectSauce', value);
-      this.$emit('updateSaucePrice', price);
+      this.$emit("selectSauce", value);
+      this.$emit("updateSaucePrice", price);
     },
 
     updateIngredients(count, name, price) {
@@ -87,12 +85,12 @@ export default {
         name,
         count,
         price,
-      }
+      };
 
-      this.$emit('selectIngredients', ingredient);
+      this.$emit("selectIngredients", ingredient);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

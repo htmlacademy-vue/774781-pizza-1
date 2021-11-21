@@ -10,10 +10,10 @@
 
     <div class="sheet__content dough">
       <label
-        class="dough__input"
-        :class="`dough__input--${value}`"
         v-for="{ id, name, description, value, price } in dough"
         :key="id"
+        class="dough__input"
+        :class="`dough__input--${value}`"
       >
         <input
           type="radio"

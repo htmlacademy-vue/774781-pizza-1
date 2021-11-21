@@ -2,24 +2,24 @@
   <div class="counter">
     <button
       type="button"
-      @click="change(-1)"
       class="counter__button counter__button--minus"
       :disabled="isNegative"
+      @click="change(-1)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
     <input
+      v-model.number="counter"
       type="text"
       name="counter"
       class="counter__input"
-      v-model.number="counter"
       @blur="validateValue($event.target.value)"
     >
     <button
       type="button"
-      @click="change(1)"
       class="counter__button counter__button--plus"
       :disabled="isLimit"
+      @click="change(1)"
     >
       <span class="visually-hidden">Больше</span>
     </button>

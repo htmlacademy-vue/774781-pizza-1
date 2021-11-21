@@ -92,20 +92,6 @@ export default {
     BuilderPriceCounter,
   },
 
-  data() {
-    return {
-      pizzaName: '',
-      selectedDough: DOUGH_LIGHT_VALUE,
-      selectedSauce: SAUCE_TOMATO_VALUE,
-      selectedSize: SIZE_SMALL_VALUE,
-      selectedIngredients: [],
-      doughPrice: 300,
-      saucePrice: 50,
-      sizeMultiplier: 1,
-      ingredientsPrice: 0,
-    }
-  },
-
   props: {
     dough: {
       type: Array,
@@ -126,6 +112,20 @@ export default {
       type: Array,
       required: true,
     },
+  },
+
+  data() {
+    return {
+      pizzaName: '',
+      selectedDough: DOUGH_LIGHT_VALUE,
+      selectedSauce: SAUCE_TOMATO_VALUE,
+      selectedSize: SIZE_SMALL_VALUE,
+      selectedIngredients: [],
+      doughPrice: 300,
+      saucePrice: 50,
+      sizeMultiplier: 1,
+      ingredientsPrice: 0,
+    }
   },
 
   computed: {

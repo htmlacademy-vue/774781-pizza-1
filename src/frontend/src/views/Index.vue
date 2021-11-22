@@ -57,7 +57,7 @@
 
           <div class="content__result">
             <BuilderPriceCounter :total-price="totalPrice" />
-            <AppButton :disabled="true">
+            <AppButton :disabled="isNotAvailable">
               Готовьте
             </AppButton>
           </div>
@@ -130,6 +130,18 @@ export default {
   computed: {
     totalPrice() {
       return (this.doughPrice + this.saucePrice + this.ingredientsPrice) * this.sizeMultiplier;
+    },
+
+    hasPizzaName() {
+      return this.pizzaName.length > 0;
+    },
+
+    hasIngredients() {
+      return this.selectedIngredients.filter(({ count }) => count >= 1).length > 0;
+    },
+
+    isNotAvailable() {
+      return !this.hasPizzaName || !this.hasIngredients;
     },
   },
 

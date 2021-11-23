@@ -32,10 +32,10 @@
             :key="id"
             class="ingredients__item"
           >
-            <span :class="`filling filling--${modifier}`">{{ name }}</span>
-
-            <ItemCounter
-              class="ingredients__counter"
+            <IngredientSelector
+              :name="name"
+              :modifier="modifier"
+              :price="price"
               @change="updateIngredients($event, modifier, price)"
             />
           </li>
@@ -46,15 +46,16 @@
 </template>
 
 <script>
-import { AppTitle, ItemCounter, RadioButton } from "@/common/components";
+import { AppTitle, RadioButton } from "@/common/components";
+import IngredientSelector from './IngredientSelector.vue';
 
 export default {
   name: "BuilderIngredientsSelector",
 
   components: {
     RadioButton,
-    ItemCounter,
     AppTitle,
+    IngredientSelector,
   },
 
   props: {
@@ -93,7 +94,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ingredients__sauce {
   display: flex;
   align-items: center;

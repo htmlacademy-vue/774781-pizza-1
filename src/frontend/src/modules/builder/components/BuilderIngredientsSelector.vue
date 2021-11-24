@@ -11,6 +11,7 @@
     <div class="sheet__content ingredients">
       <div class="ingredients__sauce">
         <p>Основной соус:</p>
+
         <RadioButton
           v-for="{ id, name, value, price } in sauces"
           :key="id"
@@ -35,7 +36,6 @@
             <IngredientSelector
               :name="name"
               :modifier="modifier"
-              :price="price"
               @change="updateIngredients($event, modifier, price)"
             />
           </li>

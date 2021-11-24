@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <AppDrag :transfer-data="{}">
     <IngredientFilling
       :name="name"
       :modifier="modifier"
@@ -9,17 +9,18 @@
       class="ingredients__counter"
       @change="$emit('change', $event)"
     />
-  </div>
+  </AppDrag>
 </template>
 
 <script>
-import { ItemCounter } from "@/common/components";
+import { AppDrag, ItemCounter } from "@/common/components";
 import IngredientFilling from './IngredientFilling.vue';
 
 export default {
   name: "IngredientSelector",
 
   components: {
+    AppDrag,
     ItemCounter,
     IngredientFilling,
   },
@@ -32,11 +33,6 @@ export default {
 
     modifier: {
       type: String,
-      required: true,
-    },
-
-    price: {
-      type: Number,
       required: true,
     },
   },

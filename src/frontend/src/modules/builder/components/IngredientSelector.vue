@@ -1,5 +1,6 @@
 <template>
-  <AppDrag :transfer-data="{name: 'tomatoes', count: 1, price: 35}">
+  <!-- пока не понял как в :transfer-data передать ингредиент привильно -->
+  <AppDrag :transfer-data="{ name: 'tomatoes', count: 1, price: 35 }">
     <IngredientFilling
       :name="name"
       :modifier="modifier"

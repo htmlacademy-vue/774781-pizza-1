@@ -1,17 +1,19 @@
 <template>
-  <div
-    class="pizza"
-    :class="mainClass"
-  >
-    <div class="pizza__wrapper">
-      <div
-        v-for="{ name, count } in ingredients"
-        :key="name"
-        class="pizza__filling"
-        :class="ingredientsClass(count, name)"
-      />
+  <AppDrop @drop="$emit('drop', $event)">
+    <div
+      class="pizza"
+      :class="mainClass"
+    >
+      <div class="pizza__wrapper">
+        <div
+          v-for="{ name, count } in ingredients"
+          :key="name"
+          class="pizza__filling"
+          :class="ingredientsClass(count, name)"
+        />
+      </div>
     </div>
-  </div>
+  </AppDrop>
 </template>
 
 <script>
@@ -22,8 +24,14 @@ import {
   SAUCE_CREAMY_VALUE,
 } from '@/common/const.js';
 
+import { AppDrop } from "@/common/components";
+
 export default {
   name: 'BuilderPizzaView',
+
+  components: {
+    AppDrop,
+  },
 
   props: {
     dough: {

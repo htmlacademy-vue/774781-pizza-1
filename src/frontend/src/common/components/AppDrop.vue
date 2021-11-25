@@ -17,7 +17,9 @@ export default {
       if (!dataTransfer) {
         return;
       }
+
       const payload = dataTransfer.getData('payload');
+
       if (payload) {
         const transferData =
           JSON.parse(dataTransfer.getData('payload'));

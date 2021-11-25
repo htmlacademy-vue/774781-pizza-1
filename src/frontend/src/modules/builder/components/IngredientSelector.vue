@@ -1,5 +1,5 @@
 <template>
-  <AppDrag :transfer-data="{}">
+  <AppDrag :transfer-data="{name: 'tomatoes', count: 1, price: 35}">
     <IngredientFilling
       :name="name"
       :modifier="modifier"

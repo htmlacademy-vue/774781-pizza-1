@@ -52,6 +52,7 @@
               :dough="selectedDough"
               :sauce="selectedSauce"
               :ingredients="selectedIngredients"
+              @drop="selectIngredients($event)"
             />
           </div>
 

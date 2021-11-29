@@ -1,4 +1,11 @@
+import {
+  DOUGH_LIGHT_KEY,
+  DOUGH_LIGHT_VALUE,
+  DOUGH_LARGE_KEY,
+  DOUGH_LARGE_VALUE,
+} from '@/common/const.js';
+
 export default {
-  Тонкое: "light",
-  Толстое: "large",
+  [DOUGH_LIGHT_KEY]: DOUGH_LIGHT_VALUE,
+  [DOUGH_LARGE_KEY]: DOUGH_LARGE_VALUE,
 };

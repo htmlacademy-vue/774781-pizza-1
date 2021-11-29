@@ -42,3 +42,18 @@
 @mixin pf_center-v {
   @include center_template(50%, 0, fixed);
 }
+
+@mixin clear-list {
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+}
+
+@mixin s1220 {
+  @media (min-width: 1220px) {
+      @content;
+  }
+}
+
+

@@ -1,3 +1,88 @@
+<template>
+  <div class="counter">
+    <button
+      type="button"
+      class="counter__button counter__button--minus"
+      :disabled="isNegative"
+      @click="change(-1)"
+    >
+      <span class="visually-hidden">Меньше</span>
+    </button>
+    <input
+      v-model.number="counter"
+      type="text"
+      name="counter"
+      class="counter__input"
+      @blur="validateValue($event.target.value)"
+    >
+    <button
+      type="button"
+      class="counter__button counter__button--plus"
+      :disabled="isLimit"
+      @click="change(1)"
+    >
+      <span class="visually-hidden">Больше</span>
+    </button>
+  </div>
+</template>
+
+<script>
+import { counterLimit } from '@/common/const.js';
+
+export default {
+  name: 'ItemCounter',
+
+  data() {
+    return {
+      counter: counterLimit.MIN,
+    }
+  },
+
+  computed: {
+    isNegative() {
+      return this.counter <= counterLimit.MIN;
+    },
+
+    isLimit() {
+      return this.counter >= counterLimit.MAX;
+    },
+  },
+
+  methods: {
+    validateValue(value) {
+      const number = parseInt(value);
+
+      if (Number.isNaN(number)) {
+        this.counter = counterLimit.MIN;
+      }
+
+      if (number <= counterLimit.MIN) {
+        this.counter = counterLimit.MIN;
+      }
+    },
+
+    change(multiplier) {
+      if (multiplier > 0) {
+        if (this.isLimit) {
+          return;
+        }
+
+        this.counter++;
+      } else {
+        if (this.isNegative) {
+          return;
+        }
+
+        this.counter--;
+      }
+
+      this.$emit('change', this.counter)
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
 .counter {
   display: flex;
 
@@ -141,3 +226,4 @@
     box-shadow: inset $shadow-regular;
   }
 }
+</style>

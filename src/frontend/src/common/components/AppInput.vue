@@ -1,3 +1,49 @@
+<template>
+  <label class="input">
+    <span :class="{ 'visually-hidden': isTitleHidden }">{{ title }}</span>
+    <input
+      :type="type"
+      :name="name"
+      :placeholder="placeholder"
+      @input="$emit('input', $event.target.value)"
+    >
+  </label>
+</template>
+
+<script>
+export default {
+  name: 'AppInput',
+
+  props: {
+    type: {
+      type: String,
+      default: 'text',
+    },
+
+    title: {
+      type: String,
+      required: true,
+    },
+
+    name: {
+      type: String,
+      required: true,
+    },
+
+    placeholder: {
+      type: String,
+      default: null,
+    },
+
+    isTitleHidden: {
+      type: Boolean,
+      default: false,
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
 .input {
   display: block;
 
@@ -53,3 +99,4 @@
     }
   }
 }
+</style>

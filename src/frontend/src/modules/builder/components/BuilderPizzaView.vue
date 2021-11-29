@@ -1,3 +1,95 @@
+<template>
+  <AppDrop @drop="$emit('drop', $event)">
+    <div
+      class="pizza"
+      :class="mainClass"
+    >
+      <div class="pizza__wrapper">
+        <div
+          v-for="{ name, count } in ingredients"
+          :key="name"
+          class="pizza__filling"
+          :class="ingredientsClass(count, name)"
+        />
+      </div>
+    </div>
+  </AppDrop>
+</template>
+
+<script>
+import {
+  DOUGH_LIGHT_VALUE,
+  DOUGH_LARGE_VALUE,
+  SAUCE_TOMATO_VALUE,
+  SAUCE_CREAMY_VALUE,
+} from '@/common/const.js';
+
+import { AppDrop } from "@/common/components";
+
+export default {
+  name: 'BuilderPizzaView',
+
+  components: {
+    AppDrop,
+  },
+
+  props: {
+    dough: {
+      type: String,
+      required: true,
+    },
+
+    sauce: {
+      type: String,
+      required: true,
+    },
+
+    ingredients: {
+      type: Array,
+      default: () => [],
+    },
+  },
+
+  computed: {
+    doughLight() {
+      return this.dough === DOUGH_LIGHT_VALUE;
+    },
+
+    doughLarge() {
+      return this.dough === DOUGH_LARGE_VALUE;
+    },
+
+    sauceTomato() {
+      return this.sauce === SAUCE_TOMATO_VALUE;
+    },
+
+    sauceCreamy() {
+      return this.sauce === SAUCE_CREAMY_VALUE;
+    },
+
+    mainClass() {
+      return {
+        'pizza--foundation--big-creamy': this.doughLarge && this.sauceCreamy,
+        'pizza--foundation--big-tomato': this.doughLarge && this.sauceTomato,
+        'pizza--foundation--small-creamy': this.doughLight && this.sauceCreamy,
+        'pizza--foundation--small-tomato': this.doughLight && this.sauceTomato,
+      }
+    },
+  },
+
+  methods: {
+    ingredientsClass(count, name) {
+      return [
+        { [`pizza__filling--${name}`]: count > 0 },
+        { 'pizza__filling--second': count === 2 },
+        { 'pizza__filling--third': count === 3 },
+      ]
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
 .pizza {
   position: relative;
 
@@ -114,3 +206,4 @@
     background-image: url("~@/assets/img/filling-big/tomatoes.svg");
   }
 }
+</style>

@@ -1,3 +1,26 @@
+<template>
+  <span :class="`filling filling--${modifier}`">{{ name }}</span>
+</template>
+
+<script>
+export default {
+  name: 'IngredientFilling',
+
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+
+    modifier: {
+      type: String,
+      required: true,
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
 .filling {
   @include r-s14-h16;
 
@@ -85,3 +108,4 @@
     background-image: url("~@/assets/img/filling/salmon.svg");
   }
 }
+</style>

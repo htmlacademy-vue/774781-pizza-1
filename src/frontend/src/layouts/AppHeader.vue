@@ -1,3 +1,32 @@
+<template>
+  <header class="header">
+    <div class="header__logo">
+      <Logo />
+    </div>
+    <div class="header__cart">
+      <a href="cart.html">0 ₽</a>
+    </div>
+    <div class="header__user">
+      <a
+        href="#"
+        class="header__login"
+      ><span>Войти</span></a>
+    </div>
+  </header>
+</template>
+
+<script>
+import { Logo } from '@/common/components';
+
+export default {
+  name: 'AppHeader',
+  components: {
+    Logo,
+  },
+}
+</script>
+
+<style lang="scss" scoped>
 .header {
   position: relative;
   z-index: 2;
@@ -133,4 +162,4 @@
     background-size: auto 50%;
   }
 }
-
+</style>

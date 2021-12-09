@@ -1,27 +1,6 @@
 <template>
   <main class="layout">
-    <div class="layout__sidebar sidebar">
-      <a
-        href="index.html"
-        class="logo layout__logo"
-      >
-        <img
-          src="img/logo.svg"
-          alt="V!U!E! Pizza logo"
-          width="90"
-          height="40"
-        >
-      </a>
-
-      <a
-        class="layout__link layout__link--active"
-        href="#"
-      >История заказов</a>
-      <a
-        class="layout__link"
-        href="#"
-      >Мои данные</a>
-    </div>
+    <AppSidebar />
 
     <div class="layout__content">
       <div class="layout__title">
@@ -273,7 +252,12 @@
 </template>
 
 <script>
+import AppSidebar from '@/layouts/AppSidebar.vue';
+
 export default {
   name: "Orders",
+  components: {
+    AppSidebar,
+  },
 }
 </script>

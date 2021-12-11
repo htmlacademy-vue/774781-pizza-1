@@ -314,5 +314,8 @@ import AppFooter from '@/layouts/AppFooter.vue';
 
 export default {
   name: "Cart",
+  components: {
+    AppFooter,
+  }
 }
 </script>

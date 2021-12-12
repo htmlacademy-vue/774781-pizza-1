@@ -14,7 +14,7 @@
       name="counter"
       class="counter__input"
       @blur="validateValue($event.target.value)"
-    >
+    />
     <button
       type="button"
       class="counter__button counter__button--plus"
@@ -27,15 +27,15 @@
 </template>
 
 <script>
-import { counterLimit } from '@/common/const.js';
+import { counterLimit } from "@/common/const.js";
 
 export default {
-  name: 'ItemCounter',
+  name: "ItemCounter",
 
   data() {
     return {
       counter: counterLimit.MIN,
-    }
+    };
   },
 
   computed: {
@@ -76,10 +76,10 @@ export default {
         this.counter--;
       }
 
-      this.$emit('change', this.counter)
+      this.$emit("change", this.counter);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

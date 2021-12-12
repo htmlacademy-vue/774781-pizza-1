@@ -1,8 +1,6 @@
 <template>
   <div class="sheet">
-    <h2 class="title title--small sheet__title">
-      Выберите размер
-    </h2>
+    <h2 class="title title--small sheet__title">Выберите размер</h2>
 
     <div class="sheet__content diameter">
       <label
@@ -17,7 +15,7 @@
           class="visually-hidden"
           :checked="value === defaultChecked"
           @change="updateSize(value, multiplier)"
-        >
+        />
         <span>{{ name }}</span>
       </label>
     </div>
@@ -26,7 +24,7 @@
 
 <script>
 export default {
-  name: 'BuilderSizeSelector',
+  name: "BuilderSizeSelector",
 
   props: {
     sizes: {
@@ -42,11 +40,11 @@ export default {
 
   methods: {
     updateSize(size, price) {
-      this.$emit('changeSize', size);
-      this.$emit('updateSizeMultiplier', price);
+      this.$emit("changeSize", size);
+      this.$emit("updateSizeMultiplier", price);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,21 +1,18 @@
 <template>
-  <a
-    href="index.html"
-    class="logo"
-  >
+  <a href="index.html" class="logo">
     <img
       src="@/assets/img/logo.svg"
       alt="V!U!E! Pizza logo"
       width="90"
       height="40"
-    >
+    />
   </a>
 </template>
 
 <script>
 export default {
-  name: 'Logo',
-}
+  name: "Logo",
+};
 </script>
 
 <style lang="scss" scoped>

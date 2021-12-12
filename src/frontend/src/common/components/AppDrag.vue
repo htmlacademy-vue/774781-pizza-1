@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'AppDrag',
+  name: "AppDrag",
 
   props: {
     transferData: {
@@ -22,12 +22,9 @@ export default {
 
   methods: {
     onDrag({ dataTransfer }) {
-      dataTransfer.effectAllowed = 'move';
-      dataTransfer.dropEffect = 'move';
-      dataTransfer.setData(
-        'payload',
-        JSON.stringify(this.transferData),
-      );
+      dataTransfer.effectAllowed = "move";
+      dataTransfer.dropEffect = "move";
+      dataTransfer.setData("payload", JSON.stringify(this.transferData));
     },
   },
 };

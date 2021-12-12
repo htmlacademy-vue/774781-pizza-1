@@ -6,18 +6,18 @@
       :name="name"
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
-    >
+    />
   </label>
 </template>
 
 <script>
 export default {
-  name: 'AppInput',
+  name: "AppInput",
 
   props: {
     type: {
       type: String,
-      default: 'text',
+      default: "text",
     },
 
     title: {
@@ -40,7 +40,7 @@ export default {
       default: false,
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

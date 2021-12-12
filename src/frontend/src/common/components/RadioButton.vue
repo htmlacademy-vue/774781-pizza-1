@@ -1,21 +1,19 @@
 <template>
-  <label
-    class="radio"
-  >
+  <label class="radio">
     <input
       type="radio"
       :name="name"
       :value="value"
       :checked="checked"
       @change="$emit('change', value)"
-    >
+    />
     <span>{{ title }}</span>
   </label>
 </template>
 
 <script>
 export default {
-  name: 'RadioButton',
+  name: "RadioButton",
 
   props: {
     name: {
@@ -38,7 +36,7 @@ export default {
       default: false,
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

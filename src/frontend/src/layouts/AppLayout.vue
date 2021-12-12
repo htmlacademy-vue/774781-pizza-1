@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import AppHeader from '@/layouts/AppHeader.vue';
-import Index from '@/views/Index.vue';
+import AppHeader from "@/layouts/AppHeader.vue";
+import Index from "@/views/Index.vue";
 
 export default {
-  name: 'AppLayout',
+  name: "AppLayout",
 
   components: {
     AppHeader,
@@ -43,5 +43,5 @@ export default {
       required: true,
     },
   },
-}
+};
 </script>

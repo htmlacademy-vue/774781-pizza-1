@@ -4,12 +4,12 @@
 
 <script>
 export default {
-  name: 'BuilderPriceCounter',
+  name: "BuilderPriceCounter",
   props: {
     totalPrice: {
       type: Number,
       required: true,
     },
   },
-}
+};
 </script>

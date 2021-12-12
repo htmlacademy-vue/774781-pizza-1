@@ -1,10 +1,6 @@
 <template>
   <div class="sheet">
-    <AppTitle
-      :level="2"
-      size="small"
-      class="sheet__title"
-    >
+    <AppTitle :level="2" size="small" class="sheet__title">
       Выберите ингредиенты
     </AppTitle>
 
@@ -47,7 +43,7 @@
 
 <script>
 import { AppTitle, RadioButton } from "@/common/components";
-import IngredientSelector from './IngredientSelector.vue';
+import IngredientSelector from "./IngredientSelector.vue";
 
 export default {
   name: "BuilderIngredientsSelector",

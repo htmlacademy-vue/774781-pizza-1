@@ -7,23 +7,20 @@
       <a href="cart.html">0 ₽</a>
     </div>
     <div class="header__user">
-      <a
-        href="#"
-        class="header__login"
-      ><span>Войти</span></a>
+      <a href="#" class="header__login"><span>Войти</span></a>
     </div>
   </header>
 </template>
 
 <script>
-import { Logo } from '@/common/components';
+import { Logo } from "@/common/components";
 
 export default {
-  name: 'AppHeader',
+  name: "AppHeader",
   components: {
     Logo,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -138,14 +135,13 @@ export default {
     height: 32px;
     margin-right: 8px;
 
-    content: '';
+    content: "";
     vertical-align: middle;
 
-    background: url('~@/assets/img/login.svg') no-repeat center;
+    background: url("~@/assets/img/login.svg") no-repeat center;
     background-size: auto 50%;
   }
 }
-
 
 .header__login {
   &::after {
@@ -155,10 +151,10 @@ export default {
     height: 32px;
     margin-left: 8px;
 
-    content: '';
+    content: "";
     vertical-align: middle;
 
-    background: url('~@/assets/img/login.svg') no-repeat center;
+    background: url("~@/assets/img/login.svg") no-repeat center;
     background-size: auto 50%;
   }
 }

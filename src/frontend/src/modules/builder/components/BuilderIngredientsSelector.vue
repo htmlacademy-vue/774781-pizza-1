@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { AppTitle, RadioButton } from "@/common/components";
+import { RadioButton } from "@/common/components";
 import IngredientSelector from "./IngredientSelector.vue";
 
 export default {
@@ -50,7 +50,6 @@ export default {
 
   components: {
     RadioButton,
-    AppTitle,
     IngredientSelector,
   },
 

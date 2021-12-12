@@ -27,14 +27,8 @@
 </template>
 
 <script>
-import { AppTitle } from "@/common/components";
-
 export default {
   name: "BuilderDoughSelector",
-
-  components: {
-    AppTitle,
-  },
 
   props: {
     dough: {

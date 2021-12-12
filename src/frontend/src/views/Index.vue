@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import { AppTitle, AppInput, AppButton } from "@/common/components";
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -75,9 +74,6 @@ export default {
   name: "Index",
 
   components: {
-    AppTitle,
-    AppInput,
-    AppButton,
     BuilderIngredientsSelector,
     BuilderSizeSelector,
     BuilderDoughSelector,

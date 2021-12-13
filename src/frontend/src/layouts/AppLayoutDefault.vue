@@ -1,20 +1,25 @@
 <template>
-  <component
-    :is="layout"
-    :dough="dough"
-    :ingredients="ingredients"
-    :sauces="sauces"
-    :sizes="sizes"
-  >
-    <slot />
-  </component>
+  <div>
+    <AppLayoutHeader />
+    <Index
+      :dough="dough"
+      :ingredients="ingredients"
+      :sauces="sauces"
+      :sizes="sizes"
+    />
+  </div>
 </template>
 
 <script>
+import Index from "@/views/Index.vue";
 import { layoutName } from "@/common/const.js";
 
 export default {
-  name: "AppLayout",
+  name: layoutName.DEFAULT,
+
+  components: {
+    Index,
+  },
 
   props: {
     dough: {
@@ -35,13 +40,6 @@ export default {
     sizes: {
       type: Array,
       required: true,
-    },
-  },
-
-  computed: {
-    layout() {
-      const layout = this.$route.meta.layout || layoutName.DEFAULT;
-      return () => import(`@/layouts/${layout}.vue`);
     },
   },
 };

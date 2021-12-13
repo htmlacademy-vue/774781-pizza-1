@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "AppFooter",
+  name: "AppLayoutFooter",
 };
 </script>
 

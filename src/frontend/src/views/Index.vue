@@ -53,7 +53,7 @@
 
           <div class="content__result">
             <BuilderPriceCounter :total-price="totalPrice" />
-            <AppButton :disabled="isNotAvailable"> Готовьте </AppButton>
+            <AppButton :disabled="isNotAvailable">Готовьте</AppButton>
           </div>
         </div>
       </div>

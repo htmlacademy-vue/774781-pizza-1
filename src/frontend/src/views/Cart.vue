@@ -276,17 +276,12 @@
         </div>
       </div>
     </main>
-    <AppFooter />
+    <AppLayoutFooter />
   </form>
 </template>
 
 <script>
-import AppFooter from "@/layouts/AppFooter.vue";
-
 export default {
   name: "Cart",
-  components: {
-    AppFooter,
-  },
 };
 </script>

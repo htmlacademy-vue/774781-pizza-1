@@ -16,7 +16,7 @@
 import { Logo } from "@/common/components";
 
 export default {
-  name: "AppHeader",
+  name: "AppLayoutHeader",
   components: {
     Logo,
   },

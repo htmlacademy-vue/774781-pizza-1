@@ -19,3 +19,7 @@ export const counterLimit = {
   MIN: 0,
   MAX: 3,
 };
+
+export const layoutName = {
+  DEFAULT: "AppLayoutDefault",
+};

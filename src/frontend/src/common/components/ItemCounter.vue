@@ -18,6 +18,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
+      :class="themeClass"
       :disabled="isLimit"
       @click="change(1)"
     >
@@ -38,6 +39,13 @@ export default {
     };
   },
 
+  props: {
+    theme: {
+      type: String,
+      default: null,
+    },
+  },
+
   computed: {
     isNegative() {
       return this.counter <= counterLimit.MIN;
@@ -45,6 +53,10 @@ export default {
 
     isLimit() {
       return this.counter >= counterLimit.MAX;
+    },
+
+    themeClass() {
+      return this.theme && "counter__button--orange";
     },
   },
 
@@ -82,7 +94,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .counter {
   display: flex;
 

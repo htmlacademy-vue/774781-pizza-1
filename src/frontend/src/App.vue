@@ -6,7 +6,12 @@
       :sauces="sauces"
       :sizes="sizes"
     >
-      <router-view />
+      <router-view
+        :dough="dough"
+        :ingredients="ingredients"
+        :sauces="sauces"
+        :sizes="sizes"
+      />
     </AppLayout>
   </div>
 </template>

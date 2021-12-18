@@ -1,3 +1,33 @@
+<template>
+  <ul class="cart-list sheet">
+    <li class="cart-list__item">
+      <ProductItem class="cart-list__product" />
+      <ItemCounter class="cart-list__counter" theme="orange" />
+
+      <div class="cart-list__price">
+        <b>782 ₽</b>
+      </div>
+
+      <div class="cart-list__button">
+        <button type="button" class="cart-list__edit">Изменить</button>
+      </div>
+    </li>
+  </ul>
+</template>
+
+<script>
+import { ItemCounter, ProductItem } from "@/common/components";
+
+export default {
+  name: "CartList",
+  components: {
+    ProductItem,
+    ItemCounter,
+  },
+};
+</script>
+
+<style lang="scss">
 .cart-list {
   @include clear-list;
 
@@ -69,3 +99,4 @@
     color: $green-400;
   }
 }
+</style>

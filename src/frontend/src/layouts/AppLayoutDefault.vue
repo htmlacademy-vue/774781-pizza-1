@@ -1,25 +1,15 @@
 <template>
   <div>
     <AppLayoutHeader />
-    <Index
-      :dough="dough"
-      :ingredients="ingredients"
-      :sauces="sauces"
-      :sizes="sizes"
-    />
+    <slot />
   </div>
 </template>
 
 <script>
-import Index from "@/views/Index.vue";
 import { layoutName } from "@/common/const.js";
 
 export default {
   name: layoutName.DEFAULT,
-
-  components: {
-    Index,
-  },
 
   props: {
     dough: {

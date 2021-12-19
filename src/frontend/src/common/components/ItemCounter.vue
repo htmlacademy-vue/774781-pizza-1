@@ -9,15 +9,16 @@
       <span class="visually-hidden">Меньше</span>
     </button>
     <input
-      v-model.number="counter"
       type="text"
       name="counter"
       class="counter__input"
       @blur="validateValue($event.target.value)"
-    >
+      :value="counter"
+    />
     <button
       type="button"
       class="counter__button counter__button--plus"
+      :class="themeClass"
       :disabled="isLimit"
       @click="change(1)"
     >
@@ -27,15 +28,22 @@
 </template>
 
 <script>
-import { counterLimit } from '@/common/const.js';
+import { counterLimit } from "@/common/const.js";
 
 export default {
-  name: 'ItemCounter',
+  name: "ItemCounter",
 
   data() {
     return {
       counter: counterLimit.MIN,
-    }
+    };
+  },
+
+  props: {
+    theme: {
+      type: String,
+      default: null,
+    },
   },
 
   computed: {
@@ -45,6 +53,10 @@ export default {
 
     isLimit() {
       return this.counter >= counterLimit.MAX;
+    },
+
+    themeClass() {
+      return this.theme && "counter__button--orange";
     },
   },
 
@@ -58,6 +70,10 @@ export default {
 
       if (number <= counterLimit.MIN) {
         this.counter = counterLimit.MIN;
+      }
+
+      if (number >= counterLimit.MAX) {
+        this.counter = counterLimit.MAX;
       }
     },
 
@@ -76,13 +92,13 @@ export default {
         this.counter--;
       }
 
-      this.$emit('change', this.counter)
+      this.$emit("change", this.counter);
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .counter {
   display: flex;
 

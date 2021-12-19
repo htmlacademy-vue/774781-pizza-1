@@ -5,7 +5,14 @@
       :ingredients="ingredients"
       :sauces="sauces"
       :sizes="sizes"
-    />
+    >
+      <router-view
+        :dough="dough"
+        :ingredients="ingredients"
+        :sauces="sauces"
+        :sizes="sizes"
+      />
+    </AppLayout>
   </div>
 </template>
 
@@ -15,14 +22,9 @@ import doughValues from "@/common/enums/doughValues.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
-import AppLayout from "@/layouts/AppLayout.vue";
 
 export default {
   name: "App",
-
-  components: {
-    AppLayout,
-  },
 
   pizza,
 

@@ -1,20 +1,15 @@
 <template>
-  <component
-    :is="layout"
-    :dough="dough"
-    :ingredients="ingredients"
-    :sauces="sauces"
-    :sizes="sizes"
-  >
+  <div>
+    <AppLayoutHeader />
     <slot />
-  </component>
+  </div>
 </template>
 
 <script>
 import { layoutName } from "@/common/const.js";
 
 export default {
-  name: "AppLayout",
+  name: layoutName.DEFAULT,
 
   props: {
     dough: {
@@ -35,13 +30,6 @@ export default {
     sizes: {
       type: Array,
       required: true,
-    },
-  },
-
-  computed: {
-    layout() {
-      const layout = this.$route.meta.layout || layoutName.DEFAULT;
-      return () => import(`@/layouts/${layout}.vue`);
     },
   },
 };

@@ -3,7 +3,7 @@ import {
   DOUGH_LIGHT_VALUE,
   DOUGH_LARGE_KEY,
   DOUGH_LARGE_VALUE,
-} from '@/common/const.js';
+} from "@/common/const.js";
 
 export default {
   [DOUGH_LIGHT_KEY]: DOUGH_LIGHT_VALUE,

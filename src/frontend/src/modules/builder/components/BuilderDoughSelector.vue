@@ -1,10 +1,6 @@
 <template>
   <div class="sheet">
-    <AppTitle
-      :level="2"
-      size="small"
-      class="sheet__title"
-    >
+    <AppTitle :level="2" size="small" class="sheet__title">
       Выберите тесто
     </AppTitle>
 
@@ -22,7 +18,7 @@
           :value="value"
           :checked="value === defaultChecked"
           @change="updateDough(value, price)"
-        >
+        />
         <b>{{ name }}</b>
         <span>{{ description }}</span>
       </label>
@@ -31,14 +27,8 @@
 </template>
 
 <script>
-import { AppTitle } from '@/common/components';
-
 export default {
-  name: 'BuilderDoughSelector',
-
-  components: {
-    AppTitle,
-  },
+  name: "BuilderDoughSelector",
 
   props: {
     dough: {
@@ -54,11 +44,11 @@ export default {
 
   methods: {
     updateDough(value, price) {
-      this.$emit('selectDough', value);
-      this.$emit('updateDoughPrice', price);
+      this.$emit("selectDough", value);
+      this.$emit("updateDoughPrice", price);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

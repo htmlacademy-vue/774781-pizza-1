@@ -1,3 +1,40 @@
+<template>
+  <ul class="additional-list">
+    <li class="additional-list__item sheet">
+      <p class="additional-list__description">
+        <img
+          src="@/assets/img/cola.svg"
+          width="39"
+          height="60"
+          alt="Coca-Cola 0,5 литра"
+        />
+        <span>Coca-Cola 0,5 литра</span>
+      </p>
+
+      <div class="additional-list__wrapper">
+        <ItemCounter class="additional-list__counter" theme="orange" />
+
+        <div class="additional-list__price">
+          <b>× 56 ₽</b>
+        </div>
+      </div>
+    </li>
+  </ul>
+</template>
+
+<script>
+import { ItemCounter } from "@/common/components";
+
+export default {
+  name: "CartAdditionalList",
+
+  components: {
+    ItemCounter,
+  },
+};
+</script>
+
+<style lang="scss" scoped>
 .additional-list {
   @include clear-list;
 
@@ -61,3 +98,4 @@
 .additional-list__price {
   @include b-s16-h19;
 }
+</style>

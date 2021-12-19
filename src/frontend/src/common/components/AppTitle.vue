@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'AppTitle',
+  name: "AppTitle",
 
   props: {
     level: {
@@ -11,23 +11,23 @@ export default {
     size: {
       type: String,
       default: null,
-      validator: function(value) {
-        return ['small', 'big'].indexOf(value) !== -1
+      validator: function (value) {
+        return ["small", "big"].indexOf(value) !== -1;
       },
     },
   },
 
-  render: function(createElement){
+  render: function (createElement) {
     return createElement(
-      'h' + this.level,
+      "h" + this.level,
       {
-        staticClass: 'title',
+        staticClass: "title",
         class: {
-          'title--big': this.size === 'big',
-          'title--small': this.size === 'small',
+          "title--big": this.size === "big",
+          "title--small": this.size === "small",
         },
       },
-      this.$slots.default,
+      this.$slots.default
     );
   },
 };

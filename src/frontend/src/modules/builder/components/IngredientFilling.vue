@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'IngredientFilling',
+  name: "IngredientFilling",
 
   props: {
     name: {
@@ -17,7 +17,7 @@ export default {
       required: true,
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -45,7 +45,6 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80% 80%;
-
   }
 
   &--tomatoes::before {

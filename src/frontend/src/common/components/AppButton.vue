@@ -1,24 +1,19 @@
 <template>
-  <button
-    type="button"
-    class="button"
-    :disabled="disabled"
-    v-on="$listeners"
-  >
+  <button type="button" class="button" :disabled="disabled" v-on="$listeners">
     <slot />
   </button>
 </template>
 
 <script>
 export default {
-  name: 'AppButton',
+  name: "AppButton",
   props: {
     disabled: {
       type: Boolean,
       default: false,
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

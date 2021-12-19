@@ -1,9 +1,6 @@
 <template>
   <AppDrop @drop="$emit('drop', $event)">
-    <div
-      class="pizza"
-      :class="mainClass"
-    >
+    <div class="pizza" :class="mainClass">
       <div class="pizza__wrapper">
         <div
           v-for="{ name, count } in ingredients"
@@ -22,12 +19,12 @@ import {
   DOUGH_LARGE_VALUE,
   SAUCE_TOMATO_VALUE,
   SAUCE_CREAMY_VALUE,
-} from '@/common/const.js';
+} from "@/common/const.js";
 
 import { AppDrop } from "@/common/components";
 
 export default {
-  name: 'BuilderPizzaView',
+  name: "BuilderPizzaView",
 
   components: {
     AppDrop,
@@ -69,11 +66,11 @@ export default {
 
     mainClass() {
       return {
-        'pizza--foundation--big-creamy': this.doughLarge && this.sauceCreamy,
-        'pizza--foundation--big-tomato': this.doughLarge && this.sauceTomato,
-        'pizza--foundation--small-creamy': this.doughLight && this.sauceCreamy,
-        'pizza--foundation--small-tomato': this.doughLight && this.sauceTomato,
-      }
+        "pizza--foundation--big-creamy": this.doughLarge && this.sauceCreamy,
+        "pizza--foundation--big-tomato": this.doughLarge && this.sauceTomato,
+        "pizza--foundation--small-creamy": this.doughLight && this.sauceCreamy,
+        "pizza--foundation--small-tomato": this.doughLight && this.sauceTomato,
+      };
     },
   },
 
@@ -81,12 +78,12 @@ export default {
     ingredientsClass(count, name) {
       return [
         { [`pizza__filling--${name}`]: count > 0 },
-        { 'pizza__filling--second': count === 2 },
-        { 'pizza__filling--third': count === 3 },
-      ]
+        { "pizza__filling--second": count === 2 },
+        { "pizza__filling--third": count === 3 },
+      ];
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

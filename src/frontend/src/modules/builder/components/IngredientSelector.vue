@@ -1,10 +1,7 @@
 <template>
   <!-- пока не понял как в :transfer-data передать ингредиент -->
   <AppDrag :transfer-data="{ name: 'tomatoes', count: 1, price: 35 }">
-    <IngredientFilling
-      :name="name"
-      :modifier="modifier"
-    />
+    <IngredientFilling :name="name" :modifier="modifier" />
 
     <ItemCounter
       class="ingredients__counter"
@@ -15,7 +12,7 @@
 
 <script>
 import { AppDrag, ItemCounter } from "@/common/components";
-import IngredientFilling from './IngredientFilling.vue';
+import IngredientFilling from "./IngredientFilling.vue";
 
 export default {
   name: "IngredientSelector",

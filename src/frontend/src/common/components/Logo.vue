@@ -1,21 +1,18 @@
 <template>
-  <a
-    href="index.html"
-    class="logo"
-  >
+  <router-link to="/" class="logo">
     <img
       src="@/assets/img/logo.svg"
       alt="V!U!E! Pizza logo"
       width="90"
       height="40"
-    >
-  </a>
+    />
+  </router-link>
 </template>
 
 <script>
 export default {
-  name: 'Logo',
-}
+  name: "Logo",
+};
 </script>
 
 <style lang="scss" scoped>

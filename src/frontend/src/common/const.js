@@ -22,4 +22,5 @@ export const counterLimit = {
 
 export const layoutName = {
   DEFAULT: "AppLayoutDefault",
+  EMPTY: "AppLayoutEmpty",
 };

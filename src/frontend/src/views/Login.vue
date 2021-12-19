@@ -1,8 +1,8 @@
 <template>
   <div class="sign-form">
-    <a href="#" class="close close--white">
+    <router-link to="/" class="close close--white">
       <span class="visually-hidden">Закрыть форму авторизации</span>
-    </a>
+    </router-link>
     <div class="sign-form__title">
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
@@ -20,7 +20,9 @@
           <input type="password" name="pass" placeholder="***********" />
         </label>
       </div>
-      <button type="submit" class="button">Авторизоваться</button>
+      <button @click.prevent="submit()" type="submit" class="button">
+        Авторизоваться
+      </button>
     </form>
   </div>
 </template>
@@ -28,5 +30,11 @@
 <script>
 export default {
   name: "Login",
+
+  methods: {
+    submit() {
+      this.$router.push("/profile");
+    },
+  },
 };
 </script>

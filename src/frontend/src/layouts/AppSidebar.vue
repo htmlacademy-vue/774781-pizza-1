@@ -1,17 +1,31 @@
 <template>
   <div class="layout__sidebar sidebar">
-    <a href="index.html" class="logo layout__logo">
-      <img src="img/logo.svg" alt="V!U!E! Pizza logo" width="90" height="40" />
-    </a>
+    <Logo class="layout__logo" />
 
-    <a class="layout__link layout__link--active" href="#">История заказов</a>
-    <a class="layout__link" href="#">Мои данные</a>
+    <router-link
+      active-class="layout__link--active"
+      class="layout__link"
+      to="/orders"
+      >История заказов</router-link
+    >
+    <router-link
+      active-class="layout__link--active"
+      class="layout__link"
+      to="/profile"
+      >Мои данные</router-link
+    >
   </div>
 </template>
 
 <script>
+import { Logo } from "@/common/components";
+
 export default {
   name: "AppSidebar",
+
+  components: {
+    Logo,
+  },
 };
 </script>
 

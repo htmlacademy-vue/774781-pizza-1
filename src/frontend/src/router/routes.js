@@ -13,4 +13,22 @@ export default [
     component: () => import("../views/Cart.vue"),
     meta: { layout: layoutName.DEFAULT },
   },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+    meta: { layout: layoutName.DEFAULT },
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: () => import("../views/Orders.vue"),
+    meta: { layout: layoutName.DEFAULT },
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+    meta: { layout: layoutName.EMPTY },
+  },
 ];

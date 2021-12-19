@@ -1,7 +1,7 @@
 <template>
   <div class="product">
     <img
-      src="img/product.svg"
+      src="@/assets/img/product.svg"
       class="product__img"
       width="56"
       height="56"

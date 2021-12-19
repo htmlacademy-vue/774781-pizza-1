@@ -9,11 +9,11 @@
       <span class="visually-hidden">Меньше</span>
     </button>
     <input
-      v-model.number="counter"
       type="text"
       name="counter"
       class="counter__input"
       @blur="validateValue($event.target.value)"
+      :value="counter"
     />
     <button
       type="button"
@@ -70,6 +70,10 @@ export default {
 
       if (number <= counterLimit.MIN) {
         this.counter = counterLimit.MIN;
+      }
+
+      if (number >= counterLimit.MAX) {
+        this.counter = counterLimit.MAX;
       }
     },
 

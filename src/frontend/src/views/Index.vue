@@ -2,7 +2,7 @@
   <main class="content">
     <form action="#" method="post">
       <div class="content__wrapper">
-        <AppTitle size="big"> Конструктор пиццы </AppTitle>
+        <AppTitle size="big">Конструктор пиццы</AppTitle>
 
         <div class="content__dough">
           <BuilderDoughSelector

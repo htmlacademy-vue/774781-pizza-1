@@ -62,6 +62,18 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations } from "vuex";
+
+import {
+  SELECT_DOUGH,
+  UPDATE_DOUGH_PRICE,
+  SELECT_SAUCE,
+  UPDATE_SAUCE_PRICE,
+  SELECT_SIZE,
+  UPDATE_SIZE_MULTIPLIER,
+  UPDATE_PIZZA_NAME,
+} from "@/store/mutations-types";
+
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -81,39 +93,10 @@ export default {
     BuilderPriceCounter,
   },
 
-  props: {
-    dough: {
-      type: Array,
-      required: true,
-    },
-
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-
-    sauces: {
-      type: Array,
-      required: true,
-    },
-
-    sizes: {
-      type: Array,
-      required: true,
-    },
-  },
-
   data() {
     return {
-      pizzaName: "",
       selectedIngredients: [],
       ingredientsPrice: 0,
-      selectedDough: this.dough[0].value,
-      selectedSauce: this.sauces[0].value,
-      selectedSize: this.sizes[1].value,
-      doughPrice: this.dough[0].price,
-      saucePrice: this.sauces[0].price,
-      sizeMultiplier: this.sizes[1].multiplier,
     };
   },
 
@@ -138,33 +121,21 @@ export default {
     isNotAvailable() {
       return !this.hasPizzaName || !this.hasIngredients;
     },
+
+    ...mapState("builder", [
+      "selectedDough",
+      "selectedSauce",
+      "selectedSize",
+      "doughPrice",
+      "saucePrice",
+      "sizeMultiplier",
+      "pizzaName",
+    ]),
+
+    ...mapGetters("builder", ["dough", "sauces", "sizes", "ingredients"]),
   },
 
   methods: {
-    selectDough(dough) {
-      this.selectedDough = dough;
-    },
-
-    updateDoughPrice(price) {
-      this.doughPrice = price;
-    },
-
-    selectSauce(sauce) {
-      this.selectedSauce = sauce;
-    },
-
-    updateSaucePrice(price) {
-      this.saucePrice = price;
-    },
-
-    selectSize(size) {
-      this.selectedSize = size;
-    },
-
-    updateSizeMultiplier(multiplier) {
-      this.sizeMultiplier = multiplier;
-    },
-
     updateIngredientsPrice(ingredirents) {
       this.ingredientsPrice = ingredirents
         .filter(({ count }) => count > 0)
@@ -187,9 +158,15 @@ export default {
       this.updateIngredientsPrice(this.selectedIngredients);
     },
 
-    updatePizzaName(name) {
-      this.pizzaName = name;
-    },
+    ...mapMutations("builder", {
+      selectDough: SELECT_DOUGH,
+      updateDoughPrice: UPDATE_DOUGH_PRICE,
+      selectSauce: SELECT_SAUCE,
+      updateSaucePrice: UPDATE_SAUCE_PRICE,
+      selectSize: SELECT_SIZE,
+      updateSizeMultiplier: UPDATE_SIZE_MULTIPLIER,
+      updatePizzaName: UPDATE_PIZZA_NAME,
+    }),
   },
 };
 </script>

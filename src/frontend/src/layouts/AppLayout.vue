@@ -1,11 +1,5 @@
 <template>
-  <component
-    :is="layout"
-    :dough="dough"
-    :ingredients="ingredients"
-    :sauces="sauces"
-    :sizes="sizes"
-  >
+  <component :is="layout">
     <slot />
   </component>
 </template>
@@ -15,29 +9,6 @@ import { layoutName } from "@/common/const.js";
 
 export default {
   name: "AppLayout",
-
-  props: {
-    dough: {
-      type: Array,
-      required: true,
-    },
-
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-
-    sauces: {
-      type: Array,
-      required: true,
-    },
-
-    sizes: {
-      type: Array,
-      required: true,
-    },
-  },
-
   computed: {
     layout() {
       const layout = this.$route.meta.layout || layoutName.DEFAULT;

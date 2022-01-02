@@ -1,4 +1,120 @@
+import jsonPizza from "@/static/pizza.json";
+import doughValues from "@/common/enums/doughValues.js";
+import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
+import saucesValues from "@/common/enums/saucesValues.js";
+import sizesValues from "@/common/enums/sizesValues.js";
+
+import {
+  SET_PIZZA,
+  MODIFY_PIZZA,
+  SELECT_DOUGH,
+  UPDATE_DOUGH_PRICE,
+  SELECT_SAUCE,
+  UPDATE_SAUCE_PRICE,
+  SELECT_SIZE,
+  UPDATE_SIZE_MULTIPLIER,
+  UPDATE_PIZZA_NAME,
+} from "@/store/mutations-types";
+
 export default {
   namespaced: true,
-  state: {},
+
+  state: {
+    pizza: {},
+    pizzaName: "",
+    selectedDough: "",
+    selectedSauce: "",
+    selectedSize: "",
+    doughPrice: 0,
+    saucePrice: 0,
+    sizeMultiplier: 0,
+  },
+
+  mutations: {
+    [MODIFY_PIZZA](state) {
+      state.pizza.dough = state.pizza.dough.map((dough) => ({
+        ...dough,
+        value: doughValues[dough.name],
+      }));
+
+      state.pizza.ingredients = state.pizza.ingredients.map((ingredient) => ({
+        ...ingredient,
+        modifier: ingredientModifiers[ingredient.name],
+      }));
+
+      state.pizza.sauces = state.pizza.sauces.map((sauce) => ({
+        ...sauce,
+        value: saucesValues[sauce.name],
+      }));
+
+      state.pizza.sizes = state.pizza.sizes.map((size) => ({
+        ...size,
+        value: sizesValues[size.multiplier],
+      }));
+    },
+
+    [SET_PIZZA](state, pizza) {
+      state.pizza = pizza;
+    },
+
+    [SELECT_DOUGH](state, dough) {
+      state.selectedDough = dough;
+    },
+
+    [UPDATE_DOUGH_PRICE](state, price) {
+      state.pizza.dough.price = price;
+    },
+
+    [SELECT_SAUCE](state, sauce) {
+      state.selectedSauce = sauce;
+    },
+
+    [UPDATE_SAUCE_PRICE](state, price) {
+      state.saucePrice = price;
+    },
+
+    [SELECT_SIZE](state, size) {
+      state.selectedSize = size;
+    },
+
+    [UPDATE_SIZE_MULTIPLIER](state, multiplier) {
+      state.sizeMultiplier = multiplier;
+    },
+
+    [UPDATE_PIZZA_NAME](state, name) {
+      state.pizzaName = name;
+    },
+  },
+
+  actions: {
+    fetchPizza({ commit }) {
+      const pizza = jsonPizza;
+
+      commit(SET_PIZZA, pizza);
+      commit(MODIFY_PIZZA);
+      commit(SELECT_DOUGH, pizza.dough[0].value);
+      commit(SELECT_SAUCE, pizza.sauces[0].value);
+      commit(SELECT_SIZE, pizza.sizes[1].value);
+      commit(UPDATE_DOUGH_PRICE, pizza.dough[0].price);
+      commit(UPDATE_SAUCE_PRICE, pizza.sauces[0].price);
+    },
+  },
+
+  getters: {
+    dough: (state) => {
+      return state.pizza.dough;
+    },
+
+    ingredients: (state) => {
+      return state.pizza.ingredients;
+    },
+
+    sauces: (state) => {
+      return state.pizza.sauces;
+    },
+
+    sizes(state) {
+      return state.pizza.sizes;
+    },
+  },
 };

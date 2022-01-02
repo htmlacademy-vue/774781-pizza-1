@@ -6,7 +6,7 @@ import sizesValues from "@/common/enums/sizesValues.js";
 
 import {
   SET_PIZZA,
-  MODIFY_PIZZA,
+  ADD_DATA_HELPERS,
   SELECT_DOUGH,
   UPDATE_DOUGH_PRICE,
   SELECT_SAUCE,
@@ -31,7 +31,7 @@ export default {
   },
 
   mutations: {
-    [MODIFY_PIZZA](state) {
+    [ADD_DATA_HELPERS](state) {
       state.pizza.dough = state.pizza.dough.map((dough) => ({
         ...dough,
         value: doughValues[dough.name],
@@ -91,7 +91,7 @@ export default {
       const pizza = jsonPizza;
 
       commit(SET_PIZZA, pizza);
-      commit(MODIFY_PIZZA);
+      commit(ADD_DATA_HELPERS);
       commit(SELECT_DOUGH, pizza.dough[0].value);
       commit(SELECT_SAUCE, pizza.sauces[0].value);
       commit(SELECT_SIZE, pizza.sizes[1].value);
@@ -115,6 +115,10 @@ export default {
 
     sizes(state) {
       return state.pizza.sizes;
+    },
+
+    hasPizzaName(state) {
+      return state.pizzaName.length > 0;
     },
   },
 };

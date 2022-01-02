@@ -1,5 +1,5 @@
 export const SET_PIZZA = "SET_PIZZA";
-export const MODIFY_PIZZA = "MODIFY_PIZZA";
+export const ADD_DATA_HELPERS = "ADD_DATA_HELPERS";
 export const SELECT_DOUGH = "SELECT_DOUGH";
 export const UPDATE_DOUGH_PRICE = "UPDATE_DOUGH_PRICE";
 export const SELECT_SAUCE = "SELECT_SAUCE";

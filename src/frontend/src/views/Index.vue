@@ -53,7 +53,7 @@
 
           <div class="content__result">
             <BuilderPriceCounter :total-price="totalPrice" />
-            <AppButton :disabled="isNotAvailable">Готовьте</AppButton>
+            <AppButton :disabled="!availableAddOrderToCart">Готовьте</AppButton>
           </div>
         </div>
       </div>
@@ -108,18 +108,14 @@ export default {
       );
     },
 
-    hasPizzaName() {
-      return this.pizzaName.length > 0;
-    },
-
     hasIngredients() {
       return (
         this.selectedIngredients.filter(({ count }) => count >= 1).length > 0
       );
     },
 
-    isNotAvailable() {
-      return !this.hasPizzaName || !this.hasIngredients;
+    availableAddOrderToCart() {
+      return this.hasPizzaName && this.hasIngredients;
     },
 
     ...mapState("builder", [
@@ -132,7 +128,13 @@ export default {
       "pizzaName",
     ]),
 
-    ...mapGetters("builder", ["dough", "sauces", "sizes", "ingredients"]),
+    ...mapGetters("builder", [
+      "dough",
+      "sauces",
+      "sizes",
+      "ingredients",
+      "hasPizzaName",
+    ]),
   },
 
   methods: {

@@ -32,7 +32,9 @@
             <IngredientSelector
               :name="name"
               :modifier="modifier"
-              @change="updateIngredients($event, modifier, price)"
+              @changeIngredientCount="
+                updateIngredients($event, modifier, price)
+              "
             />
           </li>
         </ul>

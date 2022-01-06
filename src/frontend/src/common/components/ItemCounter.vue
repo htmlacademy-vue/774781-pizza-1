@@ -4,7 +4,7 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isNegative"
-      @click="change(-1)"
+      @click="changeCount(-1)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -20,7 +20,7 @@
       class="counter__button counter__button--plus"
       :class="themeClass"
       :disabled="isLimit"
-      @click="change(1)"
+      @click="changeCount(1)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -77,7 +77,7 @@ export default {
       }
     },
 
-    change(multiplier) {
+    changeCount(multiplier) {
       if (multiplier > 0) {
         if (this.isLimit) {
           return;
@@ -92,7 +92,7 @@ export default {
         this.counter--;
       }
 
-      this.$emit("change", this.counter);
+      this.$emit("changeCount", this.counter);
     },
   },
 };

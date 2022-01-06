@@ -5,7 +5,7 @@
 
     <ItemCounter
       class="ingredients__counter"
-      @change="$emit('change', $event)"
+      @changeCount="$emit('changeIngredientCount', $event)"
     />
   </AppDrag>
 </template>

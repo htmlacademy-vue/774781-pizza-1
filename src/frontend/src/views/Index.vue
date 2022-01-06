@@ -29,7 +29,7 @@
             :default-sauce-checked="selectedSauce"
             @selectSauce="selectSauce($event)"
             @updateSaucePrice="updateSaucePrice($event)"
-            @selectIngredients="selectIngredients($event)"
+            @selectIngredient="selectIngredient($event)"
           />
         </div>
 
@@ -47,7 +47,7 @@
               :dough="selectedDough"
               :sauce="selectedSauce"
               :ingredients="selectedIngredients"
-              @drop="selectIngredients($event)"
+              @drop="testEvent($event)"
             />
           </div>
 
@@ -138,7 +138,11 @@ export default {
   },
 
   methods: {
-    updateIngredientsPrice(ingredirents) {
+    testEvent(data) {
+      console.log(data);
+    },
+
+    updateIngredientPrice(ingredirents) {
       this.ingredientsPrice = ingredirents
         .filter(({ count }) => count > 0)
         .reduce(
@@ -147,7 +151,7 @@ export default {
         );
     },
 
-    selectIngredients(ingredirent) {
+    selectIngredient(ingredirent) {
       const existingIngredientIndex = this.selectedIngredients.findIndex(
         ({ name }) => name === ingredirent.name
       );
@@ -157,7 +161,7 @@ export default {
       }
 
       this.selectedIngredients.push(ingredirent);
-      this.updateIngredientsPrice(this.selectedIngredients);
+      this.updateIngredientPrice(this.selectedIngredients);
     },
 
     ...mapMutations("builder", {

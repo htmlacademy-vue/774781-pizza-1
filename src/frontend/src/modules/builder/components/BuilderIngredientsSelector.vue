@@ -25,16 +25,16 @@
 
         <ul class="ingredients__list">
           <li
-            v-for="{ id, name, modifier, price } in ingredients"
+            v-for="{ id, name, modifier, price, count } in ingredients"
             :key="id"
             class="ingredients__item"
           >
             <IngredientSelector
               :name="name"
               :modifier="modifier"
-              @changeIngredientCount="
-                updateIngredients($event, modifier, price)
-              "
+              :price="price"
+              :count="count"
+              @changeIngredientCount="updateIngredient($event, modifier, price)"
             />
           </li>
         </ul>
@@ -78,14 +78,14 @@ export default {
       this.$emit("updateSaucePrice", price);
     },
 
-    updateIngredients(count, name, price) {
+    updateIngredient(count, name, price) {
       const ingredient = {
         name,
         count,
         price,
       };
 
-      this.$emit("selectIngredients", ingredient);
+      this.$emit("selectIngredient", ingredient);
     },
   },
 };

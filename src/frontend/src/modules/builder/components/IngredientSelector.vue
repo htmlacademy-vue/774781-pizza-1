@@ -1,6 +1,5 @@
 <template>
-  <!-- пока не понял как в :transfer-data передать ингредиент -->
-  <AppDrag :transfer-data="{ name: 'tomatoes', count: 1, price: 35 }">
+  <AppDrag :transfer-data="{ name, price, count }">
     <IngredientFilling :name="name" :modifier="modifier" />
 
     <ItemCounter
@@ -31,6 +30,16 @@ export default {
 
     modifier: {
       type: String,
+      required: true,
+    },
+
+    price: {
+      type: Number,
+      required: true,
+    },
+
+    count: {
+      type: Number,
       required: true,
     },
   },

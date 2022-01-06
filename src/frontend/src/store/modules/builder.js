@@ -40,6 +40,7 @@ export default {
       state.pizza.ingredients = state.pizza.ingredients.map((ingredient) => ({
         ...ingredient,
         modifier: ingredientModifiers[ingredient.name],
+        count: 0,
       }));
 
       state.pizza.sauces = state.pizza.sauces.map((sauce) => ({

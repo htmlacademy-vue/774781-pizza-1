@@ -21,14 +21,8 @@ import {
   SAUCE_CREAMY_VALUE,
 } from "@/common/const.js";
 
-import { AppDrop } from "@/common/components";
-
 export default {
   name: "BuilderPizzaView",
-
-  components: {
-    AppDrop,
-  },
 
   props: {
     dough: {

@@ -29,13 +29,14 @@
             :key="id"
             class="ingredients__item"
           >
-            <IngredientSelector
-              :name="name"
-              :modifier="modifier"
-              :price="price"
-              :count="count"
-              @changeIngredientCount="updateIngredient($event, modifier, price)"
-            />
+            <AppDrag :transfer-data="{ name, price, count }">
+              <IngredientFilling :name="name" :modifier="modifier" />
+
+              <ItemCounter
+                class="ingredients__counter"
+                @changeCount="updateIngredient($event, modifier, price)"
+              />
+            </AppDrag>
           </li>
         </ul>
       </div>
@@ -44,15 +45,16 @@
 </template>
 
 <script>
-import { RadioButton } from "@/common/components";
-import IngredientSelector from "./IngredientSelector.vue";
+import { RadioButton, ItemCounter } from "@/common/components";
+import IngredientFilling from "./IngredientFilling.vue";
 
 export default {
   name: "BuilderIngredientsSelector",
 
   components: {
     RadioButton,
-    IngredientSelector,
+    ItemCounter,
+    IngredientFilling,
   },
 
   props: {

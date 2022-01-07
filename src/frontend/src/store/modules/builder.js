@@ -14,6 +14,8 @@ import {
   SELECT_SIZE,
   UPDATE_SIZE_MULTIPLIER,
   UPDATE_PIZZA_NAME,
+  UPDATE_INGREDIENT_PRICE,
+  ADD_INGREDIENT,
 } from "@/store/mutations-types";
 
 export default {
@@ -25,9 +27,11 @@ export default {
     selectedDough: "",
     selectedSauce: "",
     selectedSize: "",
+    selectedIngredients: [],
     doughPrice: 0,
     saucePrice: 0,
     sizeMultiplier: 0,
+    ingredientsPrice: 0,
   },
 
   mutations: {
@@ -84,6 +88,27 @@ export default {
 
     [UPDATE_PIZZA_NAME](state, name) {
       state.pizzaName = name;
+    },
+
+    [UPDATE_INGREDIENT_PRICE](state, ingredients) {
+      state.ingredientsPrice = ingredients
+        .filter(({ count }) => count > 0)
+        .reduce(
+          (accumulator, { count, price }) => accumulator + price * count,
+          0
+        );
+    },
+
+    [ADD_INGREDIENT](state, ingredient) {
+      const existingIngredientIndex = state.selectedIngredients.findIndex(
+        ({ name }) => name === ingredient.name
+      );
+
+      if (existingIngredientIndex !== -1) {
+        state.selectedIngredients.splice(existingIngredientIndex, 1);
+      }
+
+      state.selectedIngredients.push(ingredient);
     },
   },
 

@@ -46,7 +46,12 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
-import { SELECT_SAUCE, UPDATE_SAUCE_PRICE } from "@/store/mutations-types";
+import {
+  SELECT_SAUCE,
+  UPDATE_SAUCE_PRICE,
+  ADD_INGREDIENT,
+} from "@/store/mutations-types";
+
 import { RadioButton, ItemCounter } from "@/common/components";
 import IngredientFilling from "./IngredientFilling.vue";
 
@@ -77,12 +82,14 @@ export default {
         price,
       };
 
-      this.$emit("addIngredient", ingredient);
+      this.addIngredient(ingredient);
+      // updatePrice
     },
 
     ...mapMutations("builder", {
       selectSauce: SELECT_SAUCE,
       updateSaucePrice: UPDATE_SAUCE_PRICE,
+      addIngredient: ADD_INGREDIENT,
     }),
   },
 };

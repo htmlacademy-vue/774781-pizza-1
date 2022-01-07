@@ -3,7 +3,7 @@
     <div class="pizza" :class="mainClass">
       <div class="pizza__wrapper">
         <div
-          v-for="{ name, count } in ingredients"
+          v-for="{ name, count } in selectedIngredients"
           :key="name"
           class="pizza__filling"
           :class="ingredientsClass(count, name)"
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 import {
   DOUGH_LIGHT_VALUE,
@@ -28,19 +28,19 @@ export default {
 
   computed: {
     doughLight() {
-      return this.dough === DOUGH_LIGHT_VALUE;
+      return this.selectedDough === DOUGH_LIGHT_VALUE;
     },
 
     doughLarge() {
-      return this.dough === DOUGH_LARGE_VALUE;
+      return this.selectedDough === DOUGH_LARGE_VALUE;
     },
 
     sauceTomato() {
-      return this.sauce === SAUCE_TOMATO_VALUE;
+      return this.selectedSauce === SAUCE_TOMATO_VALUE;
     },
 
     sauceCreamy() {
-      return this.sauce === SAUCE_CREAMY_VALUE;
+      return this.selectedSauce === SAUCE_CREAMY_VALUE;
     },
 
     mainClass() {
@@ -52,7 +52,11 @@ export default {
       };
     },
 
-    ...mapGetters("builder", ["dough", "sauces", "ingredients"]),
+    ...mapState("builder", [
+      "selectedDough",
+      "selectedSauce",
+      "selectedIngredients",
+    ]),
   },
 
   methods: {

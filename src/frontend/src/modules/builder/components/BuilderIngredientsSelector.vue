@@ -77,7 +77,7 @@ export default {
         price,
       };
 
-      this.$emit("selectIngredient", ingredient);
+      this.$emit("addIngredient", ingredient);
     },
 
     ...mapMutations("builder", {

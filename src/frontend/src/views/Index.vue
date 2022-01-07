@@ -13,9 +13,7 @@
         </div>
 
         <div class="content__ingredients">
-          <BuilderIngredientsSelector
-            @selectIngredient="selectIngredient($event)"
-          />
+          <BuilderIngredientsSelector @addIngredient="addIngredient($event)" />
         </div>
 
         <div class="content__pizza">
@@ -113,8 +111,8 @@ export default {
       console.log(data);
     },
 
-    updateIngredientPrice(ingredirents) {
-      this.ingredientsPrice = ingredirents
+    updateIngredientPrice(ingredients) {
+      this.ingredientsPrice = ingredients
         .filter(({ count }) => count > 0)
         .reduce(
           (accumulator, { count, price }) => accumulator + price * count,
@@ -122,16 +120,16 @@ export default {
         );
     },
 
-    selectIngredient(ingredirent) {
+    addIngredient(ingredient) {
       const existingIngredientIndex = this.selectedIngredients.findIndex(
-        ({ name }) => name === ingredirent.name
+        ({ name }) => name === ingredient.name
       );
 
       if (existingIngredientIndex !== -1) {
         this.selectedIngredients.splice(existingIngredientIndex, 1);
       }
 
-      this.selectedIngredients.push(ingredirent);
+      this.selectedIngredients.push(ingredient);
       this.updateIngredientPrice(this.selectedIngredients);
     },
 

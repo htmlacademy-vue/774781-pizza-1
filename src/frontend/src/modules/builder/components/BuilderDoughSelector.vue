@@ -16,7 +16,7 @@
           name="dought"
           class="visually-hidden"
           :value="value"
-          :checked="value === defaultChecked"
+          :checked="value === selectedDough"
           @change="updateDough(value, price)"
         />
         <b>{{ name }}</b>
@@ -27,19 +27,15 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations } from "vuex";
+import { SELECT_DOUGH, UPDATE_DOUGH_PRICE } from "@/store/mutations-types";
+
 export default {
   name: "BuilderDoughSelector",
 
-  props: {
-    dough: {
-      type: Array,
-      required: true,
-    },
-
-    defaultChecked: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapState("builder", ["selectedDough"]),
+    ...mapGetters("builder", ["dough"]),
   },
 
   methods: {
@@ -47,6 +43,11 @@ export default {
       this.$emit("selectDough", value);
       this.$emit("updateDoughPrice", price);
     },
+
+    ...mapMutations("builder", {
+      selectDough: SELECT_DOUGH,
+      updateDoughPrice: UPDATE_DOUGH_PRICE,
+    }),
   },
 };
 </script>

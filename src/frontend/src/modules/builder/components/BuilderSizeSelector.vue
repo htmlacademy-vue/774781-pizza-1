@@ -13,7 +13,7 @@
           name="diameter"
           :value="value"
           class="visually-hidden"
-          :checked="value === defaultChecked"
+          :checked="value === selectedSize"
           @change="updateSize(value, multiplier)"
         />
         <span>{{ name }}</span>
@@ -23,19 +23,15 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations } from "vuex";
+import { SELECT_SIZE, UPDATE_SIZE_MULTIPLIER } from "@/store/mutations-types";
+
 export default {
   name: "BuilderSizeSelector",
 
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
-    },
-
-    defaultChecked: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapState("builder", ["selectedSize"]),
+    ...mapGetters("builder", ["sizes"]),
   },
 
   methods: {
@@ -43,6 +39,11 @@ export default {
       this.$emit("changeSize", size);
       this.$emit("updateSizeMultiplier", price);
     },
+
+    ...mapMutations("builder", {
+      selectSize: SELECT_SIZE,
+      updateSizeMultiplier: UPDATE_SIZE_MULTIPLIER,
+    }),
   },
 };
 </script>

@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import {
   DOUGH_LIGHT_VALUE,
   DOUGH_LARGE_VALUE,
@@ -23,23 +25,6 @@ import {
 
 export default {
   name: "BuilderPizzaView",
-
-  props: {
-    dough: {
-      type: String,
-      required: true,
-    },
-
-    sauce: {
-      type: String,
-      required: true,
-    },
-
-    ingredients: {
-      type: Array,
-      default: () => [],
-    },
-  },
 
   computed: {
     doughLight() {
@@ -66,6 +51,8 @@ export default {
         "pizza--foundation--small-tomato": this.doughLight && this.sauceTomato,
       };
     },
+
+    ...mapGetters("builder", ["dough", "sauces", "ingredients"]),
   },
 
   methods: {

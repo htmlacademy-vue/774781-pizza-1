@@ -15,7 +15,7 @@
           name="sauces"
           :title="name"
           :value="value"
-          :checked="value === defaultSauceChecked"
+          :checked="value === selectedSauce"
           @change="updateSauce(value, price)"
         />
       </div>
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations } from "vuex";
+import { SELECT_SAUCE, UPDATE_SAUCE_PRICE } from "@/store/mutations-types";
 import { RadioButton, ItemCounter } from "@/common/components";
 import IngredientFilling from "./IngredientFilling.vue";
 
@@ -57,21 +59,9 @@ export default {
     IngredientFilling,
   },
 
-  props: {
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-
-    sauces: {
-      type: Array,
-      required: true,
-    },
-
-    defaultSauceChecked: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapState("builder", ["selectedSauce"]),
+    ...mapGetters("builder", ["sauces", "ingredients"]),
   },
 
   methods: {
@@ -89,6 +79,11 @@ export default {
 
       this.$emit("selectIngredient", ingredient);
     },
+
+    ...mapMutations("builder", {
+      selectSauce: SELECT_SAUCE,
+      updateSaucePrice: UPDATE_SAUCE_PRICE,
+    }),
   },
 };
 </script>

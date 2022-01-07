@@ -5,30 +5,15 @@
         <AppTitle size="big">Конструктор пиццы</AppTitle>
 
         <div class="content__dough">
-          <BuilderDoughSelector
-            :dough="dough"
-            :default-checked="selectedDough"
-            @selectDough="selectDough($event)"
-            @updateDoughPrice="updateDoughPrice($event)"
-          />
+          <BuilderDoughSelector />
         </div>
 
         <div class="content__diameter">
-          <BuilderSizeSelector
-            :sizes="sizes"
-            :default-checked="selectedSize"
-            @selectSize="selectSize($event)"
-            @updateSizeMultiplier="updateSizeMultiplier($event)"
-          />
+          <BuilderSizeSelector />
         </div>
 
         <div class="content__ingredients">
           <BuilderIngredientsSelector
-            :ingredients="ingredients"
-            :sauces="sauces"
-            :default-sauce-checked="selectedSauce"
-            @selectSauce="selectSauce($event)"
-            @updateSaucePrice="updateSaucePrice($event)"
             @selectIngredient="selectIngredient($event)"
           />
         </div>
@@ -43,12 +28,7 @@
           />
 
           <div class="content__constructor">
-            <BuilderPizzaView
-              :dough="selectedDough"
-              :sauce="selectedSauce"
-              :ingredients="selectedIngredients"
-              @drop="testEvent($event)"
-            />
+            <BuilderPizzaView @drop="testEvent($event)" />
           </div>
 
           <div class="content__result">
@@ -119,22 +99,13 @@ export default {
     },
 
     ...mapState("builder", [
-      "selectedDough",
-      "selectedSauce",
-      "selectedSize",
       "doughPrice",
       "saucePrice",
       "sizeMultiplier",
       "pizzaName",
     ]),
 
-    ...mapGetters("builder", [
-      "dough",
-      "sauces",
-      "sizes",
-      "ingredients",
-      "hasPizzaName",
-    ]),
+    ...mapGetters("builder", ["hasPizzaName"]),
   },
 
   methods: {

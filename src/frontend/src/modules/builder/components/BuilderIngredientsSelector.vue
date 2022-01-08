@@ -34,7 +34,7 @@
 
               <ItemCounter
                 class="ingredients__counter"
-                @changeCount="updateIngredient($event, modifier, price)"
+                @changeCount="addIngredient($event, id)"
               />
             </AppDrag>
           </li>
@@ -76,14 +76,8 @@ export default {
       this[UPDATE_SAUCE_PRICE](price);
     },
 
-    updateIngredient(count, name, price) {
-      const ingredient = {
-        name,
-        count,
-        price,
-      };
-
-      this[CHANGE_INGREDIENT_COUNT](ingredient);
+    addIngredient(count, id) {
+      this[CHANGE_INGREDIENT_COUNT]({ id, count });
       this[UPDATE_INGREDIENT_PRICE]();
     },
 

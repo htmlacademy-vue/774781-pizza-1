@@ -3,10 +3,10 @@
     <div class="pizza" :class="mainClass">
       <div class="pizza__wrapper">
         <div
-          v-for="{ name, count } in selectedIngredients"
-          :key="name"
+          v-for="{ modifier, count } in selectedIngredients"
+          :key="modifier"
           class="pizza__filling"
-          :class="updateIngredientsClass(count, name)"
+          :class="updateIngredientsClass(count, modifier)"
         />
       </div>
     </div>
@@ -60,9 +60,9 @@ export default {
   },
 
   methods: {
-    updateIngredientsClass(count, name) {
+    updateIngredientsClass(count, modifier) {
       return [
-        { [`pizza__filling--${name}`]: count > 0 },
+        { [`pizza__filling--${modifier}`]: count > 0 },
         { "pizza__filling--second": count === 2 },
         { "pizza__filling--third": count === 3 },
       ];

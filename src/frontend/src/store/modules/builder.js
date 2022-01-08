@@ -16,6 +16,7 @@ import {
   UPDATE_PIZZA_NAME,
   UPDATE_INGREDIENT_PRICE,
   CHANGE_INGREDIENT_COUNT,
+  SET_INGREDIENTS,
 } from "@/store/mutations-types";
 
 export default {
@@ -62,6 +63,17 @@ export default {
       state.pizza = pizza;
     },
 
+    [SET_INGREDIENTS](state) {
+      state.selectedIngredients = state.pizza.ingredients.map(
+        ({ id, modifier, count, price }) => ({
+          id,
+          modifier,
+          count,
+          price,
+        })
+      );
+    },
+
     [CHANGE_DOUGH](state, dough) {
       state.selectedDough = dough;
     },
@@ -99,16 +111,12 @@ export default {
         );
     },
 
-    [CHANGE_INGREDIENT_COUNT](state, ingredient) {
-      const existingIngredientIndex = state.selectedIngredients.findIndex(
-        ({ name }) => name === ingredient.name
+    [CHANGE_INGREDIENT_COUNT](state, { id, count }) {
+      const ingredient = state.selectedIngredients.find(
+        (ingredient) => ingredient.id === id
       );
 
-      if (existingIngredientIndex !== -1) {
-        state.selectedIngredients.splice(existingIngredientIndex, 1);
-      }
-
-      state.selectedIngredients.push(ingredient);
+      this._vm.$set(ingredient, "count", count);
     },
   },
 
@@ -124,6 +132,7 @@ export default {
       commit(UPDATE_DOUGH_PRICE, pizza.dough[0].price);
       commit(UPDATE_SAUCE_PRICE, pizza.sauces[0].price);
       commit(UPDATE_SIZE_MULTIPLIER, pizza.sizes[1].multiplier);
+      commit(SET_INGREDIENTS, pizza.ingredients);
     },
   },
 

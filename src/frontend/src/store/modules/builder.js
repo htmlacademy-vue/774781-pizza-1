@@ -146,5 +146,11 @@ export default {
     hasPizzaName(state) {
       return state.pizzaName.length > 0;
     },
+
+    hasIngredients(state) {
+      return (
+        state.selectedIngredients.filter(({ count }) => count >= 1).length > 0
+      );
+    },
   },
 };

@@ -61,24 +61,11 @@ export default {
     BuilderPriceCounter,
   },
 
-  data() {
-    return {
-      selectedIngredients: [],
-      ingredientsPrice: 0,
-    };
-  },
-
   computed: {
     totalPrice() {
       return (
         (this.doughPrice + this.saucePrice + this.ingredientsPrice) *
         this.sizeMultiplier
-      );
-    },
-
-    hasIngredients() {
-      return (
-        this.selectedIngredients.filter(({ count }) => count >= 1).length > 0
       );
     },
 
@@ -91,9 +78,10 @@ export default {
       "saucePrice",
       "sizeMultiplier",
       "pizzaName",
+      "ingredientsPrice",
     ]),
 
-    ...mapGetters("builder", ["hasPizzaName"]),
+    ...mapGetters("builder", ["hasPizzaName", "hasIngredients"]),
   },
 
   methods: {

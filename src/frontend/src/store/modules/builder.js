@@ -67,7 +67,7 @@ export default {
     },
 
     [UPDATE_DOUGH_PRICE](state, price) {
-      state.pizza.dough.price = price;
+      state.doughPrice = price;
     },
 
     [CHANGE_SAUCE](state, sauce) {
@@ -90,8 +90,8 @@ export default {
       state.pizzaName = name;
     },
 
-    [UPDATE_INGREDIENT_PRICE](state, ingredients) {
-      state.ingredientsPrice = ingredients
+    [UPDATE_INGREDIENT_PRICE](state) {
+      state.ingredientsPrice = state.selectedIngredients
         .filter(({ count }) => count > 0)
         .reduce(
           (accumulator, { count, price }) => accumulator + price * count,
@@ -123,6 +123,7 @@ export default {
       commit(CHANGE_SIZE, pizza.sizes[1].value);
       commit(UPDATE_DOUGH_PRICE, pizza.dough[0].price);
       commit(UPDATE_SAUCE_PRICE, pizza.sauces[0].price);
+      commit(UPDATE_SIZE_MULTIPLIER, pizza.sizes[1].multiplier);
     },
   },
 

@@ -50,6 +50,7 @@ import {
   CHANGE_SAUCE,
   UPDATE_SAUCE_PRICE,
   CHANGE_INGREDIENT_COUNT,
+  UPDATE_INGREDIENT_PRICE,
 } from "@/store/mutations-types";
 
 import { RadioButton, ItemCounter } from "@/common/components";
@@ -83,13 +84,14 @@ export default {
       };
 
       this[CHANGE_INGREDIENT_COUNT](ingredient);
-      // updatePrice
+      this[UPDATE_INGREDIENT_PRICE]();
     },
 
     ...mapMutations("builder", [
       CHANGE_SAUCE,
       UPDATE_SAUCE_PRICE,
       CHANGE_INGREDIENT_COUNT,
+      UPDATE_INGREDIENT_PRICE,
     ]),
   },
 };

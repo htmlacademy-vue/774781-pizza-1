@@ -30,7 +30,7 @@
           </div>
 
           <div class="content__result">
-            <BuilderPriceCounter :total-price="totalPrice" />
+            <BuilderPriceCounter />
             <AppButton :disabled="!availableAddOrderToCart">Готовьте</AppButton>
           </div>
         </div>
@@ -62,25 +62,11 @@ export default {
   },
 
   computed: {
-    totalPrice() {
-      return (
-        (this.doughPrice + this.saucePrice + this.ingredientsPrice) *
-        this.sizeMultiplier
-      );
-    },
-
     availableAddOrderToCart() {
       return this.hasPizzaName && this.hasIngredients;
     },
 
-    ...mapState("builder", [
-      "doughPrice",
-      "saucePrice",
-      "sizeMultiplier",
-      "pizzaName",
-      "ingredientsPrice",
-    ]),
-
+    ...mapState("builder", ["pizzaName"]),
     ...mapGetters("builder", ["hasPizzaName", "hasIngredients"]),
   },
 

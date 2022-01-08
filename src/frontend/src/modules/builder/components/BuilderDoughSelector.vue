@@ -28,7 +28,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
-import { SELECT_DOUGH, UPDATE_DOUGH_PRICE } from "@/store/mutations-types";
+import { CHANGE_DOUGH, UPDATE_DOUGH_PRICE } from "@/store/mutations-types";
 
 export default {
   name: "BuilderDoughSelector",
@@ -40,14 +40,11 @@ export default {
 
   methods: {
     updateDough(value, price) {
-      this.$emit("selectDough", value);
-      this.$emit("updateDoughPrice", price);
+      this[CHANGE_DOUGH](value);
+      this[UPDATE_DOUGH_PRICE](price);
     },
 
-    ...mapMutations("builder", {
-      selectDough: SELECT_DOUGH,
-      updateDoughPrice: UPDATE_DOUGH_PRICE,
-    }),
+    ...mapMutations("builder", [CHANGE_DOUGH, UPDATE_DOUGH_PRICE]),
   },
 };
 </script>

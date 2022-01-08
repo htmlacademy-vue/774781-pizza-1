@@ -22,7 +22,7 @@
             title="Название пиццы"
             placeholder="Введите название пиццы"
             is-title-hidden
-            @input="updatePizzaName($event)"
+            @input="UPDATE_PIZZA_NAME($event)"
           />
 
           <div class="content__constructor">
@@ -41,17 +41,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
-
-import {
-  SELECT_DOUGH,
-  UPDATE_DOUGH_PRICE,
-  SELECT_SAUCE,
-  UPDATE_SAUCE_PRICE,
-  SELECT_SIZE,
-  UPDATE_SIZE_MULTIPLIER,
-  UPDATE_PIZZA_NAME,
-} from "@/store/mutations-types";
-
+import { UPDATE_PIZZA_NAME } from "@/store/mutations-types";
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -111,15 +101,7 @@ export default {
       console.log(data);
     },
 
-    ...mapMutations("builder", {
-      selectDough: SELECT_DOUGH,
-      updateDoughPrice: UPDATE_DOUGH_PRICE,
-      selectSauce: SELECT_SAUCE,
-      updateSaucePrice: UPDATE_SAUCE_PRICE,
-      selectSize: SELECT_SIZE,
-      updateSizeMultiplier: UPDATE_SIZE_MULTIPLIER,
-      updatePizzaName: UPDATE_PIZZA_NAME,
-    }),
+    ...mapMutations("builder", [UPDATE_PIZZA_NAME]),
   },
 };
 </script>

@@ -6,7 +6,7 @@
           v-for="{ name, count } in selectedIngredients"
           :key="name"
           class="pizza__filling"
-          :class="ingredientsClass(count, name)"
+          :class="updateIngredientsClass(count, name)"
         />
       </div>
     </div>
@@ -60,7 +60,7 @@ export default {
   },
 
   methods: {
-    ingredientsClass(count, name) {
+    updateIngredientsClass(count, name) {
       return [
         { [`pizza__filling--${name}`]: count > 0 },
         { "pizza__filling--second": count === 2 },

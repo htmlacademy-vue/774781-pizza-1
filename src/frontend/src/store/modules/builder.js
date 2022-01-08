@@ -7,15 +7,15 @@ import sizesValues from "@/common/enums/sizesValues.js";
 import {
   SET_PIZZA,
   ADD_DATA_HELPERS,
-  SELECT_DOUGH,
+  CHANGE_DOUGH,
   UPDATE_DOUGH_PRICE,
-  SELECT_SAUCE,
+  CHANGE_SAUCE,
   UPDATE_SAUCE_PRICE,
-  SELECT_SIZE,
+  CHANGE_SIZE,
   UPDATE_SIZE_MULTIPLIER,
   UPDATE_PIZZA_NAME,
   UPDATE_INGREDIENT_PRICE,
-  ADD_INGREDIENT,
+  CHANGE_INGREDIENT_COUNT,
 } from "@/store/mutations-types";
 
 export default {
@@ -62,7 +62,7 @@ export default {
       state.pizza = pizza;
     },
 
-    [SELECT_DOUGH](state, dough) {
+    [CHANGE_DOUGH](state, dough) {
       state.selectedDough = dough;
     },
 
@@ -70,7 +70,7 @@ export default {
       state.pizza.dough.price = price;
     },
 
-    [SELECT_SAUCE](state, sauce) {
+    [CHANGE_SAUCE](state, sauce) {
       state.selectedSauce = sauce;
     },
 
@@ -78,7 +78,7 @@ export default {
       state.saucePrice = price;
     },
 
-    [SELECT_SIZE](state, size) {
+    [CHANGE_SIZE](state, size) {
       state.selectedSize = size;
     },
 
@@ -99,7 +99,7 @@ export default {
         );
     },
 
-    [ADD_INGREDIENT](state, ingredient) {
+    [CHANGE_INGREDIENT_COUNT](state, ingredient) {
       const existingIngredientIndex = state.selectedIngredients.findIndex(
         ({ name }) => name === ingredient.name
       );
@@ -118,9 +118,9 @@ export default {
 
       commit(SET_PIZZA, pizza);
       commit(ADD_DATA_HELPERS);
-      commit(SELECT_DOUGH, pizza.dough[0].value);
-      commit(SELECT_SAUCE, pizza.sauces[0].value);
-      commit(SELECT_SIZE, pizza.sizes[1].value);
+      commit(CHANGE_DOUGH, pizza.dough[0].value);
+      commit(CHANGE_SAUCE, pizza.sauces[0].value);
+      commit(CHANGE_SIZE, pizza.sizes[1].value);
       commit(UPDATE_DOUGH_PRICE, pizza.dough[0].price);
       commit(UPDATE_SAUCE_PRICE, pizza.sauces[0].price);
     },

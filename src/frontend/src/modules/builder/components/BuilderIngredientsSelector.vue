@@ -25,15 +25,16 @@
 
         <ul class="ingredients__list">
           <li
-            v-for="{ id, name, modifier, price, count } in ingredients"
+            v-for="{ id, name, modifier, count } in ingredients"
             :key="id"
             class="ingredients__item"
           >
-            <AppDrag :transfer-data="{ name, price, count }">
+            <AppDrag :transfer-data="{ id }">
               <IngredientFilling :name="name" :modifier="modifier" />
 
               <ItemCounter
                 class="ingredients__counter"
+                :value="count"
                 @changeCount="addIngredient($event, id)"
               />
             </AppDrag>

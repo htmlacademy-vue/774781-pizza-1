@@ -16,7 +16,7 @@ import {
   UPDATE_PIZZA_NAME,
   UPDATE_INGREDIENT_PRICE,
   CHANGE_INGREDIENT_COUNT,
-  SET_INGREDIENTS,
+  ADD_INGREDIENT_COUNT,
 } from "@/store/mutations-types";
 
 export default {
@@ -28,7 +28,6 @@ export default {
     selectedDough: "",
     selectedSauce: "",
     selectedSize: "",
-    selectedIngredients: [],
     doughPrice: 0,
     saucePrice: 0,
     sizeMultiplier: 0,
@@ -63,17 +62,6 @@ export default {
       state.pizza = pizza;
     },
 
-    [SET_INGREDIENTS](state) {
-      state.selectedIngredients = state.pizza.ingredients.map(
-        ({ id, modifier, count, price }) => ({
-          id,
-          modifier,
-          count,
-          price,
-        })
-      );
-    },
-
     [CHANGE_DOUGH](state, dough) {
       state.selectedDough = dough;
     },
@@ -103,7 +91,7 @@ export default {
     },
 
     [UPDATE_INGREDIENT_PRICE](state) {
-      state.ingredientsPrice = state.selectedIngredients
+      state.ingredientsPrice = state.pizza.ingredients
         .filter(({ count }) => count > 0)
         .reduce(
           (accumulator, { count, price }) => accumulator + price * count,
@@ -111,8 +99,16 @@ export default {
         );
     },
 
+    [ADD_INGREDIENT_COUNT](state, { id }) {
+      const ingredient = state.pizza.ingredients.find(
+        (ingredient) => ingredient.id === id
+      );
+
+      this._vm.$set(ingredient, "count", ingredient.count + 1);
+    },
+
     [CHANGE_INGREDIENT_COUNT](state, { id, count }) {
-      const ingredient = state.selectedIngredients.find(
+      const ingredient = state.pizza.ingredients.find(
         (ingredient) => ingredient.id === id
       );
 
@@ -132,7 +128,6 @@ export default {
       commit(UPDATE_DOUGH_PRICE, pizza.dough[0].price);
       commit(UPDATE_SAUCE_PRICE, pizza.sauces[0].price);
       commit(UPDATE_SIZE_MULTIPLIER, pizza.sizes[1].multiplier);
-      commit(SET_INGREDIENTS, pizza.ingredients);
     },
   },
 
@@ -159,7 +154,7 @@ export default {
 
     hasIngredients(state) {
       return (
-        state.selectedIngredients.filter(({ count }) => count >= 1).length > 0
+        state.pizza.ingredients.filter(({ count }) => count >= 1).length > 0
       );
     },
   },

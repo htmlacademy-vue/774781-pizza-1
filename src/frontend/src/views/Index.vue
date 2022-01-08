@@ -26,7 +26,7 @@
           />
 
           <div class="content__constructor">
-            <BuilderPizzaView @drop="testEvent($event)" />
+            <BuilderPizzaView />
           </div>
 
           <div class="content__result">
@@ -71,10 +71,6 @@ export default {
   },
 
   methods: {
-    testEvent(data) {
-      console.log(data);
-    },
-
     ...mapMutations("builder", [UPDATE_PIZZA_NAME]),
   },
 };

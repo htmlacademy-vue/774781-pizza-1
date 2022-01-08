@@ -1,9 +1,9 @@
 <template>
-  <AppDrop @drop="$emit('drop', $event)">
+  <AppDrop @drop="addIngredient($event)">
     <div class="pizza" :class="mainClass">
       <div class="pizza__wrapper">
         <div
-          v-for="{ modifier, count } in selectedIngredients"
+          v-for="{ id, modifier, count } in ingredients"
           :key="modifier"
           class="pizza__filling"
           :class="updateIngredientsClass(count, modifier)"
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 import {
   DOUGH_LIGHT_VALUE,
@@ -22,6 +22,11 @@ import {
   SAUCE_TOMATO_VALUE,
   SAUCE_CREAMY_VALUE,
 } from "@/common/const.js";
+
+import {
+  ADD_INGREDIENT_COUNT,
+  UPDATE_INGREDIENT_PRICE,
+} from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaView",
@@ -52,14 +57,16 @@ export default {
       };
     },
 
-    ...mapState("builder", [
-      "selectedDough",
-      "selectedSauce",
-      "selectedIngredients",
-    ]),
+    ...mapGetters("builder", ["ingredients"]),
+    ...mapState("builder", ["selectedDough", "selectedSauce"]),
   },
 
   methods: {
+    addIngredient(id) {
+      this[ADD_INGREDIENT_COUNT](id);
+      this[UPDATE_INGREDIENT_PRICE]();
+    },
+
     updateIngredientsClass(count, modifier) {
       return [
         { [`pizza__filling--${modifier}`]: count > 0 },
@@ -67,6 +74,8 @@ export default {
         { "pizza__filling--third": count === 3 },
       ];
     },
+
+    ...mapMutations("builder", [ADD_INGREDIENT_COUNT, UPDATE_INGREDIENT_PRICE]),
   },
 };
 </script>

@@ -35,11 +35,15 @@ export default {
 
   data() {
     return {
-      counter: counterLimit.MIN,
+      counter: this.value,
     };
   },
 
   props: {
+    value: {
+      type: Number,
+      required: true,
+    },
     theme: {
       type: String,
       default: null,
@@ -93,6 +97,12 @@ export default {
       }
 
       this.$emit("changeCount", this.counter);
+    },
+  },
+
+  watch: {
+    value() {
+      this.counter = this.value;
     },
   },
 };

@@ -7,14 +7,37 @@
       <router-link to="/cart">0 ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link to="/login" class="header__login"
+      <router-link v-if="user === null" to="/login" class="header__login"
         ><span>Войти</span></router-link
       >
+      <template v-else>
+        <router-link to="/profile">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                @/assets/img/users/user5.webp    1x,
+                @/assets/img/users/user5@2x.webp 2x
+              "
+            />
+            <img
+              src="@/assets/img/users/user5.jpg"
+              srcset="@/assets/img/users/user5@2x.jpg"
+              :alt="user.name"
+              width="32"
+              height="32"
+            />
+          </picture>
+          <span>{{ user.name }}</span>
+        </router-link>
+        <a href="#" class="header__logout"><span>Выйти</span></a>
+      </template>
     </div>
   </header>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { Logo } from "@/common/components";
 
 export default {
@@ -22,10 +45,13 @@ export default {
   components: {
     Logo,
   },
+  computed: {
+    ...mapState("auth", ["user"]),
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .header {
   position: relative;
   z-index: 2;
@@ -81,6 +107,9 @@ export default {
 }
 
 .header__user {
+  display: flex;
+  align-items: center;
+
   a {
     display: block;
 
@@ -140,7 +169,7 @@ export default {
     content: "";
     vertical-align: middle;
 
-    background: url("~@/assets/img/login.svg") no-repeat center;
+    background: url("~@/assets//img/login.svg") no-repeat center;
     background-size: auto 50%;
   }
 }

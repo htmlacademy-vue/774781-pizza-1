@@ -6,19 +6,21 @@
           <AppTitle size="big">Корзина</AppTitle>
         </div>
 
-        <!-- <div class="sheet cart__empty">
+        <div v-if="false" class="sheet cart__empty">
           <p>В корзине нет ни одного товара</p>
-        </div> -->
-
-        <CartList />
-
-        <div class="cart__additional">
-          <CartAdditionalList />
         </div>
 
-        <div class="cart__form">
-          <CartForm />
-        </div>
+        <template v-else>
+          <CartList />
+
+          <div class="cart__additional">
+            <CartAdditionalList />
+          </div>
+
+          <div class="cart__form">
+            <CartForm />
+          </div>
+        </template>
       </div>
     </main>
     <AppLayoutFooter />

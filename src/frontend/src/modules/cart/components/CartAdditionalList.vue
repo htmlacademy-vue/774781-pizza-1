@@ -1,21 +1,24 @@
 <template>
   <ul class="additional-list">
-    <li class="additional-list__item sheet">
+    <li
+      v-for="{ id, name, image, price, count } in misc"
+      :key="id"
+      class="additional-list__item sheet"
+    >
       <p class="additional-list__description">
-        <img
-          src="@/assets/img/cola.svg"
-          width="39"
-          height="60"
-          alt="Coca-Cola 0,5 литра"
-        />
-        <span>Coca-Cola 0,5 литра</span>
+        <img :src="image" width="39" height="60" :alt="name" />
+        <span>{{ name }}</span>
       </p>
 
       <div class="additional-list__wrapper">
-        <ItemCounter class="additional-list__counter" theme="orange" />
+        <ItemCounter
+          :value="count"
+          class="additional-list__counter"
+          theme="orange"
+        />
 
         <div class="additional-list__price">
-          <b>× 56 ₽</b>
+          <b>× {{ price }} ₽</b>
         </div>
       </div>
     </li>
@@ -23,6 +26,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { ItemCounter } from "@/common/components";
 
 export default {
@@ -30,6 +34,10 @@ export default {
 
   components: {
     ItemCounter,
+  },
+
+  computed: {
+    ...mapState("cart", ["misc"]),
   },
 };
 </script>

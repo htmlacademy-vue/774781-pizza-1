@@ -1,6 +1,6 @@
 <template>
   <AppDrop @drop="addIngredient($event)">
-    <div class="pizza" :class="mainClass">
+    <div class="pizza" :class="classModifier">
       <div class="pizza__wrapper">
         <div
           v-for="{ id, modifier, count } in ingredients"
@@ -48,7 +48,7 @@ export default {
       return this.selectedSauce === SAUCE_CREAMY_VALUE;
     },
 
-    mainClass() {
+    classModifier() {
       return {
         "pizza--foundation--big-creamy": this.doughLarge && this.sauceCreamy,
         "pizza--foundation--big-tomato": this.doughLarge && this.sauceTomato,

@@ -10,33 +10,23 @@
       </select>
     </label>
 
-    <label class="input input--big-label">
-      <span>Контактный телефон:</span>
-      <input type="text" name="tel" placeholder="+7 999-999-99-99" />
-    </label>
+    <AppInput big-label name="tel" placeholder="+7 999-999-99-99"
+      >Контактный телефон:</AppInput
+    >
 
     <div class="cart-form__address">
       <span class="cart-form__label">Новый адрес:</span>
 
       <div class="cart-form__input">
-        <label class="input">
-          <span>Улица*</span>
-          <input type="text" name="street" />
-        </label>
+        <AppInput name="street">Улица*</AppInput>
       </div>
 
       <div class="cart-form__input cart-form__input--small">
-        <label class="input">
-          <span>Дом*</span>
-          <input type="text" name="house" />
-        </label>
+        <AppInput name="house">Дом*</AppInput>
       </div>
 
       <div class="cart-form__input cart-form__input--small">
-        <label class="input">
-          <span>Квартира</span>
-          <input type="text" name="apartment" />
-        </label>
+        <AppInput name="apartment">Квартира</AppInput>
       </div>
     </div>
   </div>

@@ -19,11 +19,11 @@
         <div class="content__pizza">
           <AppInput
             name="pizza_name"
-            title="Название пиццы"
             placeholder="Введите название пиццы"
             is-title-hidden
             @input="UPDATE_PIZZA_NAME($event)"
-          />
+            >Название пиццы</AppInput
+          >
 
           <div class="content__constructor">
             <BuilderPizzaView />

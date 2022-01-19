@@ -6,11 +6,7 @@
           <AppTitle size="big">Корзина</AppTitle>
         </div>
 
-        <div v-if="false" class="sheet cart__empty">
-          <p>В корзине нет ни одного товара</p>
-        </div>
-
-        <template v-else>
+        <template v-if="items.length > 0">
           <CartList />
 
           <div class="cart__additional">
@@ -21,6 +17,10 @@
             <CartForm />
           </div>
         </template>
+
+        <div v-else class="sheet cart__empty">
+          <p>В корзине нет ни одного товара</p>
+        </div>
       </div>
     </main>
     <AppLayoutFooter />
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import {
   CartList,
   CartAdditionalList,
@@ -41,6 +42,10 @@ export default {
     CartList,
     CartAdditionalList,
     CartForm,
+  },
+
+  computed: {
+    ...mapState("cart", ["items"]),
   },
 };
 </script>

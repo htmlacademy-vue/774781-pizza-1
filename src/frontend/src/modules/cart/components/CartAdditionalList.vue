@@ -6,7 +6,12 @@
       class="additional-list__item sheet"
     >
       <p class="additional-list__description">
-        <img :src="image" width="39" height="60" :alt="name" />
+        <img
+          :src="normalizeImagePath(image)"
+          width="39"
+          height="60"
+          :alt="name"
+        />
         <span>{{ name }}</span>
       </p>
 
@@ -38,6 +43,14 @@ export default {
 
   computed: {
     ...mapState("cart", ["misc"]),
+  },
+
+  methods: {
+    normalizeImagePath(path) {
+      const imgPath = path.replace("/public/", "");
+
+      return require(`@/assets/${imgPath}`);
+    },
   },
 };
 </script>

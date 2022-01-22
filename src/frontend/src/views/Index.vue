@@ -31,7 +31,11 @@
 
           <div class="content__result">
             <BuilderPriceCounter />
-            <AppButton :disabled="!availableAddOrderToCart">Готовьте</AppButton>
+            <AppButton
+              @click="createOrder()"
+              :disabled="!availableAddOrderToCart"
+              >Готовьте</AppButton
+            >
           </div>
         </div>
       </div>
@@ -40,7 +44,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { UPDATE_PIZZA_NAME } from "@/store/mutations-types";
 import {
   BuilderSizeSelector,
@@ -68,10 +72,34 @@ export default {
 
     ...mapState("builder", ["pizzaName"]),
     ...mapGetters("builder", ["hasPizzaName", "hasIngredients"]),
+    ...mapGetters("auth", ["id"]),
   },
 
   methods: {
+    createOrder() {
+      const order = {
+        userId: this.id,
+        phone: this.phone,
+        address: {
+          street: "string",
+          building: "string",
+          flat: "string",
+          comment: "string",
+        },
+        pizzas: [],
+        misc: [
+          {
+            miscId: 0,
+            quantity: 0,
+          },
+        ],
+      };
+
+      this.addProductToCart(order);
+    },
+
     ...mapMutations("builder", [UPDATE_PIZZA_NAME]),
+    ...mapActions("cart", ["addProductToCart"]),
   },
 };
 </script>

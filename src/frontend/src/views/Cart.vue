@@ -6,7 +6,11 @@
           <AppTitle size="big">Корзина</AppTitle>
         </div>
 
-        <template v-if="items.length > 0">
+        <div v-if="items.length === 0" class="sheet cart__empty">
+          <p>В корзине нет ни одного товара</p>
+        </div>
+
+        <template v-else>
           <CartList />
 
           <div class="cart__additional">
@@ -17,10 +21,6 @@
             <CartForm />
           </div>
         </template>
-
-        <div v-else class="sheet cart__empty">
-          <p>В корзине нет ни одного товара</p>
-        </div>
       </div>
     </main>
     <AppLayoutFooter />

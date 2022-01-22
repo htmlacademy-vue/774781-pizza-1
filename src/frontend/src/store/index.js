@@ -4,7 +4,12 @@ import { builder, auth, cart, orders } from "./modules";
 
 Vue.use(Vuex);
 
+const state = () => ({
+  pizzas: [],
+});
+
 export default new Vuex.Store({
+  state,
   modules: {
     builder,
     auth,

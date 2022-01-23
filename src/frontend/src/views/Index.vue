@@ -71,14 +71,14 @@ export default {
     },
 
     ...mapState(["pizzas"]),
-    ...mapState("builder", ["pizzaName"]),
-    ...mapGetters("builder", [
-      "hasPizzaName",
-      "hasIngredients",
+    ...mapState("builder", [
+      "pizzaName",
       "selectedSauce",
       "selectedDough",
       "selectedSize",
     ]),
+
+    ...mapGetters("builder", ["hasPizzaName", "hasIngredients"]),
     ...mapGetters("auth", ["id"]),
   },
 

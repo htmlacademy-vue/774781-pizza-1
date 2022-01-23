@@ -16,8 +16,8 @@
           name="dought"
           class="visually-hidden"
           :value="value"
-          :checked="value === selectedDough"
-          @change="updateDough(value, price)"
+          :checked="id === selectedDough"
+          @change="updateDough(id, price)"
         />
         <b>{{ name }}</b>
         <span>{{ description }}</span>
@@ -39,8 +39,8 @@ export default {
   },
 
   methods: {
-    updateDough(value, price) {
-      this[CHANGE_DOUGH](value);
+    updateDough(id, price) {
+      this[CHANGE_DOUGH](id);
       this[UPDATE_DOUGH_PRICE](price);
     },
 

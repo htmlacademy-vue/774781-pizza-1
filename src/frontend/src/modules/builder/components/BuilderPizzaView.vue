@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 import {
   DOUGH_LIGHT_VALUE,
@@ -33,19 +33,19 @@ export default {
 
   computed: {
     doughLight() {
-      return this.selectedDough === DOUGH_LIGHT_VALUE;
+      return this.doughName === DOUGH_LIGHT_VALUE;
     },
 
     doughLarge() {
-      return this.selectedDough === DOUGH_LARGE_VALUE;
+      return this.doughName === DOUGH_LARGE_VALUE;
     },
 
     sauceTomato() {
-      return this.selectedSauce === SAUCE_TOMATO_VALUE;
+      return this.sauseName === SAUCE_TOMATO_VALUE;
     },
 
     sauceCreamy() {
-      return this.selectedSauce === SAUCE_CREAMY_VALUE;
+      return this.sauseName === SAUCE_CREAMY_VALUE;
     },
 
     classModifier() {
@@ -57,8 +57,7 @@ export default {
       };
     },
 
-    ...mapGetters("builder", ["ingredients"]),
-    ...mapState("builder", ["selectedDough", "selectedSauce"]),
+    ...mapGetters("builder", ["ingredients", "sauseName", "doughName"]),
   },
 
   methods: {

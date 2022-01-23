@@ -15,8 +15,8 @@
           name="sauces"
           :title="name"
           :value="value"
-          :checked="value === selectedSauce"
-          @change="updateSauce(value, price)"
+          :checked="id === selectedSauce"
+          @change="updateSauce(id, price)"
         />
       </div>
 
@@ -72,8 +72,8 @@ export default {
   },
 
   methods: {
-    updateSauce(value, price) {
-      this[CHANGE_SAUCE](value);
+    updateSauce(id, price) {
+      this[CHANGE_SAUCE](id);
       this[UPDATE_SAUCE_PRICE](price);
     },
 

@@ -45,7 +45,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { UPDATE_PIZZA_NAME } from "@/store/mutations-types";
+import { UPDATE_PIZZA_NAME, ADD_PIZZA } from "@/store/mutations-types";
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
@@ -70,13 +70,34 @@ export default {
       return this.hasPizzaName && this.hasIngredients;
     },
 
+    ...mapState(["pizzas"]),
     ...mapState("builder", ["pizzaName"]),
-    ...mapGetters("builder", ["hasPizzaName", "hasIngredients"]),
+    ...mapGetters("builder", [
+      "hasPizzaName",
+      "hasIngredients",
+      "selectedSauce",
+      "selectedDough",
+      "selectedSize",
+    ]),
     ...mapGetters("auth", ["id"]),
   },
 
   methods: {
     createOrder() {
+      this[ADD_PIZZA]({
+        name: this.pizzaName,
+        sauceId: this.selectedSauce,
+        doughId: this.selectedDough,
+        sizeId: this.selectedSize,
+        quantity: 0,
+        ingredients: [
+          {
+            ingredientId: 0,
+            quantity: 0,
+          },
+        ],
+      });
+
       const order = {
         userId: this.id,
         phone: this.phone,
@@ -86,7 +107,7 @@ export default {
           flat: "string",
           comment: "string",
         },
-        pizzas: [],
+        pizzas: this.pizzas,
         misc: [
           {
             miscId: 0,
@@ -98,6 +119,7 @@ export default {
       this.addProductToCart(order);
     },
 
+    ...mapMutations([ADD_PIZZA]),
     ...mapMutations("builder", [UPDATE_PIZZA_NAME]),
     ...mapActions("cart", ["addProductToCart"]),
   },

@@ -13,8 +13,8 @@
           name="diameter"
           :value="value"
           class="visually-hidden"
-          :checked="value === selectedSize"
-          @change="updateSize(value, multiplier)"
+          :checked="id === selectedSize"
+          @change="updateSize(id, multiplier)"
         />
         <span>{{ name }}</span>
       </label>
@@ -35,8 +35,8 @@ export default {
   },
 
   methods: {
-    updateSize(size, price) {
-      this[CHANGE_SIZE](size);
+    updateSize(id, price) {
+      this[CHANGE_SIZE](id);
       this[UPDATE_SIZE_MULTIPLIER](price);
     },
 

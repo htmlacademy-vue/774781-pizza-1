@@ -25,9 +25,9 @@ export default {
   state: {
     pizza: {},
     pizzaName: "",
-    selectedDough: "",
-    selectedSauce: "",
-    selectedSize: "",
+    selectedDough: null,
+    selectedSauce: null,
+    selectedSize: null,
     doughPrice: 0,
     saucePrice: 0,
     sizeMultiplier: 0,
@@ -62,24 +62,28 @@ export default {
       state.pizza = pizza;
     },
 
-    [CHANGE_DOUGH](state, dough) {
-      state.selectedDough = dough;
+    [CHANGE_DOUGH](state, id) {
+      state.selectedDough = state.pizza.dough.find(
+        (dough) => dough.id === id
+      ).id;
     },
 
     [UPDATE_DOUGH_PRICE](state, price) {
       state.doughPrice = price;
     },
 
-    [CHANGE_SAUCE](state, sauce) {
-      state.selectedSauce = sauce;
+    [CHANGE_SAUCE](state, id) {
+      state.selectedSauce = state.pizza.sauces.find(
+        (sauce) => sauce.id === id
+      ).id;
     },
 
     [UPDATE_SAUCE_PRICE](state, price) {
       state.saucePrice = price;
     },
 
-    [CHANGE_SIZE](state, size) {
-      state.selectedSize = size;
+    [CHANGE_SIZE](state, id) {
+      state.selectedSize = state.pizza.sizes.find((size) => size.id === id).id;
     },
 
     [UPDATE_SIZE_MULTIPLIER](state, multiplier) {
@@ -122,9 +126,9 @@ export default {
 
       commit(SET_PIZZA, pizza);
       commit(ADD_DATA_HELPERS);
-      commit(CHANGE_DOUGH, pizza.dough[0].value);
-      commit(CHANGE_SAUCE, pizza.sauces[0].value);
-      commit(CHANGE_SIZE, pizza.sizes[1].value);
+      commit(CHANGE_DOUGH, pizza.dough[0].id);
+      commit(CHANGE_SAUCE, pizza.sauces[0].id);
+      commit(CHANGE_SIZE, pizza.sizes[1].id);
       commit(UPDATE_DOUGH_PRICE, pizza.dough[0].price);
       commit(UPDATE_SAUCE_PRICE, pizza.sauces[0].price);
       commit(UPDATE_SIZE_MULTIPLIER, pizza.sizes[1].multiplier);
@@ -136,6 +140,11 @@ export default {
       return state.pizza.dough;
     },
 
+    doughName: (state) => {
+      return state.pizza.dough.find((sauce) => sauce.id === state.selectedDough)
+        .value;
+    },
+
     ingredients: (state) => {
       return state.pizza.ingredients;
     },
@@ -144,15 +153,21 @@ export default {
       return state.pizza.sauces;
     },
 
-    sizes(state) {
+    sauseName: (state) => {
+      return state.pizza.sauces.find(
+        (sauce) => sauce.id === state.selectedSauce
+      ).value;
+    },
+
+    sizes: (state) => {
       return state.pizza.sizes;
     },
 
-    hasPizzaName(state) {
+    hasPizzaName: (state) => {
       return state.pizzaName.length > 0;
     },
 
-    hasIngredients(state) {
+    hasIngredients: (state) => {
       return (
         state.pizza.ingredients.filter(({ count }) => count >= 1).length > 0
       );

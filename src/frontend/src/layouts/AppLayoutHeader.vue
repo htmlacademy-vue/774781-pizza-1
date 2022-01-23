@@ -4,7 +4,7 @@
       <Logo />
     </div>
     <div class="header__cart">
-      <router-link to="/cart">0 ₽</router-link>
+      <router-link to="/cart">{{ totalPrice }} ₽</router-link>
     </div>
     <div class="header__user">
       <router-link v-if="user === null" to="/login" class="header__login"
@@ -42,11 +42,14 @@ import { Logo } from "@/common/components";
 
 export default {
   name: "AppLayoutHeader",
+
   components: {
     Logo,
   },
+
   computed: {
     ...mapState("auth", ["user"]),
+    ...mapState("cart", ["totalPrice"]),
   },
 };
 </script>

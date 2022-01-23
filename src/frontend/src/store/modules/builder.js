@@ -172,5 +172,21 @@ export default {
         state.pizza.ingredients.filter(({ count }) => count >= 1).length > 0
       );
     },
+
+    selectedIngredients: (state) => {
+      return state.pizza.ingredients
+        .filter((ingredient) => ingredient.count > 0)
+        .map(({ id, count }) => ({
+          id,
+          count,
+        }));
+    },
+
+    currentPrice: (state) => {
+      return (
+        (state.doughPrice + state.saucePrice + state.ingredientsPrice) *
+        state.sizeMultiplier
+      );
+    },
   },
 };

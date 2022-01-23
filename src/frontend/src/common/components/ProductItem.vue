@@ -5,10 +5,10 @@
       class="product__img"
       width="56"
       height="56"
-      alt="Капричоза"
+      :alt="product.name"
     />
     <div class="product__text">
-      <h2>Капричоза</h2>
+      <h2>{{ product.name }}</h2>
       <ul>
         <li>30 см, на тонком тесте</li>
         <li>Соус: томатный</li>
@@ -21,6 +21,12 @@
 <script>
 export default {
   name: "ProductItem",
+  props: {
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 

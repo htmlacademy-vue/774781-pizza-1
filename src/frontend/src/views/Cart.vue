@@ -6,7 +6,7 @@
           <AppTitle size="big">Корзина</AppTitle>
         </div>
 
-        <div v-if="items.length === 0" class="sheet cart__empty">
+        <div v-if="products.length === 0" class="sheet cart__empty">
           <p>В корзине нет ни одного товара</p>
         </div>
 
@@ -45,7 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapState("cart", ["items"]),
+    ...mapState("cart", ["products"]),
   },
 };
 </script>

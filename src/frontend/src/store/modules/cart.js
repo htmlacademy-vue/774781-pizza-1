@@ -1,13 +1,19 @@
 import jsonMisc from "@/static/misc";
-import { SET_MISC, ADD_MISC_COUNT } from "@/store/mutations-types";
+import {
+  SET_MISC,
+  ADD_MISC,
+  UPDATE_TOTAL_PRICE,
+  ADD_PRODUCT,
+} from "@/store/mutations-types";
 
 export default {
   namespaced: true,
 
   state: {
     misc: [],
-    items: [],
+    products: [],
     checkoutStatus: null,
+    totalPrice: 0,
   },
 
   mutations: {
@@ -15,11 +21,19 @@ export default {
       state.misc = misc;
     },
 
-    [ADD_MISC_COUNT](state) {
+    [ADD_PRODUCT](state, product) {
+      state.products.push(product);
+    },
+
+    [ADD_MISC](state) {
       state.misc = state.misc.map((misc) => ({
         ...misc,
         count: 0,
       }));
+    },
+
+    [UPDATE_TOTAL_PRICE](state, price) {
+      state.totalPrice = price;
     },
   },
 
@@ -28,29 +42,11 @@ export default {
       const misc = jsonMisc;
 
       commit(SET_MISC, misc);
-      commit(ADD_MISC_COUNT, misc);
+      commit(ADD_MISC, misc);
     },
 
-    addProductToCart({ state, commit }, product) {
-      // commit("setCheckoutStatus", null);
-      // if (product.inventory > 0) {
-      //   const cartItem = state.items.find((item) => item.id === product.id);
-      //   if (!cartItem) {
-      //     commit("pushProductToCart", { id: product.id });
-      //   } else {
-      //     commit("incrementItemQuantity", cartItem);
-      //   }
-      //   // remove 1 item from stock
-      //   commit(
-      //     "products/decrementProductInventory",
-      //     { id: product.id },
-      //     { root: true }
-      //   );
-      // }
-
-      console.log(state);
-      console.log(commit);
-      console.log(product);
+    addProductToCart({ commit }, product) {
+      commit(ADD_PRODUCT, product);
     },
   },
 };

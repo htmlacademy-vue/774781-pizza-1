@@ -1,11 +1,11 @@
 <template>
   <ul class="cart-list sheet">
-    <li class="cart-list__item">
-      <ProductItem class="cart-list__product" />
+    <li class="cart-list__item" v-for="product in products" :key="product.id">
+      <ProductItem class="cart-list__product" :product="product" />
       <ItemCounter class="cart-list__counter" theme="orange" />
 
       <div class="cart-list__price">
-        <b>782 ₽</b>
+        <b>{{ product.price }} ₽</b>
       </div>
 
       <div class="cart-list__button">
@@ -16,13 +16,19 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { ItemCounter, ProductItem } from "@/common/components";
 
 export default {
   name: "CartList",
+
   components: {
     ProductItem,
     ItemCounter,
+  },
+
+  computed: {
+    ...mapState("cart", ["products"]),
   },
 };
 </script>

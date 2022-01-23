@@ -1,27 +1,15 @@
 <template>
-  <p>Итого: {{ totalPrice }} ₽</p>
+  <p>Итого: {{ currentPrice }} ₽</p>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "BuilderPriceCounter",
 
   computed: {
-    totalPrice() {
-      return (
-        (this.doughPrice + this.saucePrice + this.ingredientsPrice) *
-        this.sizeMultiplier
-      );
-    },
-
-    ...mapState("builder", [
-      "doughPrice",
-      "saucePrice",
-      "sizeMultiplier",
-      "ingredientsPrice",
-    ]),
+    ...mapGetters("builder", ["currentPrice"]),
   },
 };
 </script>

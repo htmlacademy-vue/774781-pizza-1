@@ -6,13 +6,11 @@ import sizesValues from "@/common/enums/sizesValues.js";
 
 import {
   ADD_DATA_HELPERS,
-  CHANGE_DOUGH,
-  CHANGE_SAUCE,
-  CHANGE_SIZE,
   UPDATE_INGREDIENT_PRICE,
   CHANGE_INGREDIENT_COUNT,
   ADD_INGREDIENT_COUNT,
   SET_ENTITY,
+  SELECT_PIZZA_ENTITY,
 } from "@/store/mutations-types";
 
 const module = "builder";
@@ -33,6 +31,14 @@ export default {
   },
 
   mutations: {
+    [SELECT_PIZZA_ENTITY](state, { entitySelected, entityFrom, id }) {
+      const element = state.pizza[entityFrom].find(
+        (element) => element.id === id
+      );
+
+      state[entitySelected] = element.id;
+    },
+
     [ADD_DATA_HELPERS](state) {
       state.pizza.dough = state.pizza.dough.map((dough) => ({
         ...dough,
@@ -54,22 +60,6 @@ export default {
         ...size,
         value: sizesValues[size.multiplier],
       }));
-    },
-
-    [CHANGE_DOUGH](state, id) {
-      state.selectedDough = state.pizza.dough.find(
-        (dough) => dough.id === id
-      ).id;
-    },
-
-    [CHANGE_SAUCE](state, id) {
-      state.selectedSauce = state.pizza.sauces.find(
-        (sauce) => sauce.id === id
-      ).id;
-    },
-
-    [CHANGE_SIZE](state, id) {
-      state.selectedSize = state.pizza.sizes.find((size) => size.id === id).id;
     },
 
     [UPDATE_INGREDIENT_PRICE](state) {
@@ -109,9 +99,25 @@ export default {
       );
 
       commit(ADD_DATA_HELPERS);
-      commit(CHANGE_DOUGH, pizza.dough[0].id);
-      commit(CHANGE_SAUCE, pizza.sauces[0].id);
-      commit(CHANGE_SIZE, pizza.sizes[1].id);
+
+      commit(SELECT_PIZZA_ENTITY, {
+        entitySelected: "selectedDough",
+        entityFrom: "dough",
+        id: pizza.dough[0].id,
+      });
+
+      commit(SELECT_PIZZA_ENTITY, {
+        entitySelected: "selectedSauce",
+        entityFrom: "sauces",
+        id: pizza.sauces[0].id,
+      });
+
+      commit(SELECT_PIZZA_ENTITY, {
+        entitySelected: "selectedSize",
+        entityFrom: "sizes",
+        id: pizza.sizes[1].id,
+      });
+
       commit(
         SET_ENTITY,
         {
@@ -150,7 +156,7 @@ export default {
     },
 
     doughName: (state) => {
-      return state.pizza.dough.find((sauce) => sauce.id === state.selectedDough)
+      return state.pizza.dough.find((dough) => dough.id === state.selectedDough)
         .value;
     },
 

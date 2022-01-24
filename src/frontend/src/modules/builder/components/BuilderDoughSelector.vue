@@ -28,7 +28,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
-import { CHANGE_DOUGH, SET_ENTITY } from "@/store/mutations-types";
+import { SELECT_PIZZA_ENTITY, SET_ENTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderDoughSelector",
@@ -40,7 +40,11 @@ export default {
 
   methods: {
     updateDough(id, price) {
-      this[CHANGE_DOUGH](id);
+      this[SELECT_PIZZA_ENTITY]({
+        entitySelected: "selectedDough",
+        entityFrom: "dough",
+        id,
+      });
 
       this[SET_ENTITY](
         { module: "builder", entity: "doughPrice", value: price },
@@ -48,7 +52,7 @@ export default {
       );
     },
 
-    ...mapMutations("builder", [CHANGE_DOUGH]),
+    ...mapMutations("builder", [SELECT_PIZZA_ENTITY]),
     ...mapMutations([SET_ENTITY]),
   },
 };

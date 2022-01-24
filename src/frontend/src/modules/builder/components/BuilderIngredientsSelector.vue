@@ -48,7 +48,7 @@
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
 import {
-  CHANGE_SAUCE,
+  SELECT_PIZZA_ENTITY,
   CHANGE_INGREDIENT_COUNT,
   UPDATE_INGREDIENT_PRICE,
   SET_ENTITY,
@@ -73,7 +73,12 @@ export default {
 
   methods: {
     updateSauce(id, price) {
-      this[CHANGE_SAUCE](id);
+      this[SELECT_PIZZA_ENTITY]({
+        entitySelected: "selectedSauce",
+        entityFrom: "sauces",
+        id,
+      });
+
       this[SET_ENTITY](
         { module: "builder", entity: "saucePrice", value: price },
         { root: true }
@@ -87,7 +92,7 @@ export default {
 
     ...mapMutations([SET_ENTITY]),
     ...mapMutations("builder", [
-      CHANGE_SAUCE,
+      SELECT_PIZZA_ENTITY,
       CHANGE_INGREDIENT_COUNT,
       UPDATE_INGREDIENT_PRICE,
     ]),

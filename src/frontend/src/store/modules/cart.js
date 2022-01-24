@@ -1,10 +1,7 @@
 import jsonMisc from "@/static/misc";
-import {
-  SET_MISC,
-  ADD_MISC,
-  UPDATE_TOTAL_PRICE,
-  ADD_PRODUCT,
-} from "@/store/mutations-types";
+import { SET_ENTITY, ADD_MISC, ADD_PRODUCT } from "@/store/mutations-types";
+
+const module = "cart";
 
 export default {
   namespaced: true,
@@ -17,10 +14,6 @@ export default {
   },
 
   mutations: {
-    [SET_MISC](state, misc) {
-      state.misc = misc;
-    },
-
     [ADD_PRODUCT](state, product) {
       state.products.push(product);
     },
@@ -31,17 +24,17 @@ export default {
         count: 0,
       }));
     },
-
-    [UPDATE_TOTAL_PRICE](state, price) {
-      state.totalPrice = price;
-    },
   },
 
   actions: {
     fetchMisc({ commit }) {
       const misc = jsonMisc;
 
-      commit(SET_MISC, misc);
+      commit(
+        SET_ENTITY,
+        { module, entity: "misc", value: misc },
+        { root: true }
+      );
       commit(ADD_MISC, misc);
     },
 

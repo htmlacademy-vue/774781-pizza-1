@@ -45,12 +45,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-
-import {
-  SET_ENTITY,
-  ADD_PIZZA,
-  UPDATE_TOTAL_PRICE,
-} from "@/store/mutations-types";
+import { SET_ENTITY, ADD_PIZZA } from "@/store/mutations-types";
 
 import {
   BuilderSizeSelector,
@@ -124,7 +119,11 @@ export default {
       };
 
       this.addProductToCart(order);
-      this[UPDATE_TOTAL_PRICE](this.currentPrice);
+
+      this[SET_ENTITY](
+        { module: "cart", entity: "totalPrice", value: this.currentPrice },
+        { root: true }
+      );
     },
 
     setPizzaName(name) {
@@ -136,7 +135,6 @@ export default {
 
     ...mapMutations([ADD_PIZZA]),
     ...mapMutations([SET_ENTITY]),
-    ...mapMutations("cart", [UPDATE_TOTAL_PRICE]),
     ...mapActions("cart", ["addProductToCart"]),
   },
 };

@@ -24,7 +24,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
-import { CHANGE_SIZE, UPDATE_SIZE_MULTIPLIER } from "@/store/mutations-types";
+import { CHANGE_SIZE, SET_ENTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderSizeSelector",
@@ -37,10 +37,14 @@ export default {
   methods: {
     updateSize(id, price) {
       this[CHANGE_SIZE](id);
-      this[UPDATE_SIZE_MULTIPLIER](price);
+      this[SET_ENTITY](
+        { module: "builder", entity: "sizeMultiplier", value: price },
+        { root: true }
+      );
     },
 
-    ...mapMutations("builder", [CHANGE_SIZE, UPDATE_SIZE_MULTIPLIER]),
+    ...mapMutations([SET_ENTITY]),
+    ...mapMutations("builder", [CHANGE_SIZE]),
   },
 };
 </script>

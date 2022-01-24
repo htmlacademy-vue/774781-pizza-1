@@ -5,19 +5,17 @@ import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
 
 import {
-  SET_PIZZA,
   ADD_DATA_HELPERS,
   CHANGE_DOUGH,
-  UPDATE_DOUGH_PRICE,
   CHANGE_SAUCE,
-  UPDATE_SAUCE_PRICE,
   CHANGE_SIZE,
-  UPDATE_SIZE_MULTIPLIER,
-  UPDATE_PIZZA_NAME,
   UPDATE_INGREDIENT_PRICE,
   CHANGE_INGREDIENT_COUNT,
   ADD_INGREDIENT_COUNT,
+  SET_ENTITY,
 } from "@/store/mutations-types";
+
+const module = "builder";
 
 export default {
   namespaced: true,
@@ -58,18 +56,10 @@ export default {
       }));
     },
 
-    [SET_PIZZA](state, pizza) {
-      state.pizza = pizza;
-    },
-
     [CHANGE_DOUGH](state, id) {
       state.selectedDough = state.pizza.dough.find(
         (dough) => dough.id === id
       ).id;
-    },
-
-    [UPDATE_DOUGH_PRICE](state, price) {
-      state.doughPrice = price;
     },
 
     [CHANGE_SAUCE](state, id) {
@@ -78,20 +68,8 @@ export default {
       ).id;
     },
 
-    [UPDATE_SAUCE_PRICE](state, price) {
-      state.saucePrice = price;
-    },
-
     [CHANGE_SIZE](state, id) {
       state.selectedSize = state.pizza.sizes.find((size) => size.id === id).id;
-    },
-
-    [UPDATE_SIZE_MULTIPLIER](state, multiplier) {
-      state.sizeMultiplier = multiplier;
-    },
-
-    [UPDATE_PIZZA_NAME](state, name) {
-      state.pizzaName = name;
     },
 
     [UPDATE_INGREDIENT_PRICE](state) {
@@ -124,14 +102,45 @@ export default {
     fetchPizza({ commit }) {
       const pizza = jsonPizza;
 
-      commit(SET_PIZZA, pizza);
+      commit(
+        SET_ENTITY,
+        { module, entity: "pizza", value: pizza },
+        { root: true }
+      );
+
       commit(ADD_DATA_HELPERS);
       commit(CHANGE_DOUGH, pizza.dough[0].id);
       commit(CHANGE_SAUCE, pizza.sauces[0].id);
       commit(CHANGE_SIZE, pizza.sizes[1].id);
-      commit(UPDATE_DOUGH_PRICE, pizza.dough[0].price);
-      commit(UPDATE_SAUCE_PRICE, pizza.sauces[0].price);
-      commit(UPDATE_SIZE_MULTIPLIER, pizza.sizes[1].multiplier);
+      commit(
+        SET_ENTITY,
+        {
+          module,
+          entity: "doughPrice",
+          value: pizza.dough[0].price,
+        },
+        { root: true }
+      );
+
+      commit(
+        SET_ENTITY,
+        {
+          module,
+          entity: "saucePrice",
+          value: pizza.sauces[0].price,
+        },
+        { root: true }
+      );
+
+      commit(
+        SET_ENTITY,
+        {
+          module,
+          entity: "sizeMultiplier",
+          value: pizza.sizes[1].multiplier,
+        },
+        { root: true }
+      );
     },
   },
 

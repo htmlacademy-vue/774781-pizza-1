@@ -21,7 +21,7 @@
             name="pizza_name"
             placeholder="Введите название пиццы"
             is-title-hidden
-            @input="UPDATE_PIZZA_NAME($event)"
+            @input="setPizzaName($event)"
             >Название пиццы</AppInput
           >
 
@@ -47,7 +47,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 import {
-  UPDATE_PIZZA_NAME,
+  SET_ENTITY,
   ADD_PIZZA,
   UPDATE_TOTAL_PRICE,
 } from "@/store/mutations-types";
@@ -127,10 +127,16 @@ export default {
       this[UPDATE_TOTAL_PRICE](this.currentPrice);
     },
 
-    ...mapMutations([ADD_PIZZA]),
-    ...mapMutations("builder", [UPDATE_PIZZA_NAME]),
-    ...mapMutations("cart", [UPDATE_TOTAL_PRICE]),
+    setPizzaName(name) {
+      this[SET_ENTITY](
+        { module: "builder", entity: "pizzaName", value: name },
+        { root: true }
+      );
+    },
 
+    ...mapMutations([ADD_PIZZA]),
+    ...mapMutations([SET_ENTITY]),
+    ...mapMutations("cart", [UPDATE_TOTAL_PRICE]),
     ...mapActions("cart", ["addProductToCart"]),
   },
 };

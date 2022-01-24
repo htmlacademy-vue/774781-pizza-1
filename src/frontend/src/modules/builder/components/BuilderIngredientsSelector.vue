@@ -49,9 +49,9 @@
 import { mapState, mapGetters, mapMutations } from "vuex";
 import {
   CHANGE_SAUCE,
-  UPDATE_SAUCE_PRICE,
   CHANGE_INGREDIENT_COUNT,
   UPDATE_INGREDIENT_PRICE,
+  SET_ENTITY,
 } from "@/store/mutations-types";
 
 import { RadioButton, ItemCounter } from "@/common/components";
@@ -74,7 +74,10 @@ export default {
   methods: {
     updateSauce(id, price) {
       this[CHANGE_SAUCE](id);
-      this[UPDATE_SAUCE_PRICE](price);
+      this[SET_ENTITY](
+        { module: "builder", entity: "saucePrice", value: price },
+        { root: true }
+      );
     },
 
     addIngredient(count, id) {
@@ -82,9 +85,9 @@ export default {
       this[UPDATE_INGREDIENT_PRICE]();
     },
 
+    ...mapMutations([SET_ENTITY]),
     ...mapMutations("builder", [
       CHANGE_SAUCE,
-      UPDATE_SAUCE_PRICE,
       CHANGE_INGREDIENT_COUNT,
       UPDATE_INGREDIENT_PRICE,
     ]),

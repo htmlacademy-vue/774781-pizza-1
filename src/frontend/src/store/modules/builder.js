@@ -5,7 +5,7 @@ import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
 
 import {
-  ADD_DATA_HELPERS,
+  ADD_PIZZA_ADDITIONAL_DATA,
   UPDATE_INGREDIENT_PRICE,
   CHANGE_INGREDIENT_COUNT,
   ADD_INGREDIENT_COUNT,
@@ -39,7 +39,7 @@ export default {
       state[entitySelected] = element.id;
     },
 
-    [ADD_DATA_HELPERS](state) {
+    [ADD_PIZZA_ADDITIONAL_DATA](state) {
       state.pizza.dough = state.pizza.dough.map((dough) => ({
         ...dough,
         value: doughValues[dough.name],
@@ -98,7 +98,7 @@ export default {
         { root: true }
       );
 
-      commit(ADD_DATA_HELPERS);
+      commit(ADD_PIZZA_ADDITIONAL_DATA);
 
       commit(SELECT_PIZZA_ENTITY, {
         entitySelected: "selectedDough",

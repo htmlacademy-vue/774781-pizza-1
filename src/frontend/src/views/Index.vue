@@ -45,7 +45,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { SET_ENTITY, ADD_PIZZA } from "@/store/mutations-types";
+import { SET_ENTITY, ADD_ENTITY } from "@/store/mutations-types";
 
 import {
   BuilderSizeSelector,
@@ -90,14 +90,17 @@ export default {
 
   methods: {
     createOrder() {
-      this[ADD_PIZZA]({
-        name: this.pizzaName,
-        sauceId: this.selectedSauce,
-        doughId: this.selectedDough,
-        sizeId: this.selectedSize,
-        quantity: 0,
-        ingredients: this.selectedIngredients,
-        price: this.currentPrice,
+      this[ADD_ENTITY]({
+        entity: "pizzas",
+        value: {
+          name: this.pizzaName,
+          sauceId: this.selectedSauce,
+          doughId: this.selectedDough,
+          sizeId: this.selectedSize,
+          quantity: 0,
+          ingredients: this.selectedIngredients,
+          price: this.currentPrice,
+        },
       });
 
       const order = {
@@ -133,8 +136,7 @@ export default {
       );
     },
 
-    ...mapMutations([ADD_PIZZA]),
-    ...mapMutations([SET_ENTITY]),
+    ...mapMutations([SET_ENTITY, ADD_ENTITY]),
     ...mapActions("cart", ["addProductToCart"]),
   },
 };

@@ -10,8 +10,7 @@
 export default {
   name: "App",
   created() {
-    this.$store.dispatch("builder/fetchPizza");
-    this.$store.dispatch("cart/fetchMisc");
+    this.$store.dispatch("init");
   },
 };
 </script>

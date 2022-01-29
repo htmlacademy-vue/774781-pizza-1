@@ -48,7 +48,7 @@ export default {
       state.pizza.ingredients = state.pizza.ingredients.map((ingredient) => ({
         ...ingredient,
         modifier: ingredientModifiers[ingredient.name],
-        count: 0,
+        quantity: 0,
       }));
 
       state.pizza.sauces = state.pizza.sauces.map((sauce) => ({
@@ -64,9 +64,9 @@ export default {
 
     [UPDATE_INGREDIENT_PRICE](state) {
       state.ingredientsPrice = state.pizza.ingredients
-        .filter(({ count }) => count > 0)
+        .filter(({ quantity }) => quantity > 0)
         .reduce(
-          (accumulator, { count, price }) => accumulator + price * count,
+          (accumulator, { quantity, price }) => accumulator + price * quantity,
           0
         );
     },
@@ -76,15 +76,15 @@ export default {
         (ingredient) => ingredient.id === id
       );
 
-      this._vm.$set(ingredient, "count", ingredient.count + 1);
+      this._vm.$set(ingredient, "quantity", ingredient.quantity + 1);
     },
 
-    [CHANGE_INGREDIENT_COUNT](state, { id, count }) {
+    [CHANGE_INGREDIENT_COUNT](state, { id, quantity }) {
       const ingredient = state.pizza.ingredients.find(
         (ingredient) => ingredient.id === id
       );
 
-      this._vm.$set(ingredient, "count", count);
+      this._vm.$set(ingredient, "quantity", quantity);
     },
   },
 
@@ -184,16 +184,17 @@ export default {
 
     hasIngredients: (state) => {
       return (
-        state.pizza.ingredients.filter(({ count }) => count >= 1).length > 0
+        state.pizza.ingredients.filter(({ quantity }) => quantity >= 1).length >
+        0
       );
     },
 
     selectedIngredients: (state) => {
       return state.pizza.ingredients
-        .filter((ingredient) => ingredient.count > 0)
-        .map(({ id, count }) => ({
+        .filter((ingredient) => ingredient.quantity > 0)
+        .map(({ id, quantity }) => ({
           id,
-          count,
+          quantity,
         }));
     },
 

@@ -3,10 +3,10 @@
     <div class="pizza" :class="classModifier">
       <div class="pizza__wrapper">
         <div
-          v-for="{ id, modifier, count } in ingredients"
+          v-for="{ id, modifier, quantity } in ingredients"
           :key="modifier"
           class="pizza__filling"
-          :class="updateIngredientsClass(count, modifier)"
+          :class="updateIngredientsClass(quantity, modifier)"
         />
       </div>
     </div>
@@ -66,11 +66,11 @@ export default {
       this[UPDATE_INGREDIENT_PRICE]();
     },
 
-    updateIngredientsClass(count, modifier) {
+    updateIngredientsClass(quantity, modifier) {
       return [
-        { [`pizza__filling--${modifier}`]: count > 0 },
-        { "pizza__filling--second": count === 2 },
-        { "pizza__filling--third": count === 3 },
+        { [`pizza__filling--${modifier}`]: quantity > 0 },
+        { "pizza__filling--second": quantity === 2 },
+        { "pizza__filling--third": quantity === 3 },
       ];
     },
 

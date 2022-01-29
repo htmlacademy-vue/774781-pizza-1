@@ -2,7 +2,12 @@
   <ul class="cart-list sheet">
     <li class="cart-list__item" v-for="product in products" :key="product.id">
       <ProductItem class="cart-list__product" :product="product" />
-      <ItemCounter class="cart-list__counter" theme="orange" />
+      <ItemCounter
+        class="cart-list__counter"
+        theme="orange"
+        :value="product.quantity"
+        @changeCount="updateProductQuantity($event, id)"
+      />
 
       <div class="cart-list__price">
         <b>{{ product.price }} ₽</b>
@@ -29,6 +34,13 @@ export default {
 
   computed: {
     ...mapState("cart", ["products"]),
+  },
+
+  methods: {
+    updateProductQuantity(quantity, id) {
+      console.log(quantity, id);
+      console.log("надо увеличить количество пиц и обновить цену");
+    },
   },
 };
 </script>

@@ -32,7 +32,7 @@
           <div class="content__result">
             <BuilderPriceCounter />
             <AppButton
-              @click="createOrder()"
+              @click="addPizzaToCart()"
               :disabled="!availableAddOrderToCart"
               >Готовьте</AppButton
             >
@@ -71,7 +71,7 @@ export default {
       return this.hasPizzaName && this.hasIngredients;
     },
 
-    ...mapState(["pizzas"]),
+    ...mapState("cart", ["products"]),
     ...mapState("builder", [
       "pizzaName",
       "selectedSauce",
@@ -85,43 +85,22 @@ export default {
       "selectedIngredients",
       "currentPrice",
     ]),
-    ...mapGetters("auth", ["id"]),
+    ...mapGetters("auth", ["id", "phone"]),
   },
 
   methods: {
-    createOrder() {
-      this[ADD_ENTITY]({
-        entity: "pizzas",
-        value: {
-          name: this.pizzaName,
-          sauceId: this.selectedSauce,
-          doughId: this.selectedDough,
-          sizeId: this.selectedSize,
-          quantity: 0,
-          ingredients: this.selectedIngredients,
-          price: this.currentPrice,
-        },
-      });
-
-      const order = {
-        userId: this.id,
-        phone: this.phone,
-        address: {
-          street: "street",
-          building: "building",
-          flat: "flat",
-          comment: "comment",
-        },
-        pizzas: this.pizzas,
-        misc: [
-          {
-            miscId: 0,
-            quantity: 0,
-          },
-        ],
+    addPizzaToCart() {
+      const pizza = {
+        name: this.pizzaName,
+        sauceId: this.selectedSauce,
+        doughId: this.selectedDough,
+        sizeId: this.selectedSize,
+        quantity: 1,
+        ingredients: this.selectedIngredients,
+        price: this.currentPrice,
       };
 
-      this.addProductToCart(order);
+      this.addProductToCart(pizza);
 
       this[SET_ENTITY](
         { module: "cart", entity: "totalPrice", value: this.currentPrice },

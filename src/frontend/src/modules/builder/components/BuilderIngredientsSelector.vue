@@ -25,7 +25,7 @@
 
         <ul class="ingredients__list">
           <li
-            v-for="{ id, name, modifier, count } in ingredients"
+            v-for="{ id, name, modifier, quantity } in ingredients"
             :key="id"
             class="ingredients__item"
           >
@@ -34,7 +34,7 @@
 
               <ItemCounter
                 class="ingredients__counter"
-                :value="count"
+                :value="quantity"
                 @changeCount="addIngredient($event, id)"
               />
             </AppDrag>
@@ -85,8 +85,8 @@ export default {
       );
     },
 
-    addIngredient(count, id) {
-      this[CHANGE_INGREDIENT_COUNT]({ id, count });
+    addIngredient(quantity, id) {
+      this[CHANGE_INGREDIENT_COUNT]({ id, quantity });
       this[UPDATE_INGREDIENT_PRICE]();
     },
 

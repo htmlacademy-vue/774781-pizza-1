@@ -5,10 +5,6 @@ import { ADD_ENTITY, SET_ENTITY } from "@/store/mutations-types";
 
 Vue.use(Vuex);
 
-const state = () => ({
-  pizzas: [],
-});
-
 const mutations = {
   [ADD_ENTITY](state, { module, entity, value }) {
     module ? state[module][entity].push(value) : state[entity].push(value);
@@ -27,7 +23,6 @@ const actions = {
 };
 
 export default new Vuex.Store({
-  state,
   mutations,
   actions,
   modules: {

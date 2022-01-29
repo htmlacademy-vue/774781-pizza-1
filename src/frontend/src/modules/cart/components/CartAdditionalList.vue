@@ -1,7 +1,7 @@
 <template>
   <ul class="additional-list">
     <li
-      v-for="{ id, name, image, price, count } in misc"
+      v-for="{ id, name, image, price, quantity } in misc"
       :key="id"
       class="additional-list__item sheet"
     >
@@ -17,7 +17,7 @@
 
       <div class="additional-list__wrapper">
         <ItemCounter
-          :value="count"
+          :value="quantity"
           class="additional-list__counter"
           theme="orange"
         />

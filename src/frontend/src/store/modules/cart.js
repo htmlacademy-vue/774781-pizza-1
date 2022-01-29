@@ -1,8 +1,8 @@
 import jsonMisc from "@/static/misc";
 import {
+  ADD_ENTITY,
   SET_ENTITY,
   ADD_MISC_ADDITIONAL_DATA,
-  ADD_ENTITY,
 } from "@/store/mutations-types";
 
 const module = "cart";
@@ -21,7 +21,7 @@ export default {
     [ADD_MISC_ADDITIONAL_DATA](state) {
       state.misc = state.misc.map((misc) => ({
         ...misc,
-        count: 0,
+        quantity: 0,
       }));
     },
   },

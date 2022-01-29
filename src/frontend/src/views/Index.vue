@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { uniqueId } from "lodash";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { SET_ENTITY, ADD_ENTITY } from "@/store/mutations-types";
 
@@ -91,6 +92,7 @@ export default {
   methods: {
     addPizzaToCart() {
       const pizza = {
+        id: uniqueId(),
         name: this.pizzaName,
         sauceId: this.selectedSauce,
         doughId: this.selectedDough,

@@ -24,7 +24,7 @@ import {
 } from "@/common/const.js";
 
 import {
-  ADD_INGREDIENT_COUNT,
+  ADD_INGREDIENT_QUANTITY,
   UPDATE_INGREDIENT_PRICE,
 } from "@/store/mutations-types";
 
@@ -62,7 +62,7 @@ export default {
 
   methods: {
     addIngredient(id) {
-      this[ADD_INGREDIENT_COUNT](id);
+      this[ADD_INGREDIENT_QUANTITY](id);
       this[UPDATE_INGREDIENT_PRICE]();
     },
 
@@ -74,7 +74,10 @@ export default {
       ];
     },
 
-    ...mapMutations("builder", [ADD_INGREDIENT_COUNT, UPDATE_INGREDIENT_PRICE]),
+    ...mapMutations("builder", [
+      ADD_INGREDIENT_QUANTITY,
+      UPDATE_INGREDIENT_PRICE,
+    ]),
   },
 };
 </script>

@@ -7,8 +7,8 @@ import sizesValues from "@/common/enums/sizesValues.js";
 import {
   ADD_PIZZA_ADDITIONAL_DATA,
   UPDATE_INGREDIENT_PRICE,
-  CHANGE_INGREDIENT_COUNT,
-  ADD_INGREDIENT_COUNT,
+  CHANGE_INGREDIENT_QUANTITY,
+  ADD_INGREDIENT_QUANTITY,
   SET_ENTITY,
   SELECT_PIZZA_ENTITY,
 } from "@/store/mutations-types";
@@ -71,7 +71,7 @@ export default {
         );
     },
 
-    [ADD_INGREDIENT_COUNT](state, { id }) {
+    [ADD_INGREDIENT_QUANTITY](state, { id }) {
       const ingredient = state.pizza.ingredients.find(
         (ingredient) => ingredient.id === id
       );
@@ -79,7 +79,7 @@ export default {
       this._vm.$set(ingredient, "quantity", ingredient.quantity + 1);
     },
 
-    [CHANGE_INGREDIENT_COUNT](state, { id, quantity }) {
+    [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
       const ingredient = state.pizza.ingredients.find(
         (ingredient) => ingredient.id === id
       );

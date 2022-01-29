@@ -3,6 +3,7 @@ import {
   ADD_ENTITY,
   SET_ENTITY,
   ADD_MISC_ADDITIONAL_DATA,
+  CHANGE_PRODUCT_QUANTITY,
 } from "@/store/mutations-types";
 
 const module = "cart";
@@ -23,6 +24,13 @@ export default {
         ...misc,
         quantity: 0,
       }));
+    },
+
+    [CHANGE_PRODUCT_QUANTITY](state, { id, quantity }) {
+      console.log(id, quantity);
+      const product = state.products.find((product) => product.id === id);
+
+      this._vm.$set(product, "quantity", quantity);
     },
   },
 

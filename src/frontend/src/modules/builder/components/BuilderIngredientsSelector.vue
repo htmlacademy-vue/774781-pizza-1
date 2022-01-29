@@ -49,7 +49,7 @@
 import { mapState, mapGetters, mapMutations } from "vuex";
 import {
   SELECT_PIZZA_ENTITY,
-  CHANGE_INGREDIENT_COUNT,
+  CHANGE_INGREDIENT_QUANTITY,
   UPDATE_INGREDIENT_PRICE,
   SET_ENTITY,
 } from "@/store/mutations-types";
@@ -86,14 +86,14 @@ export default {
     },
 
     addIngredient(quantity, id) {
-      this[CHANGE_INGREDIENT_COUNT]({ id, quantity });
+      this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
       this[UPDATE_INGREDIENT_PRICE]();
     },
 
     ...mapMutations([SET_ENTITY]),
     ...mapMutations("builder", [
       SELECT_PIZZA_ENTITY,
-      CHANGE_INGREDIENT_COUNT,
+      CHANGE_INGREDIENT_QUANTITY,
       UPDATE_INGREDIENT_PRICE,
     ]),
   },

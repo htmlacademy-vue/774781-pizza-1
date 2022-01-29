@@ -6,7 +6,7 @@
         class="cart-list__counter"
         theme="orange"
         :value="product.quantity"
-        @changeCount="updateProductQuantity($event, id)"
+        @changeCount="updateProductQuantity($event, product.id)"
       />
 
       <div class="cart-list__price">
@@ -21,8 +21,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { ItemCounter, ProductItem } from "@/common/components";
+import { CHANGE_PRODUCT_QUANTITY } from "@/store/mutations-types";
 
 export default {
   name: "CartList",
@@ -38,9 +39,10 @@ export default {
 
   methods: {
     updateProductQuantity(quantity, id) {
-      console.log(quantity, id);
-      console.log("надо увеличить количество пиц и обновить цену");
+      this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
+      console.log("надо обновить цену");
     },
+    ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY]),
   },
 };
 </script>

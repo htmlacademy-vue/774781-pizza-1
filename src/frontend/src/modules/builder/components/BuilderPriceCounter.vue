@@ -1,5 +1,5 @@
 <template>
-  <p>Итого: {{ currentPrice }} ₽</p>
+  <p>Итого: {{ builderPrice }} ₽</p>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
   name: "BuilderPriceCounter",
 
   computed: {
-    ...mapGetters("builder", ["currentPrice"]),
+    ...mapGetters("builder", ["builderPrice"]),
   },
 };
 </script>

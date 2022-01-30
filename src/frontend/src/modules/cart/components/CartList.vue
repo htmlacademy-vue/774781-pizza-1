@@ -23,7 +23,10 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import { ItemCounter, ProductItem } from "@/common/components";
-import { CHANGE_PRODUCT_QUANTITY } from "@/store/mutations-types";
+import {
+  CHANGE_PRODUCT_QUANTITY,
+  UPDATE_PRODUCT_PRICE,
+} from "@/store/mutations-types";
 
 export default {
   name: "CartList",
@@ -40,9 +43,9 @@ export default {
   methods: {
     updateProductQuantity(quantity, id) {
       this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
-      console.log("надо обновить цену");
+      this[UPDATE_PRODUCT_PRICE]({ quantity, id });
     },
-    ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY]),
+    ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY, UPDATE_PRODUCT_PRICE]),
   },
 };
 </script>

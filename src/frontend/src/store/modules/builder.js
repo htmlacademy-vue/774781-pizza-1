@@ -198,7 +198,7 @@ export default {
         }));
     },
 
-    currentPrice: (state) => {
+    builderPrice: (state) => {
       return (
         (state.doughPrice + state.saucePrice + state.ingredientsPrice) *
         state.sizeMultiplier

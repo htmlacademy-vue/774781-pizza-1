@@ -84,7 +84,7 @@ export default {
       "hasPizzaName",
       "hasIngredients",
       "selectedIngredients",
-      "currentPrice",
+      "builderPrice",
     ]),
     ...mapGetters("auth", ["id", "phone"]),
   },
@@ -99,13 +99,14 @@ export default {
         sizeId: this.selectedSize,
         quantity: 1,
         ingredients: this.selectedIngredients,
-        price: this.currentPrice,
+        price: this.builderPrice,
+        basePrice: this.builderPrice,
       };
 
       this.addProductToCart(pizza);
 
       this[SET_ENTITY](
-        { module: "cart", entity: "totalPrice", value: this.currentPrice },
+        { module: "cart", entity: "totalPrice", value: this.builderPrice },
         { root: true }
       );
     },

@@ -9,18 +9,45 @@
       Перейти к конструктору<br />чтоб собрать ещё одну пиццу
     </p>
     <div class="footer__price">
-      <b>Итого: 2 228 ₽</b>
+      <b>Итого: {{ totalPrice }} ₽</b>
     </div>
 
     <div class="footer__submit">
-      <button type="submit" class="button">Оформить заказ</button>
+      <AppButton @click="checkout()">Оформить заказ</AppButton>
     </div>
   </section>
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+import { ADD_ENTITY } from "@/store/mutations-types";
+
 export default {
   name: "AppLayoutFooter",
+
+  computed: {
+    ...mapState("cart", ["totalPrice", "products", "misc"]),
+    ...mapGetters("auth", ["id", "phone"]),
+  },
+
+  methods: {
+    checkout() {
+      const order = {
+        userId: this.id,
+        phone: this.phone,
+        address: {
+          street: "string",
+          building: "string",
+          flat: "string",
+          comment: "string",
+        },
+        pizzas: this.products,
+        misc: this.misc,
+      };
+
+      ADD_ENTITY({ module: "orders", entity: "orders", value: order });
+    },
+  },
 };
 </script>
 

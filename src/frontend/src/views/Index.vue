@@ -22,6 +22,7 @@
             placeholder="Введите название пиццы"
             is-title-hidden
             @input="setPizzaName($event)"
+            :value="pizzaName"
             >Название пиццы</AppInput
           >
 
@@ -109,6 +110,8 @@ export default {
         { module: "cart", entity: "totalPrice", value: this.builderPrice },
         { root: true }
       );
+
+      this.setPizzaName("");
     },
 
     setPizzaName(name) {

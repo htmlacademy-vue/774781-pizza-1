@@ -5,6 +5,7 @@
       :type="type"
       :name="name"
       :placeholder="placeholder"
+      :value="value"
       @input="$emit('input', $event.target.value)"
     />
   </label>
@@ -28,6 +29,11 @@ export default {
     placeholder: {
       type: String,
       default: null,
+    },
+
+    value: {
+      type: String,
+      default: "",
     },
 
     isTitleHidden: {

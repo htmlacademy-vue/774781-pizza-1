@@ -11,8 +11,8 @@
       <h2>{{ product.name }}</h2>
       <ul>
         <li>30 см, на тонком тесте</li>
-        <li>Соус: томатный</li>
-        <li>Начинка: грибы, лук, ветчина, пармезан, ананас</li>
+        <li>Соус: {{ getSauce(product.sauceId) }}</li>
+        <li>Начинка: {{ getfilling(product.ingredients) }}</li>
       </ul>
     </div>
   </div>
@@ -21,10 +21,21 @@
 <script>
 export default {
   name: "ProductItem",
+
   props: {
     product: {
       type: Object,
       required: true,
+    },
+  },
+
+  methods: {
+    getSauce(sauce) {
+      return sauce;
+    },
+
+    getfilling(ingredients) {
+      return ingredients.map((ingredient) => ingredient.name).join(", ");
     },
   },
 };

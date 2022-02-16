@@ -192,9 +192,10 @@ export default {
     selectedIngredients: (state) => {
       return state.pizza.ingredients
         .filter((ingredient) => ingredient.quantity > 0)
-        .map(({ id, quantity }) => ({
+        .map(({ id, quantity, name }) => ({
           id,
           quantity,
+          name,
         }));
     },
 

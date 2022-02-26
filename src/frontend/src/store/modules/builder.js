@@ -21,22 +21,28 @@ export default {
   state: {
     pizza: {},
     pizzaName: "",
-    selectedDough: null,
-    selectedSauce: null,
-    selectedSize: null,
-    doughPrice: 0,
-    saucePrice: 0,
-    sizeMultiplier: 0,
+    selectedDough: {
+      id: null,
+      price: 0,
+    },
+    selectedSauce: {
+      id: null,
+      price: 0,
+    },
+    selectedSize: {
+      id: null,
+      multiplier: 1,
+    },
     ingredientsPrice: 0,
   },
 
   mutations: {
-    [SELECT_PIZZA_ENTITY](state, { entitySelected, entityFrom, id }) {
+    [SELECT_PIZZA_ENTITY](state, { entityFrom, entitySelected, id }) {
       const element = state.pizza[entityFrom].find(
         (element) => element.id === id
       );
 
-      state[entitySelected] = element.id;
+      state[entitySelected] = element;
     },
 
     [ADD_PIZZA_ADDITIONAL_DATA](state) {
@@ -100,43 +106,37 @@ export default {
 
       commit(ADD_PIZZA_ADDITIONAL_DATA);
 
-      commit(SELECT_PIZZA_ENTITY, {
-        entitySelected: "selectedDough",
-        entityFrom: "dough",
-        id: pizza.dough[0].id,
-      });
+      commit(
+        SET_ENTITY,
+        {
+          module,
+          entity: "selectedDough",
+          value: {
+            id: pizza.dough[0].id,
+            price: pizza.dough[0].price,
+          },
+        },
+        { root: true }
+      );
 
-      commit(SELECT_PIZZA_ENTITY, {
-        entitySelected: "selectedSauce",
-        entityFrom: "sauces",
-        id: pizza.sauces[0].id,
-      });
+      commit(
+        SET_ENTITY,
+        {
+          module,
+          entity: "selectedSauce",
+          value: {
+            id: pizza.sauces[0].id,
+            price: pizza.sauces[0].price,
+          },
+        },
+        { root: true }
+      );
 
       commit(SELECT_PIZZA_ENTITY, {
         entitySelected: "selectedSize",
         entityFrom: "sizes",
         id: pizza.sizes[1].id,
       });
-
-      commit(
-        SET_ENTITY,
-        {
-          module,
-          entity: "doughPrice",
-          value: pizza.dough[0].price,
-        },
-        { root: true }
-      );
-
-      commit(
-        SET_ENTITY,
-        {
-          module,
-          entity: "saucePrice",
-          value: pizza.sauces[0].price,
-        },
-        { root: true }
-      );
 
       commit(
         SET_ENTITY,
@@ -156,8 +156,9 @@ export default {
     },
 
     doughName: (state) => {
-      return state.pizza.dough.find((dough) => dough.id === state.selectedDough)
-        .value;
+      return state.pizza.dough.find(
+        (dough) => dough.id === state.selectedDough.id
+      ).value;
     },
 
     ingredients: (state) => {
@@ -170,7 +171,7 @@ export default {
 
     sauseName: (state) => {
       return state.pizza.sauces.find(
-        (sauce) => sauce.id === state.selectedSauce
+        (sauce) => sauce.id === state.selectedSauce.id
       ).value;
     },
 
@@ -201,8 +202,10 @@ export default {
 
     builderPrice: (state) => {
       return (
-        (state.doughPrice + state.saucePrice + state.ingredientsPrice) *
-        state.sizeMultiplier
+        (state.selectedDough.price +
+          state.selectedSauce.price +
+          state.ingredientsPrice) *
+        state.selectedSize.multiplier
       );
     },
   },

@@ -6,7 +6,7 @@
 
     <div class="sheet__content dough">
       <label
-        v-for="{ id, name, description, value, price } in dough"
+        v-for="{ id, name, description, value } in dough"
         :key="id"
         class="dough__input"
         :class="`dough__input--${value}`"
@@ -16,8 +16,8 @@
           name="dought"
           class="visually-hidden"
           :value="value"
-          :checked="id === selectedDough"
-          @change="updateDough(id, price)"
+          :checked="id === selectedDough.id"
+          @change="selectDough(id)"
         />
         <b>{{ name }}</b>
         <span>{{ description }}</span>
@@ -39,19 +39,13 @@ export default {
   },
 
   methods: {
-    updateDough(id, price) {
+    selectDough(id) {
       this[SELECT_PIZZA_ENTITY]({
         entitySelected: "selectedDough",
         entityFrom: "dough",
         id,
       });
-
-      this[SET_ENTITY](
-        { module: "builder", entity: "doughPrice", value: price },
-        { root: true }
-      );
     },
-
     ...mapMutations("builder", [SELECT_PIZZA_ENTITY]),
     ...mapMutations([SET_ENTITY]),
   },

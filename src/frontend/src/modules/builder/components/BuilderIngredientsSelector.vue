@@ -9,14 +9,14 @@
         <p>Основной соус:</p>
 
         <RadioButton
-          v-for="{ id, name, value, price } in sauces"
+          v-for="{ id, name, value } in sauces"
           :key="id"
           class="ingredients__input"
           name="sauces"
           :title="name"
           :value="value"
-          :checked="id === selectedSauce"
-          @change="updateSauce(id, price)"
+          :checked="id === selectedSauce.id"
+          @change="selectSauce(id)"
         />
       </div>
 
@@ -72,17 +72,12 @@ export default {
   },
 
   methods: {
-    updateSauce(id, price) {
+    selectSauce(id) {
       this[SELECT_PIZZA_ENTITY]({
         entitySelected: "selectedSauce",
         entityFrom: "sauces",
         id,
       });
-
-      this[SET_ENTITY](
-        { module: "builder", entity: "saucePrice", value: price },
-        { root: true }
-      );
     },
 
     addIngredient(quantity, id) {

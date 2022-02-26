@@ -95,9 +95,9 @@ export default {
       const pizza = {
         id: uniqueId(),
         name: this.pizzaName,
-        sauceId: this.selectedSauce,
-        doughId: this.selectedDough,
-        sizeId: this.selectedSize,
+        sauceId: this.selectedSauce.id,
+        doughId: this.selectedDough.id,
+        sizeId: this.selectedSize.id,
         quantity: 1,
         ingredients: this.selectedIngredients,
         price: this.builderPrice,

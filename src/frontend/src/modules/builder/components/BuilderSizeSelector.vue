@@ -4,7 +4,7 @@
 
     <div class="sheet__content diameter">
       <label
-        v-for="{ id, value, name, multiplier } in sizes"
+        v-for="{ id, value, name } in sizes"
         :key="id"
         :class="`diameter__input diameter__input--${value}`"
       >
@@ -13,8 +13,8 @@
           name="diameter"
           :value="value"
           class="visually-hidden"
-          :checked="id === selectedSize"
-          @change="updateSize(id, multiplier)"
+          :checked="id === selectedSize.id"
+          @change="selectSize(id)"
         />
         <span>{{ name }}</span>
       </label>
@@ -35,17 +35,12 @@ export default {
   },
 
   methods: {
-    updateSize(id, price) {
+    selectSize(id) {
       this[SELECT_PIZZA_ENTITY]({
         entitySelected: "selectedSize",
         entityFrom: "sizes",
         id,
       });
-
-      this[SET_ENTITY](
-        { module: "builder", entity: "sizeMultiplier", value: price },
-        { root: true }
-      );
     },
 
     ...mapMutations([SET_ENTITY]),

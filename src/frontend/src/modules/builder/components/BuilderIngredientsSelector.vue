@@ -15,7 +15,7 @@
           name="sauces"
           :title="name"
           :value="value"
-          :checked="id === selectedSauce.id"
+          :checked="id === sauceId"
           @change="selectSauce(id)"
         />
       </div>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import {
   SELECT_PIZZA_ENTITY,
   CHANGE_INGREDIENT_QUANTITY,
@@ -67,15 +67,13 @@ export default {
   },
 
   computed: {
-    ...mapState("builder", ["selectedSauce"]),
-    ...mapGetters("builder", ["sauces", "ingredients"]),
+    ...mapGetters("builder", ["sauces", "ingredients", "sauceId"]),
   },
 
   methods: {
     selectSauce(id) {
       this[SELECT_PIZZA_ENTITY]({
-        entitySelected: "selectedSauce",
-        entityFrom: "sauces",
+        entity: "sauceId",
         id,
       });
     },

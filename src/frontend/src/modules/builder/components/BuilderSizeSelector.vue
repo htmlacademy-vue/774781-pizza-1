@@ -13,7 +13,7 @@
           name="diameter"
           :value="value"
           class="visually-hidden"
-          :checked="id === selectedSize.id"
+          :checked="id === sizeId"
           @change="selectSize(id)"
         />
         <span>{{ name }}</span>
@@ -23,22 +23,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { SELECT_PIZZA_ENTITY, SET_ENTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderSizeSelector",
 
   computed: {
-    ...mapState("builder", ["selectedSize"]),
-    ...mapGetters("builder", ["sizes"]),
+    ...mapGetters("builder", ["sizes", "sizeId"]),
   },
 
   methods: {
     selectSize(id) {
       this[SELECT_PIZZA_ENTITY]({
-        entitySelected: "selectedSize",
-        entityFrom: "sizes",
+        entity: "sizeId",
         id,
       });
     },

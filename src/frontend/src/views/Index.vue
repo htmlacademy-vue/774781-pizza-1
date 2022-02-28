@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import { uniqueId } from "lodash";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { SET_ENTITY, ADD_ENTITY } from "@/store/mutations-types";
 
@@ -74,35 +73,20 @@ export default {
     },
 
     ...mapState("cart", ["products"]),
-    ...mapState("builder", [
-      "pizzaName",
-      "selectedSauce",
-      "selectedDough",
-      "selectedSize",
-    ]),
+    ...mapState("builder", ["currentPizza"]),
 
     ...mapGetters("builder", [
       "hasPizzaName",
       "hasIngredients",
-      "selectedIngredients",
       "builderPrice",
+      "pizzaName",
     ]),
     ...mapGetters("auth", ["id", "phone"]),
   },
 
   methods: {
     addPizzaToCart() {
-      const pizza = {
-        id: uniqueId(),
-        name: this.pizzaName,
-        sauceId: this.selectedSauce.id,
-        doughId: this.selectedDough.id,
-        sizeId: this.selectedSize.id,
-        quantity: 1,
-        ingredients: this.selectedIngredients,
-        price: this.builderPrice,
-        basePrice: this.builderPrice,
-      };
+      const pizza = { ...this.currentPizza };
 
       this.addProductToCart(pizza);
 

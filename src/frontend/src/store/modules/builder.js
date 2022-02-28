@@ -3,73 +3,77 @@ import doughValues from "@/common/enums/doughValues.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
-
 import {
-  ADD_PIZZA_ADDITIONAL_DATA,
+  ADD_BUILDER_ADDITIONAL_DATA,
   UPDATE_INGREDIENT_PRICE,
   CHANGE_INGREDIENT_QUANTITY,
   ADD_INGREDIENT_QUANTITY,
-  SET_ENTITY,
   SELECT_PIZZA_ENTITY,
+  SET_BUILDER,
+  SET_PIZZA_ENTITY,
 } from "@/store/mutations-types";
-
-const module = "builder";
 
 export default {
   namespaced: true,
 
   state: {
-    pizza: {},
-    pizzaName: "",
-    selectedDough: {
-      id: null,
-      price: 0,
+    builder: {
+      dough: [],
+      sauces: [],
+      ingredients: [],
+      sizes: [],
     },
-    selectedSauce: {
-      id: null,
-      price: 0,
-    },
-    selectedSize: {
-      id: null,
-      multiplier: 1,
+    currentPizza: {
+      name: "",
+      doughId: null,
+      sauceId: null,
+      sizeId: null,
+      ingredients: [],
+      quantity: 1,
     },
     ingredientsPrice: 0,
   },
 
   mutations: {
-    [SELECT_PIZZA_ENTITY](state, { entityFrom, entitySelected, id }) {
-      const element = state.pizza[entityFrom].find(
-        (element) => element.id === id
-      );
-
-      state[entitySelected] = element;
+    [SET_BUILDER](state, { entity, value }) {
+      state.builder[entity] = value;
     },
 
-    [ADD_PIZZA_ADDITIONAL_DATA](state) {
-      state.pizza.dough = state.pizza.dough.map((dough) => ({
+    [SET_PIZZA_ENTITY](state, { entity, value }) {
+      state.currentPizza[entity] = value;
+    },
+
+    [SELECT_PIZZA_ENTITY](state, { entity, id }) {
+      state.currentPizza[entity] = id;
+    },
+
+    [ADD_BUILDER_ADDITIONAL_DATA](state) {
+      state.builder.dough = state.builder.dough.map((dough) => ({
         ...dough,
         value: doughValues[dough.name],
       }));
 
-      state.pizza.ingredients = state.pizza.ingredients.map((ingredient) => ({
-        ...ingredient,
-        modifier: ingredientModifiers[ingredient.name],
-        quantity: 0,
-      }));
+      state.builder.ingredients = state.builder.ingredients.map(
+        (ingredient) => ({
+          ...ingredient,
+          modifier: ingredientModifiers[ingredient.name],
+          quantity: 0,
+        })
+      );
 
-      state.pizza.sauces = state.pizza.sauces.map((sauce) => ({
+      state.builder.sauces = state.builder.sauces.map((sauce) => ({
         ...sauce,
         value: saucesValues[sauce.name],
       }));
 
-      state.pizza.sizes = state.pizza.sizes.map((size) => ({
+      state.builder.sizes = state.builder.sizes.map((size) => ({
         ...size,
         value: sizesValues[size.multiplier],
       }));
     },
 
     [UPDATE_INGREDIENT_PRICE](state) {
-      state.ingredientsPrice = state.pizza.ingredients
+      state.ingredientsPrice = state.builder.ingredients
         .filter(({ quantity }) => quantity > 0)
         .reduce(
           (accumulator, { quantity, price }) => accumulator + price * quantity,
@@ -78,7 +82,7 @@ export default {
     },
 
     [ADD_INGREDIENT_QUANTITY](state, { id }) {
-      const ingredient = state.pizza.ingredients.find(
+      const ingredient = state.builder.ingredients.find(
         (ingredient) => ingredient.id === id
       );
 
@@ -86,7 +90,7 @@ export default {
     },
 
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
-      const ingredient = state.pizza.ingredients.find(
+      const ingredient = state.builder.ingredients.find(
         (ingredient) => ingredient.id === id
       );
 
@@ -95,118 +99,94 @@ export default {
   },
 
   actions: {
-    fetchPizza({ commit }) {
-      const pizza = jsonPizza;
+    fetchDough({ commit }) {
+      const { dough } = jsonPizza;
+      commit(SET_BUILDER, { entity: "dough", value: dough });
+    },
 
-      commit(
-        SET_ENTITY,
-        { module, entity: "pizza", value: pizza },
-        { root: true }
-      );
+    fetchSauces({ commit }) {
+      const { sauces } = jsonPizza;
+      commit(SET_BUILDER, { entity: "sauces", value: sauces });
+    },
 
-      commit(ADD_PIZZA_ADDITIONAL_DATA);
+    fetchIngredients({ commit }) {
+      const { ingredients } = jsonPizza;
+      commit(SET_BUILDER, { entity: "ingredients", value: ingredients });
+    },
 
-      commit(
-        SET_ENTITY,
-        {
-          module,
-          entity: "selectedDough",
-          value: {
-            id: pizza.dough[0].id,
-            price: pizza.dough[0].price,
-          },
-        },
-        { root: true }
-      );
+    fetchSizes({ commit }) {
+      const { sizes } = jsonPizza;
+      commit(SET_BUILDER, { entity: "sizes", value: sizes });
+    },
 
-      commit(
-        SET_ENTITY,
-        {
-          module,
-          entity: "selectedSauce",
-          value: {
-            id: pizza.sauces[0].id,
-            price: pizza.sauces[0].price,
-          },
-        },
-        { root: true }
-      );
+    fetchBuilder({ dispatch }) {
+      dispatch("fetchDough");
+      dispatch("fetchSauces");
+      dispatch("fetchIngredients");
+      dispatch("fetchSizes");
+    },
 
-      commit(SELECT_PIZZA_ENTITY, {
-        entitySelected: "selectedSize",
-        entityFrom: "sizes",
-        id: pizza.sizes[1].id,
+    initBuilder({ dispatch, commit, state }) {
+      dispatch("fetchBuilder");
+      commit(ADD_BUILDER_ADDITIONAL_DATA);
+      commit(SET_PIZZA_ENTITY, {
+        entity: "doughId",
+        value: state.builder.dough[0].id,
       });
 
-      commit(
-        SET_ENTITY,
-        {
-          module,
-          entity: "sizeMultiplier",
-          value: pizza.sizes[1].multiplier,
-        },
-        { root: true }
-      );
+      commit(SET_PIZZA_ENTITY, {
+        entity: "sauceId",
+        value: state.builder.sauces[0].id,
+      });
+
+      commit(SET_PIZZA_ENTITY, {
+        entity: "sizeId",
+        value: state.builder.sizes[0].id,
+      });
     },
   },
 
   getters: {
-    dough: (state) => {
-      return state.pizza.dough;
-    },
+    builder: (state) => state.builder,
+    currentPizza: (state) => state.currentPizza,
 
-    doughName: (state) => {
-      return state.pizza.dough.find(
-        (dough) => dough.id === state.selectedDough.id
-      ).value;
-    },
+    dough: (_, { builder }) => builder.dough,
+    doughId: (_, { currentPizza }) => currentPizza.doughId,
+    selectedDough: (_, { dough, doughId }) =>
+      dough.find((d) => d.id === doughId),
+    doughName: (_, { selectedDough }) => selectedDough.value,
+    doughPrice: (_, { selectedDough }) => selectedDough.price,
 
-    ingredients: (state) => {
-      return state.pizza.ingredients;
-    },
+    sauces: (_, { builder }) => builder.sauces,
+    sauceId: (_, { currentPizza }) => currentPizza.sauceId,
+    selectedSauce: (_, { sauces, sauceId }) =>
+      sauces.find((sauce) => sauce.id === sauceId),
+    sauseName: (_, { selectedSauce }) => selectedSauce.value,
+    sausePrice: (_, { selectedSauce }) => selectedSauce.price,
 
-    sauces: (state) => {
-      return state.pizza.sauces;
-    },
+    sizes: (_, { builder }) => builder.sizes,
+    sizeId: (_, { currentPizza }) => currentPizza.sizeId,
+    selectedSize: (_, { sizes, sizeId }) =>
+      sizes.find((size) => size.id === sizeId),
+    sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
 
-    sauseName: (state) => {
-      return state.pizza.sauces.find(
-        (sauce) => sauce.id === state.selectedSauce.id
-      ).value;
-    },
+    pizzaName: (_, { currentPizza }) => currentPizza.name,
+    hasPizzaName: (_, { pizzaName }) => pizzaName.length > 0,
 
-    sizes: (state) => {
-      return state.pizza.sizes;
-    },
+    ingredients: (_, { builder }) => builder.ingredients,
+    hasIngredients: (_, { ingredients }) =>
+      ingredients.filter(({ quantity }) => quantity >= 1).length > 0,
 
-    hasPizzaName: (state) => {
-      return state.pizzaName.length > 0;
-    },
-
-    hasIngredients: (state) => {
-      return (
-        state.pizza.ingredients.filter(({ quantity }) => quantity >= 1).length >
-        0
-      );
-    },
-
-    selectedIngredients: (state) => {
-      return state.pizza.ingredients
+    selectedIngredients: (state) =>
+      state.builder.ingredients
         .filter((ingredient) => ingredient.quantity > 0)
         .map(({ id, quantity, name }) => ({
           id,
           quantity,
           name,
-        }));
-    },
+        })),
 
-    builderPrice: (state) => {
-      return (
-        (state.selectedDough.price +
-          state.selectedSauce.price +
-          state.ingredientsPrice) *
-        state.selectedSize.multiplier
-      );
-    },
+    builderPrice: (state, { doughPrice, sausePrice, sizeMultiplier }) =>
+      (doughPrice + sausePrice + state.ingredientsPrice) * sizeMultiplier,
   },
 };

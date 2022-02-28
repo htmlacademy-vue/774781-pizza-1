@@ -16,7 +16,7 @@
           name="dought"
           class="visually-hidden"
           :value="value"
-          :checked="id === selectedDough.id"
+          :checked="id === doughId"
           @change="selectDough(id)"
         />
         <b>{{ name }}</b>
@@ -27,22 +27,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { SELECT_PIZZA_ENTITY, SET_ENTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderDoughSelector",
 
   computed: {
-    ...mapState("builder", ["selectedDough"]),
-    ...mapGetters("builder", ["dough"]),
+    ...mapGetters("builder", ["dough", "doughId"]),
   },
 
   methods: {
     selectDough(id) {
       this[SELECT_PIZZA_ENTITY]({
-        entitySelected: "selectedDough",
-        entityFrom: "dough",
+        entity: "doughId",
         id,
       });
     },

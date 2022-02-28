@@ -23,10 +23,7 @@ import {
   SAUCE_CREAMY_VALUE,
 } from "@/common/const.js";
 
-import {
-  ADD_INGREDIENT_QUANTITY,
-  UPDATE_INGREDIENT_PRICE,
-} from "@/store/mutations-types";
+import { ADD_INGREDIENT_QUANTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaView",
@@ -63,7 +60,6 @@ export default {
   methods: {
     addIngredient(id) {
       this[ADD_INGREDIENT_QUANTITY](id);
-      this[UPDATE_INGREDIENT_PRICE]();
     },
 
     updateIngredientsClass(quantity, modifier) {
@@ -74,10 +70,7 @@ export default {
       ];
     },
 
-    ...mapMutations("builder", [
-      ADD_INGREDIENT_QUANTITY,
-      UPDATE_INGREDIENT_PRICE,
-    ]),
+    ...mapMutations("builder", [ADD_INGREDIENT_QUANTITY]),
   },
 };
 </script>

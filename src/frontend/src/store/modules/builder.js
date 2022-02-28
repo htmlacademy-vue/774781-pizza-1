@@ -5,7 +5,6 @@ import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
 import {
   ADD_BUILDER_ADDITIONAL_DATA,
-  UPDATE_INGREDIENT_PRICE,
   CHANGE_INGREDIENT_QUANTITY,
   ADD_INGREDIENT_QUANTITY,
   SELECT_PIZZA_ENTITY,
@@ -31,7 +30,6 @@ export default {
       ingredients: [],
       quantity: 1,
     },
-    ingredientsPrice: 0,
   },
 
   mutations: {
@@ -70,15 +68,6 @@ export default {
         ...size,
         value: sizesValues[size.multiplier],
       }));
-    },
-
-    [UPDATE_INGREDIENT_PRICE](state) {
-      state.ingredientsPrice = state.builder.ingredients
-        .filter(({ quantity }) => quantity > 0)
-        .reduce(
-          (accumulator, { quantity, price }) => accumulator + price * quantity,
-          0
-        );
     },
 
     [ADD_INGREDIENT_QUANTITY](state, { id }) {
@@ -176,17 +165,25 @@ export default {
     ingredients: (_, { builder }) => builder.ingredients,
     hasIngredients: (_, { ingredients }) =>
       ingredients.filter(({ quantity }) => quantity >= 1).length > 0,
+    ingredientsPrice: (_, { ingredients }) =>
+      ingredients
+        .filter(({ quantity }) => quantity > 0)
+        .reduce(
+          (accumulator, { quantity, price }) => accumulator + price * quantity,
+          0
+        ),
 
-    selectedIngredients: (state) =>
-      state.builder.ingredients
+    selectedIngredients: (_, { ingredients }) =>
+      ingredients
         .filter((ingredient) => ingredient.quantity > 0)
-        .map(({ id, quantity, name }) => ({
+        .map(({ id, quantity }) => ({
           id,
           quantity,
-          name,
         })),
 
-    builderPrice: (state, { doughPrice, sausePrice, sizeMultiplier }) =>
-      (doughPrice + sausePrice + state.ingredientsPrice) * sizeMultiplier,
+    builderPrice: (
+      _,
+      { doughPrice, sausePrice, sizeMultiplier, ingredientsPrice }
+    ) => (doughPrice + sausePrice + ingredientsPrice) * sizeMultiplier,
   },
 };

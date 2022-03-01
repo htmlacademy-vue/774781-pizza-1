@@ -1,5 +1,5 @@
 import jsonPizza from "@/static/pizza.json";
-import doughValues from "@/common/enums/doughValues.js";
+import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
@@ -49,6 +49,7 @@ export default {
       state.builder.dough = state.builder.dough.map((dough) => ({
         ...dough,
         value: doughValues[dough.name],
+        size: doughSizes[dough.name],
       }));
 
       state.builder.ingredients = state.builder.ingredients.map(
@@ -143,13 +144,16 @@ export default {
     doughId: (_, { currentPizza }) => currentPizza.doughId,
     selectedDough: (_, { dough, doughId }) =>
       dough.find((d) => d.id === doughId),
+
     doughName: (_, { selectedDough }) => selectedDough.value,
+    doughSize: (_, { selectedDough }) => selectedDough.size,
     doughPrice: (_, { selectedDough }) => selectedDough.price,
 
     sauces: (_, { builder }) => builder.sauces,
     sauceId: (_, { currentPizza }) => currentPizza.sauceId,
     selectedSauce: (_, { sauces, sauceId }) =>
       sauces.find((sauce) => sauce.id === sauceId),
+
     sauseName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
 
@@ -157,6 +161,7 @@ export default {
     sizeId: (_, { currentPizza }) => currentPizza.sizeId,
     selectedSize: (_, { sizes, sizeId }) =>
       sizes.find((size) => size.id === sizeId),
+
     sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
 
     pizzaName: (_, { currentPizza }) => currentPizza.name,
@@ -165,6 +170,7 @@ export default {
     ingredients: (_, { builder }) => builder.ingredients,
     hasIngredients: (_, { ingredients }) =>
       ingredients.filter(({ quantity }) => quantity >= 1).length > 0,
+
     ingredientsPrice: (_, { ingredients }) =>
       ingredients
         .filter(({ quantity }) => quantity > 0)
@@ -172,6 +178,20 @@ export default {
           (accumulator, { quantity, price }) => accumulator + price * quantity,
           0
         ),
+
+    ingredientNames: (state) => {
+      let result = [];
+
+      state.builder.ingredients.forEach((builderIngredient) => {
+        state.currentPizza.ingredients.forEach((ingredient) => {
+          if (ingredient.id === builderIngredient.id) {
+            result.push(builderIngredient.name);
+          }
+        });
+      });
+
+      return result;
+    },
 
     selectedIngredients: (_, { ingredients }) =>
       ingredients

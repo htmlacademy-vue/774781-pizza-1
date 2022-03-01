@@ -15,46 +15,17 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-
-import {
-  DOUGH_LIGHT_VALUE,
-  DOUGH_LARGE_VALUE,
-  SAUCE_TOMATO_VALUE,
-  SAUCE_CREAMY_VALUE,
-} from "@/common/const.js";
-
 import { ADD_INGREDIENT_QUANTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaView",
 
   computed: {
-    doughLight() {
-      return this.doughName === DOUGH_LIGHT_VALUE;
-    },
-
-    doughLarge() {
-      return this.doughName === DOUGH_LARGE_VALUE;
-    },
-
-    sauceTomato() {
-      return this.sauseName === SAUCE_TOMATO_VALUE;
-    },
-
-    sauceCreamy() {
-      return this.sauseName === SAUCE_CREAMY_VALUE;
-    },
-
     classModifier() {
-      return {
-        "pizza--foundation--big-creamy": this.doughLarge && this.sauceCreamy,
-        "pizza--foundation--big-tomato": this.doughLarge && this.sauceTomato,
-        "pizza--foundation--small-creamy": this.doughLight && this.sauceCreamy,
-        "pizza--foundation--small-tomato": this.doughLight && this.sauceTomato,
-      };
+      return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
     },
 
-    ...mapGetters("builder", ["ingredients", "sauseName", "doughName"]),
+    ...mapGetters("builder", ["ingredients", "sauseName", "doughSize"]),
   },
 
   methods: {

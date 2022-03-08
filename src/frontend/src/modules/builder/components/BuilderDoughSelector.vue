@@ -40,7 +40,7 @@ export default {
   methods: {
     selectDough(id) {
       this[SELECT_PIZZA_ENTITY]({
-        entity: "doughId",
+        entityFrom: "dough",
         id,
       });
     },

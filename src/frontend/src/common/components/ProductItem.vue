@@ -10,15 +10,17 @@
     <div class="product__text">
       <h2>{{ product.name }}</h2>
       <ul>
-        <li>30 см, на тонком тесте</li>
-        <li>Соус: {{ getSauce(product.sauceId) }}</li>
-        <li>Начинка: {{ getfilling(product.ingredients) }}</li>
+        <li>{{ product.size.name }}, {{ doughTitle(product.dough.id) }}</li>
+        <li>Соус: {{ product.sauce.name.toLowerCase() }}</li>
+        <li>Начинка: {{ getIngredientNames(product.ingredients) }}</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "ProductItem",
 
@@ -29,13 +31,13 @@ export default {
     },
   },
 
-  methods: {
-    getSauce(sauce) {
-      return sauce;
-    },
+  computed: {
+    ...mapGetters("builder", ["getIngredientNames"]),
+  },
 
-    getfilling(ingredients) {
-      return ingredients.map((ingredient) => ingredient.name).join(", ");
+  methods: {
+    doughTitle(doughId) {
+      return doughId === 1 ? "на тонком тесте" : "на толстом тесте";
     },
   },
 };

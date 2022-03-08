@@ -6,7 +6,9 @@
         class="cart-list__counter"
         theme="orange"
         :value="product.quantity"
-        @changeCount="updateProductQuantity($event, product.id)"
+        @changeCount="
+          updateProductQuantity($event, product.id, product.basePrice)
+        "
       />
 
       <div class="cart-list__price">
@@ -41,9 +43,9 @@ export default {
   },
 
   methods: {
-    updateProductQuantity(quantity, id) {
+    updateProductQuantity(quantity, id, basePrice) {
       this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
-      this[UPDATE_PRODUCT_PRICE]({ quantity, id });
+      this[UPDATE_PRODUCT_PRICE]({ quantity, id, basePrice });
     },
     ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY, UPDATE_PRODUCT_PRICE]),
   },

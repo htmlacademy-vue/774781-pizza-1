@@ -72,7 +72,8 @@ export default {
   methods: {
     selectSauce(id) {
       this[SELECT_PIZZA_ENTITY]({
-        entity: "sauceId",
+        entityFrom: "sauces",
+        entityTo: "sauce",
         id,
       });
     },

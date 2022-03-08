@@ -36,7 +36,8 @@ export default {
   methods: {
     selectSize(id) {
       this[SELECT_PIZZA_ENTITY]({
-        entity: "sizeId",
+        entityFrom: "sizes",
+        entityTo: "size",
         id,
       });
     },

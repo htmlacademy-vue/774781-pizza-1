@@ -91,17 +91,26 @@ export default {
   methods: {
     addPizzaToCart() {
       this[SET_PIZZA_ENTITY]({
+        entity: "basePrice",
+        value: this.builderPrice,
+      });
+
+      this[SET_PIZZA_ENTITY]({
+        entity: "price",
+        value: this.builderPrice,
+      });
+
+      this[SET_PIZZA_ENTITY]({
         entity: "ingredients",
         value: this.selectedIngredients,
       });
+
       this.addProductToCart(this.currentPizza);
 
       this[SET_ENTITY](
         { module: "cart", entity: "totalPrice", value: this.builderPrice },
         { root: true }
       );
-
-      this.setPizzaName("");
     },
 
     setPizzaName(name) {

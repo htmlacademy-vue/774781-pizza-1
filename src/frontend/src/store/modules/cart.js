@@ -27,19 +27,20 @@ export default {
       }));
     },
 
-    [UPDATE_PRODUCT_PRICE](state, { id, quantity }) {
+    [UPDATE_PRODUCT_PRICE](state, { id, quantity, basePrice }) {
+      const idx = state.products.findIndex((product) => product.id === id);
+
       if (quantity === 0) {
-        const productIndex = state.products.findIndex((p) => p.id === id);
-
-        state.products.splice(productIndex, 1);
-        state.totalPrice = 0;
+        state.products.splice(idx, 1);
         return;
-      } else {
-        const product = state.products.find((p) => p.id === id);
-
-        this._vm.$set(product, "price", product.basePrice * quantity);
-        state.totalPrice = product.basePrice * quantity;
       }
+
+      const product = state.products.find((product) => product.id === id);
+
+      state.products.splice(idx, 1, {
+        ...product,
+        price: basePrice * quantity,
+      });
     },
 
     [CHANGE_PRODUCT_QUANTITY](state, { id, quantity }) {

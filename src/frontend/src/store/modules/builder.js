@@ -1,3 +1,4 @@
+import { uniqueId } from "lodash";
 import jsonPizza from "@/static/pizza.json";
 import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
@@ -23,10 +24,13 @@ export default {
       sizes: [],
     },
     currentPizza: {
+      id: uniqueId("currentPizza_"),
       name: "",
-      doughId: null,
-      sauceId: null,
-      sizeId: null,
+      dough: {},
+      sauce: {},
+      size: {},
+      basePrice: 0,
+      price: 0,
       ingredients: [],
       quantity: 1,
     },
@@ -41,8 +45,12 @@ export default {
       state.currentPizza[entity] = value;
     },
 
-    [SELECT_PIZZA_ENTITY](state, { entity, id }) {
-      state.currentPizza[entity] = id;
+    [SELECT_PIZZA_ENTITY](state, { entityFrom, entityTo = entityFrom, id }) {
+      const element = state.builder[entityFrom].find(
+        (element) => element.id === id
+      );
+
+      state.currentPizza[entityTo] = element;
     },
 
     [ADD_BUILDER_ADDITIONAL_DATA](state) {
@@ -120,18 +128,18 @@ export default {
       dispatch("fetchBuilder");
       commit(ADD_BUILDER_ADDITIONAL_DATA);
       commit(SET_PIZZA_ENTITY, {
-        entity: "doughId",
-        value: state.builder.dough[0].id,
+        entity: "dough",
+        value: state.builder.dough[0],
       });
 
       commit(SET_PIZZA_ENTITY, {
-        entity: "sauceId",
-        value: state.builder.sauces[0].id,
+        entity: "sauce",
+        value: state.builder.sauces[0],
       });
 
       commit(SET_PIZZA_ENTITY, {
-        entity: "sizeId",
-        value: state.builder.sizes[0].id,
+        entity: "size",
+        value: state.builder.sizes[0],
       });
     },
   },
@@ -141,7 +149,7 @@ export default {
     currentPizza: (state) => state.currentPizza,
 
     dough: (_, { builder }) => builder.dough,
-    doughId: (_, { currentPizza }) => currentPizza.doughId,
+    doughId: (_, { currentPizza }) => currentPizza.dough.id,
     selectedDough: (_, { dough, doughId }) =>
       dough.find((d) => d.id === doughId),
 
@@ -150,7 +158,7 @@ export default {
     doughPrice: (_, { selectedDough }) => selectedDough.price,
 
     sauces: (_, { builder }) => builder.sauces,
-    sauceId: (_, { currentPizza }) => currentPizza.sauceId,
+    sauceId: (_, { currentPizza }) => currentPizza.sauce.id,
     selectedSauce: (_, { sauces, sauceId }) =>
       sauces.find((sauce) => sauce.id === sauceId),
 
@@ -158,7 +166,7 @@ export default {
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
 
     sizes: (_, { builder }) => builder.sizes,
-    sizeId: (_, { currentPizza }) => currentPizza.sizeId,
+    sizeId: (_, { currentPizza }) => currentPizza.size.id,
     selectedSize: (_, { sizes, sizeId }) =>
       sizes.find((size) => size.id === sizeId),
 
@@ -179,18 +187,18 @@ export default {
           0
         ),
 
-    ingredientNames: (state) => {
+    getIngredientNames: (state) => (ingredients) => {
       let result = [];
 
       state.builder.ingredients.forEach((builderIngredient) => {
-        state.currentPizza.ingredients.forEach((ingredient) => {
+        ingredients.forEach((ingredient) => {
           if (ingredient.id === builderIngredient.id) {
             result.push(builderIngredient.name);
           }
         });
       });
 
-      return result;
+      return result.join(", ");
     },
 
     selectedIngredients: (_, { ingredients }) =>

@@ -16,7 +16,6 @@ export default {
     misc: [],
     products: [],
     checkoutStatus: null,
-    totalPrice: 0,
   },
 
   mutations: {
@@ -51,7 +50,20 @@ export default {
   },
 
   getters: {
-    hasProducts: (state) => state.products.length > 0,
+    products: (state) => state.products,
+    hasProducts: (_, { products }) => products.length > 0,
+    productsPrice: (_, { products }) =>
+      products
+        .filter(({ price }) => price > 0)
+        .reduce((accumulator, { price }) => accumulator + price, 0),
+
+    misc: (state) => state.misc,
+    miscPrice: (_, { misc }) =>
+      misc
+        .filter(({ price }) => price > 0)
+        .reduce((accumulator, { price }) => accumulator + price, 0),
+
+    totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
   },
 
   actions: {

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import { Logo } from "@/common/components";
 
 export default {
@@ -49,7 +49,7 @@ export default {
 
   computed: {
     ...mapState("auth", ["user"]),
-    ...mapState("cart", ["totalPrice"]),
+    ...mapGetters("cart", ["totalPrice"]),
   },
 };
 </script>

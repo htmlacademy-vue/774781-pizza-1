@@ -106,11 +106,6 @@ export default {
       });
 
       this.addProductToCart(this.currentPizza);
-
-      this[SET_ENTITY](
-        { module: "cart", entity: "totalPrice", value: this.builderPrice },
-        { root: true }
-      );
     },
 
     setPizzaName(name) {

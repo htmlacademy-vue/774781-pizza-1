@@ -50,6 +50,10 @@ export default {
     },
   },
 
+  getters: {
+    hasProducts: (state) => state.products.length > 0,
+  },
+
   actions: {
     fetchMisc({ commit }) {
       const misc = jsonMisc;

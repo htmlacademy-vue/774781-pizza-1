@@ -6,7 +6,7 @@
           <AppTitle size="big">Корзина</AppTitle>
         </div>
 
-        <div v-if="products.length === 0" class="sheet cart__empty">
+        <div v-if="!hasProducts" class="sheet cart__empty">
           <p>В корзине нет ни одного товара</p>
         </div>
 
@@ -23,12 +23,12 @@
         </template>
       </div>
     </main>
-    <AppLayoutFooter />
+    <AppLayoutFooter v-if="hasProducts" />
   </form>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import {
   CartList,
   CartAdditionalList,
@@ -45,7 +45,7 @@ export default {
   },
 
   computed: {
-    ...mapState("cart", ["products"]),
+    ...mapGetters("cart", ["hasProducts"]),
   },
 };
 </script>

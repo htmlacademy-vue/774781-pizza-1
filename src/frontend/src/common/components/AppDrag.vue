@@ -1,6 +1,6 @@
 <template>
   <div
-    :draggable="true"
+    :draggable="setDraggable"
     @dragstart.self="onDrag"
     @dragover.prevent
     @dragenter.prevent
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { counterLimit } from "@/common/const";
+
 export default {
   name: "AppDrag",
 
@@ -17,6 +19,12 @@ export default {
     transferData: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    setDraggable() {
+      return this.transferData.quantity < counterLimit.MAX;
     },
   },
 

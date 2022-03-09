@@ -29,7 +29,7 @@
             :key="id"
             class="ingredients__item"
           >
-            <AppDrag :transfer-data="{ id }">
+            <AppDrag :transfer-data="{ id, quantity }">
               <IngredientFilling :name="name" :modifier="modifier" />
 
               <ItemCounter

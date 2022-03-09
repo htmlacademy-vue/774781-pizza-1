@@ -60,8 +60,11 @@ export default {
     misc: (state) => state.misc,
     miscPrice: (_, { misc }) =>
       misc
-        .filter(({ price }) => price > 0)
-        .reduce((accumulator, { price }) => accumulator + price, 0),
+        .filter(({ quantity }) => quantity > 0)
+        .reduce(
+          (accumulator, { quantity, price }) => accumulator + price * quantity,
+          0
+        ),
 
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
   },

@@ -35,7 +35,7 @@
               <ItemCounter
                 class="ingredients__counter"
                 :value="quantity"
-                @changeCount="addIngredient($event, id)"
+                @changeCount="changeQuantity(id, $event)"
               />
             </AppDrag>
           </li>
@@ -78,7 +78,7 @@ export default {
       });
     },
 
-    addIngredient(quantity, id) {
+    changeQuantity(id, quantity) {
       this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
     },
 

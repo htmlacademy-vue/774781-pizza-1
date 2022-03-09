@@ -20,6 +20,7 @@
           :value="quantity"
           class="additional-list__counter"
           theme="orange"
+          @changeCount="changeQuantity(id, $event)"
         />
 
         <div class="additional-list__price">
@@ -31,7 +32,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import { CHANGE_MISC_QUANTITY } from "@/store/mutations-types";
 import { ItemCounter } from "@/common/components";
 
 export default {
@@ -42,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapState("cart", ["misc"]),
+    ...mapGetters("cart", ["misc"]),
   },
 
   methods: {
@@ -51,6 +53,12 @@ export default {
 
       return require(`@/assets/${imgPath}`);
     },
+
+    changeQuantity(id, quantity) {
+      this[CHANGE_MISC_QUANTITY]({ id, quantity });
+    },
+
+    ...mapMutations("cart", [CHANGE_MISC_QUANTITY]),
   },
 };
 </script>

@@ -5,6 +5,7 @@ import {
   ADD_MISC_ADDITIONAL_DATA,
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
+  CHANGE_MISC_QUANTITY,
 } from "@/store/mutations-types";
 
 const module = "cart";
@@ -46,6 +47,12 @@ export default {
       const product = state.products.find((product) => product.id === id);
 
       this._vm.$set(product, "quantity", quantity);
+    },
+
+    [CHANGE_MISC_QUANTITY](state, { id, quantity }) {
+      const misc = state.misc.find((misc) => misc.id === id);
+
+      this._vm.$set(misc, "quantity", quantity);
     },
   },
 

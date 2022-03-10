@@ -19,22 +19,21 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-import { ADD_ENTITY } from "@/store/mutations-types";
+import { mapGetters } from "vuex";
 
 export default {
   name: "AppLayoutFooter",
 
   computed: {
-    ...mapState("cart", ["totalPrice", "products", "misc"]),
-    ...mapGetters("auth", ["id", "phone"]),
+    ...mapGetters("cart", ["totalPrice", "products", "misc"]),
+    ...mapGetters("auth", ["userId", "userPhone"]),
   },
 
   methods: {
     checkout() {
       const order = {
-        userId: this.id,
-        phone: this.phone,
+        userId: this.userId,
+        phone: this.userPhone,
         address: {
           street: "string",
           building: "string",
@@ -45,7 +44,8 @@ export default {
         misc: this.misc,
       };
 
-      ADD_ENTITY({ module: "orders", entity: "orders", value: order });
+      console.log(order);
+      this.$router.push("/success");
     },
   },
 };

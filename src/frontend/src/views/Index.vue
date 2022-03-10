@@ -85,7 +85,6 @@ export default {
       "pizzaName",
       "selectedIngredients",
     ]),
-    ...mapGetters("auth", ["id", "phone"]),
   },
 
   methods: {

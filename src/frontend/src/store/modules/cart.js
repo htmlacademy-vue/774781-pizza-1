@@ -16,7 +16,6 @@ export default {
   state: {
     misc: [],
     products: [],
-    checkoutStatus: null,
   },
 
   mutations: {

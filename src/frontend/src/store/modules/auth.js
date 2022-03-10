@@ -8,11 +8,11 @@ export default {
   },
 
   getters: {
-    id: (state) => {
+    userId: (state) => {
       return state.user.id;
     },
 
-    phone: (state) => {
+    userPhone: (state) => {
       return state.user.phone;
     },
   },

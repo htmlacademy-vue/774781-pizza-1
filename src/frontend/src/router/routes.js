@@ -31,4 +31,10 @@ export default [
     component: () => import("../views/Login.vue"),
     meta: { layout: layoutName.EMPTY },
   },
+  {
+    path: "/success",
+    name: "SuccessPopup",
+    component: () => import("../views/SuccessPopup.vue"),
+    meta: { layout: layoutName.EMPTY },
+  },
 ];

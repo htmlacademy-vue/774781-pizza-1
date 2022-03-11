@@ -1,4 +1,4 @@
-import { uniqueId } from "lodash";
+import { nanoid } from "nanoid";
 import jsonPizza from "@/static/pizza.json";
 import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
@@ -25,7 +25,7 @@ export default {
       sizes: [],
     },
     currentPizza: {
-      id: uniqueId("currentPizza_"),
+      id: nanoid(),
       name: "",
       dough: {},
       sauce: {},

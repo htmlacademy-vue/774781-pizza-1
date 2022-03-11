@@ -15,7 +15,10 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import { ADD_INGREDIENT_QUANTITY } from "@/store/mutations-types";
+import {
+  ADD_INGREDIENT_QUANTITY,
+  ADD_INGREDIENTS_IN_PIZZA,
+} from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaView",
@@ -31,6 +34,8 @@ export default {
   methods: {
     addIngredient(id) {
       this[ADD_INGREDIENT_QUANTITY](id);
+      // здесь ошибка
+      this[ADD_INGREDIENTS_IN_PIZZA]({ id, quantity: 3 });
     },
 
     updateIngredientsClass(quantity, modifier) {
@@ -41,7 +46,10 @@ export default {
       ];
     },
 
-    ...mapMutations("builder", [ADD_INGREDIENT_QUANTITY]),
+    ...mapMutations("builder", [
+      ADD_INGREDIENT_QUANTITY,
+      ADD_INGREDIENTS_IN_PIZZA,
+    ]),
   },
 };
 </script>

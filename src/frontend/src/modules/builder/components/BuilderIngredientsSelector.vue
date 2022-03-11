@@ -51,6 +51,7 @@ import {
   SELECT_PIZZA_ENTITY,
   CHANGE_INGREDIENT_QUANTITY,
   SET_ENTITY,
+  ADD_INGREDIENTS_IN_PIZZA,
 } from "@/store/mutations-types";
 
 import { RadioButton, ItemCounter } from "@/common/components";
@@ -80,12 +81,14 @@ export default {
 
     changeQuantity(id, quantity) {
       this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
+      this[ADD_INGREDIENTS_IN_PIZZA]({ id, quantity });
     },
 
     ...mapMutations([SET_ENTITY]),
     ...mapMutations("builder", [
       SELECT_PIZZA_ENTITY,
       CHANGE_INGREDIENT_QUANTITY,
+      ADD_INGREDIENTS_IN_PIZZA,
     ]),
   },
 };

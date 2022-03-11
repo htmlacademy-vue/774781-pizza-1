@@ -11,6 +11,7 @@ import {
   SELECT_PIZZA_ENTITY,
   SET_BUILDER,
   SET_PIZZA_ENTITY,
+  ADD_INGREDIENTS_IN_PIZZA,
 } from "@/store/mutations-types";
 
 export default {
@@ -85,6 +86,18 @@ export default {
       );
 
       this._vm.$set(ingredient, "quantity", ingredient.quantity + 1);
+    },
+
+    [ADD_INGREDIENTS_IN_PIZZA](state, { id, quantity }) {
+      const idx = state.currentPizza.ingredients.findIndex(
+        (ingredient) => ingredient.id === id
+      );
+
+      if (idx === -1) {
+        state.currentPizza.ingredients.push({ id, quantity });
+      } else {
+        state.currentPizza.ingredients.splice(idx, 1, { id, quantity });
+      }
     },
 
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {

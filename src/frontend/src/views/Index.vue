@@ -83,7 +83,6 @@ export default {
       "hasIngredients",
       "builderPrice",
       "pizzaName",
-      "selectedIngredients",
     ]),
   },
 
@@ -97,11 +96,6 @@ export default {
       this[SET_PIZZA_ENTITY]({
         entity: "price",
         value: this.builderPrice,
-      });
-
-      this[SET_PIZZA_ENTITY]({
-        entity: "ingredients",
-        value: this.selectedIngredients,
       });
 
       this.addProductToCart(this.currentPizza);

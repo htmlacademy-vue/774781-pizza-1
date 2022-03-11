@@ -1,6 +1,6 @@
 <template>
   <div
-    :draggable="setDraggable"
+    :draggable="isDraggable"
     @dragstart.self="onDrag"
     @dragover.prevent
     @dragenter.prevent
@@ -23,7 +23,7 @@ export default {
   },
 
   computed: {
-    setDraggable() {
+    isDraggable() {
       return this.transferData.quantity < counterLimit.MAX;
     },
   },

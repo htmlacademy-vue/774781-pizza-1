@@ -28,7 +28,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import { SELECT_PIZZA_ENTITY, SET_ENTITY } from "@/store/mutations-types";
+import { SELECT_PIZZA_ENTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderDoughSelector",
@@ -45,7 +45,6 @@ export default {
       });
     },
     ...mapMutations("builder", [SELECT_PIZZA_ENTITY]),
-    ...mapMutations([SET_ENTITY]),
   },
 };
 </script>

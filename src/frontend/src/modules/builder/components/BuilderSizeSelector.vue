@@ -24,7 +24,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import { SELECT_PIZZA_ENTITY, SET_ENTITY } from "@/store/mutations-types";
+import { SELECT_PIZZA_ENTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderSizeSelector",
@@ -42,7 +42,6 @@ export default {
       });
     },
 
-    ...mapMutations([SET_ENTITY]),
     ...mapMutations("builder", [SELECT_PIZZA_ENTITY]),
   },
 };

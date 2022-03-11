@@ -50,7 +50,6 @@ import { mapGetters, mapMutations } from "vuex";
 import {
   SELECT_PIZZA_ENTITY,
   CHANGE_INGREDIENT_QUANTITY,
-  SET_ENTITY,
   ADD_INGREDIENTS_IN_PIZZA,
 } from "@/store/mutations-types";
 
@@ -84,7 +83,6 @@ export default {
       this[ADD_INGREDIENTS_IN_PIZZA]({ id, quantity });
     },
 
-    ...mapMutations([SET_ENTITY]),
     ...mapMutations("builder", [
       SELECT_PIZZA_ENTITY,
       CHANGE_INGREDIENT_QUANTITY,

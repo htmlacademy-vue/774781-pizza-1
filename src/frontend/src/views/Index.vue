@@ -46,7 +46,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { SET_PIZZA_ENTITY } from "@/store/mutations-types";
+import { SET_PIZZA_ENTITY, ADD_CART_ENTITY } from "@/store/mutations-types";
 
 import {
   BuilderSizeSelector,
@@ -94,14 +94,14 @@ export default {
         value: this.builderPrice,
       });
 
-      this.addProductToCart(this.currentPizza);
+      this[ADD_CART_ENTITY]({ entity: "products", value: this.currentPizza });
     },
 
     setPizzaName(name) {
       this[SET_PIZZA_ENTITY]({ entity: "name", value: name });
     },
 
-    ...mapMutations("builder", [SET_PIZZA_ENTITY]),
+    ...mapMutations("builder", [SET_PIZZA_ENTITY, ADD_CART_ENTITY]),
     ...mapActions("cart", ["addProductToCart"]),
   },
 };

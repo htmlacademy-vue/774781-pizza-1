@@ -17,10 +17,10 @@
 
       <div class="additional-list__wrapper">
         <ItemCounter
-          :value="quantity"
+          :counter="quantity"
           class="additional-list__counter"
           theme="orange"
-          @changeCount="changeQuantity(id, $event)"
+          @update:counter="changeQuantity(id, $event)"
         />
 
         <div class="additional-list__price">

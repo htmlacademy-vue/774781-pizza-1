@@ -9,6 +9,7 @@
       <span class="visually-hidden">Меньше</span>
     </button>
     <input
+      ref="input"
       type="text"
       name="counter"
       class="counter__input"
@@ -33,15 +34,9 @@ import { counterLimit } from "@/common/const.js";
 export default {
   name: "ItemCounter",
 
-  data() {
-    return {
-      counter: this.value,
-    };
-  },
-
   props: {
-    value: {
-      type: Number,
+    counter: {
+      type: [Number, String],
       required: true,
     },
     theme: {
@@ -65,20 +60,30 @@ export default {
   },
 
   methods: {
+    async update(counter) {
+      this.$emit("update:counter", counter);
+      this.$refs.input.value = counter;
+    },
+
     validateValue(value) {
       const number = parseInt(value);
 
       if (Number.isNaN(number)) {
-        this.counter = counterLimit.MIN;
+        this.update(counterLimit.MIN);
+        return;
       }
 
       if (number <= counterLimit.MIN) {
-        this.counter = counterLimit.MIN;
+        this.update(counterLimit.MIN);
+        return;
       }
 
       if (number >= counterLimit.MAX) {
-        this.counter = counterLimit.MAX;
+        this.update(counterLimit.MAX);
+        return;
       }
+
+      this.update(number);
     },
 
     changeCount(multiplier) {
@@ -87,22 +92,14 @@ export default {
           return;
         }
 
-        this.counter++;
+        this.update(this.counter + 1);
       } else {
         if (this.isNegative) {
           return;
         }
 
-        this.counter--;
+        this.update(this.counter - 1);
       }
-
-      this.$emit("changeCount", this.counter);
-    },
-  },
-
-  watch: {
-    value() {
-      this.counter = this.value;
     },
   },
 };

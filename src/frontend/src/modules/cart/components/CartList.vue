@@ -5,8 +5,8 @@
       <ItemCounter
         class="cart-list__counter"
         theme="orange"
-        :value="product.quantity"
-        @changeCount="
+        :counter="product.quantity"
+        @update:counter="
           updateProductQuantity($event, product.id, product.basePrice)
         "
       />

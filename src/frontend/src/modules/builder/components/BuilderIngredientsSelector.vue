@@ -34,8 +34,8 @@
 
               <ItemCounter
                 class="ingredients__counter"
-                :value="quantity"
-                @changeCount="changeQuantity(id, $event)"
+                :counter="quantity"
+                @update:counter="changeQuantity(id, $event)"
               />
             </AppDrag>
           </li>

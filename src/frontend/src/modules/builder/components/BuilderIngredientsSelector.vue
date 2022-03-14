@@ -20,53 +20,27 @@
         />
       </div>
 
-      <div class="ingredients__filling">
-        <p>Начинка:</p>
-
-        <ul class="ingredients__list">
-          <li
-            v-for="{ id, name, modifier, quantity } in ingredients"
-            :key="id"
-            class="ingredients__item"
-          >
-            <AppDrag :transfer-data="{ id, quantity }">
-              <IngredientFilling :name="name" :modifier="modifier" />
-
-              <ItemCounter
-                class="ingredients__counter"
-                :counter="quantity"
-                @update:counter="changeQuantity(id, $event)"
-              />
-            </AppDrag>
-          </li>
-        </ul>
-      </div>
+      <IngredientsList />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import {
-  SELECT_PIZZA_ENTITY,
-  CHANGE_INGREDIENT_QUANTITY,
-  ADD_INGREDIENTS_IN_PIZZA,
-} from "@/store/mutations-types";
-
-import { RadioButton, ItemCounter } from "@/common/components";
-import IngredientFilling from "./IngredientFilling.vue";
+import { SELECT_PIZZA_ENTITY } from "@/store/mutations-types";
+import { RadioButton } from "@/common/components";
+import IngredientsList from "./IngredientsList.vue";
 
 export default {
   name: "BuilderIngredientsSelector",
 
   components: {
     RadioButton,
-    ItemCounter,
-    IngredientFilling,
+    IngredientsList,
   },
 
   computed: {
-    ...mapGetters("builder", ["sauces", "ingredients", "sauceId"]),
+    ...mapGetters("builder", ["sauces", "sauceId"]),
   },
 
   methods: {
@@ -78,16 +52,7 @@ export default {
       });
     },
 
-    changeQuantity(id, quantity) {
-      this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
-      this[ADD_INGREDIENTS_IN_PIZZA]({ id, quantity });
-    },
-
-    ...mapMutations("builder", [
-      SELECT_PIZZA_ENTITY,
-      CHANGE_INGREDIENT_QUANTITY,
-      ADD_INGREDIENTS_IN_PIZZA,
-    ]),
+    ...mapMutations("builder", [SELECT_PIZZA_ENTITY]),
   },
 };
 </script>
@@ -113,37 +78,5 @@ export default {
 .ingredients__input {
   margin-right: 24px;
   margin-bottom: 10px;
-}
-
-.ingredients__filling {
-  width: 100%;
-
-  p {
-    @include r-s16-h19;
-
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-}
-
-.ingredients__list {
-  @include clear-list;
-
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.ingredients__item {
-  width: 100px;
-  min-height: 40px;
-  margin-right: 17px;
-  margin-bottom: 35px;
-}
-
-.ingredients__counter {
-  width: 54px;
-  margin-top: 10px;
-  margin-left: 36px;
 }
 </style>

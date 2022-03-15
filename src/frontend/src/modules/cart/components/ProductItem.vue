@@ -10,9 +10,9 @@
     <div class="product__text">
       <h2>{{ product.name }}</h2>
       <ul>
-        <li>{{ product.size.name }}, {{ doughTitle(product.dough.id) }}</li>
-        <li>Соус: {{ product.sauce.name.toLowerCase() }}</li>
-        <li>Начинка: {{ getIngredientNames(product.ingredients) }}</li>
+        <!-- <li>{{ product.size.name }}, {{ doughTitle(product.dough.id) }}</li> -->
+        <!-- <li>Соус: {{ product.sauce.name.toLowerCase() }}</li> -->
+        <!-- <li>Начинка: {{ getIngredientNames(product.ingredients) }}</li> -->
       </ul>
     </div>
   </div>

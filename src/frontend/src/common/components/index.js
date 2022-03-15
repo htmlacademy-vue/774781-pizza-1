@@ -6,7 +6,6 @@ import AppButton from "./AppButton.vue";
 import ItemCounter from "./ItemCounter.vue";
 import RadioButton from "./RadioButton.vue";
 import Logo from "./Logo.vue";
-import ProductItem from "./ProductItem.vue";
 
 export {
   AppTitle,
@@ -17,5 +16,4 @@ export {
   ItemCounter,
   RadioButton,
   Logo,
-  ProductItem,
 };

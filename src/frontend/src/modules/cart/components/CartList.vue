@@ -24,7 +24,8 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { ItemCounter, ProductItem } from "@/common/components";
+import { ItemCounter } from "@/common/components";
+import ProductItem from "./ProductItem.vue";
 import {
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,

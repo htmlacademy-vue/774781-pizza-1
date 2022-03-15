@@ -25,7 +25,7 @@ export default {
   name: "AppLayoutFooter",
 
   computed: {
-    ...mapGetters("cart", ["totalPrice", "products", "misc"]),
+    ...mapGetters("cart", ["totalPrice", "products", "selectedMisc"]),
     ...mapGetters("auth", ["userId", "userPhone"]),
   },
 
@@ -41,7 +41,7 @@ export default {
           comment: "string",
         },
         pizzas: this.products,
-        misc: this.misc,
+        misc: this.selectedMisc,
       };
 
       console.log(order);

@@ -1,6 +1,5 @@
 import jsonMisc from "@/static/misc";
 import {
-  SET_MISC,
   ADD_PRODUCT,
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
@@ -17,10 +16,6 @@ export default {
   },
 
   mutations: {
-    [SET_MISC](state, { entity, value }) {
-      state[entity] = value;
-    },
-
     [ADD_PRODUCT](state, product) {
       state.products.push(product);
     },
@@ -78,6 +73,14 @@ export default {
           0
         ),
 
+    selectedMisc: (_, { misc }) =>
+      misc
+        .filter((misc) => misc.quantity > 0)
+        .map(({ id, quantity }) => ({
+          id,
+          quantity,
+        })),
+
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
   },
 
@@ -85,7 +88,6 @@ export default {
     fetchMisc({ commit }) {
       const misc = jsonMisc;
 
-      commit(SET_MISC, misc);
       commit(ADD_MISC_ADDITIONAL_DATA, misc);
     },
   },

@@ -27,7 +27,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import { SELECT_PIZZA_ENTITY } from "@/store/mutations-types";
+import { SET_PIZZA_ENTITY } from "@/store/mutations-types";
 import { RadioButton } from "@/common/components";
 import IngredientsList from "./IngredientsList.vue";
 
@@ -45,14 +45,13 @@ export default {
 
   methods: {
     selectSauce(id) {
-      this[SELECT_PIZZA_ENTITY]({
-        entityFrom: "sauces",
-        entityTo: "sauce",
-        id,
+      this[SET_PIZZA_ENTITY]({
+        entity: "sauceId",
+        value: id,
       });
     },
 
-    ...mapMutations("builder", [SELECT_PIZZA_ENTITY]),
+    ...mapMutations("builder", [SET_PIZZA_ENTITY]),
   },
 };
 </script>

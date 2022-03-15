@@ -8,7 +8,6 @@ import {
   ADD_BUILDER_ADDITIONAL_DATA,
   CHANGE_INGREDIENT_QUANTITY,
   ADD_INGREDIENT_QUANTITY,
-  SELECT_PIZZA_ENTITY,
   SET_BUILDER,
   SET_PIZZA_ENTITY,
 } from "@/store/mutations-types";
@@ -26,9 +25,9 @@ export default {
     currentPizza: {
       id: uniqueId("currentPizza_"),
       name: "",
-      dough: {},
-      sauce: {},
-      size: {},
+      doughId: null,
+      sauceId: null,
+      sizeId: null,
       basePrice: 0,
       price: 0,
       ingredients: [],
@@ -43,14 +42,6 @@ export default {
 
     [SET_PIZZA_ENTITY](state, { entity, value }) {
       state.currentPizza[entity] = value;
-    },
-
-    [SELECT_PIZZA_ENTITY](state, { entityFrom, entityTo = entityFrom, id }) {
-      const element = state.builder[entityFrom].find(
-        (element) => element.id === id
-      );
-
-      state.currentPizza[entityTo] = element;
     },
 
     [ADD_BUILDER_ADDITIONAL_DATA](state) {
@@ -128,18 +119,18 @@ export default {
       dispatch("fetchBuilder");
       commit(ADD_BUILDER_ADDITIONAL_DATA);
       commit(SET_PIZZA_ENTITY, {
-        entity: "dough",
-        value: state.builder.dough[0],
+        entity: "doughId",
+        value: state.builder.dough[0].id,
       });
 
       commit(SET_PIZZA_ENTITY, {
-        entity: "sauce",
-        value: state.builder.sauces[0],
+        entity: "sauceId",
+        value: state.builder.sauces[0].id,
       });
 
       commit(SET_PIZZA_ENTITY, {
-        entity: "size",
-        value: state.builder.sizes[0],
+        entity: "sizeId",
+        value: state.builder.sizes[0].id,
       });
     },
   },
@@ -149,7 +140,7 @@ export default {
     currentPizza: (state) => state.currentPizza,
 
     dough: (_, { builder }) => builder.dough,
-    doughId: (_, { currentPizza }) => currentPizza.dough.id,
+    doughId: (_, { currentPizza }) => currentPizza.doughId,
     selectedDough: (_, { dough, doughId }) =>
       dough.find((d) => d.id === doughId),
 
@@ -158,7 +149,7 @@ export default {
     doughPrice: (_, { selectedDough }) => selectedDough.price,
 
     sauces: (_, { builder }) => builder.sauces,
-    sauceId: (_, { currentPizza }) => currentPizza.sauce.id,
+    sauceId: (_, { currentPizza }) => currentPizza.sauceId,
     selectedSauce: (_, { sauces, sauceId }) =>
       sauces.find((sauce) => sauce.id === sauceId),
 
@@ -166,7 +157,7 @@ export default {
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
 
     sizes: (_, { builder }) => builder.sizes,
-    sizeId: (_, { currentPizza }) => currentPizza.size.id,
+    sizeId: (_, { currentPizza }) => currentPizza.sizeId,
     selectedSize: (_, { sizes, sizeId }) =>
       sizes.find((size) => size.id === sizeId),
 

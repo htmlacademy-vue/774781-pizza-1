@@ -144,7 +144,6 @@ export default {
     selectedDough: (_, { dough, doughId }) =>
       dough.find((d) => d.id === doughId),
 
-    doughName: (_, { selectedDough }) => selectedDough.value,
     doughSize: (_, { selectedDough }) => selectedDough.size,
     doughPrice: (_, { selectedDough }) => selectedDough.price,
 
@@ -153,10 +152,16 @@ export default {
     selectedSauce: (_, { sauces, sauceId }) =>
       sauces.find((sauce) => sauce.id === sauceId),
 
+    sausesNameEnum: (_, { sauces }) =>
+      sauces.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
+
     sauseName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
 
     sizes: (_, { builder }) => builder.sizes,
+    sizesNameEnum: (_, { sizes }) =>
+      sizes.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
+
     sizeId: (_, { currentPizza }) => currentPizza.sizeId,
     selectedSize: (_, { sizes, sizeId }) =>
       sizes.find((size) => size.id === sizeId),
@@ -178,19 +183,8 @@ export default {
           0
         ),
 
-    getIngredientNames: (state) => (ingredients) => {
-      let result = [];
-
-      state.builder.ingredients.forEach((builderIngredient) => {
-        ingredients.forEach((ingredient) => {
-          if (ingredient.id === builderIngredient.id) {
-            result.push(builderIngredient.name);
-          }
-        });
-      });
-
-      return result.join(", ");
-    },
+    ingredientsNameEnum: (_, { ingredients }) =>
+      ingredients.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
 
     selectedIngredients: (_, { ingredients }) =>
       ingredients

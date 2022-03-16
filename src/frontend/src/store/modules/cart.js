@@ -12,7 +12,23 @@ export default {
 
   state: {
     misc: [],
-    products: [],
+    products: [
+      {
+        id: "currentPizza_1",
+        name: "d",
+        doughId: 1,
+        sauceId: 1,
+        sizeId: 1,
+        basePrice: 448,
+        price: 448,
+        ingredients: [
+          { id: 3, quantity: 1 },
+          { id: 7, quantity: 1 },
+          { id: 11, quantity: 1 },
+        ],
+        quantity: 1,
+      },
+    ],
   },
 
   mutations: {

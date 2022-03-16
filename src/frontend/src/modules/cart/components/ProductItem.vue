@@ -10,9 +10,17 @@
     <div class="product__text">
       <h2>{{ product.name }}</h2>
       <ul>
-        <!-- <li>{{ product.size.name }}, {{ doughTitle(product.dough.id) }}</li> -->
-        <!-- <li>Соус: {{ product.sauce.name.toLowerCase() }}</li> -->
-        <!-- <li>Начинка: {{ getIngredientNames(product.ingredients) }}</li> -->
+        <li>
+          {{ sizesNameEnum[product.sizeId] }},
+          {{ doughTitle(product.doughId) }}
+        </li>
+        <li>Соус: {{ sausesNameEnum[product.sauceId].toLowerCase() }}</li>
+        <li>
+          Начинка:
+          <template v-for="ingredient in product.ingredients"
+            >{{ ingredientsNameEnum[ingredient.id] }},
+          </template>
+        </li>
       </ul>
     </div>
   </div>
@@ -32,7 +40,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters("builder", ["getIngredientNames"]),
+    ...mapGetters("builder", [
+      "getIngredientNames",
+      "sizesNameEnum",
+      "sausesNameEnum",
+      "ingredientsNameEnum",
+    ]),
   },
 
   methods: {

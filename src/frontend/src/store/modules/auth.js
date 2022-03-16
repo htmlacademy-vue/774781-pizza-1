@@ -8,6 +8,10 @@ export default {
   },
 
   getters: {
+    isGuest: (state) => {
+      return state.user === null;
+    },
+
     userId: (state) => {
       return state.user.id;
     },

@@ -36,7 +36,7 @@ import {
 } from "@/modules/cart/components";
 
 export default {
-  name: "Cart",
+  name: "CartPage",
 
   components: {
     CartList,

@@ -57,7 +57,7 @@ import {
 } from "@/modules/builder/components";
 
 export default {
-  name: "Index",
+  name: "IndexPage",
 
   components: {
     BuilderIngredientsSelector,

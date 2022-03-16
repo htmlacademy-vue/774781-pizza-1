@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <Logo />
+      <MainLogo />
     </div>
     <div class="header__cart">
       <router-link to="/cart">{{ totalPrice }} ₽</router-link>
@@ -38,13 +38,13 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import { Logo } from "@/common/components";
+import { MainLogo } from "@/common/components";
 
 export default {
   name: "AppLayoutHeader",
 
   components: {
-    Logo,
+    MainLogo,
   },
 
   computed: {

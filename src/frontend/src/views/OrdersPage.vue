@@ -218,7 +218,7 @@
 import AppSidebar from "@/layouts/AppSidebar.vue";
 
 export default {
-  name: "Orders",
+  name: "OrdersPage",
   components: {
     AppSidebar,
   },

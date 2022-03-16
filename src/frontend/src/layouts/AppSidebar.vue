@@ -1,6 +1,6 @@
 <template>
   <div class="layout__sidebar sidebar">
-    <Logo class="layout__logo" />
+    <MainLogo class="layout__logo" />
 
     <router-link
       active-class="layout__link--active"
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import { Logo } from "@/common/components";
+import { MainLogo } from "@/common/components";
 
 export default {
   name: "AppSidebar",
 
   components: {
-    Logo,
+    MainLogo,
   },
 };
 </script>

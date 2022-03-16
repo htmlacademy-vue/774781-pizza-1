@@ -3,32 +3,32 @@ import { layoutName } from "@/common/const.js";
 export default [
   {
     path: "/",
-    name: "Index",
-    component: () => import("../views/Index.vue"),
+    name: "IndexPage",
+    component: () => import("../views/IndexPage.vue"),
     meta: { layout: layoutName.DEFAULT },
   },
   {
     path: "/cart",
-    name: "Cart",
-    component: () => import("../views/Cart.vue"),
+    name: "CartPage",
+    component: () => import("../views/CartPage.vue"),
     meta: { layout: layoutName.DEFAULT },
   },
   {
     path: "/profile",
-    name: "Profile",
-    component: () => import("../views/Profile.vue"),
+    name: "ProfilePage",
+    component: () => import("../views/ProfilePage.vue"),
     meta: { layout: layoutName.DEFAULT },
   },
   {
     path: "/orders",
-    name: "Orders",
-    component: () => import("../views/Orders.vue"),
+    name: "OrdersPage",
+    component: () => import("../views/OrdersPage.vue"),
     meta: { layout: layoutName.DEFAULT },
   },
   {
     path: "/login",
-    name: "Login",
-    component: () => import("../views/Login.vue"),
+    name: "LoginPage",
+    component: () => import("../views/LoginPage.vue"),
     meta: { layout: layoutName.EMPTY },
   },
   {

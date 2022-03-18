@@ -13,8 +13,8 @@
       type="text"
       name="counter"
       class="counter__input"
-      @blur="validateValue($event.target.value)"
       :value="counter"
+      disabled
     />
     <button
       type="button"
@@ -60,30 +60,8 @@ export default {
   },
 
   methods: {
-    async update(counter) {
+    update(counter) {
       this.$emit("update:counter", counter);
-      this.$refs.input.value = counter;
-    },
-
-    validateValue(value) {
-      const number = parseInt(value);
-
-      if (Number.isNaN(number)) {
-        this.update(counterLimit.MIN);
-        return;
-      }
-
-      if (number <= counterLimit.MIN) {
-        this.update(counterLimit.MIN);
-        return;
-      }
-
-      if (number >= counterLimit.MAX) {
-        this.update(counterLimit.MAX);
-        return;
-      }
-
-      this.update(number);
     },
 
     changeCount(multiplier) {

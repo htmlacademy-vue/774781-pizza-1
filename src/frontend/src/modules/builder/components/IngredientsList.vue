@@ -24,7 +24,10 @@
 
 <script>
 import { mapMutations, mapGetters } from "vuex";
-import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutations-types";
+import {
+  CHANGE_INGREDIENT_QUANTITY,
+  SET_PIZZA_ENTITY,
+} from "@/store/mutations-types";
 
 import { ItemCounter } from "@/common/components";
 import IngredientFilling from "./IngredientFilling.vue";
@@ -38,15 +41,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters("builder", ["ingredients"]),
+    ...mapGetters("builder", ["ingredients", "selectedIngredients"]),
   },
 
   methods: {
     changeQuantity(id, quantity) {
       this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
+      this[SET_PIZZA_ENTITY]({
+        entity: "ingredients",
+        value: this.selectedIngredients,
+      });
     },
 
-    ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY]),
+    ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY, SET_PIZZA_ENTITY]),
   },
 };
 </script>

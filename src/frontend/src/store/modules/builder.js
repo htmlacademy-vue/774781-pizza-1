@@ -115,7 +115,7 @@ export default {
       dispatch("fetchSizes");
     },
 
-    initBuilder({ dispatch, commit, state }) {
+    initBuilder({ state, commit, dispatch, getters }) {
       dispatch("fetchBuilder");
       commit(ADD_BUILDER_ADDITIONAL_DATA);
       commit(SET_PIZZA_ENTITY, {
@@ -131,6 +131,21 @@ export default {
       commit(SET_PIZZA_ENTITY, {
         entity: "sizeId",
         value: state.builder.sizes[0].id,
+      });
+
+      commit(SET_PIZZA_ENTITY, {
+        entity: "ingredients",
+        value: getters.selectedIngredients,
+      });
+
+      commit(SET_PIZZA_ENTITY, {
+        entity: "basePrice",
+        value: getters.builderPrice,
+      });
+
+      commit(SET_PIZZA_ENTITY, {
+        entity: "price",
+        value: getters.builderPrice,
       });
     },
   },

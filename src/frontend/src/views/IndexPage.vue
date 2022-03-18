@@ -85,14 +85,7 @@ export default {
 
   methods: {
     addPizzaToCart() {
-      const currentPizza = {
-        ...this.currentPizza,
-        ingredients: this.selectedIngredients,
-        basePrice: this.builderPrice,
-        price: this.builderPrice,
-      };
-
-      this[ADD_PRODUCT](currentPizza);
+      this[ADD_PRODUCT](this.currentPizza);
     },
 
     setPizzaName(name) {

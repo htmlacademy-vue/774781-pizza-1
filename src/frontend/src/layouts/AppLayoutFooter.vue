@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
+import { SAVE_ORDER } from "@/store/mutations-types";
 
 export default {
   name: "AppLayoutFooter",
@@ -44,9 +45,11 @@ export default {
         misc: this.selectedMisc,
       };
 
-      console.log(order);
+      this[SAVE_ORDER](order);
+
       this.$router.push("/success");
     },
+    ...mapMutations("orders", [SAVE_ORDER]),
   },
 };
 </script>

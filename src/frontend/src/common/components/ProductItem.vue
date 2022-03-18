@@ -12,15 +12,10 @@
       <ul>
         <li>
           {{ sizesNameEnum[product.sizeId] }},
-          {{ doughTitle(product.doughId) }}
+          {{ displayDoughTitle(product.doughId) }}
         </li>
         <li>Соус: {{ sausesNameEnum[product.sauceId].toLowerCase() }}</li>
-        <li>
-          Начинка:
-          <template v-for="ingredient in product.ingredients"
-            >{{ ingredientsNameEnum[ingredient.id] }},
-          </template>
-        </li>
+        <li>Начинка: {{ displayIngredients(product.ingredients) }}</li>
       </ul>
     </div>
   </div>
@@ -49,7 +44,12 @@ export default {
   },
 
   methods: {
-    doughTitle(doughId) {
+    displayIngredients(ingredients) {
+      return ingredients
+        .map((ingredient) => this.ingredientsNameEnum[ingredient.id])
+        .join(", ");
+    },
+    displayDoughTitle(doughId) {
       return doughId === 1 ? "на тонком тесте" : "на толстом тесте";
     },
   },

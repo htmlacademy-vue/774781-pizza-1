@@ -5,6 +5,7 @@ import {
   UPDATE_PRODUCT_PRICE,
   CHANGE_MISC_QUANTITY,
   ADD_MISC_ADDITIONAL_DATA,
+  SET_MISC,
 } from "@/store/mutations-types";
 
 export default {
@@ -12,28 +13,16 @@ export default {
 
   state: {
     misc: [],
-    products: [
-      {
-        id: "currentPizza_1",
-        name: "d",
-        doughId: 1,
-        sauceId: 1,
-        sizeId: 1,
-        basePrice: 448,
-        price: 448,
-        ingredients: [
-          { id: 3, quantity: 1 },
-          { id: 7, quantity: 1 },
-          { id: 11, quantity: 1 },
-        ],
-        quantity: 1,
-      },
-    ],
+    products: [],
   },
 
   mutations: {
     [ADD_PRODUCT](state, product) {
       state.products.push(product);
+    },
+
+    [SET_MISC](state, misc) {
+      state.misc = misc;
     },
 
     [ADD_MISC_ADDITIONAL_DATA](state) {
@@ -104,7 +93,8 @@ export default {
     fetchMisc({ commit }) {
       const misc = jsonMisc;
 
-      commit(ADD_MISC_ADDITIONAL_DATA, misc);
+      commit(SET_MISC, misc);
+      commit(ADD_MISC_ADDITIONAL_DATA);
     },
   },
 };

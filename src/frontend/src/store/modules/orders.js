@@ -1,4 +1,4 @@
-import { ADD_ORDER_ITEM } from "@/store/mutations-types";
+import { ADD_ORDER_ITEM, SAVE_ORDER } from "@/store/mutations-types";
 
 export default {
   namespaced: true,
@@ -7,7 +7,11 @@ export default {
     orders: [],
   },
 
-  mutations: {},
+  mutations: {
+    [SAVE_ORDER](state, order) {
+      state.orders.push(order);
+    },
+  },
 
   actions: {
     addProductInOrder({ commit }, orderItem) {

@@ -3,7 +3,7 @@
     <label class="cart-form__select">
       <span class="cart-form__label">Получение заказа:</span>
 
-      <select name="test" class="select">
+      <select v-model="selected" name="test" class="select">
         <option value="1">Заберу сам</option>
         <option value="2">Новый адрес</option>
         <option value="3">Дом</option>
@@ -14,7 +14,7 @@
       >Контактный телефон:</AppInput
     >
 
-    <div class="cart-form__address">
+    <div v-if="!selfDelivery" class="cart-form__address">
       <span class="cart-form__label">Новый адрес:</span>
 
       <div class="cart-form__input">
@@ -35,6 +35,16 @@
 <script>
 export default {
   name: "CartForm",
+  data() {
+    return {
+      selected: "1",
+    };
+  },
+  computed: {
+    selfDelivery() {
+      return this.selected === "1";
+    },
+  },
 };
 </script>
 

@@ -1,12 +1,12 @@
 <template>
-  <AppDrop @drop="$emit('drop', $event)">
-    <div class="pizza" :class="mainClass">
+  <AppDrop @drop="addIngredient($event)">
+    <div class="pizza" :class="classModifier">
       <div class="pizza__wrapper">
         <div
-          v-for="{ name, count } in ingredients"
-          :key="name"
+          v-for="{ id, modifier, quantity } in ingredients"
+          :key="modifier"
           class="pizza__filling"
-          :class="ingredientsClass(count, name)"
+          :class="updateIngredientsClass(quantity, modifier)"
         />
       </div>
     </div>
@@ -14,74 +14,34 @@
 </template>
 
 <script>
-import {
-  DOUGH_LIGHT_VALUE,
-  DOUGH_LARGE_VALUE,
-  SAUCE_TOMATO_VALUE,
-  SAUCE_CREAMY_VALUE,
-} from "@/common/const.js";
-
-import { AppDrop } from "@/common/components";
+import { mapGetters, mapMutations } from "vuex";
+import { ADD_INGREDIENT_QUANTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaView",
 
-  components: {
-    AppDrop,
-  },
-
-  props: {
-    dough: {
-      type: String,
-      required: true,
-    },
-
-    sauce: {
-      type: String,
-      required: true,
-    },
-
-    ingredients: {
-      type: Array,
-      default: () => [],
-    },
-  },
-
   computed: {
-    doughLight() {
-      return this.dough === DOUGH_LIGHT_VALUE;
+    classModifier() {
+      return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
     },
 
-    doughLarge() {
-      return this.dough === DOUGH_LARGE_VALUE;
-    },
-
-    sauceTomato() {
-      return this.sauce === SAUCE_TOMATO_VALUE;
-    },
-
-    sauceCreamy() {
-      return this.sauce === SAUCE_CREAMY_VALUE;
-    },
-
-    mainClass() {
-      return {
-        "pizza--foundation--big-creamy": this.doughLarge && this.sauceCreamy,
-        "pizza--foundation--big-tomato": this.doughLarge && this.sauceTomato,
-        "pizza--foundation--small-creamy": this.doughLight && this.sauceCreamy,
-        "pizza--foundation--small-tomato": this.doughLight && this.sauceTomato,
-      };
-    },
+    ...mapGetters("builder", ["ingredients", "sauseName", "doughSize"]),
   },
 
   methods: {
-    ingredientsClass(count, name) {
+    addIngredient(id) {
+      this[ADD_INGREDIENT_QUANTITY](id);
+    },
+
+    updateIngredientsClass(quantity, modifier) {
       return [
-        { [`pizza__filling--${name}`]: count > 0 },
-        { "pizza__filling--second": count === 2 },
-        { "pizza__filling--third": count === 3 },
+        { [`pizza__filling--${modifier}`]: quantity > 0 },
+        { "pizza__filling--second": quantity === 2 },
+        { "pizza__filling--third": quantity === 3 },
       ];
     },
+
+    ...mapMutations("builder", [ADD_INGREDIENT_QUANTITY]),
   },
 };
 </script>

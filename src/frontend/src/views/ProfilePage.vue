@@ -132,7 +132,7 @@
 import AppSidebar from "@/layouts/AppSidebar.vue";
 
 export default {
-  name: "Profile",
+  name: "ProfilePage",
   components: {
     AppSidebar,
   },

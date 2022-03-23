@@ -4,7 +4,7 @@
 
     <div class="sheet__content diameter">
       <label
-        v-for="{ id, value, name, multiplier } in sizes"
+        v-for="{ id, value, name } in sizes"
         :key="id"
         :class="`diameter__input diameter__input--${value}`"
       >
@@ -13,8 +13,8 @@
           name="diameter"
           :value="value"
           class="visually-hidden"
-          :checked="value === defaultChecked"
-          @change="updateSize(value, multiplier)"
+          :checked="id === sizeId"
+          @change="selectSize(id)"
         />
         <span>{{ name }}</span>
       </label>
@@ -23,26 +23,25 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+import { SET_PIZZA_ENTITY } from "@/store/mutations-types";
+
 export default {
   name: "BuilderSizeSelector",
 
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
-    },
-
-    defaultChecked: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapGetters("builder", ["sizes", "sizeId"]),
   },
 
   methods: {
-    updateSize(size, price) {
-      this.$emit("changeSize", size);
-      this.$emit("updateSizeMultiplier", price);
+    selectSize(id) {
+      this[SET_PIZZA_ENTITY]({
+        entity: "sizeId",
+        value: id,
+      });
     },
+
+    ...mapMutations("builder", [SET_PIZZA_ENTITY]),
   },
 };
 </script>

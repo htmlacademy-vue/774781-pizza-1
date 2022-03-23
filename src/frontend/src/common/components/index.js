@@ -5,7 +5,7 @@ import AppDrop from "./AppDrop.vue";
 import AppButton from "./AppButton.vue";
 import ItemCounter from "./ItemCounter.vue";
 import RadioButton from "./RadioButton.vue";
-import Logo from "./Logo.vue";
+import MainLogo from "./MainLogo.vue";
 import ProductItem from "./ProductItem.vue";
 
 export {
@@ -16,6 +16,6 @@ export {
   AppDrop,
   ItemCounter,
   RadioButton,
-  Logo,
+  MainLogo,
   ProductItem,
 };

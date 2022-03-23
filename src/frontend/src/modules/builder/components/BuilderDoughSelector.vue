@@ -6,7 +6,7 @@
 
     <div class="sheet__content dough">
       <label
-        v-for="{ id, name, description, value, price } in dough"
+        v-for="{ id, name, description, value } in dough"
         :key="id"
         class="dough__input"
         :class="`dough__input--${value}`"
@@ -16,8 +16,8 @@
           name="dought"
           class="visually-hidden"
           :value="value"
-          :checked="value === defaultChecked"
-          @change="updateDough(value, price)"
+          :checked="id === doughId"
+          @change="selectDough(id)"
         />
         <b>{{ name }}</b>
         <span>{{ description }}</span>
@@ -27,26 +27,24 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+import { SET_PIZZA_ENTITY } from "@/store/mutations-types";
+
 export default {
   name: "BuilderDoughSelector",
 
-  props: {
-    dough: {
-      type: Array,
-      required: true,
-    },
-
-    defaultChecked: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapGetters("builder", ["dough", "doughId"]),
   },
 
   methods: {
-    updateDough(value, price) {
-      this.$emit("selectDough", value);
-      this.$emit("updateDoughPrice", price);
+    selectDough(id) {
+      this[SET_PIZZA_ENTITY]({
+        entity: "doughId",
+        value: id,
+      });
     },
+    ...mapMutations("builder", [SET_PIZZA_ENTITY]),
   },
 };
 </script>

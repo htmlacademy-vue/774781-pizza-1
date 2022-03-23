@@ -1,10 +1,11 @@
 <template>
-  <label class="input">
-    <span :class="{ 'visually-hidden': isTitleHidden }">{{ title }}</span>
+  <label class="input" :class="classModifier">
+    <span :class="{ 'visually-hidden': isTitleHidden }"><slot /></span>
     <input
       :type="type"
       :name="name"
       :placeholder="placeholder"
+      :value="value"
       @input="$emit('input', $event.target.value)"
     />
   </label>
@@ -20,11 +21,6 @@ export default {
       default: "text",
     },
 
-    title: {
-      type: String,
-      required: true,
-    },
-
     name: {
       type: String,
       required: true,
@@ -35,9 +31,27 @@ export default {
       default: null,
     },
 
+    value: {
+      type: String,
+      default: "",
+    },
+
     isTitleHidden: {
       type: Boolean,
       default: false,
+    },
+
+    bigLabel: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  computed: {
+    classModifier() {
+      return {
+        "input--big-label": this.bigLabel,
+      };
     },
   },
 };

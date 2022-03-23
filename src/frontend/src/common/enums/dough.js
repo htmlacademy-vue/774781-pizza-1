@@ -3,9 +3,16 @@ import {
   DOUGH_LIGHT_VALUE,
   DOUGH_LARGE_KEY,
   DOUGH_LARGE_VALUE,
+  DOUGH_SMALL_SIZE,
+  DOUGH_BIG_SIZE,
 } from "@/common/const.js";
 
-export default {
+export const doughValues = {
   [DOUGH_LIGHT_KEY]: DOUGH_LIGHT_VALUE,
   [DOUGH_LARGE_KEY]: DOUGH_LARGE_VALUE,
+};
+
+export const doughSizes = {
+  [DOUGH_LIGHT_KEY]: DOUGH_SMALL_SIZE,
+  [DOUGH_LARGE_KEY]: DOUGH_BIG_SIZE,
 };

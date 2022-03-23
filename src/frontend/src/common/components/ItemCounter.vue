@@ -4,23 +4,24 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="isNegative"
-      @click="change(-1)"
+      @click="changeCount(-1)"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
     <input
+      ref="input"
       type="text"
       name="counter"
       class="counter__input"
-      @blur="validateValue($event.target.value)"
       :value="counter"
+      disabled
     />
     <button
       type="button"
       class="counter__button counter__button--plus"
       :class="themeClass"
       :disabled="isLimit"
-      @click="change(1)"
+      @click="changeCount(1)"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -33,13 +34,11 @@ import { counterLimit } from "@/common/const.js";
 export default {
   name: "ItemCounter",
 
-  data() {
-    return {
-      counter: counterLimit.MIN,
-    };
-  },
-
   props: {
+    counter: {
+      type: [Number, String],
+      required: true,
+    },
     theme: {
       type: String,
       default: null,
@@ -61,38 +60,24 @@ export default {
   },
 
   methods: {
-    validateValue(value) {
-      const number = parseInt(value);
-
-      if (Number.isNaN(number)) {
-        this.counter = counterLimit.MIN;
-      }
-
-      if (number <= counterLimit.MIN) {
-        this.counter = counterLimit.MIN;
-      }
-
-      if (number >= counterLimit.MAX) {
-        this.counter = counterLimit.MAX;
-      }
+    update(counter) {
+      this.$emit("update:counter", counter);
     },
 
-    change(multiplier) {
+    changeCount(multiplier) {
       if (multiplier > 0) {
         if (this.isLimit) {
           return;
         }
 
-        this.counter++;
+        this.update(this.counter + 1);
       } else {
         if (this.isNegative) {
           return;
         }
 
-        this.counter--;
+        this.update(this.counter - 1);
       }
-
-      this.$emit("change", this.counter);
     },
   },
 };

@@ -1,11 +1,18 @@
 <template>
   <ul class="cart-list sheet">
-    <li class="cart-list__item">
-      <ProductItem class="cart-list__product" />
-      <ItemCounter class="cart-list__counter" theme="orange" />
+    <li class="cart-list__item" v-for="product in products" :key="product.id">
+      <ProductItem class="cart-list__product" :product="product" />
+      <ItemCounter
+        class="cart-list__counter"
+        theme="orange"
+        :counter="product.quantity"
+        @update:counter="
+          updateProductQuantity($event, product.id, product.basePrice)
+        "
+      />
 
       <div class="cart-list__price">
-        <b>782 ₽</b>
+        <b>{{ product.price }} ₽</b>
       </div>
 
       <div class="cart-list__button">
@@ -16,13 +23,31 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 import { ItemCounter, ProductItem } from "@/common/components";
+import {
+  CHANGE_PRODUCT_QUANTITY,
+  UPDATE_PRODUCT_PRICE,
+} from "@/store/mutations-types";
 
 export default {
   name: "CartList",
+
   components: {
     ProductItem,
     ItemCounter,
+  },
+
+  computed: {
+    ...mapState("cart", ["products"]),
+  },
+
+  methods: {
+    updateProductQuantity(quantity, id, basePrice) {
+      this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
+      this[UPDATE_PRODUCT_PRICE]({ quantity, id, basePrice });
+    },
+    ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY, UPDATE_PRODUCT_PRICE]),
   },
 };
 </script>

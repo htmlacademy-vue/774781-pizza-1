@@ -5,22 +5,54 @@
       class="product__img"
       width="56"
       height="56"
-      alt="Капричоза"
+      :alt="product.name"
     />
     <div class="product__text">
-      <h2>Капричоза</h2>
+      <h2>{{ product.name }}</h2>
       <ul>
-        <li>30 см, на тонком тесте</li>
-        <li>Соус: томатный</li>
-        <li>Начинка: грибы, лук, ветчина, пармезан, ананас</li>
+        <li>
+          {{ sizesNameEnum[product.sizeId] }},
+          {{ displayDoughTitle(product.doughId) }}
+        </li>
+        <li>Соус: {{ sausesNameEnum[product.sauceId].toLowerCase() }}</li>
+        <li>Начинка: {{ displayIngredients(product.ingredients) }}</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "ProductItem",
+
+  props: {
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  computed: {
+    ...mapGetters("builder", [
+      "getIngredientNames",
+      "sizesNameEnum",
+      "sausesNameEnum",
+      "ingredientsNameEnum",
+    ]),
+  },
+
+  methods: {
+    displayIngredients(ingredients) {
+      return ingredients
+        .map((ingredient) => this.ingredientsNameEnum[ingredient.id])
+        .join(", ");
+    },
+    displayDoughTitle(doughId) {
+      return doughId === 1 ? "на тонком тесте" : "на толстом тесте";
+    },
+  },
 };
 </script>
 

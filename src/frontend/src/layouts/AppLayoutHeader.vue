@@ -1,31 +1,60 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <Logo />
+      <MainLogo />
     </div>
     <div class="header__cart">
-      <router-link to="/cart">0 ₽</router-link>
+      <router-link to="/cart">{{ totalPrice }} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link to="/login" class="header__login"
+      <router-link v-if="user === null" to="/login" class="header__login"
         ><span>Войти</span></router-link
       >
+      <template v-else>
+        <router-link to="/profile">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                @/assets/img/users/user5.webp    1x,
+                @/assets/img/users/user5@2x.webp 2x
+              "
+            />
+            <img
+              src="@/assets/img/users/user5.jpg"
+              srcset="@/assets/img/users/user5@2x.jpg"
+              :alt="user.name"
+              width="32"
+              height="32"
+            />
+          </picture>
+          <span>{{ user.name }}</span>
+        </router-link>
+        <a href="#" class="header__logout"><span>Выйти</span></a>
+      </template>
     </div>
   </header>
 </template>
 
 <script>
-import { Logo } from "@/common/components";
+import { mapState, mapGetters } from "vuex";
+import { MainLogo } from "@/common/components";
 
 export default {
   name: "AppLayoutHeader",
+
   components: {
-    Logo,
+    MainLogo,
+  },
+
+  computed: {
+    ...mapState("auth", ["user"]),
+    ...mapGetters("cart", ["totalPrice"]),
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .header {
   position: relative;
   z-index: 2;
@@ -81,6 +110,9 @@ export default {
 }
 
 .header__user {
+  display: flex;
+  align-items: center;
+
   a {
     display: block;
 

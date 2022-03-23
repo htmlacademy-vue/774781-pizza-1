@@ -6,26 +6,29 @@
           <AppTitle size="big">Корзина</AppTitle>
         </div>
 
-        <!-- <div class="sheet cart__empty">
+        <div v-if="!hasProducts" class="sheet cart__empty">
           <p>В корзине нет ни одного товара</p>
-        </div> -->
-
-        <CartList />
-
-        <div class="cart__additional">
-          <CartAdditionalList />
         </div>
 
-        <div class="cart__form">
-          <CartForm />
-        </div>
+        <template v-else>
+          <CartList />
+
+          <div class="cart__additional">
+            <CartAdditionalList />
+          </div>
+
+          <div class="cart__form">
+            <CartForm />
+          </div>
+        </template>
       </div>
     </main>
-    <AppLayoutFooter />
+    <AppLayoutFooter v-if="hasProducts" />
   </form>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import {
   CartList,
   CartAdditionalList,
@@ -33,12 +36,16 @@ import {
 } from "@/modules/cart/components";
 
 export default {
-  name: "Cart",
+  name: "CartPage",
 
   components: {
     CartList,
     CartAdditionalList,
     CartForm,
+  },
+
+  computed: {
+    ...mapGetters("cart", ["hasProducts"]),
   },
 };
 </script>

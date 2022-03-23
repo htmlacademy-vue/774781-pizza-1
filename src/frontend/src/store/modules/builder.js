@@ -9,7 +9,20 @@ import {
   CHANGE_INGREDIENT_QUANTITY,
   SET_BUILDER,
   SET_PIZZA_ENTITY,
+  RESET_CURRENT_PIZZA,
 } from "@/store/mutations-types";
+
+const setupCurrentPizzaState = () => ({
+  id: uniqueId("currentPizza_"),
+  name: "",
+  doughId: null,
+  sauceId: null,
+  sizeId: null,
+  basePrice: 0,
+  price: 0,
+  ingredients: {},
+  quantity: 1,
+});
 
 export default {
   namespaced: true,
@@ -21,17 +34,7 @@ export default {
       ingredients: [],
       sizes: [],
     },
-    currentPizza: {
-      id: uniqueId("currentPizza_"),
-      name: "",
-      doughId: null,
-      sauceId: null,
-      sizeId: null,
-      basePrice: 0,
-      price: 0,
-      ingredients: {},
-      quantity: 1,
-    },
+    currentPizza: setupCurrentPizzaState(),
   },
 
   mutations: {
@@ -93,6 +96,10 @@ export default {
         ingredientsArray.map((item) => [item.id, item.quantity])
       );
     },
+
+    [RESET_CURRENT_PIZZA](state) {
+      Object.assign(state.currentPizza, setupCurrentPizzaState());
+    },
   },
 
   actions: {
@@ -123,9 +130,7 @@ export default {
       dispatch("fetchSizes");
     },
 
-    initBuilder({ state, commit, dispatch, getters }) {
-      dispatch("fetchBuilder");
-      commit(ADD_BUILDER_ADDITIONAL_DATA);
+    setCurrentPizzaDefaultValues({ state, commit, getters }) {
       commit(SET_PIZZA_ENTITY, {
         entity: "doughId",
         value: state.builder.dough[0].id,
@@ -145,6 +150,12 @@ export default {
         entity: "ingredients",
         value: getters.selectedIngredients,
       });
+    },
+
+    initBuilder({ commit, dispatch }) {
+      dispatch("fetchBuilder");
+      commit(ADD_BUILDER_ADDITIONAL_DATA);
+      dispatch("setCurrentPizzaDefaultValues");
     },
   },
 

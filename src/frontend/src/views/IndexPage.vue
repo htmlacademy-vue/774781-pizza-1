@@ -79,12 +79,13 @@ export default {
       "hasIngredients",
       "builderPrice",
       "pizzaName",
-      "selectedIngredients",
     ]),
   },
 
   methods: {
     addPizzaToCart() {
+      this[SET_PIZZA_ENTITY]({ entity: "price", value: this.builderPrice });
+      this[SET_PIZZA_ENTITY]({ entity: "basePrice", value: this.builderPrice });
       this[ADD_PRODUCT](this.currentPizza);
     },
 

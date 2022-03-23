@@ -7,7 +7,6 @@ import sizesValues from "@/common/enums/sizesValues.js";
 import {
   ADD_BUILDER_ADDITIONAL_DATA,
   CHANGE_INGREDIENT_QUANTITY,
-  ADD_INGREDIENT_QUANTITY,
   SET_BUILDER,
   SET_PIZZA_ENTITY,
 } from "@/store/mutations-types";
@@ -30,7 +29,7 @@ export default {
       sizeId: null,
       basePrice: 0,
       price: 0,
-      ingredients: [],
+      ingredients: {},
       quantity: 1,
     },
   },
@@ -55,7 +54,6 @@ export default {
         (ingredient) => ({
           ...ingredient,
           modifier: ingredientModifiers[ingredient.name],
-          quantity: 0,
         })
       );
 
@@ -70,20 +68,30 @@ export default {
       }));
     },
 
-    [ADD_INGREDIENT_QUANTITY](state, { id }) {
-      const ingredient = state.builder.ingredients.find(
-        (ingredient) => ingredient.id === id
-      );
-
-      this._vm.$set(ingredient, "quantity", ingredient.quantity + 1);
-    },
-
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
-      const ingredient = state.builder.ingredients.find(
+      const ingredientsArray = Object.entries(
+        state.currentPizza.ingredients
+      ).map((entrie) => ({
+        id: Number(entrie[0]),
+        quantity: entrie[1],
+      }));
+
+      const idx = ingredientsArray.findIndex(
         (ingredient) => ingredient.id === id
       );
 
-      this._vm.$set(ingredient, "quantity", quantity);
+      if (idx === -1) {
+        ingredientsArray.push({ id, quantity });
+      } else {
+        ingredientsArray.splice(idx, 1, {
+          id,
+          quantity,
+        });
+      }
+
+      state.currentPizza.ingredients = Object.fromEntries(
+        ingredientsArray.map((item) => [item.id, item.quantity])
+      );
     },
   },
 
@@ -137,16 +145,6 @@ export default {
         entity: "ingredients",
         value: getters.selectedIngredients,
       });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "basePrice",
-        value: getters.builderPrice,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "price",
-        value: getters.builderPrice,
-      });
     },
   },
 
@@ -187,27 +185,24 @@ export default {
     hasPizzaName: (_, { pizzaName }) => pizzaName.length > 0,
 
     ingredients: (_, { builder }) => builder.ingredients,
-    hasIngredients: (_, { ingredients }) =>
-      ingredients.filter(({ quantity }) => quantity >= 1).length > 0,
-
-    ingredientsPrice: (_, { ingredients }) =>
-      ingredients
-        .filter(({ quantity }) => quantity > 0)
-        .reduce(
-          (accumulator, { quantity, price }) => accumulator + price * quantity,
-          0
-        ),
+    selectedIngredients: (_, { currentPizza }) => currentPizza.ingredients,
+    hasIngredients: (_, { selectedIngredients }) =>
+      Object.values(selectedIngredients).filter((quantity) => quantity > 0)
+        .length > 0,
 
     ingredientsNameEnum: (_, { ingredients }) =>
       ingredients.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
 
-    selectedIngredients: (_, { ingredients }) =>
+    ingredientsPrice: (_, { ingredients, selectedIngredients }) =>
       ingredients
-        .filter((ingredient) => ingredient.quantity > 0)
-        .map(({ id, quantity }) => ({
-          id,
-          quantity,
-        })),
+        .map((ingredient) => ({
+          ...ingredient,
+          quantity: selectedIngredients[ingredient.id] || 0,
+        }))
+        .reduce(
+          (accumulator, { quantity, price }) => accumulator + price * quantity,
+          0
+        ),
 
     builderPrice: (
       _,

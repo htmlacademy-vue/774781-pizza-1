@@ -4,16 +4,18 @@
 
     <ul class="ingredients__list">
       <li
-        v-for="{ id, name, modifier, quantity } in ingredients"
+        v-for="{ id, name, modifier } in ingredients"
         :key="id"
         class="ingredients__item"
       >
-        <AppDrag :transfer-data="{ id, quantity }">
+        <AppDrag
+          :transfer-data="{ id, quantity: selectedIngredients[id] || 0 }"
+        >
           <IngredientFilling :name="name" :modifier="modifier" />
 
           <ItemCounter
             class="ingredients__counter"
-            :counter="quantity"
+            :counter="selectedIngredients[id] || 0"
             @update:counter="changeQuantity(id, $event)"
           />
         </AppDrag>
@@ -24,11 +26,7 @@
 
 <script>
 import { mapMutations, mapGetters } from "vuex";
-import {
-  CHANGE_INGREDIENT_QUANTITY,
-  SET_PIZZA_ENTITY,
-} from "@/store/mutations-types";
-
+import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutations-types";
 import { ItemCounter } from "@/common/components";
 import IngredientFilling from "./IngredientFilling.vue";
 
@@ -47,13 +45,9 @@ export default {
   methods: {
     changeQuantity(id, quantity) {
       this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
-      this[SET_PIZZA_ENTITY]({
-        entity: "ingredients",
-        value: this.selectedIngredients,
-      });
     },
 
-    ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY, SET_PIZZA_ENTITY]),
+    ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY]),
   },
 };
 </script>

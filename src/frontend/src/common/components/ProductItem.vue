@@ -45,8 +45,8 @@ export default {
 
   methods: {
     displayIngredients(ingredients) {
-      return ingredients
-        .map((ingredient) => this.ingredientsNameEnum[ingredient.id])
+      return Object.keys(ingredients)
+        .map((id) => this.ingredientsNameEnum[id])
         .join(", ");
     },
     displayDoughTitle(doughId) {

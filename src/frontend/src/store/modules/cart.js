@@ -14,6 +14,7 @@ export default {
   state: {
     misc: [],
     products: [],
+    currentMisc: {},
   },
 
   mutations: {
@@ -55,9 +56,25 @@ export default {
     },
 
     [CHANGE_MISC_QUANTITY](state, { id, quantity }) {
-      const misc = state.misc.find((misc) => misc.id === id);
+      const miscArray = Object.entries(state.currentMisc).map((entrie) => ({
+        id: Number(entrie[0]),
+        quantity: entrie[1],
+      }));
 
-      this._vm.$set(misc, "quantity", quantity);
+      const idx = miscArray.findIndex((ingredient) => ingredient.id === id);
+
+      if (idx === -1) {
+        miscArray.push({ id, quantity });
+      } else {
+        miscArray.splice(idx, 1, {
+          id,
+          quantity,
+        });
+      }
+
+      state.currentMisc = Object.fromEntries(
+        miscArray.map((item) => [item.id, item.quantity])
+      );
     },
   },
 
@@ -70,21 +87,18 @@ export default {
         .reduce((accumulator, { price }) => accumulator + price, 0),
 
     misc: (state) => state.misc,
-    miscPrice: (_, { misc }) =>
+    selectedMisc: (state) => state.currentMisc,
+    miscPrice: (_, { misc, selectedMisc }) =>
       misc
+        .map((misc) => ({
+          ...misc,
+          quantity: selectedMisc[misc.id] || 0,
+        }))
         .filter(({ quantity }) => quantity > 0)
         .reduce(
           (accumulator, { quantity, price }) => accumulator + price * quantity,
           0
         ),
-
-    selectedMisc: (_, { misc }) =>
-      misc
-        .filter((misc) => misc.quantity > 0)
-        .map(({ id, quantity }) => ({
-          id,
-          quantity,
-        })),
 
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
   },

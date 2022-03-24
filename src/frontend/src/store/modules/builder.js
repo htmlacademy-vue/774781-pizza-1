@@ -210,6 +210,7 @@ export default {
           ...ingredient,
           quantity: selectedIngredients[ingredient.id] || 0,
         }))
+        .filter(({ quantity }) => quantity > 0)
         .reduce(
           (accumulator, { quantity, price }) => accumulator + price * quantity,
           0

@@ -1,7 +1,7 @@
 <template>
   <ul class="additional-list">
     <li
-      v-for="{ id, name, image, price, quantity } in misc"
+      v-for="{ id, name, image, price } in misc"
       :key="id"
       class="additional-list__item sheet"
     >
@@ -17,7 +17,7 @@
 
       <div class="additional-list__wrapper">
         <ItemCounter
-          :counter="quantity"
+          :counter="selectedMisc[id] || 0"
           class="additional-list__counter"
           theme="orange"
           @update:counter="changeQuantity(id, $event)"
@@ -44,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters("cart", ["misc"]),
+    ...mapGetters("cart", ["misc", "selectedMisc"]),
   },
 
   methods: {

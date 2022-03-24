@@ -16,7 +16,13 @@
       </div>
 
       <div class="cart-list__button">
-        <button type="button" class="cart-list__edit">Изменить</button>
+        <button
+          @click="changeSelectedPizza(product.id)"
+          type="button"
+          class="cart-list__edit"
+        >
+          Изменить
+        </button>
       </div>
     </li>
   </ul>
@@ -28,6 +34,7 @@ import { ItemCounter, ProductItem } from "@/common/components";
 import {
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
+  EDIT_PIZZA,
 } from "@/store/mutations-types";
 
 export default {
@@ -47,7 +54,12 @@ export default {
       this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
       this[UPDATE_PRODUCT_PRICE]({ quantity, id, basePrice });
     },
+    changeSelectedPizza(id) {
+      this[EDIT_PIZZA](id);
+      this.$router.push("/");
+    },
     ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY, UPDATE_PRODUCT_PRICE]),
+    ...mapMutations([EDIT_PIZZA]),
   },
 };
 </script>

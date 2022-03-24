@@ -11,10 +11,10 @@
         </div>
 
         <template v-else>
-          <CartList />
+          <CartProducts />
 
           <div class="cart__additional">
-            <CartAdditionalList />
+            <CartMisc />
           </div>
 
           <div class="cart__form">
@@ -29,18 +29,14 @@
 
 <script>
 import { mapGetters } from "vuex";
-import {
-  CartList,
-  CartAdditionalList,
-  CartForm,
-} from "@/modules/cart/components";
+import { CartProducts, CartMisc, CartForm } from "@/modules/cart/components";
 
 export default {
   name: "CartPage",
 
   components: {
-    CartList,
-    CartAdditionalList,
+    CartProducts,
+    CartMisc,
     CartForm,
   },
 

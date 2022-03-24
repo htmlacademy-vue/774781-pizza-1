@@ -1,5 +1,5 @@
-import CartList from "./CartList.vue";
-import CartAdditionalList from "./CartAdditionalList.vue";
+import CartProducts from "./CartProducts.vue";
+import CartMisc from "./CartMisc.vue";
 import CartForm from "./CartForm.vue";
 
-export { CartList, CartAdditionalList, CartForm };
+export { CartProducts, CartMisc, CartForm };

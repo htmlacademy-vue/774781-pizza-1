@@ -37,7 +37,7 @@ import { CHANGE_MISC_QUANTITY } from "@/store/mutations-types";
 import { ItemCounter } from "@/common/components";
 
 export default {
-  name: "CartAdditionalList",
+  name: "CartMisc",
 
   components: {
     ItemCounter,

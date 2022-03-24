@@ -38,7 +38,7 @@ import {
 } from "@/store/mutations-types";
 
 export default {
-  name: "CartList",
+  name: "CartProducts",
 
   components: {
     ProductItem,

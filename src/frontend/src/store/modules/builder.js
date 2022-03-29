@@ -1,9 +1,16 @@
 import uniqueId from "lodash/uniqueId";
-import jsonPizza from "@/static/pizza.json";
 import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
+
+import {
+  getDough,
+  getIngredients,
+  getSizes,
+  getSauces,
+} from "@/services/api.service";
+
 import {
   ADD_BUILDER_ADDITIONAL_DATA,
   CHANGE_INGREDIENT_QUANTITY,
@@ -103,31 +110,33 @@ export default {
   },
 
   actions: {
-    fetchDough({ commit }) {
-      const { dough } = jsonPizza;
+    async fetchDough({ commit }) {
+      const dough = await getDough();
       commit(SET_BUILDER, { entity: "dough", value: dough });
     },
 
-    fetchSauces({ commit }) {
-      const { sauces } = jsonPizza;
+    async fetchSauces({ commit }) {
+      const sauces = await getSauces();
       commit(SET_BUILDER, { entity: "sauces", value: sauces });
     },
 
-    fetchIngredients({ commit }) {
-      const { ingredients } = jsonPizza;
+    async fetchIngredients({ commit }) {
+      const ingredients = await getIngredients();
       commit(SET_BUILDER, { entity: "ingredients", value: ingredients });
     },
 
-    fetchSizes({ commit }) {
-      const { sizes } = jsonPizza;
+    async fetchSizes({ commit }) {
+      const sizes = await getSizes();
       commit(SET_BUILDER, { entity: "sizes", value: sizes });
     },
 
     fetchBuilder({ dispatch }) {
-      dispatch("fetchDough");
-      dispatch("fetchSauces");
-      dispatch("fetchIngredients");
-      dispatch("fetchSizes");
+      return Promise.all([
+        dispatch("fetchDough"),
+        dispatch("fetchSauces"),
+        dispatch("fetchIngredients"),
+        dispatch("fetchSizes"),
+      ]);
     },
 
     setCurrentPizzaDefaultValues({ state, commit, getters }) {
@@ -152,8 +161,9 @@ export default {
       });
     },
 
-    initBuilder({ commit, dispatch }) {
-      dispatch("fetchBuilder");
+    async initBuilder({ commit, dispatch }) {
+      await dispatch("fetchBuilder");
+
       commit(ADD_BUILDER_ADDITIONAL_DATA);
       dispatch("setCurrentPizzaDefaultValues");
     },

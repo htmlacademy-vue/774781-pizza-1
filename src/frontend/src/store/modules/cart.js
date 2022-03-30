@@ -1,4 +1,3 @@
-import jsonMisc from "@/static/misc";
 import {
   ADD_PRODUCT,
   CHANGE_PRODUCT_QUANTITY,
@@ -7,6 +6,8 @@ import {
   ADD_MISC_ADDITIONAL_DATA,
   SET_MISC,
 } from "@/store/mutations-types";
+
+import { getMisc } from "@/services/api.service";
 
 export default {
   namespaced: true,
@@ -104,8 +105,8 @@ export default {
   },
 
   actions: {
-    fetchMisc({ commit }) {
-      const misc = jsonMisc;
+    async fetchMisc({ commit }) {
+      const misc = await getMisc();
 
       commit(SET_MISC, misc);
       commit(ADD_MISC_ADDITIONAL_DATA);

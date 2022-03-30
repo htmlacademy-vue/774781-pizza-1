@@ -19,3 +19,8 @@ export const getSauces = async () => {
   const { data } = await axios.get("/sauces");
   return data;
 };
+
+export const getMisc = async () => {
+  const { data } = await axios.get("/misc");
+  return data;
+};

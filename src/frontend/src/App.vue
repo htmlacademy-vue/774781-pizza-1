@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <AppLayout>
+    <AppLayout v-if="!loading">
       <router-view />
     </AppLayout>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "App",
   created() {
     this.init();
+  },
+  computed: {
+    ...mapState(["loading"]),
   },
   methods: {
     ...mapActions(["init"]),

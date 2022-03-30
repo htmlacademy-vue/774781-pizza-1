@@ -47,7 +47,9 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import {
-  SET_PIZZA_ENTITY,
+  SET_PIZZA_BASE_PRICE,
+  SET_PIZZA_PRICE,
+  SET_PIZZA_NAME,
   ADD_PRODUCT,
   RESET_CURRENT_PIZZA,
 } from "@/store/mutations-types";
@@ -88,18 +90,23 @@ export default {
 
   methods: {
     addPizzaToCart() {
-      this[SET_PIZZA_ENTITY]({ entity: "price", value: this.builderPrice });
-      this[SET_PIZZA_ENTITY]({ entity: "basePrice", value: this.builderPrice });
+      this[SET_PIZZA_PRICE](this.builderPrice);
+      this[SET_PIZZA_BASE_PRICE](this.builderPrice);
       this[ADD_PRODUCT]({ ...this.currentPizza });
       this[RESET_CURRENT_PIZZA]();
       this.setCurrentPizzaDefaultValues();
     },
 
     setPizzaName(name) {
-      this[SET_PIZZA_ENTITY]({ entity: "name", value: name });
+      this[SET_PIZZA_NAME](name);
     },
 
-    ...mapMutations("builder", [SET_PIZZA_ENTITY, RESET_CURRENT_PIZZA]),
+    ...mapMutations("builder", [
+      SET_PIZZA_NAME,
+      SET_PIZZA_BASE_PRICE,
+      SET_PIZZA_PRICE,
+      RESET_CURRENT_PIZZA,
+    ]),
     ...mapMutations("cart", [ADD_PRODUCT]),
     ...mapActions("cart", ["addProductToCart"]),
     ...mapActions("builder", ["setCurrentPizzaDefaultValues"]),

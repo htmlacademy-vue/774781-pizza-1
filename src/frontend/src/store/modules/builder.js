@@ -15,7 +15,13 @@ import {
   ADD_BUILDER_ADDITIONAL_DATA,
   CHANGE_INGREDIENT_QUANTITY,
   SET_BUILDER,
-  SET_PIZZA_ENTITY,
+  SET_SAUCE,
+  SET_DOUGH,
+  SET_SIZE,
+  SET_INGREDIENTS,
+  SET_PIZZA_NAME,
+  SET_PIZZA_PRICE,
+  SET_PIZZA_BASE_PRICE,
   RESET_CURRENT_PIZZA,
 } from "@/store/mutations-types";
 
@@ -49,8 +55,32 @@ export default {
       state.builder[entity] = value;
     },
 
-    [SET_PIZZA_ENTITY](state, { entity, value }) {
-      state.currentPizza[entity] = value;
+    [SET_INGREDIENTS](state, ingredients) {
+      state.currentPizza.ingredients = ingredients;
+    },
+
+    [SET_DOUGH](state, id) {
+      state.currentPizza.doughId = id;
+    },
+
+    [SET_SAUCE](state, id) {
+      state.currentPizza.sauceId = id;
+    },
+
+    [SET_SIZE](state, id) {
+      state.currentPizza.sizeId = id;
+    },
+
+    [SET_PIZZA_NAME](state, name) {
+      state.currentPizza.name = name;
+    },
+
+    [SET_PIZZA_PRICE](state, price) {
+      state.currentPizza.price = price;
+    },
+
+    [SET_PIZZA_BASE_PRICE](state, price) {
+      state.currentPizza.basePrice = price;
     },
 
     [ADD_BUILDER_ADDITIONAL_DATA](state) {
@@ -140,25 +170,10 @@ export default {
     },
 
     setCurrentPizzaDefaultValues({ state, commit, getters }) {
-      commit(SET_PIZZA_ENTITY, {
-        entity: "doughId",
-        value: state.builder.dough[0].id,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "sauceId",
-        value: state.builder.sauces[0].id,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "sizeId",
-        value: state.builder.sizes[0].id,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "ingredients",
-        value: getters.selectedIngredients,
-      });
+      commit(SET_DOUGH, state.builder.dough[0].id);
+      commit(SET_SAUCE, state.builder.sauces[0].id);
+      commit(SET_SIZE, state.builder.sizes[0].id);
+      commit(SET_INGREDIENTS, getters.selectedIngredients);
     },
 
     async initBuilder({ commit, dispatch }) {

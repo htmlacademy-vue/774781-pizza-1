@@ -1,5 +1,8 @@
 export const SET_LOADING = "SET_LOADING";
 
+export const SET_AUTHENTICATION = "SET_AUTHENTICATION";
+export const SET_USER = "SET_USER";
+
 export const SET_BUILDER = "SET_BUILDER";
 export const SET_DOUGH = "SET_DOUGH";
 export const SET_SAUCE = "SET_SAUCE";

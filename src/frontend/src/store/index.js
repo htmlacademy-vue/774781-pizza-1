@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { builder, auth, cart, orders } from "./modules";
+import VuexPlugins from "@/plugins/vuexPlugins";
 import { EDIT_PIZZA, SET_LOADING } from "@/store/mutations-types";
 
 Vue.use(Vuex);
@@ -36,6 +37,7 @@ export default new Vuex.Store({
   state,
   mutations,
   actions,
+  plugins: [VuexPlugins],
   modules: {
     builder,
     auth,

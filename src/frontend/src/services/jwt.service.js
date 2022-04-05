@@ -1,10 +1,10 @@
-const ID_TOKEN_KEY = 'token';
+const ID_TOKEN_KEY = "token";
 
 const getToken = () => {
   return window.localStorage.getItem(ID_TOKEN_KEY);
 };
 
-const saveToken = token => {
+const saveToken = (token) => {
   window.localStorage.setItem(ID_TOKEN_KEY, token);
 };
 

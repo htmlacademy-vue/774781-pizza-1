@@ -4,37 +4,56 @@
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </router-link>
     <div class="sign-form__title">
-      <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+      <AppTitle size="small">Авторизуйтесь на сайте</AppTitle>
     </div>
-    <form action="test.html" method="post">
+    <form @submit.prevent="signIn()">
       <div class="sign-form__input">
-        <label class="input">
-          <span>E-mail</span>
-          <input type="email" name="email" placeholder="example@mail.ru" />
-        </label>
+        <AppInput
+          v-model="email"
+          type="email"
+          name="email"
+          placeholder="example@mail.ru"
+          >E-mail</AppInput
+        >
       </div>
 
       <div class="sign-form__input">
-        <label class="input">
-          <span>Пароль</span>
-          <input type="password" name="pass" placeholder="***********" />
-        </label>
+        <AppInput
+          v-model="password"
+          type="password"
+          name="pass"
+          placeholder="***********"
+          >Пароль</AppInput
+        >
       </div>
-      <button @click.prevent="submit()" type="submit" class="button">
-        Авторизоваться
-      </button>
+      <AppButton type="submit">Авторизоваться</AppButton>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "LoginPage",
 
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+
   methods: {
-    submit() {
-      this.$router.push("/profile");
+    async signIn() {
+      await this.login({
+        email: this.email,
+        password: this.password,
+      });
+
+      this.$router.push("/");
     },
+    ...mapActions("auth", ["login"]),
   },
 };
 </script>

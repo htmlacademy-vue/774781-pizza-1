@@ -7,8 +7,6 @@ import {
   SET_MISC,
 } from "@/store/mutations-types";
 
-import { getMisc } from "@/services/api.service";
-
 export default {
   namespaced: true,
 
@@ -106,7 +104,7 @@ export default {
 
   actions: {
     async fetchMisc({ commit }) {
-      const misc = await getMisc();
+      const misc = await this.$api.cart.misc();
 
       commit(SET_MISC, misc);
       commit(ADD_MISC_ADDITIONAL_DATA);

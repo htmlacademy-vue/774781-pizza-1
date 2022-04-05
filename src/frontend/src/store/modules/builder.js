@@ -5,13 +5,6 @@ import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
 
 import {
-  getDough,
-  getIngredients,
-  getSizes,
-  getSauces,
-} from "@/services/api.service";
-
-import {
   ADD_BUILDER_ADDITIONAL_DATA,
   CHANGE_INGREDIENT_QUANTITY,
   SET_BUILDER,
@@ -141,22 +134,22 @@ export default {
 
   actions: {
     async fetchDough({ commit }) {
-      const dough = await getDough();
+      const dough = await this.$api.builder.dough();
       commit(SET_BUILDER, { entity: "dough", value: dough });
     },
 
     async fetchSauces({ commit }) {
-      const sauces = await getSauces();
+      const sauces = await this.$api.builder.sauces();
       commit(SET_BUILDER, { entity: "sauces", value: sauces });
     },
 
     async fetchIngredients({ commit }) {
-      const ingredients = await getIngredients();
+      const ingredients = await this.$api.builder.ingredients();
       commit(SET_BUILDER, { entity: "ingredients", value: ingredients });
     },
 
     async fetchSizes({ commit }) {
-      const sizes = await getSizes();
+      const sizes = await this.$api.builder.sizes();
       commit(SET_BUILDER, { entity: "sizes", value: sizes });
     },
 

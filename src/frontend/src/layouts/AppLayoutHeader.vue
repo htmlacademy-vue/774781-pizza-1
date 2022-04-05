@@ -7,7 +7,7 @@
       <router-link to="/cart">{{ totalPrice }} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link v-if="user === null" to="/login" class="header__login"
+      <router-link v-if="!isAuthenticated" to="/login" class="header__login"
         ><span>Войти</span></router-link
       >
       <template v-else>
@@ -30,14 +30,16 @@
           </picture>
           <span>{{ user.name }}</span>
         </router-link>
-        <a href="#" class="header__logout"><span>Выйти</span></a>
+        <a @click.prevent="logout()" href="#" class="header__logout"
+          ><span>Выйти</span></a
+        >
       </template>
     </div>
   </header>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import { MainLogo } from "@/common/components";
 
 export default {
@@ -48,8 +50,12 @@ export default {
   },
 
   computed: {
-    ...mapState("auth", ["user"]),
+    ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters("cart", ["totalPrice"]),
+  },
+
+  methods: {
+    ...mapActions("auth", ["logout"]),
   },
 };
 </script>

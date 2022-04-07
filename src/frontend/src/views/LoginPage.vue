@@ -6,13 +6,14 @@
     <div class="sign-form__title">
       <AppTitle size="small">Авторизуйтесь на сайте</AppTitle>
     </div>
-    <form @submit.prevent="signIn()">
+    <form @submit.prevent="signIn()" novalidate>
       <div class="sign-form__input">
         <AppInput
           v-model="email"
           type="email"
           name="email"
           placeholder="example@mail.ru"
+          :error-text="validations.email.error"
           >E-mail</AppInput
         >
       </div>
@@ -23,6 +24,7 @@
           type="password"
           name="pass"
           placeholder="***********"
+          :error-text="validations.password.error"
           >Пароль</AppInput
         >
       </div>
@@ -33,19 +35,50 @@
 
 <script>
 import { mapActions } from "vuex";
+import { validator } from "@/common/mixins";
 
 export default {
   name: "LoginPage",
+
+  mixins: [validator],
 
   data() {
     return {
       email: "",
       password: "",
+      validations: {
+        email: {
+          error: "",
+          rules: ["required", "email"],
+        },
+        password: {
+          error: "",
+          rules: ["required"],
+        },
+      },
     };
+  },
+
+  watch: {
+    email() {
+      this.$clearValidationErrors();
+    },
+    password() {
+      this.$clearValidationErrors();
+    },
   },
 
   methods: {
     async signIn() {
+      if (
+        !this.$validateFields(
+          { email: this.email, password: this.password },
+          this.validations
+        )
+      ) {
+        return;
+      }
+
       await this.login({
         email: this.email,
         password: this.password,

@@ -8,6 +8,9 @@
       :value="value"
       @input="$emit('input', $event.target.value)"
     />
+    <span v-if="showError" class="text-field__text">
+      {{ errorText }}
+    </span>
   </label>
 </template>
 
@@ -45,6 +48,11 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    errorText: {
+      type: String,
+      default: "",
+    },
   },
 
   computed: {
@@ -52,6 +60,10 @@ export default {
       return {
         "input--big-label": this.bigLabel,
       };
+    },
+
+    showError() {
+      return this.errorText.length > 0;
     },
   },
 };

@@ -7,7 +7,7 @@ import { EDIT_PIZZA, SET_LOADING } from "@/store/mutations-types";
 Vue.use(Vuex);
 
 const state = {
-  loading: true,
+  loading: false,
 };
 
 const mutations = {
@@ -26,10 +26,9 @@ const mutations = {
 };
 
 const actions = {
-  async init({ commit, dispatch }) {
+  async fetchInitialData({ dispatch }) {
     await dispatch("builder/initBuilder");
     await dispatch("cart/fetchMisc");
-    commit(SET_LOADING, false);
   },
 };
 

@@ -46,7 +46,6 @@ export default {
       };
 
       this[SAVE_ORDER](order);
-
       this.$router.push("/success");
     },
     ...mapMutations("orders", [SAVE_ORDER]),

@@ -46,7 +46,6 @@ export default {
     changeQuantity(id, quantity) {
       this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
     },
-
     ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY]),
   },
 };

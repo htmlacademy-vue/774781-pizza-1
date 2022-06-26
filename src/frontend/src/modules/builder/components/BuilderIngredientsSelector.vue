@@ -47,7 +47,6 @@ export default {
     selectSauce(id) {
       this[SET_SAUCE](id);
     },
-
     ...mapMutations("builder", [SET_SAUCE]),
   },
 };

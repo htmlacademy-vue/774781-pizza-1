@@ -7,12 +7,16 @@
 </template>
 
 <script>
-import { SET_AUTHENTICATION } from "@/store/mutations-types";
+import { SET_AUTHENTICATION, SET_LOADING } from "@/store/mutations-types";
 import { mapMutations, mapState, mapActions } from "vuex";
 
 export default {
   name: "App",
-  created() {
+  async created() {
+    this[SET_LOADING](true);
+    await this.fetchInitialData();
+    this[SET_LOADING](false);
+
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
     };
@@ -22,15 +26,14 @@ export default {
       this.getMe();
       this[SET_AUTHENTICATION](true);
     }
-
-    this.init();
   },
   computed: {
     ...mapState(["loading"]),
   },
   methods: {
+    ...mapMutations([SET_LOADING]),
     ...mapMutations("auth", [SET_AUTHENTICATION]),
-    ...mapActions(["init"]),
+    ...mapActions(["fetchInitialData"]),
     ...mapActions("auth", ["getMe"]),
   },
 };

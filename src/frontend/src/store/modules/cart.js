@@ -20,18 +20,15 @@ export default {
     [ADD_PRODUCT](state, product) {
       state.products.push(product);
     },
-
     [SET_MISC](state, misc) {
       state.misc = misc;
     },
-
     [ADD_MISC_ADDITIONAL_DATA](state) {
       state.misc = state.misc.map((misc) => ({
         ...misc,
         quantity: 0,
       }));
     },
-
     [UPDATE_PRODUCT_PRICE](state, { id, quantity, basePrice }) {
       const idx = state.products.findIndex((product) => product.id === id);
 
@@ -47,13 +44,11 @@ export default {
         price: basePrice * quantity,
       });
     },
-
     [CHANGE_PRODUCT_QUANTITY](state, { id, quantity }) {
       const product = state.products.find((product) => product.id === id);
 
       this._vm.$set(product, "quantity", quantity);
     },
-
     [CHANGE_MISC_QUANTITY](state, { id, quantity }) {
       const miscArray = Object.entries(state.currentMisc).map((entrie) => ({
         id: Number(entrie[0]),

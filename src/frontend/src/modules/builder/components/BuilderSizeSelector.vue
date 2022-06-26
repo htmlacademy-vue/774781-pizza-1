@@ -37,7 +37,6 @@ export default {
     selectSize(id) {
       this[SET_SIZE](id);
     },
-
     ...mapMutations("builder", [SET_SIZE]),
   },
 };

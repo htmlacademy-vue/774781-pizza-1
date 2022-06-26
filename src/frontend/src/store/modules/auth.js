@@ -12,11 +12,9 @@ export default {
     isGuest: (state) => {
       return state.user === null;
     },
-
     userId: (state) => {
       return state.user.id;
     },
-
     userPhone: (state) => {
       return state.user.phone;
     },
@@ -26,7 +24,6 @@ export default {
     [SET_AUTHENTICATION](state, value) {
       state.isAuthenticated = value;
     },
-
     [SET_USER](state, userData) {
       state.user = userData;
     },
@@ -39,7 +36,6 @@ export default {
       this.$api.auth.setAuthHeader();
       dispatch("getMe");
     },
-
     async getMe({ commit, dispatch }) {
       try {
         const data = await this.$api.auth.getMe();
@@ -49,7 +45,6 @@ export default {
         dispatch("logout", false);
       }
     },
-
     async logout({ commit }, sendRequest = true) {
       if (sendRequest) {
         await this.$api.auth.logout();

@@ -7,7 +7,7 @@ import sizesValues from "@/common/enums/sizesValues.js";
 import {
   ADD_BUILDER_ADDITIONAL_DATA,
   CHANGE_INGREDIENT_QUANTITY,
-  SET_BUILDER,
+  SET_BUILDER_INITIAL_DATA,
   SET_SAUCE,
   SET_DOUGH,
   SET_SIZE,
@@ -44,38 +44,30 @@ export default {
   },
 
   mutations: {
-    [SET_BUILDER](state, { entity, value }) {
+    [SET_BUILDER_INITIAL_DATA](state, { entity, value }) {
       state.builder[entity] = value;
     },
-
     [SET_INGREDIENTS](state, ingredients) {
       state.currentPizza.ingredients = ingredients;
     },
-
     [SET_DOUGH](state, id) {
       state.currentPizza.doughId = id;
     },
-
     [SET_SAUCE](state, id) {
       state.currentPizza.sauceId = id;
     },
-
     [SET_SIZE](state, id) {
       state.currentPizza.sizeId = id;
     },
-
     [SET_PIZZA_NAME](state, name) {
       state.currentPizza.name = name;
     },
-
     [SET_PIZZA_PRICE](state, price) {
       state.currentPizza.price = price;
     },
-
     [SET_PIZZA_BASE_PRICE](state, price) {
       state.currentPizza.basePrice = price;
     },
-
     [ADD_BUILDER_ADDITIONAL_DATA](state) {
       state.builder.dough = state.builder.dough.map((dough) => ({
         ...dough,
@@ -100,7 +92,6 @@ export default {
         value: sizesValues[size.multiplier],
       }));
     },
-
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
       const ingredientsArray = Object.entries(
         state.currentPizza.ingredients
@@ -126,7 +117,6 @@ export default {
         ingredientsArray.map((item) => [item.id, item.quantity])
       );
     },
-
     [RESET_CURRENT_PIZZA](state) {
       Object.assign(state.currentPizza, setupCurrentPizzaState());
     },
@@ -135,24 +125,23 @@ export default {
   actions: {
     async fetchDough({ commit }) {
       const dough = await this.$api.builder.dough();
-      commit(SET_BUILDER, { entity: "dough", value: dough });
+      commit(SET_BUILDER_INITIAL_DATA, { entity: "dough", value: dough });
     },
-
     async fetchSauces({ commit }) {
       const sauces = await this.$api.builder.sauces();
-      commit(SET_BUILDER, { entity: "sauces", value: sauces });
+      commit(SET_BUILDER_INITIAL_DATA, { entity: "sauces", value: sauces });
     },
-
     async fetchIngredients({ commit }) {
       const ingredients = await this.$api.builder.ingredients();
-      commit(SET_BUILDER, { entity: "ingredients", value: ingredients });
+      commit(SET_BUILDER_INITIAL_DATA, {
+        entity: "ingredients",
+        value: ingredients,
+      });
     },
-
     async fetchSizes({ commit }) {
       const sizes = await this.$api.builder.sizes();
-      commit(SET_BUILDER, { entity: "sizes", value: sizes });
+      commit(SET_BUILDER_INITIAL_DATA, { entity: "sizes", value: sizes });
     },
-
     fetchBuilder({ dispatch }) {
       return Promise.all([
         dispatch("fetchDough"),
@@ -161,14 +150,12 @@ export default {
         dispatch("fetchSizes"),
       ]);
     },
-
     setCurrentPizzaDefaultValues({ state, commit, getters }) {
       commit(SET_DOUGH, state.builder.dough[0].id);
       commit(SET_SAUCE, state.builder.sauces[0].id);
       commit(SET_SIZE, state.builder.sizes[0].id);
       commit(SET_INGREDIENTS, getters.selectedIngredients);
     },
-
     async initBuilder({ commit, dispatch }) {
       await dispatch("fetchBuilder");
 
@@ -180,7 +167,6 @@ export default {
   getters: {
     builder: (state) => state.builder,
     currentPizza: (state) => state.currentPizza,
-
     dough: (_, { builder }) => builder.dough,
     doughId: (_, { currentPizza }) => currentPizza.doughId,
     selectedDough: (_, { dough, doughId }) =>
@@ -188,7 +174,6 @@ export default {
 
     doughSize: (_, { selectedDough }) => selectedDough.size,
     doughPrice: (_, { selectedDough }) => selectedDough.price,
-
     sauces: (_, { builder }) => builder.sauces,
     sauceId: (_, { currentPizza }) => currentPizza.sauceId,
     selectedSauce: (_, { sauces, sauceId }) =>
@@ -199,7 +184,6 @@ export default {
 
     sauseName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
-
     sizes: (_, { builder }) => builder.sizes,
     sizesNameEnum: (_, { sizes }) =>
       sizes.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
@@ -209,10 +193,8 @@ export default {
       sizes.find((size) => size.id === sizeId),
 
     sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
-
     pizzaName: (_, { currentPizza }) => currentPizza.name,
     hasPizzaName: (_, { pizzaName }) => pizzaName.length > 0,
-
     ingredients: (_, { builder }) => builder.ingredients,
     selectedIngredients: (_, { currentPizza }) => currentPizza.ingredients,
     hasIngredients: (_, { selectedIngredients }) =>

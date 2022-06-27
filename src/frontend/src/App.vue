@@ -13,10 +13,6 @@ import { mapMutations, mapState, mapActions } from "vuex";
 export default {
   name: "App",
   async created() {
-    this[SET_LOADING](true);
-    await this.fetchInitialData();
-    this[SET_LOADING](false);
-
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
     };
@@ -26,6 +22,10 @@ export default {
       this.getMe();
       this[SET_AUTHENTICATION](true);
     }
+
+    this[SET_LOADING](true);
+    await this.fetchInitialData();
+    this[SET_LOADING](false);
   },
   computed: {
     ...mapState(["loading"]),

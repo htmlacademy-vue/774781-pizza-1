@@ -30,11 +30,15 @@ export default {
   },
 
   actions: {
-    async login({ dispatch }, credentials) {
-      const data = await this.$api.auth.login(credentials);
-      this.$jwt.saveToken(data.token);
+    async logout({ commit }, sendRequest = true) {
+      if (sendRequest) {
+        await this.$api.auth.logout();
+      }
+
+      this.$jwt.destroyToken();
       this.$api.auth.setAuthHeader();
-      dispatch("getMe");
+      commit(SET_AUTHENTICATION, false);
+      commit(SET_USER, null);
     },
     async getMe({ commit, dispatch }) {
       try {
@@ -45,15 +49,11 @@ export default {
         dispatch("logout", false);
       }
     },
-    async logout({ commit }, sendRequest = true) {
-      if (sendRequest) {
-        await this.$api.auth.logout();
-      }
-
-      this.$jwt.destroyToken();
+    async login({ dispatch }, credentials) {
+      const data = await this.$api.auth.login(credentials);
+      this.$jwt.saveToken(data.token);
       this.$api.auth.setAuthHeader();
-      commit(SET_AUTHENTICATION, false);
-      commit(SET_USER, null);
+      dispatch("getMe");
     },
   },
 };

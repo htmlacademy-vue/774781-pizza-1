@@ -12,4 +12,5 @@ const destroyToken = () => {
   window.localStorage.removeItem(ID_TOKEN_KEY);
 };
 
-export default { getToken, saveToken, destroyToken };
+const JWTService = { getToken, saveToken, destroyToken };
+export default JWTService;

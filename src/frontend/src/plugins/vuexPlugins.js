@@ -1,7 +1,7 @@
-import JWTService from "@/services/jwt.service";
-import { createResources } from "@/common/helpers";
+import JWTService from "@/services/jwt";
+import APIService from "@/services/api";
 
 export default function (store) {
   store.$jwt = JWTService;
-  store.$api = createResources();
+  store.$api = APIService;
 }

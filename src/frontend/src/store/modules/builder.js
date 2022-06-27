@@ -156,7 +156,7 @@ export default {
       commit(SET_SIZE, state.builder.sizes[0].id);
       commit(SET_INGREDIENTS, getters.selectedIngredients);
     },
-    resetCurrentPizza() {
+    resetCurrentPizza({ commit, dispatch }) {
       commit(RESET_CURRENT_PIZZA);
       dispatch("setCurrentPizzaDefaultValues");
     },

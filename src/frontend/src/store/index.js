@@ -21,7 +21,7 @@ const mutations = {
     );
 
     state.cart.products.splice(selectedPizzaIdx, 1);
-    state.builder.currentPizza = selectedPizza;
+    state.builder.currentPizza = { ...selectedPizza, quantity: 1 };
   },
 };
 

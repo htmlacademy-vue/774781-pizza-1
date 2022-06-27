@@ -1,5 +1,5 @@
 import {
-  ADD_PRODUCT,
+  ADD_PRODUCT_IN_CART,
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
   CHANGE_MISC_QUANTITY,
@@ -17,7 +17,7 @@ export default {
   },
 
   mutations: {
-    [ADD_PRODUCT](state, product) {
+    [ADD_PRODUCT_IN_CART](state, product) {
       state.products.push(product);
     },
     [SET_MISC](state, misc) {

@@ -50,8 +50,7 @@ import {
   SET_PIZZA_BASE_PRICE,
   SET_PIZZA_PRICE,
   SET_PIZZA_NAME,
-  ADD_PRODUCT,
-  RESET_CURRENT_PIZZA,
+  ADD_PRODUCT_IN_CART,
 } from "@/store/mutations-types";
 
 import {
@@ -91,9 +90,8 @@ export default {
     addPizzaToCart() {
       this[SET_PIZZA_PRICE](this.builderPrice);
       this[SET_PIZZA_BASE_PRICE](this.builderPrice);
-      this[ADD_PRODUCT]({ ...this.currentPizza });
-      this[RESET_CURRENT_PIZZA]();
-      this.setCurrentPizzaDefaultValues();
+      this[ADD_PRODUCT_IN_CART]({ ...this.currentPizza });
+      this.resetCurrentPizza();
     },
     setPizzaName(name) {
       this[SET_PIZZA_NAME](name);
@@ -102,11 +100,10 @@ export default {
       SET_PIZZA_NAME,
       SET_PIZZA_BASE_PRICE,
       SET_PIZZA_PRICE,
-      RESET_CURRENT_PIZZA,
     ]),
-    ...mapMutations("cart", [ADD_PRODUCT]),
+    ...mapMutations("cart", [ADD_PRODUCT_IN_CART]),
     ...mapActions("cart", ["addProductToCart"]),
-    ...mapActions("builder", ["setCurrentPizzaDefaultValues"]),
+    ...mapActions("builder", ["resetCurrentPizza"]),
   },
 };
 </script>

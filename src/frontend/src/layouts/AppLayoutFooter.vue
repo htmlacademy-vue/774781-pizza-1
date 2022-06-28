@@ -1,8 +1,8 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <router-link to="/" class="button button--border button--arrow"
-        >Хочу еще одну</router-link
+      <AppButton tag="a" border arrow @click="toIndexPage()">
+        Хочу еще одну</AppButton
       >
     </div>
     <p class="footer__text">
@@ -13,7 +13,7 @@
     </div>
 
     <div class="footer__submit">
-      <AppButton @click="checkout()">Оформить заказ</AppButton>
+      <AppButton type="button" @click="checkout()">Оформить заказ</AppButton>
     </div>
   </section>
 </template>
@@ -31,6 +31,9 @@ export default {
   },
 
   methods: {
+    toIndexPage() {
+      this.$router.push("/");
+    },
     checkout() {
       const order = {
         userId: this.userId,

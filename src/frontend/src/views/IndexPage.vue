@@ -35,8 +35,10 @@
             <AppButton
               @click="addPizzaToCart()"
               :disabled="!availableAddOrderToCart"
-              >Готовьте</AppButton
+              type="button"
             >
+              Готовьте
+            </AppButton>
           </div>
         </div>
       </div>

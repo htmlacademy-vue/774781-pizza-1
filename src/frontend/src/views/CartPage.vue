@@ -18,7 +18,7 @@
           </div>
 
           <div class="cart__form">
-            <CartForm />
+            <OrderPickupForm />
           </div>
         </template>
       </div>
@@ -29,7 +29,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { CartProducts, CartMisc, CartForm } from "@/modules/cart/components";
+import {
+  CartProducts,
+  CartMisc,
+  OrderPickupForm,
+} from "@/modules/cart/components";
 
 export default {
   name: "CartPage",
@@ -37,7 +41,7 @@ export default {
   components: {
     CartProducts,
     CartMisc,
-    CartForm,
+    OrderPickupForm,
   },
 
   computed: {

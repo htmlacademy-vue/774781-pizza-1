@@ -1,5 +1,5 @@
 import CartProducts from "./CartProducts.vue";
 import CartMisc from "./CartMisc.vue";
-import CartForm from "./CartForm.vue";
+import OrderPickupForm from "./OrderPickupForm.vue";
 
-export { CartProducts, CartMisc, CartForm };
+export { CartProducts, CartMisc, OrderPickupForm };

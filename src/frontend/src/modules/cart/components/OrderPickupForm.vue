@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "CartForm",
+  name: "OrderPickupForm",
   data() {
     return {
       selected: "1",

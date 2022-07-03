@@ -6,7 +6,7 @@
       <select v-model="selected" name="test" class="select">
         <option value="1">Заберу сам</option>
         <option value="2">Новый адрес</option>
-        <option value="3">Дом</option>
+        <option v-if="isAuthenticated" value="3">Дом</option>
       </select>
     </label>
 
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "OrderPickupForm",
   data() {
@@ -41,6 +43,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("auth", ["isAuthenticated"]),
     selfDelivery() {
       return this.selected === "1";
     },

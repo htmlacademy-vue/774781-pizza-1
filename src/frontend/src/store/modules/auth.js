@@ -13,10 +13,10 @@ export default {
       return state.user === null;
     },
     userId: (state) => {
-      return state.user.id;
+      return state.user ? state.user.id : null;
     },
     userPhone: (state) => {
-      return state.user.phone;
+      return state.user ? state.user.phone : null;
     },
   },
 

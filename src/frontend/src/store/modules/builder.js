@@ -169,17 +169,15 @@ export default {
   },
 
   getters: {
-    builder: (state) => state.builder,
-    currentPizza: (state) => state.currentPizza,
-    dough: (_, { builder }) => builder.dough,
-    doughId: (_, { currentPizza }) => currentPizza.doughId,
+    dough: ({ builder }) => builder.dough,
+    doughId: ({ currentPizza }) => currentPizza.doughId,
     selectedDough: (_, { dough, doughId }) =>
       dough.find((d) => d.id === doughId),
 
     doughSize: (_, { selectedDough }) => selectedDough.size,
     doughPrice: (_, { selectedDough }) => selectedDough.price,
-    sauces: (_, { builder }) => builder.sauces,
-    sauceId: (_, { currentPizza }) => currentPizza.sauceId,
+    sauces: ({ builder }) => builder.sauces,
+    sauceId: ({ currentPizza }) => currentPizza.sauceId,
     selectedSauce: (_, { sauces, sauceId }) =>
       sauces.find((sauce) => sauce.id === sauceId),
 
@@ -188,19 +186,19 @@ export default {
 
     sauseName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
-    sizes: (_, { builder }) => builder.sizes,
+    sizes: ({ builder }) => builder.sizes,
     sizesNameEnum: (_, { sizes }) =>
       sizes.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
 
-    sizeId: (_, { currentPizza }) => currentPizza.sizeId,
+    sizeId: ({ currentPizza }) => currentPizza.sizeId,
     selectedSize: (_, { sizes, sizeId }) =>
       sizes.find((size) => size.id === sizeId),
 
     sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
-    pizzaName: (_, { currentPizza }) => currentPizza.name,
+    pizzaName: ({ currentPizza }) => currentPizza.name,
     hasPizzaName: (_, { pizzaName }) => pizzaName.length > 0,
-    ingredients: (_, { builder }) => builder.ingredients,
-    selectedIngredients: (_, { currentPizza }) => currentPizza.ingredients,
+    ingredients: ({ builder }) => builder.ingredients,
+    selectedIngredients: ({ currentPizza }) => currentPizza.ingredients,
     hasIngredients: (_, { selectedIngredients }) =>
       Object.values(selectedIngredients).filter((quantity) => quantity > 0)
         .length > 0,

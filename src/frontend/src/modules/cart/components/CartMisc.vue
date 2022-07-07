@@ -17,7 +17,7 @@
 
       <div class="additional-list__wrapper">
         <ItemCounter
-          :counter="selectedMisc[id] || 0"
+          :counter="currentMisc[id] || 0"
           class="additional-list__counter"
           theme="orange"
           @update:counter="changeQuantity(id, $event)"
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { CHANGE_MISC_QUANTITY } from "@/store/mutations-types";
 import { ItemCounter } from "@/common/components";
 
@@ -44,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters("cart", ["misc", "selectedMisc"]),
+    ...mapState("cart", ["misc", "currentMisc"]),
   },
 
   methods: {

@@ -83,20 +83,17 @@ export default {
   },
 
   getters: {
-    products: (state) => state.products,
-    hasProducts: (_, { products }) => products.length > 0,
-    productsPrice: (_, { products }) =>
+    hasProducts: ({ products }) => products.length > 0,
+    productsPrice: ({ products }) =>
       products
         .filter(({ price }) => price > 0)
         .reduce((accumulator, { price }) => accumulator + price, 0),
 
-    misc: (state) => state.misc,
-    selectedMisc: (state) => state.currentMisc,
-    miscPrice: (_, { misc, selectedMisc }) =>
+    miscPrice: ({ misc, currentMisc }) =>
       misc
         .map((misc) => ({
           ...misc,
-          quantity: selectedMisc[misc.id] || 0,
+          quantity: currentMisc[misc.id] || 0,
         }))
         .filter(({ quantity }) => quantity > 0)
         .reduce(

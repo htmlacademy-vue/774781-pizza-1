@@ -17,8 +17,9 @@
         type="button"
         :disabled="unavailableCreateOrder"
         @click="createOrder()"
-        >Оформить заказ</AppButton
       >
+        Оформить заказ
+      </AppButton>
     </div>
   </section>
 </template>
@@ -31,13 +32,8 @@ export default {
   name: "AppLayoutFooter",
 
   computed: {
-    ...mapState("cart", ["phone"]),
-    ...mapGetters("cart", [
-      "totalPrice",
-      "products",
-      "selectedMisc",
-      "hasPhone",
-    ]),
+    ...mapState("cart", ["phone", "products", "currentMisc"]),
+    ...mapGetters("cart", ["totalPrice", "hasPhone"]),
     ...mapGetters("auth", ["isGuest", "userPhone", "userId"]),
     unavailableCreateOrder() {
       return !this.hasPhone;
@@ -50,16 +46,8 @@ export default {
     },
     createOrder() {
       const order = {
-        userId: this.isGuest ? null : this.userId,
+        userId: this.userId,
         phone: this.isGuest ? this.phone : this.userPhone,
-        address: {
-          street: "string",
-          building: "string",
-          flat: "string",
-          comment: "string",
-        },
-        pizzas: this.products,
-        misc: this.selectedMisc,
       };
 
       this[SAVE_ORDER](order);

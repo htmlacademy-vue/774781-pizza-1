@@ -2,8 +2,8 @@
   <section class="footer">
     <div class="footer__more">
       <AppButton tag="a" border arrow @click="toIndexPage()">
-        Хочу еще одну</AppButton
-      >
+        Хочу еще одну
+      </AppButton>
     </div>
     <p class="footer__text">
       Перейти к конструктору<br />чтоб собрать ещё одну пиццу
@@ -13,7 +13,12 @@
     </div>
 
     <div class="footer__submit">
-      <AppButton type="button" @click="checkout()">Оформить заказ</AppButton>
+      <AppButton
+        type="button"
+        :disabled="unavailableCreateOrder"
+        @click="createOrder()"
+        >Оформить заказ</AppButton
+      >
     </div>
   </section>
 </template>
@@ -26,15 +31,23 @@ export default {
   name: "AppLayoutFooter",
 
   computed: {
-    ...mapGetters("cart", ["totalPrice", "products", "selectedMisc"]),
+    ...mapGetters("cart", [
+      "totalPrice",
+      "products",
+      "selectedMisc",
+      "hasPhone",
+    ]),
     ...mapGetters("auth", ["userId", "userPhone"]),
+    unavailableCreateOrder() {
+      return !this.hasPhone;
+    },
   },
 
   methods: {
     toIndexPage() {
       this.$router.push("/");
     },
-    checkout() {
+    createOrder() {
       const order = {
         userId: this.userId,
         phone: this.userPhone,

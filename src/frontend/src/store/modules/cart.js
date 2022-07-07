@@ -5,6 +5,8 @@ import {
   CHANGE_MISC_QUANTITY,
   ADD_MISC_ADDITIONAL_DATA,
   SET_MISC,
+  SET_PHONE,
+  SET_ADDRESS,
 } from "@/store/mutations-types";
 
 export default {
@@ -14,6 +16,8 @@ export default {
     misc: [],
     products: [],
     currentMisc: {},
+    phone: "",
+    address: "1",
   },
 
   mutations: {
@@ -22,6 +26,12 @@ export default {
     },
     [SET_MISC](state, misc) {
       state.misc = misc;
+    },
+    [SET_PHONE](state, phone) {
+      state.phone = phone;
+    },
+    [SET_ADDRESS](state, address) {
+      state.address = address;
     },
     [ADD_MISC_ADDITIONAL_DATA](state) {
       state.misc = state.misc.map((misc) => ({
@@ -95,6 +105,7 @@ export default {
         ),
 
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
+    hasPhone: (state) => state.phone.length > 0,
   },
 
   actions: {

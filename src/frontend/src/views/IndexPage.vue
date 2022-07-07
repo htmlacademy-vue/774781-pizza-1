@@ -34,7 +34,7 @@
             <BuilderPriceCounter />
             <AppButton
               @click="addPizzaToCart()"
-              :disabled="!availableAddOrderToCart"
+              :disabled="unavailableAddOrderToCart"
               type="button"
             >
               Готовьте
@@ -75,8 +75,8 @@ export default {
   },
 
   computed: {
-    availableAddOrderToCart() {
-      return this.hasPizzaName && this.hasIngredients;
+    unavailableAddOrderToCart() {
+      return !this.hasPizzaName || !this.hasIngredients;
     },
     ...mapState("cart", ["products"]),
     ...mapState("builder", ["currentPizza"]),

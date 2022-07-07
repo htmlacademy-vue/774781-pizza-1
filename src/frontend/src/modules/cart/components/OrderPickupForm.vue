@@ -3,16 +3,21 @@
     <label class="cart-form__select">
       <span class="cart-form__label">Получение заказа:</span>
 
-      <select v-model="selected" name="test" class="select">
+      <select v-model="selectedAddress" name="test" class="select">
         <option value="1">Заберу сам</option>
         <option value="2">Новый адрес</option>
         <option v-if="isAuthenticated" value="3">Дом</option>
       </select>
     </label>
 
-    <AppInput big-label name="tel" placeholder="+7 999-999-99-99"
-      >Контактный телефон:</AppInput
-    >
+    <AppInput
+      v-model="contactPhone"
+      big-label
+      name="tel"
+      type="number"
+      placeholder="+7 999-999-99-99"
+      >Контактный телефон:
+    </AppInput>
 
     <div v-if="!selfDelivery" class="cart-form__address">
       <span class="cart-form__label">Новый адрес:</span>
@@ -33,19 +38,38 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+import { SET_PHONE, SET_ADDRESS } from "@/store/mutations-types";
 
 export default {
   name: "OrderPickupForm",
-  data() {
-    return {
-      selected: "1",
-    };
-  },
   computed: {
     ...mapState("auth", ["isAuthenticated"]),
+    ...mapState("cart", ["phone", "address"]),
+    contactPhone: {
+      get() {
+        return this.phone;
+      },
+      set(value) {
+        this[SET_PHONE](value);
+      },
+    },
+    selectedAddress: {
+      get() {
+        return this.address;
+      },
+      set(value) {
+        this[SET_ADDRESS](value);
+      },
+    },
     selfDelivery() {
-      return this.selected === "1";
+      return this.address === "1";
+    },
+  },
+  methods: {
+    ...mapMutations("cart", [SET_PHONE, SET_ADDRESS]),
+    setAddress(event) {
+      this[SET_ADDRESS](event.target.value);
     },
   },
 };

@@ -24,20 +24,21 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 import { SAVE_ORDER } from "@/store/mutations-types";
 
 export default {
   name: "AppLayoutFooter",
 
   computed: {
+    ...mapState("cart", ["phone"]),
     ...mapGetters("cart", [
       "totalPrice",
       "products",
       "selectedMisc",
       "hasPhone",
     ]),
-    ...mapGetters("auth", ["userId", "userPhone"]),
+    ...mapGetters("auth", ["isGuest", "userPhone", "userId"]),
     unavailableCreateOrder() {
       return !this.hasPhone;
     },
@@ -49,8 +50,8 @@ export default {
     },
     createOrder() {
       const order = {
-        userId: this.userId,
-        phone: this.userPhone,
+        userId: this.isGuest ? null : this.userId,
+        phone: this.isGuest ? this.phone : this.userPhone,
         address: {
           street: "string",
           building: "string",
@@ -62,6 +63,7 @@ export default {
       };
 
       this[SAVE_ORDER](order);
+      console.log(order);
       this.$router.push("/success");
     },
     ...mapMutations("orders", [SAVE_ORDER]),

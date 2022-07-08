@@ -16,6 +16,7 @@ export default {
   actions: {
     async postOrder(_, orderItem) {
       const postedOrder = await this.$api.order.post(orderItem);
+      console.log(postedOrder);
     },
   },
 };

@@ -82,7 +82,7 @@ export default {
         mics: miscModel,
       };
 
-      this.postOrder(order);
+      await this.postOrder(order);
       this.$router.push("/success");
     },
     ...mapActions("orders", ["postOrder"]),

@@ -25,8 +25,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
-import { SAVE_ORDER } from "@/store/mutations-types";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AppLayoutFooter",
@@ -44,7 +43,7 @@ export default {
     toIndexPage() {
       this.$router.push("/");
     },
-    createOrder() {
+    async createOrder() {
       const pizzas = this.products.map(
         ({ doughId, name, sauceId, sizeId, quantity, ingredients }) => {
           const ingredientsModel = Object.entries(ingredients).map(
@@ -73,21 +72,20 @@ export default {
       const order = {
         userId: this.userId,
         phone: this.isGuest ? this.phone : this.userPhone,
-        // address: {
-        //   street: "string",
-        //   building: "string",
-        //   flat: "string",
-        //   comment: "string",
-        // },
-        address: {},
+        address: {
+          street: "string",
+          building: "string",
+          flat: "string",
+          comment: "string",
+        },
         pizzas,
         mics: miscModel,
       };
 
-      this[SAVE_ORDER](order);
+      this.postOrder(order);
       this.$router.push("/success");
     },
-    ...mapMutations("orders", [SAVE_ORDER]),
+    ...mapActions("orders", ["postOrder"]),
   },
 };
 </script>

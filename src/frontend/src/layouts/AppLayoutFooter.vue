@@ -45,13 +45,46 @@ export default {
       this.$router.push("/");
     },
     createOrder() {
+      const pizzas = this.products.map(
+        ({ doughId, name, sauceId, sizeId, quantity, ingredients }) => {
+          const ingredientsModel = Object.entries(ingredients).map(
+            (ingredient) => ({
+              ingredientId: ingredient[0],
+              quantity: ingredient[1],
+            })
+          );
+
+          return {
+            name,
+            sauceId,
+            doughId,
+            sizeId,
+            quantity,
+            ingredients: ingredientsModel,
+          };
+        }
+      );
+
+      const miscModel = Object.entries(this.currentMisc).map((miscItem) => ({
+        miscId: miscItem[0],
+        quantity: miscItem[1],
+      }));
+
       const order = {
         userId: this.userId,
         phone: this.isGuest ? this.phone : this.userPhone,
+        // address: {
+        //   street: "string",
+        //   building: "string",
+        //   flat: "string",
+        //   comment: "string",
+        // },
+        address: {},
+        pizzas,
+        mics: miscModel,
       };
 
       this[SAVE_ORDER](order);
-      console.log(order);
       this.$router.push("/success");
     },
     ...mapMutations("orders", [SAVE_ORDER]),

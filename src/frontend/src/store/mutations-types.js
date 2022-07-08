@@ -25,5 +25,4 @@ export const SET_MISC = "SET_MISC";
 export const SET_PHONE = "SET_PHONE";
 export const SET_ADDRESS = "SET_ADDRESS";
 
-export const ADD_ORDER_ITEM = "ADD_ORDER_ITEM";
 export const SAVE_ORDER = "SAVE_ORDER";

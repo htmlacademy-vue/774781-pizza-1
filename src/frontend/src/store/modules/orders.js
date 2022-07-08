@@ -1,4 +1,4 @@
-import { ADD_ORDER_ITEM, SAVE_ORDER } from "@/store/mutations-types";
+import { SAVE_ORDER } from "@/store/mutations-types";
 
 export default {
   namespaced: true,
@@ -15,7 +15,7 @@ export default {
 
   actions: {
     addProductInOrder({ commit }, orderItem) {
-      commit(ADD_ORDER_ITEM, orderItem);
+      commit(SAVE_ORDER, orderItem);
     },
   },
 };

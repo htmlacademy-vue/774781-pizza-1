@@ -5,7 +5,7 @@
 
       <select v-model="selectedAddress" name="test" class="select">
         <option value="1">Заберу сам</option>
-        <option v-if="isAuthenticated" value="2">Новый адрес</option>
+        <option value="2">Новый адрес</option>
         <option v-if="isAuthenticated" value="3">Дом</option>
       </select>
     </label>

@@ -25,20 +25,7 @@
       </li>
     </ul>
 
-    <ul class="order__additional">
-      <li v-for="{ id, name, image, price } in misc" :key="id">
-        <img
-          :src="normalizeImagePath(image)"
-          width="20"
-          height="30"
-          :alt="name"
-        />
-        <p>
-          <span>{{ name }}</span>
-          <b>{{ price }} ₽</b>
-        </p>
-      </li>
-    </ul>
+    <OrderMisc />
 
     <p class="order__address">
       Адрес доставки: Тест (или если адрес новый - писать целиком)
@@ -49,13 +36,14 @@
 <script>
 import uniqueId from "lodash/uniqueId";
 import { mapState } from "vuex";
-import { normalizeImagePath } from "@/common/utils";
 import { ProductItem } from "@/common/components";
+import OrderMisc from "./OrderMisc.vue";
 
 export default {
   name: "OrderItem",
   components: {
     ProductItem,
+    OrderMisc,
   },
   props: {
     order: {
@@ -66,14 +54,12 @@ export default {
   },
   computed: {
     uniqueId,
-    ...mapState("cart", ["misc"]),
     ...mapState("orders", ["orders"]),
   },
   methods: {
     calcOrderPrice() {
       return 100;
     },
-    normalizeImagePath,
   },
 };
 </script>
@@ -143,39 +129,6 @@ export default {
   margin: 0;
 
   white-space: nowrap;
-}
-
-.order__additional {
-  @include clear-list;
-
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-
-  margin-bottom: 5px;
-  padding-left: 80px;
-
-  li {
-    @include b-s11-h16;
-
-    width: 130px;
-    margin-right: 24px;
-    margin-bottom: 10px;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  img {
-    float: left;
-
-    margin-right: 7px;
-  }
-
-  b {
-    display: block;
-  }
 }
 
 .order__address {

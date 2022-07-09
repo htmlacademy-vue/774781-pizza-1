@@ -37,13 +37,11 @@ import {
 
 export default {
   name: "CartPage",
-
   components: {
     CartProducts,
     CartMisc,
     OrderPickupForm,
   },
-
   computed: {
     ...mapGetters("cart", ["hasProducts"]),
   },

@@ -53,11 +53,9 @@ export default {
 
       return require(`@/assets/${imgPath}`);
     },
-
     changeQuantity(id, quantity) {
       this[CHANGE_MISC_QUANTITY]({ id, quantity });
     },
-
     ...mapMutations("cart", [CHANGE_MISC_QUANTITY]),
   },
 };

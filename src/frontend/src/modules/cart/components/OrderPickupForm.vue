@@ -43,9 +43,8 @@ import { SET_PHONE, SET_ADDRESS } from "@/store/mutations-types";
 
 export default {
   name: "OrderPickupForm",
+
   computed: {
-    ...mapState("auth", ["isAuthenticated"]),
-    ...mapState("cart", ["phone", "address"]),
     contactPhone: {
       get() {
         return this.phone;
@@ -65,12 +64,15 @@ export default {
     selfDelivery() {
       return this.address === "1";
     },
+    ...mapState("auth", ["isAuthenticated"]),
+    ...mapState("cart", ["phone", "address"]),
   },
+
   methods: {
-    ...mapMutations("cart", [SET_PHONE, SET_ADDRESS]),
     setAddress(event) {
       this[SET_ADDRESS](event.target.value);
     },
+    ...mapMutations("cart", [SET_PHONE, SET_ADDRESS]),
   },
 };
 </script>

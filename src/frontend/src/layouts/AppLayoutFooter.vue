@@ -25,18 +25,19 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
+import { RESET_CART } from "@/store/mutations-types";
 
 export default {
   name: "AppLayoutFooter",
 
   computed: {
-    ...mapState("cart", ["phone", "products", "currentMisc"]),
-    ...mapGetters("cart", ["totalPrice", "hasPhone"]),
-    ...mapGetters("auth", ["isGuest", "userPhone", "userId"]),
     unavailableCreateOrder() {
       return !this.hasPhone;
     },
+    ...mapState("cart", ["phone", "products", "currentMisc"]),
+    ...mapGetters("cart", ["totalPrice", "hasPhone"]),
+    ...mapGetters("auth", ["isGuest", "userPhone", "userId"]),
   },
 
   methods: {
@@ -79,13 +80,15 @@ export default {
           comment: "string",
         },
         pizzas,
-        mics: miscModel,
+        misc: miscModel,
       };
 
       await this.postOrder(order);
       this.$router.push("/success");
+      this[RESET_CART]();
     },
     ...mapActions("orders", ["postOrder"]),
+    ...mapMutations("cart", [RESET_CART]),
   },
 };
 </script>

@@ -7,20 +7,26 @@ import {
   SET_MISC,
   SET_PHONE,
   SET_ADDRESS,
+  RESET_CART,
 } from "@/store/mutations-types";
+
+const setupCartState = () => ({
+  misc: [],
+  products: [],
+  currentMisc: {},
+  phone: "",
+  address: "1",
+});
 
 export default {
   namespaced: true,
 
-  state: {
-    misc: [],
-    products: [],
-    currentMisc: {},
-    phone: "",
-    address: "1",
-  },
+  state: setupCartState(),
 
   mutations: {
+    [RESET_CART](state) {
+      Object.assign(state, setupCartState());
+    },
     [ADD_PRODUCT_IN_CART](state, product) {
       state.products.push(product);
     },

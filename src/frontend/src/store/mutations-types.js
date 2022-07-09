@@ -24,5 +24,6 @@ export const CHANGE_MISC_QUANTITY = "CHANGE_MISC_QUANTITY";
 export const SET_MISC = "SET_MISC";
 export const SET_PHONE = "SET_PHONE";
 export const SET_ADDRESS = "SET_ADDRESS";
+export const RESET_CART = "RESET_CART";
 
 export const SAVE_ORDER = "SAVE_ORDER";

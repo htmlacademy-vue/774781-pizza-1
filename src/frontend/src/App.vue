@@ -21,6 +21,7 @@ export default {
       this.$api.auth.setAuthHeader();
       this.getMe();
       this[SET_AUTHENTICATION](true);
+      this.fetchOrders();
     }
 
     this[SET_LOADING](true);
@@ -35,6 +36,7 @@ export default {
     ...mapMutations("auth", [SET_AUTHENTICATION]),
     ...mapActions(["fetchInitialData"]),
     ...mapActions("auth", ["getMe"]),
+    ...mapActions("orders", ["fetchOrders"]),
   },
 };
 </script>

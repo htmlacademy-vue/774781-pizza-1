@@ -26,4 +26,4 @@ export const SET_PHONE = "SET_PHONE";
 export const SET_ADDRESS = "SET_ADDRESS";
 export const RESET_CART = "RESET_CART";
 
-export const SAVE_ORDER = "SAVE_ORDER";
+export const SET_ORDERS = "SET_ORDERS";

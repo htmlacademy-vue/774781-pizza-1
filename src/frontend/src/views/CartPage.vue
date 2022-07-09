@@ -23,7 +23,7 @@
         </template>
       </div>
     </main>
-    <AppLayoutFooter v-if="hasProducts" />
+    <CartFooter v-if="hasProducts" />
   </form>
 </template>
 
@@ -33,6 +33,7 @@ import {
   CartProducts,
   CartMisc,
   OrderPickupForm,
+  CartFooter,
 } from "@/modules/cart/components";
 
 export default {
@@ -41,6 +42,7 @@ export default {
     CartProducts,
     CartMisc,
     OrderPickupForm,
+    CartFooter,
   },
   computed: {
     ...mapGetters("cart", ["hasProducts"]),

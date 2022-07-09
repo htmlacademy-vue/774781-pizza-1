@@ -29,7 +29,7 @@ import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 import { RESET_CART } from "@/store/mutations-types";
 
 export default {
-  name: "AppLayoutFooter",
+  name: "CartFooter",
 
   computed: {
     unavailableCreateOrder() {

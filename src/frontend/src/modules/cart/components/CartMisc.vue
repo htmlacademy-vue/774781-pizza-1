@@ -34,6 +34,7 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import { CHANGE_MISC_QUANTITY } from "@/store/mutations-types";
+import { normalizeImagePath } from "@/common/utils";
 import { ItemCounter } from "@/common/components";
 
 export default {
@@ -48,11 +49,7 @@ export default {
   },
 
   methods: {
-    normalizeImagePath(path) {
-      const imgPath = path.replace("/public/", "");
-
-      return require(`@/assets/${imgPath}`);
-    },
+    normalizeImagePath,
     changeQuantity(id, quantity) {
       this[CHANGE_MISC_QUANTITY]({ id, quantity });
     },

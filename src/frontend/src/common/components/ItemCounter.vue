@@ -49,11 +49,9 @@ export default {
     isNegative() {
       return this.counter <= counterLimit.MIN;
     },
-
     isLimit() {
       return this.counter >= counterLimit.MAX;
     },
-
     themeClass() {
       return this.theme && "counter__button--orange";
     },
@@ -63,7 +61,6 @@ export default {
     update(counter) {
       this.$emit("update:counter", counter);
     },
-
     changeCount(multiplier) {
       if (multiplier > 0) {
         if (this.isLimit) {

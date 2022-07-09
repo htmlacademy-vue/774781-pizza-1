@@ -7,7 +7,6 @@
 <script>
 export default {
   name: "AppDrop",
-
   methods: {
     onDrop({ dataTransfer }) {
       if (!dataTransfer) {

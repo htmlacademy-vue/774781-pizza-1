@@ -23,32 +23,26 @@ export default {
       type: String,
       default: "text",
     },
-
     name: {
       type: String,
       required: true,
     },
-
     placeholder: {
       type: String,
       default: null,
     },
-
     value: {
       type: String,
       default: "",
     },
-
     isTitleHidden: {
       type: Boolean,
       default: false,
     },
-
     bigLabel: {
       type: Boolean,
       default: false,
     },
-
     errorText: {
       type: String,
       default: "",
@@ -61,7 +55,6 @@ export default {
         "input--big-label": this.bigLabel,
       };
     },
-
     showError() {
       return this.errorText.length > 0;
     },

@@ -21,11 +21,11 @@
       <li v-for="pizza in order.pizzas" :key="pizza.name" class="order__item">
         <ProductItem class="cart-list__product" :product="pizza" />
 
-        <p class="order__price">782 ₽</p>
+        <p class="order__price">{{ displayItemPrice(pizza.quantity, 100) }}</p>
       </li>
     </ul>
 
-    <OrderMisc />
+    <OrderMisc :misc="orderMisc" />
 
     <p class="order__address">
       Адрес доставки: Тест (или если адрес новый - писать целиком)
@@ -36,6 +36,7 @@
 <script>
 import uniqueId from "lodash/uniqueId";
 import { mapState } from "vuex";
+import { displayItemPrice } from "@/common/utils";
 import { ProductItem } from "@/common/components";
 import OrderMisc from "./OrderMisc.vue";
 
@@ -54,9 +55,22 @@ export default {
   },
   computed: {
     uniqueId,
+    orderMisc() {
+      const selectedMisc = this.order.misc.reduce(
+        (obj, item) => ({ ...obj, [item.miscId]: item.quantity }),
+        {}
+      );
+
+      return this.misc.map((miscItem) => ({
+        ...miscItem,
+        count: selectedMisc[miscItem.id],
+      }));
+    },
     ...mapState("orders", ["orders"]),
+    ...mapState("cart", ["misc"]),
   },
   methods: {
+    displayItemPrice,
     calcOrderPrice() {
       return 100;
     },

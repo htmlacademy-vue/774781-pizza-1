@@ -1,6 +1,6 @@
 <template>
   <ul class="order__additional">
-    <li v-for="{ id, name, image, price } in misc" :key="id">
+    <li v-for="{ id, name, image, price, count } in misc" :key="id">
       <img
         :src="normalizeImagePath(image)"
         width="20"
@@ -9,23 +9,27 @@
       />
       <p>
         <span>{{ name }}</span>
-        <b>{{ price }} ₽</b>
+        <b>{{ displayItemPrice(count, price) }}</b>
       </p>
     </li>
   </ul>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { normalizeImagePath } from "@/common/utils";
+import { normalizeImagePath, displayItemPrice } from "@/common/utils";
 
 export default {
   name: "OrderMisc",
-  computed: {
-    ...mapState("cart", ["misc"]),
+  props: {
+    misc: {
+      type: Array,
+      required: true,
+      default: () => {},
+    },
   },
   methods: {
     normalizeImagePath,
+    displayItemPrice,
   },
 };
 </script>

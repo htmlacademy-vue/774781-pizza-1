@@ -4,7 +4,7 @@
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </router-link>
     <div class="sign-form__title">
-      <AppTitle size="small">Авторизуйтесь на сайте</AppTitle>
+      <AppTitle small>Авторизуйтесь на сайте</AppTitle>
     </div>
     <form @submit.prevent="signIn()" novalidate>
       <div class="sign-form__input">

@@ -1,30 +1,28 @@
 <script>
 export default {
   name: "AppTitle",
-
   props: {
     level: {
       type: Number,
       default: 1,
     },
-
-    size: {
-      type: String,
-      default: null,
-      validator: function (value) {
-        return ["small", "big"].indexOf(value) !== -1;
-      },
+    small: {
+      type: Boolean,
+      default: false,
+    },
+    big: {
+      type: Boolean,
+      default: false,
     },
   },
-
   render: function (createElement) {
     return createElement(
       "h" + this.level,
       {
         staticClass: "title",
         class: {
-          "title--big": this.size === "big",
-          "title--small": this.size === "small",
+          "title--big": this.big,
+          "title--small": this.small,
         },
       },
       this.$slots.default

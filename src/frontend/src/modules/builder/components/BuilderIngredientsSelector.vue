@@ -1,6 +1,6 @@
 <template>
   <div class="sheet">
-    <AppTitle :level="2" size="small" class="sheet__title">
+    <AppTitle :level="2" small class="sheet__title">
       Выберите ингредиенты
     </AppTitle>
 

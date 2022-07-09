@@ -3,7 +3,7 @@
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
-          <AppTitle size="big">Корзина</AppTitle>
+          <AppTitle big>Корзина</AppTitle>
         </div>
 
         <div v-if="!hasProducts" class="sheet cart__empty">

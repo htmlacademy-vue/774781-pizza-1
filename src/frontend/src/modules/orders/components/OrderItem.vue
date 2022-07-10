@@ -1,8 +1,8 @@
 <template>
   <section class="sheet order">
-    <OrderHeader />
-    <OrderPizzas />
-    <OrderMisc />
+    <OrderHeader :orderId="order.id" />
+    <OrderPizzas :pizzas="order.pizzas" />
+    <OrderMisc :misc="orderMisc" />
     <OrderAddress />
   </section>
 </template>
@@ -31,6 +31,17 @@ export default {
     },
   },
   computed: {
+    orderMisc() {
+      const selectedMisc = this.order.misc.reduce(
+        (obj, item) => ({ ...obj, [item.miscId]: item.quantity }),
+        {}
+      );
+
+      return this.misc.map((miscItem) => ({
+        ...miscItem,
+        quantity: selectedMisc[miscItem.id],
+      }));
+    },
     ...mapState("orders", ["orders"]),
     ...mapState("cart", ["misc"]),
   },

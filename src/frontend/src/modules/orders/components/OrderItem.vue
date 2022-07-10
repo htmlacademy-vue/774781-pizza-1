@@ -1,50 +1,27 @@
 <template>
   <section class="sheet order">
-    <div class="order__wrapper">
-      <div class="order__number">
-        <b>Заказ #11199929</b>
-      </div>
-
-      <div class="order__sum">
-        <span>Сумма заказа: {{ calcOrderPrice() }} ₽</span>
-      </div>
-
-      <div class="order__button">
-        <AppButton border type="button">Удалить</AppButton>
-      </div>
-      <div class="order__button">
-        <AppButton type="button">Повторить</AppButton>
-      </div>
-    </div>
-
-    <ul class="order__list">
-      <li v-for="pizza in order.pizzas" :key="pizza.name" class="order__item">
-        <ProductItem class="cart-list__product" :product="pizza" />
-
-        <p class="order__price">{{ displayItemPrice(pizza.quantity, 100) }}</p>
-      </li>
-    </ul>
-
-    <OrderMisc :misc="orderMisc" />
-
-    <p class="order__address">
-      Адрес доставки: Тест (или если адрес новый - писать целиком)
-    </p>
+    <OrderHeader />
+    <OrderPizzas />
+    <OrderMisc />
+    <OrderAddress />
   </section>
 </template>
 
 <script>
-import uniqueId from "lodash/uniqueId";
 import { mapState } from "vuex";
 import { displayItemPrice } from "@/common/utils";
-import { ProductItem } from "@/common/components";
+import OrderHeader from "./OrderHeader.vue";
 import OrderMisc from "./OrderMisc.vue";
+import OrderPizzas from "./OrderPizzas.vue";
+import OrderAddress from "./OrderAddress.vue";
 
 export default {
   name: "OrderItem",
   components: {
-    ProductItem,
+    OrderHeader,
+    OrderPizzas,
     OrderMisc,
+    OrderAddress,
   },
   props: {
     order: {
@@ -54,18 +31,6 @@ export default {
     },
   },
   computed: {
-    uniqueId,
-    orderMisc() {
-      const selectedMisc = this.order.misc.reduce(
-        (obj, item) => ({ ...obj, [item.miscId]: item.quantity }),
-        {}
-      );
-
-      return this.misc.map((miscItem) => ({
-        ...miscItem,
-        count: selectedMisc[miscItem.id],
-      }));
-    },
     ...mapState("orders", ["orders"]),
     ...mapState("cart", ["misc"]),
   },
@@ -152,5 +117,37 @@ export default {
   padding: 16px 10px;
 
   border-top: 1px solid rgba($green-500, 0.1);
+}
+.order__additional {
+  @include clear-list;
+
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  margin-bottom: 5px;
+  padding-left: 80px;
+
+  li {
+    @include b-s11-h16;
+
+    width: 130px;
+    margin-right: 24px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  img {
+    float: left;
+
+    margin-right: 7px;
+  }
+
+  b {
+    display: block;
+  }
 }
 </style>

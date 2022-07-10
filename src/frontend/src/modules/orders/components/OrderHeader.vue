@@ -1,7 +1,7 @@
 <template>
   <div class="order__wrapper">
     <div class="order__number">
-      <b>Заказ #11199929</b>
+      <b>Заказ #{{ orderId }}</b>
     </div>
 
     <div class="order__sum">
@@ -20,6 +20,12 @@
 <script>
 export default {
   name: "OrderHeader",
+  props: {
+    orderId: {
+      type: Number,
+      required: true,
+    },
+  },
   methods: {
     calcOrderPrice() {
       return 100;

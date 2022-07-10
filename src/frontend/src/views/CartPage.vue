@@ -6,9 +6,7 @@
           <AppTitle big>Корзина</AppTitle>
         </div>
 
-        <div v-if="!hasProducts" class="sheet cart__empty">
-          <p>В корзине нет ни одного товара</p>
-        </div>
+        <CartEmpty v-if="!hasProducts" />
 
         <template v-else>
           <CartProducts />
@@ -34,6 +32,7 @@ import {
   CartMisc,
   OrderPickupForm,
   CartFooter,
+  CartEmpty,
 } from "@/modules/cart/components";
 
 export default {
@@ -43,6 +42,7 @@ export default {
     CartMisc,
     OrderPickupForm,
     CartFooter,
+    CartEmpty,
   },
   computed: {
     ...mapGetters("cart", ["hasProducts"]),

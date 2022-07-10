@@ -19,7 +19,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
-      :class="themeClass"
+      :class="classes"
       :disabled="isLimit"
       @click="changeCount(1)"
     >
@@ -39,9 +39,9 @@ export default {
       type: [Number, String],
       required: true,
     },
-    theme: {
-      type: String,
-      default: null,
+    orange: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -52,8 +52,8 @@ export default {
     isLimit() {
       return this.counter >= counterLimit.MAX;
     },
-    themeClass() {
-      return this.theme && "counter__button--orange";
+    classes() {
+      return { "counter__button--orange": this.orange };
     },
   },
 

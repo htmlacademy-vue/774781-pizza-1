@@ -4,7 +4,7 @@
       <ProductItem class="cart-list__product" :product="product" />
       <ItemCounter
         class="cart-list__counter"
-        theme="orange"
+        orange
         :counter="product.quantity"
         @update:counter="
           updateProductQuantity($event, product.id, product.basePrice)

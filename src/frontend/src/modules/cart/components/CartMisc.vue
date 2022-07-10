@@ -19,7 +19,7 @@
         <ItemCounter
           :counter="currentMisc[id] || 0"
           class="additional-list__counter"
-          theme="orange"
+          orange
           @update:counter="changeQuantity(id, $event)"
         />
 

@@ -84,10 +84,11 @@ export default {
       };
 
       await this.postOrder(order);
+      await this.fetchOrders();
       this.$router.push("/success");
       this[RESET_CART]();
     },
-    ...mapActions("orders", ["postOrder"]),
+    ...mapActions("orders", ["postOrder", "fetchOrders"]),
     ...mapMutations("cart", [RESET_CART]),
   },
 };

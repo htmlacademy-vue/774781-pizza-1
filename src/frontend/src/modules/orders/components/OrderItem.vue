@@ -41,10 +41,12 @@ export default {
         {}
       );
 
-      return this.misc.map((miscItem) => ({
-        ...miscItem,
-        quantity: selectedMisc[miscItem.id],
-      }));
+      return this.misc
+        .map((miscItem) => ({
+          ...miscItem,
+          quantity: selectedMisc[miscItem.id] || 0,
+        }))
+        .filter((miscItem) => miscItem.quantity > 0);
     },
     orderPizzas() {
       return this.order.pizzas.map((pizza) => {

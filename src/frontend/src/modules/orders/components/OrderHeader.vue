@@ -9,12 +9,12 @@
     </div>
 
     <div class="order__button">
-      <AppButton @click="deleteOrder(orderId)" border type="button">
+      <AppButton border type="button" @click="deleteOrder(orderId)">
         Удалить
       </AppButton>
     </div>
     <div class="order__button">
-      <AppButton type="button">Повторить</AppButton>
+      <AppButton type="button" @click="repeatOrder()">Повторить</AppButton>
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
     calcOrderPrice() {
       return 100;
     },
-    ...mapActions("orders", ["deleteOrder"]),
+    ...mapActions("orders", ["deleteOrder", "repeatOrder"]),
   },
 };
 </script>

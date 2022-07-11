@@ -29,5 +29,8 @@ export default {
       const orders = await this.$api.orders.get();
       commit(SET_ORDERS, orders);
     },
+    repeatOrder() {
+      this.$router.push("/cart");
+    },
   },
 };

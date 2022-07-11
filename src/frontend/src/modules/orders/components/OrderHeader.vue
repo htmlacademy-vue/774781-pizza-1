@@ -9,7 +9,9 @@
     </div>
 
     <div class="order__button">
-      <AppButton border type="button">Удалить</AppButton>
+      <AppButton @click="deleteOrder(orderId)" border type="button">
+        Удалить
+      </AppButton>
     </div>
     <div class="order__button">
       <AppButton type="button">Повторить</AppButton>
@@ -18,11 +20,13 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "OrderHeader",
   props: {
     orderId: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
@@ -30,6 +34,7 @@ export default {
     calcOrderPrice() {
       return 100;
     },
+    ...mapActions("orders", ["deleteOrder"]),
   },
 };
 </script>

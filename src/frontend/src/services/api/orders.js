@@ -1,10 +1,14 @@
 import axios from "@/plugins/axios";
+import ingredientNames from "@/common/enums/ingredientNames";
 
 const normalize = (orders) => {
   return orders.map(({ id, orderMisc, orderPizzas }) => {
     const pizzas = orderPizzas.map((pizza) => {
       const ingredients = pizza.ingredients.reduce(
-        (obj, item) => ({ ...obj, [item.id]: item.name }),
+        (obj, item) => ({
+          ...obj,
+          [item.ingredientId]: ingredientNames[item.ingredientId],
+        }),
         {}
       );
 
@@ -15,8 +19,8 @@ const normalize = (orders) => {
     });
 
     return {
-      id,
-      misc: orderMisc,
+      id: id.toString(),
+      misc: orderMisc || null,
       pizzas,
     };
   });
@@ -32,5 +36,10 @@ const get = async () => {
   return normalize(data);
 };
 
-const orders = { post, get };
+const deleteOrder = async (id) => {
+  const { data } = await axios.delete(`orders/${id}`);
+  return data;
+};
+
+const orders = { post, get, deleteOrder };
 export default orders;

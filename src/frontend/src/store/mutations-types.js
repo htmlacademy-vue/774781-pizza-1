@@ -27,3 +27,4 @@ export const SET_ADDRESS = "SET_ADDRESS";
 export const RESET_CART = "RESET_CART";
 
 export const SET_ORDERS = "SET_ORDERS";
+export const DELETE_ORDER = "DELETE_ORDER";

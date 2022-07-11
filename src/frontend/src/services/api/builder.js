@@ -1,5 +1,13 @@
 import axios from "@/plugins/axios";
 
+const normalizeSizes = (sizes) => {
+  return sizes.sort((a, b) => {
+    return (
+      Number(a.name.replace(/\D/g, "")) - Number(b.name.replace(/\D/g, ""))
+    );
+  });
+};
+
 const dough = async () => {
   const { data } = await axios.get("dough");
   return data;
@@ -17,7 +25,7 @@ const ingredients = async () => {
 
 const sizes = async () => {
   const { data } = await axios.get("sizes");
-  return data;
+  return normalizeSizes(data);
 };
 
 const builder = { dough, sauces, ingredients, sizes };

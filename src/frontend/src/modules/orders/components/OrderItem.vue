@@ -2,7 +2,7 @@
   <section class="sheet order">
     <OrderHeader :orderId="order.id" />
     <OrderPizzas :pizzas="order.pizzas" />
-    <OrderMisc :misc="orderMisc" />
+    <OrderMisc v-if="order.misc" :misc="orderMisc" />
     <OrderAddress />
   </section>
 </template>
@@ -32,6 +32,10 @@ export default {
   },
   computed: {
     orderMisc() {
+      if (this.order.misc === null) {
+        return;
+      }
+
       const selectedMisc = this.order.misc.reduce(
         (obj, item) => ({ ...obj, [item.miscId]: item.quantity }),
         {}

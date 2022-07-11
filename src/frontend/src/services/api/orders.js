@@ -1,30 +1,11 @@
 import axios from "@/plugins/axios";
-import ingredientNames from "@/common/enums/ingredientNames";
 
-const normalize = (orders) => {
-  return orders.map(({ id, orderMisc, orderPizzas }) => {
-    const pizzas = orderPizzas.map((pizza) => {
-      const ingredients = pizza.ingredients.reduce(
-        (obj, item) => ({
-          ...obj,
-          [item.ingredientId]: ingredientNames[item.ingredientId],
-        }),
-        {}
-      );
-
-      return {
-        ...pizza,
-        ingredients,
-      };
-    });
-
-    return {
-      id: id.toString(),
-      misc: orderMisc || null,
-      pizzas,
-    };
-  });
-};
+const normalize = (orders) =>
+  orders.map(({ id, orderMisc, orderPizzas }) => ({
+    id: id.toString(),
+    misc: orderMisc || null,
+    pizzas: orderPizzas,
+  }));
 
 const post = async (order) => {
   const { data } = await axios.post("orders", order);

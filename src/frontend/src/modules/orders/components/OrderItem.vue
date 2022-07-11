@@ -1,7 +1,7 @@
 <template>
   <section class="sheet order">
     <OrderHeader :orderId="order.id" />
-    <OrderPizzas :pizzas="order.pizzas" />
+    <OrderPizzas :pizzas="orderPizzas" />
     <OrderMisc v-if="order.misc" :misc="orderMisc" />
     <OrderAddress />
   </section>
@@ -45,6 +45,18 @@ export default {
         ...miscItem,
         quantity: selectedMisc[miscItem.id],
       }));
+    },
+    orderPizzas() {
+      return this.order.pizzas.map((pizza) => {
+        const ingredients = pizza.ingredients.map(({ id, quantity }) => ({
+          [id]: quantity,
+        }));
+
+        return {
+          ...pizza,
+          ingredients,
+        };
+      });
     },
     ...mapState("orders", ["orders"]),
     ...mapState("cart", ["misc"]),

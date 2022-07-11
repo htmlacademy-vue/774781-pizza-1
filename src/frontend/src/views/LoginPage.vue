@@ -14,8 +14,9 @@
           name="email"
           placeholder="example@mail.ru"
           :error-text="validations.email.error"
-          >E-mail</AppInput
         >
+          E-mail
+        </AppInput>
       </div>
 
       <div class="sign-form__input">
@@ -25,8 +26,9 @@
           name="pass"
           placeholder="***********"
           :error-text="validations.password.error"
-          >Пароль</AppInput
         >
+          Пароль
+        </AppInput>
       </div>
       <AppButton type="submit">Авторизоваться</AppButton>
     </form>
@@ -79,14 +81,17 @@ export default {
         return;
       }
 
-      await this.login({
+      this.login({
         email: this.email,
         password: this.password,
+      }).then(() => {
+        this.fetchOrders();
       });
 
       this.$router.push("/");
     },
     ...mapActions("auth", ["login"]),
+    ...mapActions("orders", ["fetchOrders"]),
   },
 };
 </script>

@@ -46,8 +46,8 @@ export default {
 
   data() {
     return {
-      email: "",
-      password: "",
+      email: "user@example.com",
+      password: "user@example.com",
       validations: {
         email: {
           error: "",

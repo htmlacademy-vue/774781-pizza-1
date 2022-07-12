@@ -1,11 +1,26 @@
 import axios from "@/plugins/axios";
 
 const normalize = (orders) =>
-  orders.map(({ id, orderMisc, orderPizzas }) => ({
-    id: id.toString(),
-    misc: orderMisc || null,
-    pizzas: orderPizzas,
-  }));
+  orders.map(({ id, orderMisc, orderPizzas }) => {
+    const pizzas = orderPizzas.map((pizza) => {
+      const ingredients = pizza.ingredients.map(
+        ({ ingredientId, quantity }) => ({
+          [ingredientId]: quantity,
+        })
+      );
+
+      return {
+        ...pizza,
+        ingredients,
+      };
+    });
+
+    return {
+      id: id.toString(),
+      misc: orderMisc || null,
+      pizzas,
+    };
+  });
 
 const post = async (order) => {
   const { data } = await axios.post("orders", order);

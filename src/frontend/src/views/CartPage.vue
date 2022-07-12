@@ -1,5 +1,5 @@
 <template>
-  <form action="test.html" method="post" class="layout-form">
+  <form method="post" @submit.prevent="createOrder()" class="layout-form">
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
@@ -47,6 +47,52 @@ export default {
   computed: {
     ...mapGetters("cart", ["hasProducts"]),
   },
+  methods: {
+    async createOrder() {
+      const pizzas = this.products.map(
+        ({ doughId, name, sauceId, sizeId, quantity, ingredients }) => {
+          const ingredientsModel = Object.entries(ingredients).map(
+            (ingredient) => ({
+              ingredientId: ingredient[0],
+              quantity: ingredient[1],
+            })
+          );
+
+          return {
+            name,
+            sauceId,
+            doughId,
+            sizeId,
+            quantity,
+            ingredients: ingredientsModel,
+          };
+        }
+      );
+
+      const miscModel = Object.entries(this.currentMisc).map((miscItem) => ({
+        miscId: miscItem[0],
+        quantity: miscItem[1],
+      }));
+
+      const order = {
+        userId: this.userId,
+        phone: this.isGuest ? this.phone : this.userPhone,
+        address: {
+          street: "string",
+          building: "string",
+          flat: "string",
+          comment: "string",
+        },
+        pizzas,
+        misc: miscModel,
+      };
+
+      await this.postOrder(order);
+      await this.fetchOrders();
+      this.$router.push("/success");
+      this[RESET_CART]();
+    },
+  }
 };
 </script>
 

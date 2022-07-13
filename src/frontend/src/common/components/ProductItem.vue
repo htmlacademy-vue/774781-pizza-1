@@ -15,7 +15,7 @@
           {{ displayDoughTitle(product.doughId) }}
         </li>
         <li>Соус: {{ sausesNameEnum[product.sauceId].toLowerCase() }}</li>
-        <li>Начинка: {{ displayIngredients(product.ingredients) }}</li>
+        <li>Начинка: {{ ingredientNames }}</li>
       </ul>
     </div>
   </div>
@@ -40,14 +40,14 @@ export default {
       "sausesNameEnum",
       "ingredientsNameEnum",
     ]),
-  },
-
-  methods: {
-    displayIngredients(ingredients) {
-      return Object.keys(ingredients)
+    ingredientNames() {
+      return Object.keys(this.product.ingredients)
         .map((id) => this.ingredientsNameEnum[id])
         .join(", ");
     },
+  },
+
+  methods: {
     displayDoughTitle(doughId) {
       return doughId === 1 ? "на тонком тесте" : "на толстом тесте";
     },

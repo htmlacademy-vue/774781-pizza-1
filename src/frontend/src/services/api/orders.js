@@ -3,10 +3,11 @@ import axios from "@/plugins/axios";
 const normalize = (orders) =>
   orders.map(({ id, orderMisc, orderPizzas }) => {
     const pizzas = orderPizzas.map((pizza) => {
-      const ingredients = pizza.ingredients.map(
-        ({ ingredientId, quantity }) => ({
-          [ingredientId]: quantity,
-        })
+      const ingredients = Object.fromEntries(
+        pizza.ingredients.map(({ ingredientId, quantity }) => [
+          ingredientId,
+          quantity,
+        ])
       );
 
       return {

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CartFooter",
@@ -30,9 +30,7 @@ export default {
     unavailableCreateOrder() {
       return !this.hasPhone;
     },
-    ...mapState("cart", ["phone", "products", "currentMisc"]),
     ...mapGetters("cart", ["totalPrice", "hasPhone"]),
-    ...mapGetters("auth", ["isGuest", "userPhone", "userId"]),
   },
 
   methods: {

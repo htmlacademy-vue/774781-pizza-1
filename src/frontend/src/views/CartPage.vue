@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 import { RESET_CART } from "@/store/mutations-types";
 import {
   CartProducts,
@@ -46,7 +46,9 @@ export default {
     CartEmpty,
   },
   computed: {
+    ...mapState("cart", ["phone", "products", "currentMisc"]),
     ...mapGetters("cart", ["hasProducts"]),
+    ...mapGetters("auth", ["isGuest", "userPhone", "userId"]),
   },
   methods: {
     async createOrder() {

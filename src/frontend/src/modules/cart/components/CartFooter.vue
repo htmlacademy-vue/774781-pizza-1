@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
-import { RESET_CART } from "@/store/mutations-types";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "CartFooter",
@@ -40,8 +39,6 @@ export default {
     toIndexPage() {
       this.$router.push("/");
     },
-    ...mapActions("orders", ["postOrder", "fetchOrders"]),
-    ...mapMutations("cart", [RESET_CART]),
   },
 };
 </script>

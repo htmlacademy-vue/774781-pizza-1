@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
+import { RESET_CART } from "@/store/mutations-types";
 import {
   CartProducts,
   CartMisc,
@@ -88,11 +89,13 @@ export default {
       };
 
       await this.postOrder(order);
-      await this.fetchOrders();
       this.$router.push("/success");
+      await this.fetchOrders();
       this[RESET_CART]();
     },
-  }
+    ...mapActions("orders", ["postOrder", "fetchOrders"]),
+    ...mapMutations("cart", [RESET_CART]),
+  },
 };
 </script>
 

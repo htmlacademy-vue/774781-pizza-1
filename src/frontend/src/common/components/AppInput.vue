@@ -1,6 +1,6 @@
 <template>
   <label class="input" :class="classModifier">
-    <span :class="{ 'visually-hidden': isTitleHidden }"><slot /></span>
+    <span :class="{ 'visually-hidden': visuallyHidden }"><slot /></span>
     <input
       :type="type"
       :name="name"
@@ -35,7 +35,7 @@ export default {
       type: String,
       default: "",
     },
-    isTitleHidden: {
+    visuallyHidden: {
       type: Boolean,
       default: false,
     },

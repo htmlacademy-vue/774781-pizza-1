@@ -20,11 +20,12 @@
           <AppInput
             name="pizza_name"
             placeholder="Введите название пиццы"
-            is-title-hidden
+            visually-hidden
             @input="setPizzaName($event)"
             :value="pizzaName"
-            >Название пиццы</AppInput
           >
+            Название пиццы
+          </AppInput>
 
           <div class="content__constructor">
             <BuilderPizzaView />

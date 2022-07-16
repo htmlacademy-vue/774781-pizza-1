@@ -5,7 +5,7 @@
     </div>
 
     <div class="order__sum">
-      <span>Сумма заказа: {{ calcOrderPrice() }} ₽</span>
+      <span>Сумма заказа: {{ orderPrice }} ₽</span>
     </div>
 
     <div class="order__button">
@@ -29,11 +29,12 @@ export default {
       type: String,
       required: true,
     },
+    orderPrice: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
-    calcOrderPrice() {
-      return 100;
-    },
     ...mapActions("orders", ["deleteOrder", "repeatOrder"]),
   },
 };

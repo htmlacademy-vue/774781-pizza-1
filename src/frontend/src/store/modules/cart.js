@@ -14,7 +14,7 @@ const setupCartState = () => ({
   misc: [],
   products: [],
   currentMisc: {},
-  phone: "",
+  cartPhone: "",
   address: "1",
 });
 
@@ -34,7 +34,7 @@ export default {
       state.misc = misc;
     },
     [SET_PHONE](state, phone) {
-      state.phone = phone;
+      state.cartPhone = phone;
     },
     [SET_ADDRESS](state, address) {
       state.address = address;
@@ -108,7 +108,7 @@ export default {
         ),
 
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
-    hasPhone: (state) => state.phone.length > 0,
+    hasPhone: (state) => state.cartPhone.length > 0,
   },
 
   actions: {

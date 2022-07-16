@@ -14,16 +14,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "SuccessPopup",
 
   computed: {
     route() {
-      return this.isGuest ? "/" : "/orders";
+      return this.isAuthenticated ? "/" : "/orders";
     },
-    ...mapGetters("auth", ["isGuest"]),
+    ...mapState("auth", ["isAuthenticated"]),
   },
 
   methods: {

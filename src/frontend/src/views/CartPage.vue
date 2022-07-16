@@ -46,9 +46,10 @@ export default {
     CartEmpty,
   },
   computed: {
-    ...mapState("cart", ["phone", "products", "currentMisc"]),
+    ...mapState("cart", ["cartPhone", "products", "currentMisc"]),
+    ...mapState("auth", ["isAuthenticated"]),
     ...mapGetters("cart", ["hasProducts"]),
-    ...mapGetters("auth", ["isGuest", "userPhone", "userId"]),
+    ...mapGetters("auth", ["userPhone", "userId"]),
   },
   methods: {
     async createOrder() {
@@ -79,7 +80,7 @@ export default {
 
       const order = {
         userId: this.userId,
-        phone: this.isGuest ? this.phone : this.userPhone,
+        phone: this.isAuthenticated ? this.userPhone : this.cartPhone,
         address: {
           street: "string",
           building: "string",
@@ -91,7 +92,11 @@ export default {
       };
 
       await this.postOrder(order);
-      await this.fetchOrders();
+
+      if (this.isAuthenticated) {
+        await this.fetchOrders();
+      }
+
       this[RESET_CART]();
       this.$router.push("/success");
     },

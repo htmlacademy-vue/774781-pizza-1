@@ -1,6 +1,6 @@
 <template>
   <main class="content">
-    <form action="#" method="post">
+    <form action="#" method="post" @submit.prevent="addPizzaToCart()">
       <div class="content__wrapper">
         <AppTitle big>Конструктор пиццы</AppTitle>
 
@@ -32,11 +32,7 @@
 
           <div class="content__result">
             <BuilderPriceCounter />
-            <AppButton
-              @click="addPizzaToCart()"
-              :disabled="unavailableAddOrderToCart"
-              type="button"
-            >
+            <AppButton :disabled="unavailableAddOrderToCart" type="submit">
               Готовьте
             </AppButton>
           </div>

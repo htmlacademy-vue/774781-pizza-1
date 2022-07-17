@@ -7,9 +7,9 @@
       <router-link to="/cart">{{ totalPrice }} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link v-if="!isAuthenticated" to="/login" class="header__login"
-        ><span>Войти</span></router-link
-      >
+      <router-link v-if="!isAuthenticated" to="/login" class="header__login">
+        <span>Войти</span>
+      </router-link>
       <template v-else>
         <router-link to="/profile">
           <picture>

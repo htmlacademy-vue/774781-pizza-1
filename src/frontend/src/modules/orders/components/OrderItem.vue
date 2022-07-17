@@ -93,7 +93,8 @@ export default {
       return (
         miscPrice +
         this.orderPizzas.reduce(
-          (previousPrice, { price, quantity }) => previousPrice + price * quantity,
+          (previousPrice, { price, quantity }) =>
+            previousPrice + price * quantity,
           0
         )
       );

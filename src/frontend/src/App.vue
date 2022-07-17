@@ -17,6 +17,9 @@ export default {
       console.error(error);
     };
 
+    this[SET_LOADING](true);
+    await this.fetchInitialData();
+
     if (this.$jwt.getToken()) {
       this.$api.auth.setAuthHeader();
       this.getMe();
@@ -24,8 +27,6 @@ export default {
       this.fetchOrders();
     }
 
-    this[SET_LOADING](true);
-    await this.fetchInitialData();
     this[SET_LOADING](false);
   },
   computed: {

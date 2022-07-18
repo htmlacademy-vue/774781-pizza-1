@@ -34,15 +34,15 @@ export default {
 
       this.$jwt.destroyToken();
       this.$api.auth.setAuthHeader();
-      commit(SET_AUTHENTICATION, false);
       commit(SET_USER, null);
+      commit(SET_AUTHENTICATION, false);
     },
-    async getMe({ commit, dispatch }) {
+    async getUser({ commit, dispatch }) {
       try {
-        const data = await this.$api.auth.getMe();
+        const userData = await this.$api.auth.whoAmI();
+        commit(SET_USER, userData);
         commit(SET_AUTHENTICATION, true);
-        commit(SET_USER, data);
-      } catch {
+      } catch (error) {
         dispatch("logout", false);
       }
     },
@@ -50,7 +50,15 @@ export default {
       const data = await this.$api.auth.login(credentials);
       this.$jwt.saveToken(data.token);
       this.$api.auth.setAuthHeader();
-      dispatch("getMe");
+      dispatch("getUser");
+    },
+    async tryLoginIfTokenExist({ dispatch }) {
+      if (!this.$jwt.getToken()) {
+        return;
+      }
+
+      this.$api.auth.setAuthHeader();
+      await dispatch("getUser");
     },
   },
 };

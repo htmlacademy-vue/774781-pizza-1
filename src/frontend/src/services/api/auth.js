@@ -18,10 +18,10 @@ const logout = async () => {
   return data;
 };
 
-const getMe = async () => {
+const whoAmI = async () => {
   const { data } = await axios.get("whoAmI");
   return data;
 };
 
-const auth = { setAuthHeader, login, logout, getMe };
+const auth = { setAuthHeader, login, logout, whoAmI };
 export default auth;

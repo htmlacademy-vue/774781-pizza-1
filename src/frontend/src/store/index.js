@@ -30,6 +30,15 @@ const actions = {
     await dispatch("builder/initBuilder");
     await dispatch("cart/fetchMisc");
   },
+  async fetchUserData({ dispatch }) {
+    await dispatch("auth/tryLoginIfTokenExist");
+
+    if (!state.auth.isAuthenticated) {
+      return;
+    }
+
+    await dispatch("orders/fetchOrders");
+  },
 };
 
 export default new Vuex.Store({

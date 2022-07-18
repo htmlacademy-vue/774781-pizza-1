@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { SET_AUTHENTICATION, SET_LOADING } from "@/store/mutations-types";
+import { SET_LOADING } from "@/store/mutations-types";
 import { mapMutations, mapState, mapActions } from "vuex";
 
 export default {
@@ -19,14 +19,7 @@ export default {
 
     this[SET_LOADING](true);
     await this.fetchInitialData();
-
-    if (this.$jwt.getToken()) {
-      this.$api.auth.setAuthHeader();
-      this.getMe();
-      this[SET_AUTHENTICATION](true);
-      this.fetchOrders();
-    }
-
+    await this.fetchUserData();
     this[SET_LOADING](false);
   },
   computed: {
@@ -34,10 +27,8 @@ export default {
   },
   methods: {
     ...mapMutations([SET_LOADING]),
-    ...mapMutations("auth", [SET_AUTHENTICATION]),
     ...mapActions(["fetchInitialData"]),
-    ...mapActions("auth", ["getMe"]),
-    ...mapActions("orders", ["fetchOrders"]),
+    ...mapActions(["fetchUserData"]),
   },
 };
 </script>

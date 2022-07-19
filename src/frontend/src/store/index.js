@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { builder, auth, cart, orders } from "./modules";
 import VuexPlugins from "@/plugins/vuexPlugins";
-import { EDIT_PIZZA, SET_LOADING } from "@/store/mutations-types";
+import { EDIT_PIZZA, SET_LOADING, REPEAT_ORDER } from "@/store/mutations-types";
 
 Vue.use(Vuex);
 
@@ -22,6 +22,17 @@ const mutations = {
 
     state.cart.products.splice(selectedPizzaIdx, 1);
     state.builder.currentPizza = { ...selectedPizza, quantity: 1 };
+  },
+  [REPEAT_ORDER](state, id) {
+    const order = state.orders.orders.find((order) => order.id === id);
+    const pizzas = {
+      ...order.pizzas,
+      basePrice: 0,
+      price: 0,
+    };
+
+    state.cart.products = pizzas;
+    state.cart.misc = order.misc;
   },
 };
 

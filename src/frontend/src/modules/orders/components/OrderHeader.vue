@@ -14,13 +14,16 @@
       </AppButton>
     </div>
     <div class="order__button">
-      <AppButton type="button" @click="repeatOrder()">Повторить</AppButton>
+      <AppButton type="button" @click="repeatOrder(orderId)">
+        Повторить
+      </AppButton>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations, mapActions } from "vuex";
+import { REPEAT_ORDER } from "@/store/mutations-types";
 
 export default {
   name: "OrderHeader",
@@ -35,7 +38,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions("orders", ["deleteOrder", "repeatOrder"]),
+    repeatOrder(id) {
+      this[REPEAT_ORDER](id);
+      this.$router.push("/cart");
+    },
+    ...mapMutations([REPEAT_ORDER]),
+    ...mapActions("orders", ["deleteOrder"]),
   },
 };
 </script>

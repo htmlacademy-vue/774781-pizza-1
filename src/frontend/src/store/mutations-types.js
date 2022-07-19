@@ -28,3 +28,4 @@ export const RESET_CART = "RESET_CART";
 
 export const SET_ORDERS = "SET_ORDERS";
 export const DELETE_ORDER = "DELETE_ORDER";
+export const REPEAT_ORDER = "REPEAT_ORDER";

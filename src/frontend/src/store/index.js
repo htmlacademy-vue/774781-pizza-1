@@ -23,16 +23,27 @@ const mutations = {
     state.cart.products.splice(selectedPizzaIdx, 1);
     state.builder.currentPizza = { ...selectedPizza, quantity: 1 };
   },
-  [REPEAT_ORDER](state, id) {
-    const order = state.orders.orders.find((order) => order.id === id);
-    const pizzas = {
-      ...order.pizzas,
-      basePrice: 0,
-      price: 0,
-    };
+  [REPEAT_ORDER](state, orderId) {
+    const order = state.orders.orders.find((order) => order.id === orderId);
+    const pizzas = order.pizzas.map(
+      ({ doughId, id, name, quantity, sauceId, sizeId, ingredients }) => ({
+        doughId,
+        id,
+        name,
+        quantity,
+        sauceId,
+        sizeId,
+        ingredients,
+      })
+    );
+
+    const misc = order.misc.reduce(
+      (obj, item) => ({ ...obj, [item.miscId]: item.quantity }),
+      {}
+    );
 
     state.cart.products = pizzas;
-    state.cart.misc = order.misc;
+    state.cart.currentMisc = misc;
   },
 };
 

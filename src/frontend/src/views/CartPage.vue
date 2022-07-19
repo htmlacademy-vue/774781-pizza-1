@@ -94,13 +94,14 @@ export default {
       await this.postOrder(order);
 
       if (this.isAuthenticated) {
-        await this.fetchOrders();
+        await this.getOrders();
       }
 
       this[RESET_CART]();
       this.$router.push("/success");
     },
-    ...mapActions("orders", ["postOrder", "fetchOrders"]),
+    ...mapActions(["getOrders"]),
+    ...mapActions("orders", ["postOrder"]),
     ...mapMutations("cart", [RESET_CART]),
   },
 };

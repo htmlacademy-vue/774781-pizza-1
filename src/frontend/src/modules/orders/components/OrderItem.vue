@@ -1,15 +1,13 @@
 <template>
   <section class="sheet order">
-    <OrderHeader :orderId="order.id" :orderPrice="orderPrice" />
-    <OrderPizzas :pizzas="orderPizzas" />
-    <OrderMisc v-if="order.misc" :misc="orderMisc" />
+    <OrderHeader :orderId="order.id" :orderPrice="order.price" />
+    <OrderPizzas :pizzas="order.pizzas" />
+    <OrderMisc v-if="order.misc" :misc="order.misc" />
     <OrderAddress />
   </section>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-import { displayItemPrice } from "@/common/utils";
 import OrderHeader from "./OrderHeader.vue";
 import OrderMisc from "./OrderMisc.vue";
 import OrderPizzas from "./OrderPizzas.vue";
@@ -28,85 +26,6 @@ export default {
       type: Object,
       required: true,
       default: () => {},
-    },
-  },
-  computed: {
-    orderPizzas() {
-      return this.order.pizzas.map((pizza) => {
-        const doughPrice = this.dough.find(
-          (dough) => dough.id === pizza.doughId
-        ).price;
-
-        const saucePrice = this.sauces.find(
-          (sauce) => sauce.id === pizza.sauceId
-        ).price;
-
-        const sizePrice = this.sizes.find(
-          (size) => size.id === pizza.sizeId
-        ).multiplier;
-
-        const ingredientsPrice = this.ingredients
-          .map((ingredient) => ({
-            ...ingredient,
-            quantity: pizza.ingredients[ingredient.id] || 0,
-          }))
-          .filter(({ quantity }) => quantity > 0)
-          .reduce(
-            (accumulator, { quantity, price }) =>
-              accumulator + price * quantity,
-            0
-          );
-
-        const price = (doughPrice + saucePrice + ingredientsPrice) * sizePrice;
-        return {
-          ...pizza,
-          price,
-        };
-      });
-    },
-    orderMisc() {
-      if (this.order.misc === null) {
-        return;
-      }
-
-      const selectedMisc = this.order.misc.reduce(
-        (obj, item) => ({ ...obj, [item.miscId]: item.quantity }),
-        {}
-      );
-
-      return this.misc
-        .map((miscItem) => ({
-          ...miscItem,
-          quantity: selectedMisc[miscItem.id] || 0,
-        }))
-        .filter((miscItem) => miscItem.quantity > 0);
-    },
-    orderPrice() {
-      const miscPrice =
-        this.order.misc === null
-          ? 0
-          : this.orderMisc.reduce(
-              (prev, cur) => prev + cur.price * cur.quantity,
-              0
-            );
-
-      return (
-        miscPrice +
-        this.orderPizzas.reduce(
-          (previousPrice, { price, quantity }) =>
-            previousPrice + price * quantity,
-          0
-        )
-      );
-    },
-    ...mapState("orders", ["orders"]),
-    ...mapState("cart", ["misc"]),
-    ...mapGetters("builder", ["dough", "sauces", "sizes", "ingredients"]),
-  },
-  methods: {
-    displayItemPrice,
-    calcOrderPrice() {
-      return 100;
     },
   },
 };

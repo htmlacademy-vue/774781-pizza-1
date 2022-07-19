@@ -85,13 +85,13 @@ export default {
         email: this.email,
         password: this.password,
       }).then(() => {
-        this.fetchOrders();
+        this.getOrders();
       });
 
       this.$router.push("/");
     },
     ...mapActions("auth", ["login"]),
-    ...mapActions("orders", ["fetchOrders"]),
+    ...mapActions(["getOrders"]),
   },
 };
 </script>

@@ -7,7 +7,7 @@
         orange
         :counter="product.quantity"
         @update:counter="
-          updateProductQuantity($event, product.id, product.basePrice)
+          updateProductQuantity($event, product.id, product.unitPrice)
         "
       />
 
@@ -50,9 +50,9 @@ export default {
   },
 
   methods: {
-    updateProductQuantity(quantity, id, basePrice) {
+    updateProductQuantity(quantity, id, unitPrice) {
       this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
-      this[UPDATE_PRODUCT_PRICE]({ quantity, id, basePrice });
+      this[UPDATE_PRODUCT_PRICE]({ quantity, id, unitPrice });
     },
     changeSelectedPizza(id) {
       this[EDIT_PIZZA](id);

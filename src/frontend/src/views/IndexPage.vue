@@ -85,7 +85,7 @@ export default {
       this[ADD_PRODUCT_IN_CART]({
         ...this.currentPizza,
         price: this.builderPrice,
-        basePrice: this.builderPrice,
+        unitPrice: this.builderPrice,
       });
       this.resetCurrentPizza();
     },

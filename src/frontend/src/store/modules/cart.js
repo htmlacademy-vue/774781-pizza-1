@@ -45,7 +45,7 @@ export default {
         quantity: 0,
       }));
     },
-    [UPDATE_PRODUCT_PRICE](state, { id, quantity, basePrice }) {
+    [UPDATE_PRODUCT_PRICE](state, { id, quantity, unitPrice }) {
       const idx = state.products.findIndex((product) => product.id === id);
 
       if (quantity === 0) {
@@ -57,7 +57,7 @@ export default {
 
       state.products.splice(idx, 1, {
         ...product,
-        price: basePrice * quantity,
+        price: unitPrice * quantity,
       });
     },
     [CHANGE_PRODUCT_QUANTITY](state, { id, quantity }) {

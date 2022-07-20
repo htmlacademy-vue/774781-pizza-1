@@ -22,7 +22,7 @@ const setupCurrentPizzaState = () => ({
   doughId: null,
   sauceId: null,
   sizeId: null,
-  basePrice: 0,
+  unitPrice: 0,
   price: 0,
   ingredients: {},
   quantity: 1,

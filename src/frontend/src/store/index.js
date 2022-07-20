@@ -104,8 +104,9 @@ const mutations = {
   },
   [REPEAT_ORDER](state, orderId) {
     const order = state.orders.orders.find((order) => order.id === orderId);
+    const totalPrice = order.price;
     const pizzas = order.pizzas.map(
-      ({ doughId, id, name, quantity, sauceId, sizeId, ingredients }) => ({
+      ({
         doughId,
         id,
         name,
@@ -113,6 +114,17 @@ const mutations = {
         sauceId,
         sizeId,
         ingredients,
+        basePrice,
+      }) => ({
+        doughId,
+        id,
+        name,
+        quantity,
+        sauceId,
+        sizeId,
+        ingredients,
+        basePrice,
+        price: totalPrice,
       })
     );
 

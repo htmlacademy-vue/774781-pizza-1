@@ -13,8 +13,6 @@ import {
   SET_SIZE,
   SET_INGREDIENTS,
   SET_PIZZA_NAME,
-  SET_PIZZA_PRICE,
-  SET_PIZZA_BASE_PRICE,
   RESET_CURRENT_PIZZA,
 } from "@/store/mutations-types";
 
@@ -61,12 +59,6 @@ export default {
     },
     [SET_PIZZA_NAME](state, name) {
       state.currentPizza.name = name;
-    },
-    [SET_PIZZA_PRICE](state, price) {
-      state.currentPizza.price = price;
-    },
-    [SET_PIZZA_BASE_PRICE](state, price) {
-      state.currentPizza.basePrice = price;
     },
     [NORMALIZE_BUILDER](state) {
       state.builder.dough = state.builder.dough.map((dough) => ({

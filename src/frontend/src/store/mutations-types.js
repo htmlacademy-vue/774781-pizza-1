@@ -28,3 +28,5 @@ export const SET_ORDERS = "SET_ORDERS";
 export const DELETE_ORDER = "DELETE_ORDER";
 export const REPEAT_ORDER = "REPEAT_ORDER";
 export const NORMALIZE_ORDERS = "NORMALIZE_ORDERS";
+
+export const SET_ADDRESSES = "SET_ADDRESSES";

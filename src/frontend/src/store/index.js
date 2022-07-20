@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { builder, auth, cart, orders } from "./modules";
+import { builder, auth, cart, orders, address } from "./modules";
 import VuexPlugins from "@/plugins/vuexPlugins";
 import {
   EDIT_PIZZA,
@@ -154,6 +154,7 @@ const actions = {
     }
 
     await dispatch("getOrders");
+    await dispatch("address/fetchAddresses");
   },
 };
 
@@ -167,5 +168,6 @@ export default new Vuex.Store({
     auth,
     cart,
     orders,
+    address,
   },
 });

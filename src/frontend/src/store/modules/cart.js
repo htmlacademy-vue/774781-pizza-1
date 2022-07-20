@@ -3,7 +3,7 @@ import {
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
   CHANGE_MISC_QUANTITY,
-  ADD_MISC_ADDITIONAL_DATA,
+  NORMALIZE_MISC,
   SET_MISC,
   SET_PHONE,
   SET_ADDRESS,
@@ -39,7 +39,7 @@ export default {
     [SET_ADDRESS](state, address) {
       state.address = address;
     },
-    [ADD_MISC_ADDITIONAL_DATA](state) {
+    [NORMALIZE_MISC](state) {
       state.misc = state.misc.map((misc) => ({
         ...misc,
         quantity: 0,
@@ -116,7 +116,7 @@ export default {
       const misc = await this.$api.cart.misc();
 
       commit(SET_MISC, misc);
-      commit(ADD_MISC_ADDITIONAL_DATA);
+      commit(NORMALIZE_MISC);
     },
   },
 };

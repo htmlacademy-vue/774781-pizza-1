@@ -5,7 +5,7 @@ import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
 
 import {
-  ADD_BUILDER_ADDITIONAL_DATA,
+  NORMALIZE_BUILDER,
   CHANGE_INGREDIENT_QUANTITY,
   SET_BUILDER_INITIAL_DATA,
   SET_SAUCE,
@@ -68,7 +68,7 @@ export default {
     [SET_PIZZA_BASE_PRICE](state, price) {
       state.currentPizza.basePrice = price;
     },
-    [ADD_BUILDER_ADDITIONAL_DATA](state) {
+    [NORMALIZE_BUILDER](state) {
       state.builder.dough = state.builder.dough.map((dough) => ({
         ...dough,
         value: doughValues[dough.name],
@@ -163,7 +163,7 @@ export default {
     async initBuilder({ commit, dispatch }) {
       await dispatch("fetchBuilder");
 
-      commit(ADD_BUILDER_ADDITIONAL_DATA);
+      commit(NORMALIZE_BUILDER);
       dispatch("setCurrentPizzaDefaultValues");
     },
   },

@@ -29,12 +29,13 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import { ItemCounter, ProductItem } from "@/common/components";
 import {
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
   EDIT_PIZZA,
+  RESET_CART,
 } from "@/store/mutations-types";
 
 export default {
@@ -47,18 +48,27 @@ export default {
 
   computed: {
     ...mapState("cart", ["products"]),
+    ...mapGetters("cart", ["hasProducts"]),
   },
 
   methods: {
     updateProductQuantity(quantity, id, unitPrice) {
       this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
       this[UPDATE_PRODUCT_PRICE]({ quantity, id, unitPrice });
+
+      if (!this.hasProducts) {
+        this[RESET_CART]();
+      }
     },
     changeSelectedPizza(id) {
       this[EDIT_PIZZA](id);
       this.$router.push("/");
     },
-    ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY, UPDATE_PRODUCT_PRICE]),
+    ...mapMutations("cart", [
+      CHANGE_PRODUCT_QUANTITY,
+      UPDATE_PRODUCT_PRICE,
+      RESET_CART,
+    ]),
     ...mapMutations([EDIT_PIZZA]),
   },
 };

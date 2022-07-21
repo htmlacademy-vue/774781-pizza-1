@@ -142,11 +142,11 @@ export default {
         dispatch("fetchSizes"),
       ]);
     },
-    setCurrentPizzaDefaultValues({ state, commit, getters }) {
+    setCurrentPizzaDefaultValues({ state, commit }) {
       commit(SET_DOUGH, state.builder.dough[0].id);
       commit(SET_SAUCE, state.builder.sauces[0].id);
       commit(SET_SIZE, state.builder.sizes[0].id);
-      commit(SET_INGREDIENTS, getters.selectedIngredients);
+      commit(SET_INGREDIENTS, state.currentPizza.ingredients);
     },
     resetCurrentPizza({ commit, dispatch }) {
       commit(RESET_CURRENT_PIZZA);
@@ -188,20 +188,21 @@ export default {
 
     sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
     hasPizzaName: ({ currentPizza }) => currentPizza.name.length > 0,
-    ingredients: ({ builder }) => builder.ingredients,
-    selectedIngredients: ({ currentPizza }) => currentPizza.ingredients,
-    hasIngredients: (_, { selectedIngredients }) =>
-      Object.values(selectedIngredients).filter((quantity) => quantity > 0)
+    hasIngredients: ({ currentPizza }) =>
+      Object.values(currentPizza.ingredients).filter((quantity) => quantity > 0)
         .length > 0,
 
-    ingredientsNameEnum: (_, { ingredients }) =>
-      ingredients.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
+    ingredientsNameEnum: ({ builder }) =>
+      builder.ingredients.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
 
-    ingredientsPrice: (_, { ingredients, selectedIngredients }) =>
-      ingredients
+    ingredientsPrice: ({ builder, currentPizza }) =>
+      builder.ingredients
         .map((ingredient) => ({
           ...ingredient,
-          quantity: selectedIngredients[ingredient.id] || 0,
+          quantity: currentPizza.ingredients[ingredient.id] || 0,
         }))
         .filter(({ quantity }) => quantity > 0)
         .reduce(

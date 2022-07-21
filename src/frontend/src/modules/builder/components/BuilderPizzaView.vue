@@ -3,11 +3,11 @@
     <div class="pizza" :class="classModifier">
       <div class="pizza__wrapper">
         <div
-          v-for="{ id, modifier } in ingredients"
+          v-for="{ id, modifier } in builder.ingredients"
           :key="modifier"
           class="pizza__filling"
           :class="
-            updateIngredientsClass(selectedIngredients[id] || 0, modifier)
+            updateIngredientsClass(currentPizza.ingredients[id] || 0, modifier)
           "
         />
       </div>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutations-types";
 
 export default {
@@ -26,12 +26,8 @@ export default {
     classModifier() {
       return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
     },
-    ...mapGetters("builder", [
-      "ingredients",
-      "sauseName",
-      "doughSize",
-      "selectedIngredients",
-    ]),
+    ...mapGetters("builder", ["sauseName", "doughSize"]),
+    ...mapState("builder", ["builder", "currentPizza"]),
   },
 
   methods: {

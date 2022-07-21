@@ -166,13 +166,14 @@ export default {
 
     doughSize: (_, { selectedDough }) => selectedDough.size,
     doughPrice: (_, { selectedDough }) => selectedDough.price,
-    sauces: ({ builder }) => builder.sauces,
-    sauceId: ({ currentPizza }) => currentPizza.sauceId,
-    selectedSauce: (_, { sauces, sauceId }) =>
-      sauces.find((sauce) => sauce.id === sauceId),
+    selectedSauce: ({ builder, currentPizza }) =>
+      builder.sauces.find((sauce) => sauce.id === currentPizza.sauceId),
 
-    sausesNameEnum: (_, { sauces }) =>
-      sauces.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
+    sausesNameEnum: ({ builder }) =>
+      builder.sauces.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
 
     sauseName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,

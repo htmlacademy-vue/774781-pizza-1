@@ -9,13 +9,13 @@
         <p>Основной соус:</p>
 
         <RadioButton
-          v-for="{ id, name, value } in sauces"
+          v-for="{ id, name, value } in builder.sauces"
           :key="id"
           class="ingredients__input"
           name="sauces"
           :title="name"
           :value="value"
-          :checked="id === sauceId"
+          :checked="id === currentPizza.sauceId"
           @change="selectSauce(id)"
         />
       </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { SET_SAUCE } from "@/store/mutations-types";
 import { RadioButton } from "@/common/components";
 import IngredientsList from "./IngredientsList.vue";
@@ -40,7 +40,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters("builder", ["sauces", "sauceId"]),
+    ...mapState("builder", ["builder", "currentPizza"]),
   },
 
   methods: {

@@ -13,7 +13,13 @@ export default {
       return state.user ? state.user.id : null;
     },
     userPhone: (state) => {
-      return state.user ? state.user.phone : null;
+      return state.user?.phone;
+    },
+    userName: (state) => {
+      return state.user?.name;
+    },
+    userAvatar: (state) => {
+      return state.user?.avatar;
     },
   },
 

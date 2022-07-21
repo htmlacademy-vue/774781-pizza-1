@@ -12,23 +12,8 @@
       </router-link>
       <template v-else>
         <router-link to="/profile">
-          <picture>
-            <source
-              type="image/webp"
-              srcset="
-                @/assets/img/users/user5.webp    1x,
-                @/assets/img/users/user5@2x.webp 2x
-              "
-            />
-            <img
-              src="@/assets/img/users/user5.jpg"
-              srcset="@/assets/img/users/user5@2x.jpg"
-              :alt="user.name"
-              width="32"
-              height="32"
-            />
-          </picture>
-          <span>{{ user.name }}</span>
+          <img :src="userAvatar" :alt="userName" width="32" height="32" />
+          <span>{{ userName }}</span>
         </router-link>
         <a @click.prevent="logout()" href="#" class="header__logout">
           <span>Выйти</span>
@@ -50,8 +35,9 @@ export default {
   },
 
   computed: {
-    ...mapState("auth", ["user", "isAuthenticated"]),
+    ...mapState("auth", ["isAuthenticated"]),
     ...mapGetters("cart", ["totalPrice"]),
+    ...mapGetters("auth", ["userName", "userAvatar"]),
   },
 
   methods: {

@@ -1,3 +1,4 @@
 import UserProfile from "./UserProfile.vue";
+import AddressItem from "./AddressItem.vue";
 
-export { UserProfile };
+export { UserProfile, AddressItem };

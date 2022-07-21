@@ -4,7 +4,7 @@
 
     <div class="sheet__content dough">
       <label
-        v-for="{ id, name, description, value } in dough"
+        v-for="{ id, name, description, value } in builder.dough"
         :key="id"
         class="dough__input"
         :class="`dough__input--${value}`"
@@ -14,7 +14,7 @@
           name="dought"
           class="visually-hidden"
           :value="value"
-          :checked="id === doughId"
+          :checked="id === currentPizza.doughId"
           @change="selectDough(id)"
         />
         <b>{{ name }}</b>
@@ -25,14 +25,14 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { SET_DOUGH } from "@/store/mutations-types";
 
 export default {
   name: "BuilderDoughSelector",
 
   computed: {
-    ...mapGetters("builder", ["dough", "doughId"]),
+    ...mapState("builder", ["builder", "currentPizza"]),
   },
 
   methods: {

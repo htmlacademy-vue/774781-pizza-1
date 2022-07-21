@@ -161,10 +161,8 @@ export default {
   },
 
   getters: {
-    dough: ({ builder }) => builder.dough,
-    doughId: ({ currentPizza }) => currentPizza.doughId,
-    selectedDough: (_, { dough, doughId }) =>
-      dough.find((d) => d.id === doughId),
+    selectedDough: ({ builder, currentPizza }) =>
+      builder.dough.find((d) => d.id === currentPizza.doughId),
 
     doughSize: (_, { selectedDough }) => selectedDough.size,
     doughPrice: (_, { selectedDough }) => selectedDough.price,

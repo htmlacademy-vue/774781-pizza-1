@@ -12,15 +12,6 @@ export default {
     userId: (state) => {
       return state.user ? state.user.id : null;
     },
-    userPhone: (state) => {
-      return state.user?.phone;
-    },
-    userName: (state) => {
-      return state.user?.name;
-    },
-    userAvatar: (state) => {
-      return state.user?.avatar;
-    },
   },
 
   mutations: {

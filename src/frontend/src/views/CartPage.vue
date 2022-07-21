@@ -49,7 +49,7 @@ export default {
     ...mapState("cart", ["cartPhone", "products", "currentMisc"]),
     ...mapState("auth", ["isAuthenticated"]),
     ...mapGetters("cart", ["hasProducts"]),
-    ...mapGetters("auth", ["userPhone", "userId"]),
+    ...mapGetters("auth", ["userId"]),
   },
   methods: {
     async createOrder() {
@@ -80,7 +80,7 @@ export default {
 
       const order = {
         userId: this.userId,
-        phone: this.isAuthenticated ? this.userPhone : this.cartPhone,
+        phone: this.isAuthenticated ? this.user.phone : this.cartPhone,
         address: {
           street: "string",
           building: "string",

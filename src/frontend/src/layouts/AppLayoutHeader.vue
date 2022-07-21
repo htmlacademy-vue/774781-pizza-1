@@ -12,8 +12,8 @@
       </router-link>
       <template v-else>
         <router-link to="/profile">
-          <img :src="userAvatar" :alt="userName" width="32" height="32" />
-          <span>{{ userName }}</span>
+          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          <span>{{ user.name }}</span>
         </router-link>
         <a @click.prevent="logout()" href="#" class="header__logout">
           <span>Выйти</span>
@@ -35,9 +35,8 @@ export default {
   },
 
   computed: {
-    ...mapState("auth", ["isAuthenticated"]),
+    ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters("cart", ["totalPrice"]),
-    ...mapGetters("auth", ["userName", "userAvatar"]),
   },
 
   methods: {

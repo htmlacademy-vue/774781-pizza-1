@@ -1,23 +1,23 @@
 <template>
   <div class="user">
-    <img :src="userAvatar" alt="Василий Ложкин" width="72" height="72" />
+    <img :src="user.avatar" alt="Василий Ложкин" width="72" height="72" />
     <div class="user__name">
-      <span>{{ userName }}</span>
+      <span>{{ user.name }}</span>
     </div>
     <p class="user__phone">
-      Контактный телефон: <span>{{ userPhone }}</span>
+      Контактный телефон: <span>{{ user.phone }}</span>
     </p>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "UserProfile",
 
   computed: {
-    ...mapGetters("auth", ["userName", "userAvatar", "userPhone"]),
+    ...mapState("auth", ["user"]),
   },
 };
 </script>

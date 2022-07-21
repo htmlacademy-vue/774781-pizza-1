@@ -177,13 +177,14 @@ export default {
 
     sauseName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
-    sizes: ({ builder }) => builder.sizes,
-    sizesNameEnum: (_, { sizes }) =>
-      sizes.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
+    sizesNameEnum: ({ builder }) =>
+      builder.sizes.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
 
-    sizeId: ({ currentPizza }) => currentPizza.sizeId,
-    selectedSize: (_, { sizes, sizeId }) =>
-      sizes.find((size) => size.id === sizeId),
+    selectedSize: ({ builder, currentPizza }) =>
+      builder.sizes.find((size) => size.id === currentPizza.sizeId),
 
     sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
     pizzaName: ({ currentPizza }) => currentPizza.name,

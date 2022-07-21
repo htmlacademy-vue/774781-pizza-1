@@ -187,8 +187,7 @@ export default {
       builder.sizes.find((size) => size.id === currentPizza.sizeId),
 
     sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
-    pizzaName: ({ currentPizza }) => currentPizza.name,
-    hasPizzaName: (_, { pizzaName }) => pizzaName.length > 0,
+    hasPizzaName: ({ currentPizza }) => currentPizza.name.length > 0,
     ingredients: ({ builder }) => builder.ingredients,
     selectedIngredients: ({ currentPizza }) => currentPizza.ingredients,
     hasIngredients: (_, { selectedIngredients }) =>

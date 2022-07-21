@@ -22,7 +22,7 @@
             placeholder="Введите название пиццы"
             visually-hidden
             @input="setPizzaName($event)"
-            :value="pizzaName"
+            :value="currentPizza.name"
           >
             Название пиццы
           </AppInput>
@@ -76,7 +76,6 @@ export default {
       "hasPizzaName",
       "hasIngredients",
       "builderPrice",
-      "pizzaName",
     ]),
   },
 

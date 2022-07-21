@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     ...mapState("cart", ["cartPhone", "products", "currentMisc"]),
-    ...mapState("auth", ["isAuthenticated"]),
+    ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters("cart", ["hasProducts"]),
     ...mapGetters("auth", ["userId"]),
   },

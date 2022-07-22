@@ -46,9 +46,10 @@ export default {
     CartEmpty,
   },
   computed: {
+    ...mapState("address", ["currentAddress"]),
     ...mapState("cart", ["cartPhone", "products", "currentMisc"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
-    ...mapGetters("cart", ["hasProducts"]),
+    ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
     ...mapGetters("auth", ["userId"]),
   },
   methods: {
@@ -73,7 +74,7 @@ export default {
         }
       );
 
-      const miscModel = Object.entries(this.currentMisc).map((miscItem) => ({
+      const misc = Object.entries(this.currentMisc).map((miscItem) => ({
         miscId: miscItem[0],
         quantity: miscItem[1],
       }));
@@ -81,24 +82,21 @@ export default {
       const order = {
         userId: this.userId,
         phone: this.isAuthenticated ? this.user.phone : this.cartPhone,
-        address: {
-          street: "string",
-          building: "string",
-          flat: "string",
-          comment: "string",
-        },
+        address: this.selfDelivery ? null : this.currentAddress,
         pizzas,
-        misc: miscModel,
+        misc,
       };
 
       await this.postOrder(order);
 
+      this[RESET_CART]();
+
       if (this.isAuthenticated) {
         await this.getOrders();
+        this.$router.push("/orders");
+      } else {
+        this.$router.push("/success");
       }
-
-      this[RESET_CART]();
-      this.$router.push("/success");
     },
     ...mapActions(["getOrders"]),
     ...mapActions("orders", ["postOrder"]),

@@ -1,15 +1,31 @@
-import { SET_ADDRESSES } from "@/store/mutations-types";
+import {
+  SET_ADDRESSES,
+  SET_CURRENT_ADDRESS_ENTITY,
+} from "@/store/mutations-types";
 
 export default {
   namespaced: true,
 
   state: {
     addresses: [],
+    currentAddress: {
+      name: "",
+      street: "",
+      building: "",
+      flat: "",
+    },
+  },
+
+  getters: {
+    hasAddress: (state) => state.addresses.length > 0,
   },
 
   mutations: {
     [SET_ADDRESSES](state, addresses) {
       state.addresses = addresses;
+    },
+    [SET_CURRENT_ADDRESS_ENTITY](state, { entity, value }) {
+      state.currentAddress[entity] = value;
     },
   },
 

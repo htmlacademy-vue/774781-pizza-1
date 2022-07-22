@@ -9,9 +9,7 @@ export default {
   },
 
   getters: {
-    userId: (state) => {
-      return state.user ? state.user.id : null;
-    },
+    userId: (state) => (state.user ? state.user.id : null),
   },
 
   mutations: {

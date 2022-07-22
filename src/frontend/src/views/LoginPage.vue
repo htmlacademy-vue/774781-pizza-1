@@ -81,13 +81,12 @@ export default {
         return;
       }
 
-      this.login({
+      await this.login({
         email: this.email,
         password: this.password,
-      }).then(() => {
-        this.getOrders();
       });
 
+      this.getOrders();
       this.$router.push("/");
     },
     ...mapActions("auth", ["login"]),

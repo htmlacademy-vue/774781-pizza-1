@@ -109,6 +109,7 @@ export default {
 
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
     hasPhone: (state) => state.cartPhone.length > 0,
+    selfDelivery: (state) => state.address === "1",
   },
 
   actions: {

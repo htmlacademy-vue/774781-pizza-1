@@ -4,10 +4,10 @@
       <ProductItem class="cart-list__product" :product="product" />
       <ItemCounter
         class="cart-list__counter"
-        theme="orange"
+        orange
         :counter="product.quantity"
         @update:counter="
-          updateProductQuantity($event, product.id, product.basePrice)
+          updateProductQuantity($event, product.id, product.unitPrice)
         "
       />
 
@@ -16,22 +16,30 @@
       </div>
 
       <div class="cart-list__button">
-        <button type="button" class="cart-list__edit">Изменить</button>
+        <button
+          @click="changeSelectedPizza(product.id)"
+          type="button"
+          class="cart-list__edit"
+        >
+          Изменить
+        </button>
       </div>
     </li>
   </ul>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 import { ItemCounter, ProductItem } from "@/common/components";
 import {
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
+  EDIT_PIZZA,
+  RESET_CART,
 } from "@/store/mutations-types";
 
 export default {
-  name: "CartList",
+  name: "CartProducts",
 
   components: {
     ProductItem,
@@ -40,14 +48,28 @@ export default {
 
   computed: {
     ...mapState("cart", ["products"]),
+    ...mapGetters("cart", ["hasProducts"]),
   },
 
   methods: {
-    updateProductQuantity(quantity, id, basePrice) {
+    updateProductQuantity(quantity, id, unitPrice) {
       this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
-      this[UPDATE_PRODUCT_PRICE]({ quantity, id, basePrice });
+      this[UPDATE_PRODUCT_PRICE]({ quantity, id, unitPrice });
+
+      if (!this.hasProducts) {
+        this[RESET_CART]();
+      }
     },
-    ...mapMutations("cart", [CHANGE_PRODUCT_QUANTITY, UPDATE_PRODUCT_PRICE]),
+    changeSelectedPizza(id) {
+      this[EDIT_PIZZA](id);
+      this.$router.push("/");
+    },
+    ...mapMutations("cart", [
+      CHANGE_PRODUCT_QUANTITY,
+      UPDATE_PRODUCT_PRICE,
+      RESET_CART,
+    ]),
+    ...mapMutations([EDIT_PIZZA]),
   },
 };
 </script>

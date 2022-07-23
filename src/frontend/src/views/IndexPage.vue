@@ -1,8 +1,8 @@
 <template>
   <main class="content">
-    <form action="#" method="post">
+    <form action="#" method="post" @submit.prevent="addPizzaToCart()">
       <div class="content__wrapper">
-        <AppTitle size="big">Конструктор пиццы</AppTitle>
+        <AppTitle big>Конструктор пиццы</AppTitle>
 
         <div class="content__dough">
           <BuilderDoughSelector />
@@ -20,11 +20,12 @@
           <AppInput
             name="pizza_name"
             placeholder="Введите название пиццы"
-            is-title-hidden
+            visually-hidden
             @input="setPizzaName($event)"
-            :value="pizzaName"
-            >Название пиццы</AppInput
+            :value="currentPizza.name"
           >
+            Название пиццы
+          </AppInput>
 
           <div class="content__constructor">
             <BuilderPizzaView />
@@ -32,11 +33,9 @@
 
           <div class="content__result">
             <BuilderPriceCounter />
-            <AppButton
-              @click="addPizzaToCart()"
-              :disabled="!availableAddOrderToCart"
-              >Готовьте</AppButton
-            >
+            <AppButton :disabled="unavailableAddOrderToCart" type="submit">
+              Готовьте
+            </AppButton>
           </div>
         </div>
       </div>
@@ -46,7 +45,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { SET_PIZZA_ENTITY, ADD_PRODUCT } from "@/store/mutations-types";
+import { SET_PIZZA_NAME, ADD_PRODUCT_IN_CART } from "@/store/mutations-types";
 
 import {
   BuilderSizeSelector,
@@ -68,33 +67,34 @@ export default {
   },
 
   computed: {
-    availableAddOrderToCart() {
-      return this.hasPizzaName && this.hasIngredients;
+    unavailableAddOrderToCart() {
+      return !this.hasPizzaName || !this.hasIngredients;
     },
-
     ...mapState("cart", ["products"]),
     ...mapState("builder", ["currentPizza"]),
     ...mapGetters("builder", [
       "hasPizzaName",
       "hasIngredients",
       "builderPrice",
-      "pizzaName",
-      "selectedIngredients",
     ]),
   },
 
   methods: {
     addPizzaToCart() {
-      this[ADD_PRODUCT](this.currentPizza);
+      this[ADD_PRODUCT_IN_CART]({
+        ...this.currentPizza,
+        price: this.builderPrice,
+        unitPrice: this.builderPrice,
+      });
+      this.resetCurrentPizza();
     },
-
     setPizzaName(name) {
-      this[SET_PIZZA_ENTITY]({ entity: "name", value: name });
+      this[SET_PIZZA_NAME](name);
     },
-
-    ...mapMutations("builder", [SET_PIZZA_ENTITY]),
-    ...mapMutations("cart", [ADD_PRODUCT]),
+    ...mapMutations("builder", [SET_PIZZA_NAME]),
+    ...mapMutations("cart", [ADD_PRODUCT_IN_CART]),
     ...mapActions("cart", ["addProductToCart"]),
+    ...mapActions("builder", ["resetCurrentPizza"]),
   },
 };
 </script>

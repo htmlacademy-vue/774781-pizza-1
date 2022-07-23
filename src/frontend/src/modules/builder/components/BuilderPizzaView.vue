@@ -3,10 +3,12 @@
     <div class="pizza" :class="classModifier">
       <div class="pizza__wrapper">
         <div
-          v-for="{ id, modifier, quantity } in ingredients"
+          v-for="{ id, modifier } in builder.ingredients"
           :key="modifier"
           class="pizza__filling"
-          :class="updateIngredientsClass(quantity, modifier)"
+          :class="
+            updateIngredientsClass(currentPizza.ingredients[id] || 0, modifier)
+          "
         />
       </div>
     </div>
@@ -14,8 +16,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import { ADD_INGREDIENT_QUANTITY } from "@/store/mutations-types";
+import { mapState, mapGetters, mapMutations } from "vuex";
+import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaView",
@@ -24,15 +26,17 @@ export default {
     classModifier() {
       return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
     },
-
-    ...mapGetters("builder", ["ingredients", "sauseName", "doughSize"]),
+    ...mapGetters("builder", ["sauseName", "doughSize"]),
+    ...mapState("builder", ["builder", "currentPizza"]),
   },
 
   methods: {
-    addIngredient(id) {
-      this[ADD_INGREDIENT_QUANTITY](id);
+    addIngredient({ id, quantity }) {
+      this[CHANGE_INGREDIENT_QUANTITY]({
+        id,
+        quantity: quantity + 1,
+      });
     },
-
     updateIngredientsClass(quantity, modifier) {
       return [
         { [`pizza__filling--${modifier}`]: quantity > 0 },
@@ -40,8 +44,7 @@ export default {
         { "pizza__filling--third": quantity === 3 },
       ];
     },
-
-    ...mapMutations("builder", [ADD_INGREDIENT_QUANTITY]),
+    ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY]),
   },
 };
 </script>

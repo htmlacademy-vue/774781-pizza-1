@@ -4,37 +4,93 @@
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </router-link>
     <div class="sign-form__title">
-      <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+      <AppTitle small>Авторизуйтесь на сайте</AppTitle>
     </div>
-    <form action="test.html" method="post">
+    <form @submit.prevent="signIn()" novalidate>
       <div class="sign-form__input">
-        <label class="input">
-          <span>E-mail</span>
-          <input type="email" name="email" placeholder="example@mail.ru" />
-        </label>
+        <AppInput
+          v-model="email"
+          type="email"
+          name="email"
+          placeholder="example@mail.ru"
+          :error-text="validations.email.error"
+        >
+          E-mail
+        </AppInput>
       </div>
 
       <div class="sign-form__input">
-        <label class="input">
-          <span>Пароль</span>
-          <input type="password" name="pass" placeholder="***********" />
-        </label>
+        <AppInput
+          v-model="password"
+          type="password"
+          name="pass"
+          placeholder="***********"
+          :error-text="validations.password.error"
+        >
+          Пароль
+        </AppInput>
       </div>
-      <button @click.prevent="submit()" type="submit" class="button">
-        Авторизоваться
-      </button>
+      <AppButton type="submit">Авторизоваться</AppButton>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import { validator } from "@/common/mixins";
+
 export default {
   name: "LoginPage",
 
-  methods: {
-    submit() {
-      this.$router.push("/profile");
+  mixins: [validator],
+
+  data() {
+    return {
+      email: "user@example.com",
+      password: "user@example.com",
+      validations: {
+        email: {
+          error: "",
+          rules: ["required", "email"],
+        },
+        password: {
+          error: "",
+          rules: ["required"],
+        },
+      },
+    };
+  },
+
+  watch: {
+    email() {
+      this.$clearValidationErrors();
     },
+    password() {
+      this.$clearValidationErrors();
+    },
+  },
+
+  methods: {
+    async signIn() {
+      if (
+        !this.$validateFields(
+          { email: this.email, password: this.password },
+          this.validations
+        )
+      ) {
+        return;
+      }
+
+      await this.login({
+        email: this.email,
+        password: this.password,
+      });
+
+      this.getOrders();
+      this.$router.push("/");
+    },
+    ...mapActions("auth", ["login"]),
+    ...mapActions(["getOrders"]),
   },
 };
 </script>

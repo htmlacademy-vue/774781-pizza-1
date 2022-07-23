@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { AppLayout, AppLayoutHeader, AppLayoutFooter } from "@/layouts";
+import { AppLayout, AppLayoutHeader } from "@/layouts";
 import {
   AppButton,
   AppTitle,
@@ -13,6 +13,5 @@ Vue.component("AppTitle", AppTitle);
 Vue.component("AppInput", AppInput);
 Vue.component("AppLayout", AppLayout);
 Vue.component("AppLayoutHeader", AppLayoutHeader);
-Vue.component("AppLayoutFooter", AppLayoutFooter);
 Vue.component("AppDrag", AppDrag);
 Vue.component("AppDrop", AppDrop);

@@ -1,21 +1,34 @@
 <template>
   <div id="app">
-    <AppLayout>
+    <AppLayout v-if="!loading">
       <router-view />
     </AppLayout>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { SET_LOADING } from "@/store/mutations-types";
+import { mapMutations, mapState, mapActions } from "vuex";
 
 export default {
   name: "App",
-  created() {
-    this.init();
+  async created() {
+    window.onerror = function (msg, url, line, col, error) {
+      console.error(error);
+    };
+
+    this[SET_LOADING](true);
+    await this.fetchInitialData();
+    await this.fetchUserData();
+    this[SET_LOADING](false);
+  },
+  computed: {
+    ...mapState(["loading"]),
   },
   methods: {
-    ...mapActions(["init"]),
+    ...mapMutations([SET_LOADING]),
+    ...mapActions(["fetchInitialData"]),
+    ...mapActions(["fetchUserData"]),
   },
 };
 </script>

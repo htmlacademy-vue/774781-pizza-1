@@ -1,9 +1,9 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <router-link to="/" class="button button--border button--arrow"
-        >Хочу еще одну</router-link
-      >
+      <AppButton tag="a" border arrow @click="toIndexPage()">
+        Хочу еще одну
+      </AppButton>
     </div>
     <p class="footer__text">
       Перейти к конструктору<br />чтоб собрать ещё одну пиццу
@@ -13,43 +13,30 @@
     </div>
 
     <div class="footer__submit">
-      <AppButton @click="checkout()">Оформить заказ</AppButton>
+      <AppButton type="submit" :disabled="unavailableCreateOrder">
+        Оформить заказ
+      </AppButton>
     </div>
   </section>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
-import { SAVE_ORDER } from "@/store/mutations-types";
+import { mapGetters } from "vuex";
 
 export default {
-  name: "AppLayoutFooter",
+  name: "CartFooter",
 
   computed: {
-    ...mapGetters("cart", ["totalPrice", "products", "selectedMisc"]),
-    ...mapGetters("auth", ["userId", "userPhone"]),
+    unavailableCreateOrder() {
+      return !this.hasPhone;
+    },
+    ...mapGetters("cart", ["totalPrice", "hasPhone"]),
   },
 
   methods: {
-    checkout() {
-      const order = {
-        userId: this.userId,
-        phone: this.userPhone,
-        address: {
-          street: "string",
-          building: "string",
-          flat: "string",
-          comment: "string",
-        },
-        pizzas: this.products,
-        misc: this.selectedMisc,
-      };
-
-      this[SAVE_ORDER](order);
-
-      this.$router.push("/success");
+    toIndexPage() {
+      this.$router.push("/");
     },
-    ...mapMutations("orders", [SAVE_ORDER]),
   },
 };
 </script>

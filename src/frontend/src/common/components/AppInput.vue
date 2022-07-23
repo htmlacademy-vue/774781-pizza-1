@@ -1,6 +1,6 @@
 <template>
   <label class="input" :class="classModifier">
-    <span :class="{ 'visually-hidden': isTitleHidden }"><slot /></span>
+    <span :class="{ 'visually-hidden': visuallyHidden }"><slot /></span>
     <input
       :type="type"
       :name="name"
@@ -8,6 +8,9 @@
       :value="value"
       @input="$emit('input', $event.target.value)"
     />
+    <span v-if="showError" class="text-field__text">
+      {{ errorText }}
+    </span>
   </label>
 </template>
 
@@ -20,30 +23,29 @@ export default {
       type: String,
       default: "text",
     },
-
     name: {
       type: String,
       required: true,
     },
-
     placeholder: {
       type: String,
       default: null,
     },
-
     value: {
       type: String,
       default: "",
     },
-
-    isTitleHidden: {
+    visuallyHidden: {
       type: Boolean,
       default: false,
     },
-
     bigLabel: {
       type: Boolean,
       default: false,
+    },
+    errorText: {
+      type: String,
+      default: "",
     },
   },
 
@@ -52,6 +54,9 @@ export default {
       return {
         "input--big-label": this.bigLabel,
       };
+    },
+    showError() {
+      return this.errorText.length > 0;
     },
   },
 };

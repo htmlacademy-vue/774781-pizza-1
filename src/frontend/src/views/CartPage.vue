@@ -1,51 +1,106 @@
 <template>
-  <form action="test.html" method="post" class="layout-form">
+  <form method="post" @submit.prevent="createOrder()" class="layout-form">
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
-          <AppTitle size="big">Корзина</AppTitle>
+          <AppTitle big>Корзина</AppTitle>
         </div>
 
-        <div v-if="!hasProducts" class="sheet cart__empty">
-          <p>В корзине нет ни одного товара</p>
-        </div>
+        <CartEmpty v-if="!hasProducts" />
 
         <template v-else>
-          <CartList />
+          <CartProducts />
 
           <div class="cart__additional">
-            <CartAdditionalList />
+            <CartMisc />
           </div>
 
           <div class="cart__form">
-            <CartForm />
+            <OrderPickupForm />
           </div>
         </template>
       </div>
     </main>
-    <AppLayoutFooter v-if="hasProducts" />
+    <CartFooter v-if="hasProducts" />
   </form>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
+import { RESET_CART } from "@/store/mutations-types";
 import {
-  CartList,
-  CartAdditionalList,
-  CartForm,
+  CartProducts,
+  CartMisc,
+  OrderPickupForm,
+  CartFooter,
+  CartEmpty,
 } from "@/modules/cart/components";
 
 export default {
   name: "CartPage",
-
   components: {
-    CartList,
-    CartAdditionalList,
-    CartForm,
+    CartProducts,
+    CartMisc,
+    OrderPickupForm,
+    CartFooter,
+    CartEmpty,
   },
-
   computed: {
-    ...mapGetters("cart", ["hasProducts"]),
+    ...mapState("address", ["currentAddress"]),
+    ...mapState("cart", ["cartPhone", "products", "currentMisc"]),
+    ...mapState("auth", ["user", "isAuthenticated"]),
+    ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
+    ...mapGetters("auth", ["userId"]),
+  },
+  methods: {
+    async createOrder() {
+      const pizzas = this.products.map(
+        ({ doughId, name, sauceId, sizeId, quantity, ingredients }) => {
+          const ingredientsModel = Object.entries(ingredients).map(
+            (ingredient) => ({
+              ingredientId: ingredient[0],
+              quantity: ingredient[1],
+            })
+          );
+
+          return {
+            name,
+            sauceId,
+            doughId,
+            sizeId,
+            quantity,
+            ingredients: ingredientsModel,
+          };
+        }
+      );
+
+      const misc = Object.entries(this.currentMisc).map((miscItem) => ({
+        miscId: miscItem[0],
+        quantity: miscItem[1],
+      }));
+
+      const order = {
+        userId: this.userId,
+        phone: this.isAuthenticated ? this.user.phone : this.cartPhone,
+        address: this.selfDelivery ? null : this.currentAddress,
+        pizzas,
+        misc,
+      };
+
+      await this.postOrder(order);
+
+      this[RESET_CART]();
+
+      if (this.isAuthenticated) {
+        await this.getOrders();
+        this.$router.push("/orders");
+      } else {
+        this.$router.push("/success");
+      }
+    },
+    ...mapActions(["getOrders"]),
+    ...mapActions("orders", ["postOrder"]),
+    ...mapMutations("cart", [RESET_CART]),
   },
 };
 </script>

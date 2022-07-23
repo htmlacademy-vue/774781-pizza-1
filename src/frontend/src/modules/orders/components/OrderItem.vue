@@ -1,3 +1,37 @@
+<template>
+  <section class="sheet order">
+    <OrderHeader :orderId="order.id" :orderPrice="order.price" />
+    <OrderPizzas :pizzas="order.pizzas" />
+    <OrderMisc v-if="order.misc" :misc="order.misc" />
+    <OrderAddress />
+  </section>
+</template>
+
+<script>
+import OrderHeader from "./OrderHeader.vue";
+import OrderMisc from "./OrderMisc.vue";
+import OrderPizzas from "./OrderPizzas.vue";
+import OrderAddress from "./OrderAddress.vue";
+
+export default {
+  name: "OrderItem",
+  components: {
+    OrderHeader,
+    OrderPizzas,
+    OrderMisc,
+    OrderAddress,
+  },
+  props: {
+    order: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .order {
   margin-bottom: 32px;
   padding-top: 0;
@@ -64,6 +98,14 @@
   white-space: nowrap;
 }
 
+.order__address {
+  @include l-s11-h13;
+
+  margin: 0;
+  padding: 16px 10px;
+
+  border-top: 1px solid rgba($green-500, 0.1);
+}
 .order__additional {
   @include clear-list;
 
@@ -96,12 +138,4 @@
     display: block;
   }
 }
-
-.order__address {
-  @include l-s11-h13;
-
-  margin: 0;
-  padding: 16px 10px;
-
-  border-top: 1px solid rgba($green-500, 0.1);
-}
+</style>

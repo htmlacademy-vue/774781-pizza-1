@@ -4,23 +4,32 @@
 
     <div class="layout__content">
       <div class="layout__title">
-        <h1 class="title title--big">Мои данные</h1>
+        <AppTitle big>Мои данные</AppTitle>
       </div>
 
       <UserProfile />
 
-      <div class="layout__address">
-        <AddressItem
-          v-for="address in addresses"
-          :key="address.id"
-          :address="address"
-        />
+      <div
+        v-for="address in addresses"
+        :key="address.id"
+        class="layout__address"
+      >
+        <AddressItem :address="address" />
+      </div>
+
+      <div v-if="showAddressForm" class="layout__address">
+        <AddressForm @hide-address-form="showAddressForm = false" />
       </div>
 
       <div class="layout__button">
-        <button type="button" class="button button--border">
+        <AppButton
+          border
+          type="button"
+          :disabled="showAddressForm"
+          @click="showAddressForm = !showAddressForm"
+        >
           Добавить новый адрес
-        </button>
+        </AppButton>
       </div>
     </div>
   </main>
@@ -29,15 +38,26 @@
 <script>
 import { mapState } from "vuex";
 import AppSidebar from "@/layouts/AppSidebar.vue";
-import { UserProfile, AddressItem } from "@/modules/profile/components";
+import {
+  UserProfile,
+  AddressItem,
+  AddressForm,
+} from "@/modules/profile/components";
 
 export default {
   name: "ProfilePage",
+
+  data() {
+    return {
+      showAddressForm: false,
+    };
+  },
 
   components: {
     AppSidebar,
     UserProfile,
     AddressItem,
+    AddressForm,
   },
 
   computed: {

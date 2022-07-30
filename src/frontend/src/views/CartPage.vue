@@ -46,7 +46,7 @@ export default {
     CartEmpty,
   },
   computed: {
-    ...mapState("address", ["currentAddress"]),
+    ...mapState("address", ["cartAddress"]),
     ...mapState("cart", ["cartPhone", "products", "currentMisc"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
@@ -82,7 +82,7 @@ export default {
       const order = {
         userId: this.userId,
         phone: this.isAuthenticated ? this.user.phone : this.cartPhone,
-        address: this.selfDelivery ? null : this.currentAddress,
+        address: this.selfDelivery ? null : this.cartAddress,
         pizzas,
         misc,
       };

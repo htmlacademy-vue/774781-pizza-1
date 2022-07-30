@@ -5,5 +5,10 @@ const get = async () => {
   return data;
 };
 
-const address = { get };
+const post = async (address) => {
+  const { data } = await axios.post("addresses", address);
+  return data;
+};
+
+const address = { get, post };
 export default address;

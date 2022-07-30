@@ -1,6 +1,6 @@
 <template>
   <main class="content">
-    <form action="#" method="post" @submit.prevent="addPizzaToCart()">
+    <form @submit.prevent="addPizzaToCart()">
       <div class="content__wrapper">
         <AppTitle big>Конструктор пиццы</AppTitle>
 

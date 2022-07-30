@@ -42,7 +42,7 @@ import { mapState, mapGetters, mapMutations } from "vuex";
 import {
   SET_PHONE,
   SET_ADDRESS,
-  SET_CURRENT_ADDRESS_ENTITY,
+  SET_CART_ADDRESS_ENTITY,
 } from "@/store/mutations-types";
 
 export default {
@@ -67,29 +67,29 @@ export default {
     },
     street: {
       get() {
-        return this.currentAddress.street;
+        return this.cartAddress.street;
       },
       set(value) {
-        this[SET_CURRENT_ADDRESS_ENTITY]({ entity: "street", value });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "street", value });
       },
     },
     building: {
       get() {
-        return this.currentAddress.building;
+        return this.cartAddress.building;
       },
       set(value) {
-        this[SET_CURRENT_ADDRESS_ENTITY]({ entity: "building", value });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "building", value });
       },
     },
     flat: {
       get() {
-        return this.currentAddress.flat;
+        return this.cartAddress.flat;
       },
       set(value) {
-        this[SET_CURRENT_ADDRESS_ENTITY]({ entity: "flat", value });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value });
       },
     },
-    ...mapState("address", ["currentAddress"]),
+    ...mapState("address", ["cartAddress"]),
     ...mapState("auth", ["isAuthenticated"]),
     ...mapState("cart", ["phone", "address"]),
     ...mapGetters("cart", ["selfDelivery"]),
@@ -100,7 +100,7 @@ export default {
       this[SET_ADDRESS](event.target.value);
     },
     ...mapMutations("cart", [SET_PHONE, SET_ADDRESS]),
-    ...mapMutations("address", [SET_CURRENT_ADDRESS_ENTITY]),
+    ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
   },
 };
 </script>

@@ -8,9 +8,9 @@
       :value="value"
       @input="$emit('input', $event.target.value)"
     />
-    <span v-if="showError" class="text-field__text">
-      {{ errorText }}
-    </span>
+    <p v-for="error in errors" :key="error" :style="{ color: 'red' }">
+      {{ error }}
+    </p>
   </label>
 </template>
 
@@ -43,9 +43,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    errorText: {
-      type: String,
-      default: "",
+    errors: {
+      type: Array,
+      default: () => [],
     },
   },
 
@@ -54,9 +54,6 @@ export default {
       return {
         "input--big-label": this.bigLabel,
       };
-    },
-    showError() {
-      return this.errorText.length > 0;
     },
   },
 };

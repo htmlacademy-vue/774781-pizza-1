@@ -6,14 +6,14 @@
     <div class="sign-form__title">
       <AppTitle small>Авторизуйтесь на сайте</AppTitle>
     </div>
-    <form @submit.prevent="signIn()" novalidate>
+    <form @submit.prevent="signIn($event)">
       <div class="sign-form__input">
         <AppInput
           v-model="email"
           type="email"
           name="email"
           placeholder="example@mail.ru"
-          :error-text="validations.email.error"
+          :errors="emailErrors"
         >
           E-mail
         </AppInput>
@@ -25,7 +25,7 @@
           type="password"
           name="pass"
           placeholder="***********"
-          :error-text="validations.password.error"
+          :errors="passwordErrors"
         >
           Пароль
         </AppInput>
@@ -37,47 +37,44 @@
 
 <script>
 import { mapActions } from "vuex";
-import { validator } from "@/common/mixins";
+import { validateForm } from "@/services/formValidation";
 
 export default {
   name: "LoginPage",
-
-  mixins: [validator],
 
   data() {
     return {
       email: "user@example.com",
       password: "user@example.com",
-      validations: {
-        email: {
-          error: "",
-          rules: ["required", "email"],
-        },
-        password: {
-          error: "",
-          rules: ["required"],
-        },
-      },
+      errors: [],
     };
   },
 
-  watch: {
-    email() {
-      this.$clearValidationErrors();
+  computed: {
+    emailErrors() {
+      return this.errors[0]?.failedRules;
     },
-    password() {
-      this.$clearValidationErrors();
+    passwordErrors() {
+      return this.errors[1]?.failedRules;
     },
   },
 
   methods: {
     async signIn() {
-      if (
-        !this.$validateFields(
-          { email: this.email, password: this.password },
-          this.validations
-        )
-      ) {
+      this.errors = validateForm([
+        {
+          name: "email",
+          value: this.email,
+          rules: ["email", "required"],
+        },
+        {
+          name: "pass",
+          value: this.password,
+          rules: ["required"],
+        },
+      ]);
+
+      if (this.errors.length > 0) {
         return;
       }
 

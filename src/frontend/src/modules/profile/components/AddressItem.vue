@@ -24,8 +24,11 @@ export default {
     },
   },
   computed: {
+    flat() {
+      return this.address.flat.length > 0 ? `, кв. ${this.address.flat}` : "";
+    },
     fullAddress() {
-      return `${this.address.street}, д. ${this.address.building}, кв. ${this.address.flat}`;
+      return `${this.address.street}, д. ${this.address.building}${this.flat}`;
     },
   },
 };

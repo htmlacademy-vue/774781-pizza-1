@@ -5,8 +5,10 @@
 
       <select v-model="selectedAddress" name="test" class="select">
         <option value="1">Заберу сам</option>
-        <option value="2">Новый адрес</option>
-        <option v-if="isAuthenticated" value="3">Дом</option>
+        <option value="new-address">Новый адрес</option>
+        <option v-for="{ id, name } in savedAddresses" :key="id" :value="name">
+          {{ name }}
+        </option>
       </select>
     </label>
 
@@ -16,7 +18,8 @@
       name="tel"
       type="number"
       placeholder="+7 999-999-99-99"
-      >Контактный телефон:
+    >
+      Контактный телефон:
     </AppInput>
 
     <div v-if="!selfDelivery" class="cart-form__address">
@@ -89,7 +92,10 @@ export default {
         this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value });
       },
     },
-    ...mapState("address", ["cartAddress"]),
+    savedAddresses() {
+      return this.isAuthenticated ? this.addresses : null;
+    },
+    ...mapState("address", ["addresses", "cartAddress"]),
     ...mapState("auth", ["isAuthenticated"]),
     ...mapState("cart", ["phone", "address"]),
     ...mapGetters("cart", ["selfDelivery"]),
@@ -101,6 +107,35 @@ export default {
     },
     ...mapMutations("cart", [SET_PHONE, SET_ADDRESS]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
+  },
+
+  watch: {
+    selectedAddress(name) {
+      const idx = this.addresses.findIndex((address) => address.name === name);
+
+      if (idx !== -1) {
+        const address = this.addresses.find((address) => address.name === name);
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "street",
+          value: address.street,
+        });
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "building",
+          value: address.building,
+        });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: address?.flat });
+      } else {
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "street",
+          value: "",
+        });
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "building",
+          value: "",
+        });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: "" });
+      }
+    },
   },
 };
 </script>

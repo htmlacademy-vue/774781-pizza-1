@@ -4,7 +4,7 @@
       <span class="cart-form__label">Получение заказа:</span>
 
       <select v-model="selectedAddress" name="test" class="select">
-        <option value="1">Заберу сам</option>
+        <option value="self-delivery">Заберу сам</option>
         <option value="new-address">Новый адрес</option>
         <option v-for="{ id, name } in savedAddresses" :key="id" :value="name">
           {{ name }}
@@ -43,7 +43,7 @@
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
 import {
-  SET_PHONE,
+  SET_CART_PHONE,
   SET_ADDRESS,
   SET_CART_ADDRESS_ENTITY,
 } from "@/store/mutations-types";
@@ -54,10 +54,10 @@ export default {
   computed: {
     contactPhone: {
       get() {
-        return this.phone;
+        return this.cartPhone;
       },
       set(value) {
-        this[SET_PHONE](value);
+        this[SET_CART_PHONE](value);
       },
     },
     selectedAddress: {
@@ -97,7 +97,7 @@ export default {
     },
     ...mapState("address", ["addresses", "cartAddress"]),
     ...mapState("auth", ["isAuthenticated"]),
-    ...mapState("cart", ["phone", "address"]),
+    ...mapState("cart", ["cartPhone", "address"]),
     ...mapGetters("cart", ["selfDelivery"]),
   },
 
@@ -105,16 +105,15 @@ export default {
     setAddress(event) {
       this[SET_ADDRESS](event.target.value);
     },
-    ...mapMutations("cart", [SET_PHONE, SET_ADDRESS]),
+    ...mapMutations("cart", [SET_CART_PHONE, SET_ADDRESS]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
   },
 
   watch: {
     selectedAddress(name) {
-      const idx = this.addresses.findIndex((address) => address.name === name);
+      const address = this.addresses.find((address) => address.name === name);
 
-      if (idx !== -1) {
-        const address = this.addresses.find((address) => address.name === name);
+      if (address !== undefined) {
         this[SET_CART_ADDRESS_ENTITY]({
           entity: "street",
           value: address.street,

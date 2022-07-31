@@ -15,6 +15,7 @@
           name="addr-name"
           placeholder="Введите название адреса"
           required
+          :errors="nameErrors"
         >
           Название адреса*
         </AppInput>
@@ -26,6 +27,7 @@
           name="addr-street"
           placeholder="Введите название улицы"
           required
+          :errors="streetErrors"
         >
           Улица*
         </AppInput>
@@ -37,6 +39,7 @@
           name="addr-house"
           placeholder="Введите номер дома"
           required
+          :errors="buildingErrors"
         >
           Дом*
         </AppInput>
@@ -75,9 +78,15 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { SET_PROFILE_ADDRESS_ENTITY } from "@/store/mutations-types";
+import { validateForm } from "@/services/formValidation";
 
 export default {
   name: "AddressForm",
+  data() {
+    return {
+      errors: [],
+    };
+  },
   computed: {
     name: {
       get() {
@@ -119,10 +128,41 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "comment", value });
       },
     },
+    nameErrors() {
+      return this.errors[0]?.failedRules;
+    },
+    streetErrors() {
+      return this.errors[1]?.failedRules;
+    },
+    buildingErrors() {
+      return this.errors[2]?.failedRules;
+    },
     ...mapState("address", ["profileAddress"]),
   },
   methods: {
     async createAddress() {
+      this.errors = validateForm([
+        {
+          name: "name",
+          value: this.profileAddress.name,
+          rules: ["required"],
+        },
+        {
+          name: "street",
+          value: this.profileAddress.street,
+          rules: ["required"],
+        },
+        {
+          name: "building",
+          value: this.profileAddress.building,
+          rules: ["required"],
+        },
+      ]);
+
+      if (this.errors.length > 0) {
+        return;
+      }
+
       const newAddress = {
         userId: this.profileAddress.id,
         name: this.profileAddress.name,

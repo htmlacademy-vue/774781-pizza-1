@@ -147,12 +147,6 @@ const actions = {
     commit(NORMALIZE_ORDERS);
   },
   async fetchUserData({ dispatch }) {
-    await dispatch("auth/tryLoginIfTokenExist");
-
-    if (!state.auth.isAuthenticated) {
-      return;
-    }
-
     await dispatch("getOrders");
     await dispatch("address/fetchAddresses");
   },

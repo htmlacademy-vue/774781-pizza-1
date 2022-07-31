@@ -48,10 +48,6 @@ export default {
       dispatch("getUser");
     },
     async tryLoginIfTokenExist({ dispatch }) {
-      if (!this.$jwt.getToken()) {
-        return;
-      }
-
       this.$api.auth.setAuthHeader();
       await dispatch("getUser");
     },

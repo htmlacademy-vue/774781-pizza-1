@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import { SET_LOADING } from "@/store/mutations-types";
 import { mapMutations, mapState, mapActions } from "vuex";
+import { SET_LOADING } from "@/store/mutations-types";
 
 export default {
   name: "App",
@@ -19,16 +19,22 @@ export default {
 
     this[SET_LOADING](true);
     await this.fetchInitialData();
-    await this.fetchUserData();
+
+    if (this.$jwt.getToken()) {
+      await this.tryLoginIfTokenExist();
+      await this.fetchUserData();
+    }
+
     this[SET_LOADING](false);
   },
   computed: {
     ...mapState(["loading"]),
+    ...mapState("auth", ["isAuthenticated"]),
   },
   methods: {
     ...mapMutations([SET_LOADING]),
-    ...mapActions(["fetchInitialData"]),
-    ...mapActions(["fetchUserData"]),
+    ...mapActions(["fetchInitialData", "fetchUserData"]),
+    ...mapActions("auth", ["tryLoginIfTokenExist"]),
   },
 };
 </script>

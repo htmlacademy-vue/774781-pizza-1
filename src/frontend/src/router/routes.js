@@ -1,4 +1,5 @@
 import { layoutName } from "@/common/const.js";
+import { auth, isLoggedIn } from "@/middlewares";
 
 export default [
   {
@@ -17,19 +18,19 @@ export default [
     path: "/profile",
     name: "ProfilePage",
     component: () => import("../views/ProfilePage.vue"),
-    meta: { layout: layoutName.DEFAULT },
+    meta: { layout: layoutName.DEFAULT, middlewares: [auth] },
   },
   {
     path: "/orders",
     name: "OrdersPage",
     component: () => import("../views/OrdersPage.vue"),
-    meta: { layout: layoutName.DEFAULT },
+    meta: { layout: layoutName.DEFAULT, middlewares: [auth] },
   },
   {
     path: "/login",
     name: "LoginPage",
     component: () => import("../views/LoginPage.vue"),
-    meta: { layout: layoutName.EMPTY },
+    meta: { layout: layoutName.EMPTY, middlewares: [isLoggedIn] },
   },
   {
     path: "/success",

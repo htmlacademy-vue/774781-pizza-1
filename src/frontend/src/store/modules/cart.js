@@ -10,12 +10,14 @@ import {
   RESET_CART,
 } from "@/store/mutations-types";
 
+import { deliveryType } from "@/common/const";
+
 const setupCartState = () => ({
   misc: [],
   products: [],
   currentMisc: {},
   cartPhone: "",
-  address: "self-delivery",
+  address: deliveryType.SELF_DELIVERY,
 });
 
 export default {
@@ -109,7 +111,7 @@ export default {
 
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
     hasPhone: (state) => state.cartPhone.length > 0,
-    selfDelivery: (state) => state.address === "1",
+    selfDelivery: (state) => state.address === deliveryType.SELF_DELIVERY,
   },
 
   actions: {

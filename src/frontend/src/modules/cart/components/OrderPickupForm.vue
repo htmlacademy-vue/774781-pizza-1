@@ -4,8 +4,8 @@
       <span class="cart-form__label">Получение заказа:</span>
 
       <select v-model="selectedAddress" name="test" class="select">
-        <option value="self-delivery">Заберу сам</option>
-        <option value="new-address">Новый адрес</option>
+        <option :value="selfDeliveryType">Заберу сам</option>
+        <option :value="newAddressType">Новый адрес</option>
         <option v-for="{ id, name } in savedAddresses" :key="id" :value="name">
           {{ name }}
         </option>
@@ -47,11 +47,18 @@ import {
   SET_ADDRESS,
   SET_CART_ADDRESS_ENTITY,
 } from "@/store/mutations-types";
+import { deliveryType } from "@/common/const";
 
 export default {
   name: "OrderPickupForm",
 
   computed: {
+    selfDeliveryType() {
+      return deliveryType.SELF_DELIVERY;
+    },
+    newAddressType() {
+      return deliveryType.NEW_ADDRESS;
+    },
     contactPhone: {
       get() {
         return this.cartPhone;

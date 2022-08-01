@@ -173,9 +173,10 @@ export default {
       };
 
       await this.postAddress(newAddress);
+      await this.fetchAddresses();
     },
     ...mapMutations("address", [SET_PROFILE_ADDRESS_ENTITY]),
-    ...mapActions("address", ["postAddress"]),
+    ...mapActions("address", ["postAddress", "fetchAddresses"]),
   },
 };
 </script>

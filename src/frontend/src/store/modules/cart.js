@@ -5,7 +5,6 @@ import {
   CHANGE_MISC_QUANTITY,
   NORMALIZE_MISC,
   SET_MISC,
-  SET_CART_PHONE,
   SET_ADDRESS,
   RESET_CART,
 } from "@/store/mutations-types";
@@ -16,7 +15,6 @@ const setupCartState = () => ({
   misc: [],
   products: [],
   currentMisc: {},
-  cartPhone: "",
   address: deliveryType.SELF_DELIVERY,
 });
 
@@ -34,9 +32,6 @@ export default {
     },
     [SET_MISC](state, misc) {
       state.misc = misc;
-    },
-    [SET_CART_PHONE](state, phone) {
-      state.cartPhone = phone;
     },
     [SET_ADDRESS](state, address) {
       state.address = address;
@@ -110,7 +105,6 @@ export default {
         ),
 
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
-    hasPhone: (state) => state.cartPhone.length > 0,
     selfDelivery: (state) => state.address === deliveryType.SELF_DELIVERY,
   },
 

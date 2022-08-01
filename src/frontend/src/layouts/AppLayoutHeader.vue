@@ -15,7 +15,7 @@
           <img :src="user.avatar" :alt="user.name" width="32" height="32" />
           <span>{{ user.name }}</span>
         </router-link>
-        <a @click.prevent="logout()" href="#" class="header__logout">
+        <a @click.prevent="tryLogout()" href="#" class="header__logout">
           <span>Выйти</span>
         </a>
       </template>
@@ -40,6 +40,10 @@ export default {
   },
 
   methods: {
+    async tryLogout() {
+      await this.logout();
+      this.$router.push("/");
+    },
     ...mapActions("auth", ["logout"]),
   },
 };

@@ -28,9 +28,10 @@ export default {
 
   computed: {
     unavailableCreateOrder() {
-      return !this.hasPhone;
+      return !this.hasCartPhone;
     },
-    ...mapGetters("cart", ["totalPrice", "hasPhone"]),
+    ...mapGetters(["hasCartPhone"]),
+    ...mapGetters("cart", ["totalPrice"]),
   },
 
   methods: {

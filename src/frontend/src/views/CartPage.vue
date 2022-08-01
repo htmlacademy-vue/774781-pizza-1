@@ -93,10 +93,9 @@ export default {
 
       if (this.isAuthenticated) {
         await this.getOrders();
-        this.$router.push("/orders");
-      } else {
-        this.$router.push("/success");
       }
+
+      this.$router.push("/success");
     },
     ...mapActions(["getOrders"]),
     ...mapActions("orders", ["postOrder"]),

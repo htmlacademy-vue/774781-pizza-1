@@ -6,6 +6,7 @@ import {
   EDIT_PIZZA,
   SET_LOADING,
   REPEAT_ORDER,
+  SET_CART_PHONE,
   NORMALIZE_ORDERS,
 } from "@/store/mutations-types";
 
@@ -13,11 +14,22 @@ Vue.use(Vuex);
 
 const state = {
   loading: false,
+  cartPhone: "",
+};
+
+const getters = {
+  displayedCartPhone: (state) =>
+    state.auth.isAuthenticated ? state.auth.user.phone : state.cartPhone,
+
+  hasCartPhone: (_, { displayedCartPhone }) => displayedCartPhone.length > 0,
 };
 
 const mutations = {
   [SET_LOADING](state, loading) {
     state.loading = loading;
+  },
+  [SET_CART_PHONE](state, phone) {
+    state.cartPhone = phone;
   },
   [EDIT_PIZZA](state, id) {
     const selectedPizza = state.cart.products.find((pizza) => pizza.id === id);
@@ -154,6 +166,7 @@ const actions = {
 
 export default new Vuex.Store({
   state,
+  getters,
   mutations,
   actions,
   plugins: [VuexPlugins],

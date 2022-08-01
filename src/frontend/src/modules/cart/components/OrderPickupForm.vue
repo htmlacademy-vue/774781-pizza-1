@@ -16,7 +16,7 @@
       v-model="contactPhone"
       big-label
       name="tel"
-      type="number"
+      type="text"
       placeholder="+7 999-999-99-99"
     >
       Контактный телефон:
@@ -61,7 +61,7 @@ export default {
     },
     contactPhone: {
       get() {
-        return this.cartPhone;
+        return this.displayedCartPhone;
       },
       set(value) {
         this[SET_CART_PHONE](value);
@@ -104,7 +104,8 @@ export default {
     },
     ...mapState("address", ["addresses", "cartAddress"]),
     ...mapState("auth", ["isAuthenticated"]),
-    ...mapState("cart", ["cartPhone", "address"]),
+    ...mapState("cart", ["address"]),
+    ...mapGetters(["displayedCartPhone"]),
     ...mapGetters("cart", ["selfDelivery"]),
   },
 
@@ -112,7 +113,8 @@ export default {
     setAddress(event) {
       this[SET_ADDRESS](event.target.value);
     },
-    ...mapMutations("cart", [SET_CART_PHONE, SET_ADDRESS]),
+    ...mapMutations([SET_CART_PHONE]),
+    ...mapMutations("cart", [SET_ADDRESS]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
   },
 

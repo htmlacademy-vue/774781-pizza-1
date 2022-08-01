@@ -21,7 +21,7 @@ export default {
 
   computed: {
     route() {
-      return this.isAuthenticated ? "/" : "/orders";
+      return this.isAuthenticated ? "/orders" : "/";
     },
     ...mapState("auth", ["isAuthenticated"]),
   },

@@ -27,7 +27,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import { RESET_CART } from "@/store/mutations-types";
+import { RESET_CART, SHOW_SUCCESS_POPUP } from "@/store/mutations-types";
 import {
   CartProducts,
   CartMisc,
@@ -53,6 +53,10 @@ export default {
     ...mapGetters("auth", ["userId"]),
   },
   methods: {
+    showSuccessPopup() {
+      this[SHOW_SUCCESS_POPUP](true);
+      this.$router.push("/success");
+    },
     async createOrder() {
       const pizzas = this.products.map(
         ({ doughId, name, sauceId, sizeId, quantity, ingredients }) => {
@@ -95,11 +99,12 @@ export default {
         await this.getOrders();
       }
 
-      this.$router.push("/success");
+      this.showSuccessPopup();
     },
     ...mapActions(["getOrders"]),
     ...mapActions("orders", ["postOrder"]),
     ...mapMutations("cart", [RESET_CART]),
+    ...mapMutations([SHOW_SUCCESS_POPUP]),
   },
 };
 </script>

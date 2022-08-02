@@ -1,4 +1,5 @@
 export const SET_LOADING = "SET_LOADING";
+export const SHOW_SUCCESS_POPUP = "SHOW_SUCCESS_POPUP";
 
 export const SET_AUTHENTICATION = "SET_AUTHENTICATION";
 export const SET_USER = "SET_USER";

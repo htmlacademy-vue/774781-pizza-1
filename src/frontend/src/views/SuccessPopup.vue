@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+import { SHOW_SUCCESS_POPUP } from "@/store/mutations-types";
 
 export default {
   name: "SuccessPopup",
@@ -28,8 +29,10 @@ export default {
 
   methods: {
     close() {
+      this[SHOW_SUCCESS_POPUP](false);
       this.$router.push(this.route);
     },
+    ...mapMutations([SHOW_SUCCESS_POPUP]),
   },
 };
 </script>

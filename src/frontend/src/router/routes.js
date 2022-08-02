@@ -1,5 +1,5 @@
 import { layoutName } from "@/common/const.js";
-import { auth, isLoggedIn } from "@/middlewares";
+import { auth, isLoggedIn, showSuccessPopup } from "@/middlewares";
 
 export default [
   {
@@ -36,6 +36,6 @@ export default [
     path: "/success",
     name: "SuccessPopup",
     component: () => import("../views/SuccessPopup.vue"),
-    meta: { layout: layoutName.EMPTY },
+    meta: { layout: layoutName.EMPTY, middlewares: [showSuccessPopup] },
   },
 ];

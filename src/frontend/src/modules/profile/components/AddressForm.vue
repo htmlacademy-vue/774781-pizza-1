@@ -78,7 +78,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { SET_PROFILE_ADDRESS_ENTITY } from "@/store/mutations-types";
-import { validateForm } from "@/services/formValidation";
+import { validateForm } from "@/services/form-validation";
 
 export default {
   name: "AddressForm",

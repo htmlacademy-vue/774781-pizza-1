@@ -25,7 +25,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { validateForm, getFieldErrors } from "@/services/formValidation";
+import { validateForm, getFieldErrors } from "@/services/form-validation";
 
 export default {
   name: "LoginPage",

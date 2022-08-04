@@ -81,7 +81,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import { validateForm } from "@/services/formValidation";
+import { validateForm } from "@/services/form-validation";
 import {
   RESET_CART,
   SHOW_SUCCESS_POPUP,

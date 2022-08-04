@@ -129,13 +129,14 @@ export default {
       },
     },
     nameErrors() {
-      return this.errors[0]?.failedRules;
+      return this.errors.find((error) => error.name === "name")?.failedRules;
     },
     streetErrors() {
-      return this.errors[1]?.failedRules;
+      return this.errors.find((error) => error.name === "street")?.failedRules;
     },
     buildingErrors() {
-      return this.errors[2]?.failedRules;
+      return this.errors.find((error) => error.name === "building")
+        ?.failedRules;
     },
     ...mapState("address", ["profileAddress"]),
   },

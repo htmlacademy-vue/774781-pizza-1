@@ -47,3 +47,13 @@ export const validateForm = (fileds) => {
 
   return errors;
 };
+
+/**
+ * get error message for field
+ * @param {string} name
+ * @param {string[]} errors
+ * @returns {string[]} errors
+ */
+export const getFieldErrors = (name, errors) => {
+  return errors.find((error) => error.name === name)?.failedRules;
+};

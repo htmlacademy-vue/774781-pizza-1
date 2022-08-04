@@ -7,27 +7,15 @@
       <AppTitle small>Авторизуйтесь на сайте</AppTitle>
     </div>
     <form @submit.prevent="signIn($event)">
-      <div class="sign-form__input">
+      <div v-for="field in fields" :key="field.name" class="sign-form__input">
         <AppInput
-          v-model="email"
-          type="email"
-          name="email"
-          placeholder="example@mail.ru"
-          :errors="emailErrors"
+          v-model="field.value"
+          :type="field.type"
+          :name="field.name"
+          :placeholder="field.placeholder"
+          :errors="getFieldErrors(field.name, errors)"
         >
-          E-mail
-        </AppInput>
-      </div>
-
-      <div class="sign-form__input">
-        <AppInput
-          v-model="password"
-          type="password"
-          name="pass"
-          placeholder="***********"
-          :errors="passwordErrors"
-        >
-          Пароль
+          {{ field.text }}
         </AppInput>
       </div>
       <AppButton type="submit">Авторизоваться</AppButton>
@@ -37,29 +25,44 @@
 
 <script>
 import { mapActions } from "vuex";
-import { validateForm } from "@/services/formValidation";
+import { validateForm, getFieldErrors } from "@/services/formValidation";
 
 export default {
   name: "LoginPage",
 
   data() {
     return {
-      email: "user@example.com",
-      password: "user@example.com",
       errors: [],
+      fields: [
+        {
+          name: "email",
+          type: "email",
+          placeholder: "example@mail.ru",
+          value: "user@example.com",
+          text: "E-mail",
+        },
+        {
+          type: "password",
+          name: "pass",
+          placeholder: "***********",
+          value: "user@example.com",
+          text: "Пароль",
+        },
+      ],
     };
   },
 
   computed: {
-    emailErrors() {
-      return this.errors[0]?.failedRules;
+    email() {
+      return this.fields.find((field) => field.name === "email").value;
     },
-    passwordErrors() {
-      return this.errors[1]?.failedRules;
+    password() {
+      return this.fields.find((field) => field.name === "pass").value;
     },
   },
 
   methods: {
+    getFieldErrors,
     async signIn() {
       this.errors = validateForm([
         {

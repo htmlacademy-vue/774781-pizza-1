@@ -242,7 +242,7 @@ export default {
       this[RESET_CART]();
 
       if (this.isAuthenticated) {
-        await this.getOrders();
+        await this.fetchUserData();
       }
 
       this.showSuccessPopup();
@@ -253,7 +253,7 @@ export default {
     ...mapMutations([SET_CART_PHONE, SHOW_SUCCESS_POPUP]),
     ...mapMutations("cart", [RESET_CART, SET_ADDRESS]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
-    ...mapActions(["getOrders"]),
+    ...mapActions(["fetchUserData"]),
     ...mapActions("orders", ["postOrder"]),
   },
   watch: {

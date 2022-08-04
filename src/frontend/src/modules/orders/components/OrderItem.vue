@@ -3,7 +3,7 @@
     <OrderHeader :orderId="order.id" :orderPrice="order.price" />
     <OrderPizzas :pizzas="order.pizzas" />
     <OrderMisc v-if="order.misc" :misc="order.misc" />
-    <OrderAddress />
+    <OrderAddress v-if="order.addressId" :id="order.addressId" />
   </section>
 </template>
 

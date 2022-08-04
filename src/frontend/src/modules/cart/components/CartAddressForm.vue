@@ -20,7 +20,6 @@ export default {
 .cart-form__select {
   display: flex;
   align-items: center;
-
   margin-right: auto;
 
   span {

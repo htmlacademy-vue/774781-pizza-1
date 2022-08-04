@@ -12,7 +12,6 @@ import {
 import { deliveryType } from "@/common/const";
 
 const setupCartState = () => ({
-  misc: [],
   products: [],
   currentMisc: {},
   address: deliveryType.SELF_DELIVERY,
@@ -21,7 +20,10 @@ const setupCartState = () => ({
 export default {
   namespaced: true,
 
-  state: setupCartState(),
+  state: {
+    misc: [],
+    ...setupCartState(),
+  },
 
   mutations: {
     [RESET_CART](state) {

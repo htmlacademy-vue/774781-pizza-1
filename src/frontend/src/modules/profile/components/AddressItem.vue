@@ -1,7 +1,7 @@
 <template>
   <div class="sheet address-form">
     <div class="address-form__header">
-      <b>{{ address.name }}</b>
+      <b>Адрес №{{ address.id }}</b>
       <div class="address-form__edit">
         <button type="button" class="icon">
           <span class="visually-hidden">Изменить адрес</span>

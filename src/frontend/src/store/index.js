@@ -47,7 +47,7 @@ const mutations = {
   },
   [NORMALIZE_ORDERS](state) {
     state.orders.orders = state.orders.orders.map(
-      ({ id, orderMisc, orderPizzas }) => {
+      ({ id, addressId, orderMisc, orderPizzas }) => {
         const pizzas = orderPizzas.map((pizza) => {
           const ingredients = Object.fromEntries(
             pizza.ingredients.map(({ ingredientId, quantity }) => [
@@ -115,7 +115,7 @@ const mutations = {
             0
           );
 
-        return { id: id.toString(), misc, pizzas, price };
+        return { id: id.toString(), addressId, misc, pizzas, price };
       }
     );
   },

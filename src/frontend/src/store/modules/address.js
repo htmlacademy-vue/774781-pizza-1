@@ -1,4 +1,3 @@
-import uniqueId from "lodash/uniqueId";
 import {
   SET_ADDRESSES,
   SET_CART_ADDRESS_ENTITY,
@@ -7,7 +6,7 @@ import {
 } from "@/store/mutations-types";
 
 const setupProfileAddressState = () => ({
-  id: uniqueId(),
+  id: "",
   name: "",
   street: "",
   building: "",

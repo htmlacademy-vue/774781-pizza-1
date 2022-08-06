@@ -4,7 +4,7 @@
     @submit.prevent="createAddress()"
   >
     <div class="address-form__header">
-      <b>Адрес №{{ profileAddress.id }}</b>
+      <b>Адрес №{{ address.id }}</b>
     </div>
 
     <div class="address-form__wrapper">
@@ -67,7 +67,12 @@
     </div>
 
     <div class="address-form__buttons">
-      <AppButton transparent type="button" @click="$emit('hide-address-form')">
+      <AppButton
+        v-if="showDeleteButton"
+        transparent
+        type="button"
+        @click="deleteSelectedAddress()"
+      >
         Удалить
       </AppButton>
       <AppButton type="submit">Сохранить</AppButton>
@@ -87,10 +92,21 @@ export default {
       errors: [],
     };
   },
+  props: {
+    address: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
+    showDeleteButton: {
+      type: Boolean,
+      default: true,
+    },
+  },
   computed: {
     name: {
       get() {
-        return this.profileAddress.name;
+        return this.address.name;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "name", value });
@@ -98,7 +114,7 @@ export default {
     },
     street: {
       get() {
-        return this.profileAddress.street;
+        return this.address.street;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "street", value });
@@ -106,7 +122,7 @@ export default {
     },
     building: {
       get() {
-        return this.profileAddress.building;
+        return this.address.building;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "building", value });
@@ -114,7 +130,7 @@ export default {
     },
     flat: {
       get() {
-        return this.profileAddress.flat;
+        return this.address.flat;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "flat", value });
@@ -122,7 +138,7 @@ export default {
     },
     comment: {
       get() {
-        return this.profileAddress.comment;
+        return this.address.comment;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "comment", value });
@@ -138,24 +154,24 @@ export default {
       return this.errors.find((error) => error.name === "building")
         ?.failedRules;
     },
-    ...mapState("address", ["profileAddress"]),
+    ...mapState("auth", ["user"]),
   },
   methods: {
     async createAddress() {
       this.errors = validateForm([
         {
           name: "name",
-          value: this.profileAddress.name,
+          value: this.address.name,
           rules: ["required"],
         },
         {
           name: "street",
-          value: this.profileAddress.street,
+          value: this.address.street,
           rules: ["required"],
         },
         {
           name: "building",
-          value: this.profileAddress.building,
+          value: this.address.building,
           rules: ["required"],
         },
       ]);
@@ -165,19 +181,29 @@ export default {
       }
 
       const newAddress = {
-        userId: this.profileAddress.id,
-        name: this.profileAddress.name,
-        street: this.profileAddress.street,
-        building: this.profileAddress.building,
-        flat: this.profileAddress.flat,
-        comment: this.profileAddress.comment,
+        userId: this.user.id,
+        name: this.address.name,
+        street: this.address.street,
+        building: this.address.building,
+        flat: this.address.flat,
+        comment: this.address.comment,
       };
 
       await this.postAddress(newAddress);
       await this.fetchAddresses();
+      this.$emit("close-address-form");
+    },
+    async deleteSelectedAddress() {
+      await this.deleteAddress(this.address.id);
+      await this.fetchAddresses();
+      this.$emit("close-address-form");
     },
     ...mapMutations("address", [SET_PROFILE_ADDRESS_ENTITY]),
-    ...mapActions("address", ["postAddress", "fetchAddresses"]),
+    ...mapActions("address", [
+      "postAddress",
+      "fetchAddresses",
+      "deleteAddress",
+    ]),
   },
 };
 </script>

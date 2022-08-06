@@ -1,5 +1,5 @@
 import UserProfile from "./UserProfile.vue";
-import AddressItem from "./AddressItem.vue";
+import AddressItemController from "./AddressItemController.vue";
 import AddressForm from "./AddressForm.vue";
 
-export { UserProfile, AddressItem, AddressForm };
+export { UserProfile, AddressItemController, AddressForm };

@@ -9,16 +9,22 @@
 
       <UserProfile />
 
-      <div
-        v-for="address in addresses"
-        :key="address.id"
-        class="layout__address"
-      >
-        <AddressItem :address="address" />
-      </div>
+      <template v-if="addresses.length">
+        <div
+          v-for="address in addresses"
+          :key="address.id"
+          class="layout__address"
+        >
+          <AddressItemController :address="address" />
+        </div>
+      </template>
 
       <div v-if="showAddressForm" class="layout__address">
-        <AddressForm @hide-address-form="showAddressForm = false" />
+        <AddressForm
+          :show-delete-button="false"
+          :address="profileAddress"
+          @close-address-form="showAddressForm = false"
+        />
       </div>
 
       <div class="layout__button">
@@ -40,7 +46,7 @@ import { mapState } from "vuex";
 import AppSidebar from "@/layouts/AppSidebar.vue";
 import {
   UserProfile,
-  AddressItem,
+  AddressItemController,
   AddressForm,
 } from "@/modules/profile/components";
 
@@ -56,12 +62,12 @@ export default {
   components: {
     AppSidebar,
     UserProfile,
-    AddressItem,
+    AddressItemController,
     AddressForm,
   },
 
   computed: {
-    ...mapState("address", ["addresses"]),
+    ...mapState("address", ["addresses", "profileAddress"]),
   },
 };
 </script>

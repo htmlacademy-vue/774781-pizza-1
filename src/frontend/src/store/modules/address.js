@@ -2,17 +2,7 @@ import {
   SET_ADDRESSES,
   SET_CART_ADDRESS_ENTITY,
   SET_PROFILE_ADDRESS_ENTITY,
-  RESET_PROFILE_ADDRESS,
 } from "@/store/mutations-types";
-
-const setupProfileAddressState = () => ({
-  id: "",
-  name: "",
-  street: "",
-  building: "",
-  flat: "",
-  comment: "",
-});
 
 export default {
   namespaced: true,
@@ -25,11 +15,14 @@ export default {
       building: "",
       flat: "",
     },
-    profileAddress: setupProfileAddressState(),
-  },
-
-  getters: {
-    hasAddress: (state) => state.addresses.length > 0,
+    profileAddress: {
+      id: "",
+      name: "",
+      street: "",
+      building: "",
+      flat: "",
+      comment: "",
+    },
   },
 
   mutations: {
@@ -42,9 +35,6 @@ export default {
     [SET_PROFILE_ADDRESS_ENTITY](state, { entity, value }) {
       state.profileAddress[entity] = value;
     },
-    [RESET_PROFILE_ADDRESS](state) {
-      Object.assign(state.profileAddress, setupProfileAddressState());
-    },
   },
 
   actions: {
@@ -52,9 +42,11 @@ export default {
       const addresses = await this.$api.address.get();
       commit(SET_ADDRESSES, addresses);
     },
-    async postAddress({ commit }, address) {
+    async postAddress(_, address) {
       await this.$api.address.post(address);
-      commit(RESET_PROFILE_ADDRESS);
+    },
+    async deleteAddress(_, id) {
+      await this.$api.address.deleteAddress(id);
     },
   },
 };

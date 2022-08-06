@@ -23,7 +23,7 @@
 
 <script>
 import { mapMutations, mapActions } from "vuex";
-import { REPEAT_ORDER } from "@/store/mutations-types";
+import { REPEAT_ORDER } from "@/store/mutation-types";
 
 export default {
   name: "OrderHeader",

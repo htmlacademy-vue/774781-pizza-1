@@ -9,7 +9,7 @@ import {
   SET_CART_PHONE,
   NORMALIZE_ORDERS,
   SHOW_SUCCESS_POPUP,
-} from "@/store/mutations-types";
+} from "@/store/mutation-types";
 
 Vue.use(Vuex);
 

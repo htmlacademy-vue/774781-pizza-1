@@ -1,4 +1,4 @@
-import { SET_AUTHENTICATION, SET_USER } from "@/store/mutations-types";
+import { SET_AUTHENTICATION, SET_USER } from "@/store/mutation-types";
 
 export default {
   namespaced: true,

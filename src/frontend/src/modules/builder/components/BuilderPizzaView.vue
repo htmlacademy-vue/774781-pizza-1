@@ -17,7 +17,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
-import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutations-types";
+import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutation-types";
 
 export default {
   name: "BuilderPizzaView",

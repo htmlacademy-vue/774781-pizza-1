@@ -88,7 +88,7 @@ import {
   SET_CART_PHONE,
   SET_ADDRESS,
   SET_CART_ADDRESS_ENTITY,
-} from "@/store/mutations-types";
+} from "@/store/mutation-types";
 
 import { deliveryType } from "@/common/const";
 import {

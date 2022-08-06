@@ -1,4 +1,4 @@
-import { SET_ORDERS, DELETE_ORDER } from "@/store/mutations-types";
+import { SET_ORDERS, DELETE_ORDER } from "@/store/mutation-types";
 
 export default {
   namespaced: true,

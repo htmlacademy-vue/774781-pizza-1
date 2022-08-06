@@ -26,7 +26,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutations-types";
+import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutation-types";
 import { ItemCounter } from "@/common/components";
 import IngredientFilling from "./IngredientFilling.vue";
 

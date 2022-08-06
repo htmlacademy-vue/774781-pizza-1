@@ -45,7 +45,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { SET_PIZZA_NAME, ADD_PRODUCT_IN_CART } from "@/store/mutations-types";
+import { SET_PIZZA_NAME, ADD_PRODUCT_IN_CART } from "@/store/mutation-types";
 
 import {
   BuilderSizeSelector,

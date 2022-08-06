@@ -3,11 +3,7 @@
     <div class="address-form__header">
       <b>Адрес №{{ address.id }}</b>
       <div class="address-form__edit">
-        <button
-          type="button"
-          class="icon"
-          @click="$emit('edit-address', address.id)"
-        >
+        <button type="button" class="icon" @click="editAddress()">
           <span class="visually-hidden">Изменить адрес</span>
         </button>
       </div>
@@ -18,6 +14,9 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { START_EDIT_ADDRESS } from "@/store/mutation-types";
+
 export default {
   name: "AddressItem",
   props: {
@@ -34,6 +33,13 @@ export default {
     fullAddress() {
       return `${this.address.street}, д. ${this.address.building}${this.flat}`;
     },
+  },
+  methods: {
+    editAddress() {
+      this.$emit("edit-address", this.address.id);
+      this[START_EDIT_ADDRESS](true);
+    },
+    ...mapMutations("address", [START_EDIT_ADDRESS]),
   },
 };
 </script>

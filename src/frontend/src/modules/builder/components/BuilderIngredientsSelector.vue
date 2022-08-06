@@ -27,7 +27,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { SET_SAUCE } from "@/store/mutations-types";
+import { SET_SAUCE } from "@/store/mutation-types";
 import { RadioButton } from "@/common/components";
 import IngredientsList from "./IngredientsList.vue";
 

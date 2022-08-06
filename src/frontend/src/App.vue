@@ -8,7 +8,7 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from "vuex";
-import { SET_LOADING } from "@/store/mutations-types";
+import { SET_LOADING } from "@/store/mutation-types";
 
 export default {
   name: "App",

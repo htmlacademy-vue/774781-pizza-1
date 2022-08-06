@@ -15,5 +15,10 @@ const deleteAddress = async (id) => {
   return data;
 };
 
-const address = { get, post, deleteAddress };
+const put = async (id) => {
+  const { data } = await axios.put(`addresses/${id}`);
+  return data;
+};
+
+const address = { get, post, deleteAddress, put };
 export default address;

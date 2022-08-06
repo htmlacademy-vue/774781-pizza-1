@@ -36,7 +36,7 @@ import {
   UPDATE_PRODUCT_PRICE,
   EDIT_PIZZA,
   RESET_CART,
-} from "@/store/mutations-types";
+} from "@/store/mutation-types";
 
 export default {
   name: "CartProducts",

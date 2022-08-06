@@ -7,7 +7,7 @@ import {
   SET_MISC,
   SET_ADDRESS,
   RESET_CART,
-} from "@/store/mutations-types";
+} from "@/store/mutation-types";
 
 import { deliveryType } from "@/common/const";
 

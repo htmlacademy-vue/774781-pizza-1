@@ -15,7 +15,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { SHOW_SUCCESS_POPUP } from "@/store/mutations-types";
+import { SHOW_SUCCESS_POPUP } from "@/store/mutation-types";
 
 export default {
   name: "SuccessPopup",

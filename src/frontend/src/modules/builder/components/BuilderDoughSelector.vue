@@ -26,7 +26,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { SET_DOUGH } from "@/store/mutations-types";
+import { SET_DOUGH } from "@/store/mutation-types";
 
 export default {
   name: "BuilderDoughSelector",

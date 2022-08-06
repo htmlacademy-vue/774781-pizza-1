@@ -1,7 +1,7 @@
 <template>
   <form
     class="address-form address-form--opened sheet"
-    @submit.prevent="createAddress()"
+    @submit.prevent="saveAddress()"
   >
     <div class="address-form__header">
       <b>Адрес №{{ address.id }}</b>
@@ -82,7 +82,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-import { SET_PROFILE_ADDRESS_ENTITY } from "@/store/mutations-types";
+import { SET_PROFILE_ADDRESS_ENTITY } from "@/store/mutation-types";
 import { validateForm } from "@/services/form-validation";
 
 export default {
@@ -155,9 +155,14 @@ export default {
         ?.failedRules;
     },
     ...mapState("auth", ["user"]),
+    ...mapState("address", ["startedEditAddress"]),
   },
   methods: {
-    async createAddress() {
+    closeForm() {
+      this.$emit("close-address-form");
+      this[SET_PROFILE_ADDRESS_ENTITY](false);
+    },
+    async saveAddress() {
       this.errors = validateForm([
         {
           name: "name",
@@ -182,6 +187,7 @@ export default {
 
       const newAddress = {
         userId: this.user.id,
+        address: this.address.id,
         name: this.address.name,
         street: this.address.street,
         building: this.address.building,
@@ -189,18 +195,24 @@ export default {
         comment: this.address.comment,
       };
 
-      await this.postAddress(newAddress);
+      if (this.startedEditAddress) {
+        await this.putAddress(this.address.id);
+      } else {
+        await this.postAddress(newAddress);
+      }
+
       await this.fetchAddresses();
-      this.$emit("close-address-form");
+      this.closeForm();
     },
     async deleteSelectedAddress() {
       await this.deleteAddress(this.address.id);
       await this.fetchAddresses();
-      this.$emit("close-address-form");
+      this.closeForm();
     },
     ...mapMutations("address", [SET_PROFILE_ADDRESS_ENTITY]),
     ...mapActions("address", [
       "postAddress",
+      "putAddress",
       "fetchAddresses",
       "deleteAddress",
     ]),

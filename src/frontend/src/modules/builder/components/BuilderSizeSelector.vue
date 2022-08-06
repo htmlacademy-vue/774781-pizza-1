@@ -24,7 +24,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { SET_SIZE } from "@/store/mutations-types";
+import { SET_SIZE } from "@/store/mutation-types";
 
 export default {
   name: "BuilderSizeSelector",

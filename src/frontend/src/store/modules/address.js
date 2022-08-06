@@ -2,7 +2,8 @@ import {
   SET_ADDRESSES,
   SET_CART_ADDRESS_ENTITY,
   SET_PROFILE_ADDRESS_ENTITY,
-} from "@/store/mutations-types";
+  START_EDIT_ADDRESS,
+} from "@/store/mutation-types";
 
 export default {
   namespaced: true,
@@ -23,6 +24,7 @@ export default {
       flat: "",
       comment: "",
     },
+    startedEditAddress: false,
   },
 
   mutations: {
@@ -34,6 +36,9 @@ export default {
     },
     [SET_PROFILE_ADDRESS_ENTITY](state, { entity, value }) {
       state.profileAddress[entity] = value;
+    },
+    [START_EDIT_ADDRESS](state, value) {
+      state.startedEditAddress = value;
     },
   },
 
@@ -47,6 +52,9 @@ export default {
     },
     async deleteAddress(_, id) {
       await this.$api.address.deleteAddress(id);
+    },
+    async putAddress(_, id) {
+      await this.$api.address.put(id);
     },
   },
 };

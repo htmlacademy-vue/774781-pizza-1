@@ -33,7 +33,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { CHANGE_MISC_QUANTITY } from "@/store/mutations-types";
+import { CHANGE_MISC_QUANTITY } from "@/store/mutation-types";
 import { normalizeImagePath } from "@/common/utils";
 import { ItemCounter } from "@/common/components";
 

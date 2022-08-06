@@ -186,9 +186,8 @@ export default {
       }
 
       const newAddress = {
-        userId: this.user.id,
-        address: this.address.id,
         name: this.address.name,
+        userId: this.user.id,
         street: this.address.street,
         building: this.address.building,
         flat: this.address.flat,

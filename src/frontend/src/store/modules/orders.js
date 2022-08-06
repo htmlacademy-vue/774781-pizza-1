@@ -18,8 +18,8 @@ export default {
   },
 
   actions: {
-    async postOrder(_, orderItem) {
-      await this.$api.orders.post(orderItem);
+    async postOrder(_, order) {
+      await this.$api.orders.post(order);
     },
     async deleteOrder({ commit }, id) {
       await this.$api.orders.deleteOrder(id);

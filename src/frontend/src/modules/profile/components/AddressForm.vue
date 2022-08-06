@@ -196,7 +196,7 @@ export default {
       };
 
       if (this.startedEditAddress) {
-        await this.putAddress(this.address.id);
+        await this.putAddress({ id: this.address.id, address: newAddress });
       } else {
         await this.postAddress(newAddress);
       }

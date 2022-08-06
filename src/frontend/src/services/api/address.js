@@ -15,8 +15,8 @@ const deleteAddress = async (id) => {
   return data;
 };
 
-const put = async (id) => {
-  const { data } = await axios.put(`addresses/${id}`);
+const put = async (id, address) => {
+  const { data } = await axios.put(`addresses/${id}`, address);
   return data;
 };
 

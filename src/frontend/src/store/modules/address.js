@@ -53,8 +53,8 @@ export default {
     async deleteAddress(_, id) {
       await this.$api.address.deleteAddress(id);
     },
-    async putAddress(_, id) {
-      await this.$api.address.put(id);
+    async putAddress(_, { id, address }) {
+      await this.$api.address.put(id, address);
     },
   },
 };

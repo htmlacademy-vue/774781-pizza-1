@@ -3,6 +3,7 @@
     :is="displayedComponent"
     :address="address"
     @edit-address="showForm = true"
+    @close-address-form="showForm = false"
   />
 </template>
 

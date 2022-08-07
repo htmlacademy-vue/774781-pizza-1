@@ -82,7 +82,10 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-import { SET_PROFILE_ADDRESS_ENTITY } from "@/store/mutation-types";
+import {
+  SET_PROFILE_ADDRESS_ENTITY,
+  START_EDIT_ADDRESS,
+} from "@/store/mutation-types";
 import { validateForm } from "@/services/form-validation";
 
 export default {
@@ -159,8 +162,8 @@ export default {
   },
   methods: {
     closeForm() {
+      this[START_EDIT_ADDRESS](false);
       this.$emit("close-address-form");
-      this[SET_PROFILE_ADDRESS_ENTITY](false);
     },
     async saveAddress() {
       this.errors = validateForm([
@@ -208,7 +211,10 @@ export default {
       await this.fetchAddresses();
       this.closeForm();
     },
-    ...mapMutations("address", [SET_PROFILE_ADDRESS_ENTITY]),
+    ...mapMutations("address", [
+      SET_PROFILE_ADDRESS_ENTITY,
+      START_EDIT_ADDRESS,
+    ]),
     ...mapActions("address", [
       "postAddress",
       "putAddress",

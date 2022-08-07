@@ -7,6 +7,7 @@
       :placeholder="placeholder"
       :value="value"
       @input="$emit('input', $event.target.value)"
+      :disabled="disabled"
     />
     <p v-for="error in errors" :key="error" :style="{ color: 'red' }">
       {{ error }}
@@ -34,6 +35,10 @@ export default {
     value: {
       type: String,
       default: "",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     visuallyHidden: {
       type: Boolean,

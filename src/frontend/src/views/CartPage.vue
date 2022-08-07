@@ -51,6 +51,7 @@
                     v-model="street"
                     name="street"
                     :errors="streetErrors"
+                    :disabled="selectedSavedAddress"
                   >
                     Улица*
                   </AppInput>
@@ -61,13 +62,20 @@
                     v-model="building"
                     name="house"
                     :errors="buildingErrors"
+                    :disabled="selectedSavedAddress"
                   >
                     Дом*
                   </AppInput>
                 </div>
 
                 <div class="cart-form__input cart-form__input--small">
-                  <AppInput v-model="flat" name="apartment">Квартира</AppInput>
+                  <AppInput
+                    v-model="flat"
+                    :disabled="selectedSavedAddress"
+                    name="apartment"
+                  >
+                    Квартира
+                  </AppInput>
                 </div>
               </div>
             </CartAddressForm>
@@ -122,6 +130,12 @@ export default {
     },
     selectedNewAddress() {
       return this.address === this.newAddressType;
+    },
+    selectedSelfDelivery() {
+      return this.address === this.selfDeliveryType;
+    },
+    selectedSavedAddress() {
+      return !this.selectedNewAddress && !this.selectedSelfDelivery;
     },
     contactPhone: {
       get() {
@@ -270,7 +284,10 @@ export default {
           value: address.building,
         });
         this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: address?.flat });
-        this[SET_CART_ADDRESS_ENTITY]({ entity: "id", value: address?.id });
+
+        if (this.selectedSavedAddress) {
+          this[SET_CART_ADDRESS_ENTITY]({ entity: "id", value: address?.id });
+        }
       } else {
         this[SET_CART_ADDRESS_ENTITY]({
           entity: "street",

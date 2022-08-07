@@ -3,7 +3,19 @@ import {
   SET_CART_ADDRESS_ENTITY,
   SET_PROFILE_ADDRESS_ENTITY,
   START_EDIT_ADDRESS,
+  SET_PROFILE_ADDRESS,
+  RESET_PROFILE_ADDRESS,
+  SHOW_CREATE_NEW_ADDRESS_FORM,
 } from "@/store/mutation-types";
+
+const setupProfileAddressState = () => ({
+  id: "",
+  name: "",
+  street: "",
+  building: "",
+  flat: "",
+  comment: "",
+});
 
 export default {
   namespaced: true,
@@ -16,20 +28,22 @@ export default {
       building: "",
       flat: "",
     },
-    profileAddress: {
-      id: "",
-      name: "",
-      street: "",
-      building: "",
-      flat: "",
-      comment: "",
-    },
+    profileAddress: setupProfileAddressState(),
     startedEditAddress: false,
+    showCreateNewAddressForm: false,
+  },
+
+  getters: {
+    availableShowCreateNewAddressForm: (state) =>
+      !state.startedEditAddress && !state.showCreateNewAddressForm,
   },
 
   mutations: {
     [SET_ADDRESSES](state, addresses) {
       state.addresses = addresses;
+    },
+    [SET_PROFILE_ADDRESS](state, address) {
+      state.profileAddress = { ...address };
     },
     [SET_CART_ADDRESS_ENTITY](state, { entity, value }) {
       state.cartAddress[entity] = value;
@@ -39,6 +53,12 @@ export default {
     },
     [START_EDIT_ADDRESS](state, value) {
       state.startedEditAddress = value;
+    },
+    [SHOW_CREATE_NEW_ADDRESS_FORM](state, value) {
+      state.showCreateNewAddressForm = value;
+    },
+    [RESET_PROFILE_ADDRESS](state) {
+      Object.assign(state.profileAddress, setupProfileAddressState());
     },
   },
 

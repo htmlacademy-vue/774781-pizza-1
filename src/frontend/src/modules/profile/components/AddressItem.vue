@@ -15,7 +15,11 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { START_EDIT_ADDRESS } from "@/store/mutation-types";
+import {
+  START_EDIT_ADDRESS,
+  SET_PROFILE_ADDRESS,
+  SHOW_CREATE_NEW_ADDRESS_FORM,
+} from "@/store/mutation-types";
 
 export default {
   name: "AddressItem",
@@ -36,10 +40,16 @@ export default {
   },
   methods: {
     editAddress() {
+      this[SHOW_CREATE_NEW_ADDRESS_FORM](false);
+      this[SET_PROFILE_ADDRESS](this.address);
       this.$emit("edit-address", this.address.id);
       this[START_EDIT_ADDRESS](true);
     },
-    ...mapMutations("address", [START_EDIT_ADDRESS]),
+    ...mapMutations("address", [
+      START_EDIT_ADDRESS,
+      SET_PROFILE_ADDRESS,
+      SHOW_CREATE_NEW_ADDRESS_FORM,
+    ]),
   },
 };
 </script>

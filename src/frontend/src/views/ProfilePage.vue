@@ -19,7 +19,7 @@
         </div>
       </template>
 
-      <div v-if="showAddressForm" class="layout__address">
+      <div v-if="showCreateNewAddressForm" class="layout__address">
         <AddressForm
           :show-delete-button="false"
           :address="profileAddress"
@@ -31,8 +31,10 @@
         <AppButton
           border
           type="button"
-          :disabled="showAddressForm"
-          @click="showAddressForm = !showAddressForm"
+          :disabled="
+            showCreateNewAddressForm || !availableShowCreateNewAddressForm
+          "
+          @click="SHOW_CREATE_NEW_ADDRESS_FORM(true)"
         >
           Добавить новый адрес
         </AppButton>
@@ -42,7 +44,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
+import { SHOW_CREATE_NEW_ADDRESS_FORM } from "@/store/mutation-types";
 import AppSidebar from "@/layouts/AppSidebar.vue";
 import {
   UserProfile,
@@ -53,12 +56,6 @@ import {
 export default {
   name: "ProfilePage",
 
-  data() {
-    return {
-      showAddressForm: false,
-    };
-  },
-
   components: {
     AppSidebar,
     UserProfile,
@@ -67,7 +64,16 @@ export default {
   },
 
   computed: {
-    ...mapState("address", ["addresses", "profileAddress"]),
+    ...mapState("address", [
+      "addresses",
+      "profileAddress",
+      "showCreateNewAddressForm",
+    ]),
+    ...mapGetters("address", ["availableShowCreateNewAddressForm"]),
+  },
+
+  methods: {
+    ...mapMutations("address", [SHOW_CREATE_NEW_ADDRESS_FORM]),
   },
 };
 </script>

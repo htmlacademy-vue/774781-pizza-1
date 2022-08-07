@@ -4,7 +4,7 @@
     @submit.prevent="saveAddress()"
   >
     <div class="address-form__header">
-      <b>Адрес №{{ address.id }}</b>
+      <b>Адрес №{{ profileAddress.id }}</b>
     </div>
 
     <div class="address-form__wrapper">
@@ -83,6 +83,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import {
+  RESET_PROFILE_ADDRESS,
   SET_PROFILE_ADDRESS_ENTITY,
   START_EDIT_ADDRESS,
 } from "@/store/mutation-types";
@@ -96,11 +97,6 @@ export default {
     };
   },
   props: {
-    address: {
-      type: Object,
-      required: true,
-      default: () => {},
-    },
     showDeleteButton: {
       type: Boolean,
       default: true,
@@ -109,7 +105,7 @@ export default {
   computed: {
     name: {
       get() {
-        return this.address.name;
+        return this.profileAddress.name;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "name", value });
@@ -117,7 +113,7 @@ export default {
     },
     street: {
       get() {
-        return this.address.street;
+        return this.profileAddress.street;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "street", value });
@@ -125,7 +121,7 @@ export default {
     },
     building: {
       get() {
-        return this.address.building;
+        return this.profileAddress.building;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "building", value });
@@ -133,7 +129,7 @@ export default {
     },
     flat: {
       get() {
-        return this.address.flat;
+        return this.profileAddress.flat;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "flat", value });
@@ -141,7 +137,7 @@ export default {
     },
     comment: {
       get() {
-        return this.address.comment;
+        return this.profileAddress.comment;
       },
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "comment", value });
@@ -158,7 +154,7 @@ export default {
         ?.failedRules;
     },
     ...mapState("auth", ["user"]),
-    ...mapState("address", ["startedEditAddress"]),
+    ...mapState("address", ["startedEditAddress", "profileAddress"]),
   },
   methods: {
     closeForm() {
@@ -169,17 +165,17 @@ export default {
       this.errors = validateForm([
         {
           name: "name",
-          value: this.address.name,
+          value: this.profileAddress.name,
           rules: ["required"],
         },
         {
           name: "street",
-          value: this.address.street,
+          value: this.profileAddress.street,
           rules: ["required"],
         },
         {
           name: "building",
-          value: this.address.building,
+          value: this.profileAddress.building,
           rules: ["required"],
         },
       ]);
@@ -189,16 +185,20 @@ export default {
       }
 
       const newAddress = {
-        name: this.address.name,
+        name: this.profileAddress.name,
         userId: this.user.id,
-        street: this.address.street,
-        building: this.address.building,
-        flat: this.address.flat,
-        comment: this.address.comment,
+        street: this.profileAddress.street,
+        building: this.profileAddress.building,
+        flat: this.profileAddress.flat,
+        comment: this.profileAddress.comment,
       };
 
       if (this.startedEditAddress) {
-        await this.putAddress({ id: this.address.id, address: newAddress });
+        await this.putAddress({
+          id: this.profileAddress.id,
+          address: newAddress,
+        });
+        this[RESET_PROFILE_ADDRESS]();
       } else {
         await this.postAddress(newAddress);
       }
@@ -207,13 +207,14 @@ export default {
       this.closeForm();
     },
     async deleteSelectedAddress() {
-      await this.deleteAddress(this.address.id);
+      await this.deleteAddress(this.profileAddress.id);
       await this.fetchAddresses();
       this.closeForm();
     },
     ...mapMutations("address", [
       SET_PROFILE_ADDRESS_ENTITY,
       START_EDIT_ADDRESS,
+      RESET_PROFILE_ADDRESS,
     ]),
     ...mapActions("address", [
       "postAddress",

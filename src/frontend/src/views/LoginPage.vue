@@ -86,11 +86,11 @@ export default {
         password: this.password,
       });
 
-      this.getOrders();
+      this.fetchUserData();
       this.$router.push("/");
     },
     ...mapActions("auth", ["login"]),
-    ...mapActions(["getOrders"]),
+    ...mapActions(["fetchUserData"]),
   },
 };
 </script>

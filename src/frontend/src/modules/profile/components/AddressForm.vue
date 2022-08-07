@@ -159,6 +159,7 @@ export default {
   methods: {
     closeForm() {
       this[START_EDIT_ADDRESS](false);
+      this[RESET_PROFILE_ADDRESS]();
       this.$emit("close-address-form");
     },
     async saveAddress() {
@@ -198,7 +199,6 @@ export default {
           id: this.profileAddress.id,
           address: newAddress,
         });
-        this[RESET_PROFILE_ADDRESS]();
       } else {
         await this.postAddress(newAddress);
       }

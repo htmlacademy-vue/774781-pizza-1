@@ -23,7 +23,7 @@
         <AddressForm
           :show-delete-button="false"
           :address="profileAddress"
-          @close-address-form="showAddressForm = false"
+          @close-address-form="SHOW_CREATE_NEW_ADDRESS_FORM(false)"
         />
       </div>
 

@@ -23,6 +23,7 @@ export default {
   state: {
     addresses: [],
     cartAddress: {
+      id: "",
       name: "",
       street: "",
       building: "",

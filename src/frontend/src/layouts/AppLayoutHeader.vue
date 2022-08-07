@@ -42,6 +42,7 @@ export default {
   methods: {
     async tryLogout() {
       await this.logout();
+      this.$router.push("/");
     },
     ...mapActions("auth", ["logout"]),
   },

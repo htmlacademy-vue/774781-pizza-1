@@ -1,5 +1,5 @@
 <template>
-  <div class="user">
+  <div v-if="user" class="user">
     <img :src="user.avatar" alt="Василий Ложкин" width="72" height="72" />
     <div class="user__name">
       <span>{{ user.name }}</span>

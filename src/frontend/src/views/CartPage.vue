@@ -270,6 +270,7 @@ export default {
           value: address.building,
         });
         this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: address?.flat });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "id", value: address?.id });
       } else {
         this[SET_CART_ADDRESS_ENTITY]({
           entity: "street",

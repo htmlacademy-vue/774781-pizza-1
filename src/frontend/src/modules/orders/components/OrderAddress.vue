@@ -21,7 +21,6 @@ export default {
       return this.address.flat.length > 0 ? `, кв. ${this.address.flat}` : "";
     },
     fullAddress() {
-      console.log(this.address);
       return `${this.address.street}, д. ${this.address.building}${this.flat}`;
     },
     ...mapState("address", ["addresses"]),

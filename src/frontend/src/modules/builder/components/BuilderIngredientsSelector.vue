@@ -20,7 +20,7 @@
         />
       </div>
 
-      <IngredientsList />
+      <BuilderIngredients />
     </div>
   </div>
 </template>
@@ -29,14 +29,14 @@
 import { mapState, mapMutations } from "vuex";
 import { SET_SAUCE } from "@/store/mutation-types";
 import { RadioButton } from "@/common/components";
-import IngredientsList from "./IngredientsList.vue";
+import BuilderIngredients from "./BuilderIngredients.vue";
 
 export default {
   name: "BuilderIngredientsSelector",
 
   components: {
     RadioButton,
-    IngredientsList,
+    BuilderIngredients,
   },
 
   computed: {

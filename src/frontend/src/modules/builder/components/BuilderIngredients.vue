@@ -11,7 +11,7 @@
         <AppDrag
           :transfer-data="{ id, quantity: currentPizza.ingredients[id] || 0 }"
         >
-          <IngredientFilling :name="name" :modifier="modifier" />
+          <BuilderIngredientFilling :name="name" :modifier="modifier" />
 
           <ItemCounter
             class="ingredients__counter"
@@ -28,13 +28,13 @@
 import { mapState, mapMutations } from "vuex";
 import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutation-types";
 import { ItemCounter } from "@/common/components";
-import IngredientFilling from "./IngredientFilling.vue";
+import BuilderIngredientFilling from "./BuilderIngredientFilling.vue";
 
 export default {
-  name: "IngredientsList",
+  name: "BuilderIngredients",
 
   components: {
-    IngredientFilling,
+    BuilderIngredientFilling,
     ItemCounter,
   },
 

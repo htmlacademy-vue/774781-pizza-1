@@ -99,11 +99,13 @@ export default {
       default: true,
     },
   },
+
   data() {
     return {
       errors: [],
     };
   },
+
   computed: {
     name: {
       get() {
@@ -113,6 +115,7 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "name", value });
       },
     },
+
     street: {
       get() {
         return this.profileAddress.street;
@@ -121,6 +124,7 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "street", value });
       },
     },
+
     building: {
       get() {
         return this.profileAddress.building;
@@ -129,6 +133,7 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "building", value });
       },
     },
+
     flat: {
       get() {
         return this.profileAddress.flat;
@@ -137,6 +142,7 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "flat", value });
       },
     },
+
     comment: {
       get() {
         return this.profileAddress.comment;
@@ -145,16 +151,20 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "comment", value });
       },
     },
+
     nameErrors() {
       return this.errors.find((error) => error.name === "name")?.failedRules;
     },
+
     streetErrors() {
       return this.errors.find((error) => error.name === "street")?.failedRules;
     },
+
     buildingErrors() {
       return this.errors.find((error) => error.name === "building")
         ?.failedRules;
     },
+
     ...mapState("auth", ["user"]),
     ...mapState("address", ["startedEditAddress", "profileAddress"]),
   },
@@ -164,6 +174,7 @@ export default {
       this[RESET_PROFILE_ADDRESS]();
       this.$emit("close-address-form");
     },
+
     async saveAddress() {
       this.errors = validateForm([
         {
@@ -208,16 +219,19 @@ export default {
       await this.fetchAddresses();
       this.closeForm();
     },
+
     async deleteSelectedAddress() {
       await this.deleteAddress(this.profileAddress.id);
       await this.fetchAddresses();
       this.closeForm();
     },
+
     ...mapMutations("address", [
       SET_PROFILE_ADDRESS_ENTITY,
       START_EDIT_ADDRESS,
       RESET_PROFILE_ADDRESS,
     ]),
+
     ...mapActions("address", [
       "postAddress",
       "putAddress",

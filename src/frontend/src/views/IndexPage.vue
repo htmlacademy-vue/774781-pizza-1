@@ -75,6 +75,7 @@ export default {
     unavailableAddOrderToCart() {
       return !this.hasPizzaName || !this.hasIngredients;
     },
+
     ...mapState("cart", ["products"]),
     ...mapState("builder", ["currentPizza"]),
     ...mapGetters("builder", [
@@ -93,9 +94,11 @@ export default {
       });
       this.resetCurrentPizza();
     },
+
     setPizzaName(name) {
       this[SET_PIZZA_NAME](name);
     },
+
     ...mapMutations("builder", [SET_PIZZA_NAME]),
     ...mapMutations("cart", [ADD_PRODUCT_IN_CART]),
     ...mapActions("cart", ["addProductToCart"]),

@@ -29,6 +29,7 @@ export default {
     AppSidebar,
     OrderItem,
   },
+
   computed: {
     ...mapState("orders", ["orders"]),
   },

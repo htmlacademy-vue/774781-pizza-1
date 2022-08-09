@@ -45,6 +45,7 @@ export default {
     selectDough(id) {
       this[SET_DOUGH](id);
     },
+
     ...mapMutations("builder", [SET_DOUGH]),
   },
 };

@@ -39,16 +39,19 @@ export default {
       type: String,
       required: true,
     },
+
     orderPrice: {
       type: Number,
       required: true,
     },
   },
+
   methods: {
     repeatOrder(id) {
       this[REPEAT_ORDER](id);
       this.$router.push("/cart");
     },
+
     ...mapMutations([REPEAT_ORDER]),
     ...mapActions("orders", ["deleteOrder"]),
   },

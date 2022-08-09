@@ -59,6 +59,7 @@ export default {
       await this.logout();
       this.$router.push("/");
     },
+
     ...mapActions("auth", ["logout"]),
   },
 };

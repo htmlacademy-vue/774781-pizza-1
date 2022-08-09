@@ -29,6 +29,7 @@ export default {
     classModifier() {
       return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
     },
+
     ...mapGetters("builder", ["sauseName", "doughSize"]),
     ...mapState("builder", ["builder", "currentPizza"]),
   },
@@ -40,6 +41,7 @@ export default {
         quantity: quantity + 1,
       });
     },
+
     updateIngredientsClass(quantity, modifier) {
       return [
         { [`pizza__filling--${modifier}`]: quantity > 0 },
@@ -47,6 +49,7 @@ export default {
         { "pizza__filling--third": quantity === 3 },
       ];
     },
+
     ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY]),
   },
 };

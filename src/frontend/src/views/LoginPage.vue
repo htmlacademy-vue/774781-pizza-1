@@ -67,6 +67,7 @@ export default {
     email() {
       return this.fields.find((field) => field.name === "email").value;
     },
+
     password() {
       return this.fields.find((field) => field.name === "pass").value;
     },
@@ -100,6 +101,7 @@ export default {
       this.fetchUserData();
       this.$router.push("/");
     },
+
     ...mapActions("auth", ["login"]),
     ...mapActions(["fetchUserData"]),
   },

@@ -16,6 +16,7 @@ export default {
     ...mapState(["loading"]),
     ...mapState("auth", ["isAuthenticated"]),
   },
+
   async created() {
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
@@ -31,6 +32,7 @@ export default {
 
     this[SET_LOADING](false);
   },
+
   methods: {
     ...mapMutations([SET_LOADING]),
     ...mapActions(["fetchInitialData", "fetchUserData"]),

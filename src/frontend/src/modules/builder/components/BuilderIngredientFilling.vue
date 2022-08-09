@@ -11,6 +11,7 @@ export default {
       type: String,
       required: true,
     },
+
     modifier: {
       type: String,
       required: true,

@@ -34,14 +34,17 @@ export default {
       default: () => ({}),
     },
   },
+
   computed: {
     flat() {
       return this.address.flat.length > 0 ? `, кв. ${this.address.flat}` : "";
     },
+
     fullAddress() {
       return `${this.address.street}, д. ${this.address.building}${this.flat}`;
     },
   },
+
   methods: {
     editAddress() {
       this[SHOW_CREATE_NEW_ADDRESS_FORM](false);
@@ -49,6 +52,7 @@ export default {
       this.$emit("edit-address", this.address.id);
       this[START_EDIT_ADDRESS](true);
     },
+
     ...mapMutations("address", [
       START_EDIT_ADDRESS,
       SET_PROFILE_ADDRESS,

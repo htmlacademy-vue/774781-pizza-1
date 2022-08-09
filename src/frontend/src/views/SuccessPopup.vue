@@ -34,6 +34,7 @@ export default {
     route() {
       return this.isAuthenticated ? "/orders" : "/";
     },
+
     ...mapState("auth", ["isAuthenticated"]),
   },
 
@@ -42,6 +43,7 @@ export default {
       this[SHOW_SUCCESS_POPUP](false);
       this.$router.push(this.route);
     },
+
     ...mapMutations([SHOW_SUCCESS_POPUP]),
   },
 };

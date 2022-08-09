@@ -30,6 +30,7 @@ export default {
       default: () => [],
     },
   },
+
   methods: {
     normalizeImagePath,
     displayItemPrice,

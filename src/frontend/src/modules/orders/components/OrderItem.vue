@@ -30,6 +30,7 @@ export default {
     OrderMisc,
     OrderAddress,
   },
+
   props: {
     order: {
       type: Object,

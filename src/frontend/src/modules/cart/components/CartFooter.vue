@@ -38,6 +38,7 @@ export default {
     unavailableCreateOrder() {
       return !this.hasCartPhone;
     },
+
     ...mapGetters(["hasCartPhone"]),
     ...mapGetters("cart", ["totalPrice"]),
   },

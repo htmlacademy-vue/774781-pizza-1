@@ -67,15 +67,18 @@ export default {
         this[RESET_CART]();
       }
     },
+
     changeSelectedPizza(id) {
       this[EDIT_PIZZA](id);
       this.$router.push("/");
     },
+
     ...mapMutations("cart", [
       CHANGE_PRODUCT_QUANTITY,
       UPDATE_PRODUCT_PRICE,
       RESET_CART,
     ]),
+
     ...mapMutations([EDIT_PIZZA]),
   },
 };

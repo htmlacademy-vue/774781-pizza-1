@@ -129,27 +129,34 @@ export default {
     CartEmpty,
     CartAddressForm,
   },
+
   data() {
     return {
       errors: [],
     };
   },
+
   computed: {
     selfDeliveryType() {
       return deliveryType.SELF_DELIVERY;
     },
+
     newAddressType() {
       return deliveryType.NEW_ADDRESS;
     },
+
     selectedNewAddress() {
       return this.address === this.newAddressType;
     },
+
     selectedSelfDelivery() {
       return this.address === this.selfDeliveryType;
     },
+
     selectedSavedAddress() {
       return !this.selectedNewAddress && !this.selectedSelfDelivery;
     },
+
     contactPhone: {
       get() {
         return this.displayedCartPhone;
@@ -158,6 +165,7 @@ export default {
         this[SET_CART_PHONE](value);
       },
     },
+
     selectedAddress: {
       get() {
         return this.address;
@@ -166,6 +174,7 @@ export default {
         this[SET_ADDRESS](value);
       },
     },
+
     street: {
       get() {
         return this.cartAddress.street;
@@ -174,6 +183,7 @@ export default {
         this[SET_CART_ADDRESS_ENTITY]({ entity: "street", value });
       },
     },
+
     building: {
       get() {
         return this.cartAddress.building;
@@ -182,6 +192,7 @@ export default {
         this[SET_CART_ADDRESS_ENTITY]({ entity: "building", value });
       },
     },
+
     flat: {
       get() {
         return this.cartAddress.flat;
@@ -190,16 +201,20 @@ export default {
         this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value });
       },
     },
+
     savedAddresses() {
       return this.isAuthenticated ? this.addresses : null;
     },
+
     streetErrors() {
       return this.errors.find((error) => error.name === "street")?.failedRules;
     },
+
     buildingErrors() {
       return this.errors.find((error) => error.name === "building")
         ?.failedRules;
     },
+
     ...mapState("address", ["addresses", "cartAddress"]),
     ...mapState("cart", ["cartPhone", "products", "currentMisc", "address"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
@@ -207,6 +222,7 @@ export default {
     ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
     ...mapGetters("auth", ["userId"]),
   },
+
   watch: {
     selectedAddress(name) {
       const address = this.addresses.find((address) => address.name === name);
@@ -238,11 +254,13 @@ export default {
       }
     },
   },
+
   methods: {
     showSuccessPopup() {
       this[SHOW_SUCCESS_POPUP](true);
       this.$router.push("/success");
     },
+
     async createOrder() {
       if (this.selectedNewAddress) {
         this.errors = validateForm([
@@ -305,9 +323,11 @@ export default {
 
       this.showSuccessPopup();
     },
+
     setAddress(event) {
       this[SET_ADDRESS](event.target.value);
     },
+
     ...mapMutations([SET_CART_PHONE, SHOW_SUCCESS_POPUP]),
     ...mapMutations("cart", [RESET_CART, SET_ADDRESS]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),

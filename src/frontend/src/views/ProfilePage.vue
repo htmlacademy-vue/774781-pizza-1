@@ -74,6 +74,7 @@ export default {
       "profileAddress",
       "showCreateNewAddressForm",
     ]),
+
     ...mapGetters("address", ["availableShowCreateNewAddressForm"]),
   },
 

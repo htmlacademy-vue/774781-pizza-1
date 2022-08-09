@@ -26,6 +26,7 @@ export default {
   components: {
     ProductItem,
   },
+
   props: {
     pizzas: {
       type: Array,
@@ -33,10 +34,12 @@ export default {
       default: () => [],
     },
   },
+
   computed: {
     ...mapState("orders", ["orders"]),
     ...mapState("cart", ["misc"]),
   },
+
   methods: {
     displayItemPrice,
   },

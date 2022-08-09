@@ -34,7 +34,7 @@ export default {
     order: {
       type: Object,
       required: true,
-      default: () => {},
+      default: () => ({}),
     },
   },
 };

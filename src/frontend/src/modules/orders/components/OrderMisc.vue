@@ -27,7 +27,7 @@ export default {
     misc: {
       type: Array,
       required: true,
-      default: () => {},
+      default: () => [],
     },
   },
   methods: {

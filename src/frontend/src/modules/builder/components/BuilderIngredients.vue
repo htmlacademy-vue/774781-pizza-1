@@ -11,7 +11,10 @@
         <AppDrag
           :transfer-data="{ id, quantity: currentPizza.ingredients[id] || 0 }"
         >
-          <BuilderIngredientFilling :name="name" :modifier="modifier" />
+          <BuilderIngredientFilling
+            :name="name"
+            :modifier="modifier"
+          />
 
           <ItemCounter
             class="ingredients__counter"

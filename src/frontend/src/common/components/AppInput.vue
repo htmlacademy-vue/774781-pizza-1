@@ -1,15 +1,22 @@
 <template>
-  <label class="input" :class="classModifier">
+  <label
+    class="input"
+    :class="classModifier"
+  >
     <span :class="{ 'visually-hidden': visuallyHidden }"><slot /></span>
     <input
       :type="type"
       :name="name"
       :placeholder="placeholder"
       :value="value"
-      @input="$emit('input', $event.target.value)"
       :disabled="disabled"
-    />
-    <p v-for="error in errors" :key="error" :style="{ color: 'red' }">
+      @input="$emit('input', $event.target.value)"
+    >
+    <p
+      v-for="error in errors"
+      :key="error"
+      :style="{ color: 'red' }"
+    >
       {{ error }}
     </p>
   </label>

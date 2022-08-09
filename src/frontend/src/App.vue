@@ -12,6 +12,10 @@ import { SET_LOADING } from "@/store/mutation-types";
 
 export default {
   name: "App",
+  computed: {
+    ...mapState(["loading"]),
+    ...mapState("auth", ["isAuthenticated"]),
+  },
   async created() {
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
@@ -26,10 +30,6 @@ export default {
     }
 
     this[SET_LOADING](false);
-  },
-  computed: {
-    ...mapState(["loading"]),
-    ...mapState("auth", ["isAuthenticated"]),
   },
   methods: {
     ...mapMutations([SET_LOADING]),

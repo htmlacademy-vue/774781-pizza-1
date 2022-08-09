@@ -4,7 +4,9 @@
 
     <div class="layout__content">
       <div class="layout__title">
-        <AppTitle big>Мои данные</AppTitle>
+        <AppTitle big>
+          Мои данные
+        </AppTitle>
       </div>
 
       <UserProfile />
@@ -19,7 +21,10 @@
         </div>
       </template>
 
-      <div v-if="showCreateNewAddressForm" class="layout__address">
+      <div
+        v-if="showCreateNewAddressForm"
+        class="layout__address"
+      >
         <AddressForm
           :show-delete-button="false"
           :address="profileAddress"

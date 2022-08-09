@@ -2,7 +2,9 @@
   <main class="content">
     <form @submit.prevent="addPizzaToCart()">
       <div class="content__wrapper">
-        <AppTitle big>Конструктор пиццы</AppTitle>
+        <AppTitle big>
+          Конструктор пиццы
+        </AppTitle>
 
         <div class="content__dough">
           <BuilderDoughSelector />
@@ -21,8 +23,8 @@
             name="pizza_name"
             placeholder="Введите название пиццы"
             visually-hidden
-            @input="setPizzaName($event)"
             :value="currentPizza.name"
+            @input="setPizzaName($event)"
           >
             Название пиццы
           </AppInput>
@@ -33,7 +35,10 @@
 
           <div class="content__result">
             <BuilderPriceCounter />
-            <AppButton :disabled="unavailableAddOrderToCart" type="submit">
+            <AppButton
+              :disabled="unavailableAddOrderToCart"
+              type="submit"
+            >
               Готовьте
             </AppButton>
           </div>

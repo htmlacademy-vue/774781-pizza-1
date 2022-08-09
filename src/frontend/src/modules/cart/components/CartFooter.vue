@@ -1,19 +1,27 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <AppButton tag="a" border arrow @click="toIndexPage()">
+      <AppButton
+        tag="a"
+        border
+        arrow
+        @click="toIndexPage()"
+      >
         Хочу еще одну
       </AppButton>
     </div>
     <p class="footer__text">
-      Перейти к конструктору<br />чтоб собрать ещё одну пиццу
+      Перейти к конструктору<br>чтоб собрать ещё одну пиццу
     </p>
     <div class="footer__price">
       <b>Итого: {{ totalPrice }} ₽</b>
     </div>
 
     <div class="footer__submit">
-      <AppButton type="submit" :disabled="unavailableCreateOrder">
+      <AppButton
+        type="submit"
+        :disabled="unavailableCreateOrder"
+      >
         Оформить заказ
       </AppButton>
     </div>

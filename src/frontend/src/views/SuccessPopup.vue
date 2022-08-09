@@ -1,14 +1,24 @@
 <template>
   <div class="popup">
-    <a href="#" @click.prevent="close()" class="close">
+    <a
+      href="#"
+      class="close"
+      @click.prevent="close()"
+    >
       <span class="visually-hidden">Закрыть попап</span>
     </a>
     <div class="popup__title">
-      <AppTitle :level="2">Спасибо за заказ</AppTitle>
+      <AppTitle :level="2">
+        Спасибо за заказ
+      </AppTitle>
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <a href="#" @click.prevent="close()" class="button">Отлично, я жду!</a>
+      <a
+        href="#"
+        class="button"
+        @click.prevent="close()"
+      >Отлично, я жду!</a>
     </div>
   </div>
 </template>

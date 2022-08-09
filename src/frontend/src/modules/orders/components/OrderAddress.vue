@@ -1,5 +1,7 @@
 <template>
-  <p class="order__address">Адрес доставки: {{ fullAddress }}</p>
+  <p class="order__address">
+    Адрес доставки: {{ fullAddress }}
+  </p>
 </template>
 
 <script>

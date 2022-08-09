@@ -75,7 +75,9 @@
       >
         Удалить
       </AppButton>
-      <AppButton type="submit">Сохранить</AppButton>
+      <AppButton type="submit">
+        Сохранить
+      </AppButton>
     </div>
   </form>
 </template>
@@ -91,16 +93,16 @@ import { validateForm } from "@/services/form-validation";
 
 export default {
   name: "AddressForm",
-  data() {
-    return {
-      errors: [],
-    };
-  },
   props: {
     showDeleteButton: {
       type: Boolean,
       default: true,
     },
+  },
+  data() {
+    return {
+      errors: [],
+    };
   },
   computed: {
     name: {

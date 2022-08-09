@@ -1,7 +1,14 @@
 <template>
   <ul class="cart-list sheet">
-    <li class="cart-list__item" v-for="product in products" :key="product.id">
-      <ProductItem class="cart-list__product" :product="product" />
+    <li
+      v-for="product in products"
+      :key="product.id"
+      class="cart-list__item"
+    >
+      <ProductItem
+        class="cart-list__product"
+        :product="product"
+      />
       <ItemCounter
         class="cart-list__counter"
         orange
@@ -17,9 +24,9 @@
 
       <div class="cart-list__button">
         <button
-          @click="changeSelectedPizza(product.id)"
           type="button"
           class="cart-list__edit"
+          @click="changeSelectedPizza(product.id)"
         >
           Изменить
         </button>

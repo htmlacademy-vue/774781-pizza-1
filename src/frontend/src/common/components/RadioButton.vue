@@ -6,7 +6,7 @@
       :value="value"
       :checked="checked"
       @change="$emit('change', value)"
-    />
+    >
     <span>{{ title }}</span>
   </label>
 </template>

@@ -1,6 +1,9 @@
 <template>
   <AppDrop @drop="addIngredient($event)">
-    <div class="pizza" :class="classModifier">
+    <div
+      class="pizza"
+      :class="classModifier"
+    >
       <div class="pizza__wrapper">
         <div
           v-for="{ id, modifier } in builder.ingredients"

@@ -4,10 +4,16 @@
 
     <div class="layout__content">
       <div class="layout__title">
-        <AppTitle big>История заказов</AppTitle>
+        <AppTitle big>
+          История заказов
+        </AppTitle>
       </div>
 
-      <OrderItem v-for="order in orders" :key="order.id" :order="order" />
+      <OrderItem
+        v-for="order in orders"
+        :key="order.id"
+        :order="order"
+      />
     </div>
   </main>
 </template>

@@ -1,6 +1,12 @@
 <template>
   <div class="sheet">
-    <AppTitle :level="2" small class="sheet__title"> Выберите тесто </AppTitle>
+    <AppTitle
+      :level="2"
+      small
+      class="sheet__title"
+    >
+      Выберите тесто
+    </AppTitle>
 
     <div class="sheet__content dough">
       <label
@@ -16,7 +22,7 @@
           :value="value"
           :checked="id === currentPizza.doughId"
           @change="selectDough(id)"
-        />
+        >
         <b>{{ name }}</b>
         <span>{{ description }}</span>
       </label>

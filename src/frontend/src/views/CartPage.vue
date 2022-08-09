@@ -1,9 +1,15 @@
 <template>
-  <form method="post" @submit.prevent="createOrder()" class="layout-form">
+  <form
+    method="post"
+    class="layout-form"
+    @submit.prevent="createOrder()"
+  >
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
-          <AppTitle big>Корзина</AppTitle>
+          <AppTitle big>
+            Корзина
+          </AppTitle>
         </div>
 
         <CartEmpty v-if="!hasProducts" />
@@ -20,7 +26,11 @@
               <label class="cart-form__select">
                 <span class="cart-form__label">Получение заказа:</span>
 
-                <select v-model="selectedAddress" name="test" class="select">
+                <select
+                  v-model="selectedAddress"
+                  name="test"
+                  class="select"
+                >
                   <option :value="selfDeliveryType">Заберу сам</option>
                   <option :value="newAddressType">Новый адрес</option>
                   <option
@@ -43,7 +53,10 @@
                 Контактный телефон:
               </AppInput>
 
-              <div v-if="!selfDelivery" class="cart-form__address">
+              <div
+                v-if="!selfDelivery"
+                class="cart-form__address"
+              >
                 <span class="cart-form__label">Новый адрес:</span>
 
                 <div class="cart-form__input">
@@ -194,6 +207,37 @@ export default {
     ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
     ...mapGetters("auth", ["userId"]),
   },
+  watch: {
+    selectedAddress(name) {
+      const address = this.addresses.find((address) => address.name === name);
+
+      if (address !== undefined) {
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "street",
+          value: address.street,
+        });
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "building",
+          value: address.building,
+        });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: address?.flat });
+
+        if (this.selectedSavedAddress) {
+          this[SET_CART_ADDRESS_ENTITY]({ entity: "id", value: address?.id });
+        }
+      } else {
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "street",
+          value: "",
+        });
+        this[SET_CART_ADDRESS_ENTITY]({
+          entity: "building",
+          value: "",
+        });
+        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: "" });
+      }
+    },
+  },
   methods: {
     showSuccessPopup() {
       this[SHOW_SUCCESS_POPUP](true);
@@ -269,37 +313,6 @@ export default {
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
     ...mapActions(["fetchUserData"]),
     ...mapActions("orders", ["postOrder"]),
-  },
-  watch: {
-    selectedAddress(name) {
-      const address = this.addresses.find((address) => address.name === name);
-
-      if (address !== undefined) {
-        this[SET_CART_ADDRESS_ENTITY]({
-          entity: "street",
-          value: address.street,
-        });
-        this[SET_CART_ADDRESS_ENTITY]({
-          entity: "building",
-          value: address.building,
-        });
-        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: address?.flat });
-
-        if (this.selectedSavedAddress) {
-          this[SET_CART_ADDRESS_ENTITY]({ entity: "id", value: address?.id });
-        }
-      } else {
-        this[SET_CART_ADDRESS_ENTITY]({
-          entity: "street",
-          value: "",
-        });
-        this[SET_CART_ADDRESS_ENTITY]({
-          entity: "building",
-          value: "",
-        });
-        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value: "" });
-      }
-    },
   },
 };
 </script>

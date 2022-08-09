@@ -1,9 +1,18 @@
 <template>
   <section class="sheet order">
-    <OrderHeader :orderId="order.id" :orderPrice="order.price" />
+    <OrderHeader
+      :order-id="order.id"
+      :order-price="order.price"
+    />
     <OrderPizzas :pizzas="order.pizzas" />
-    <OrderMisc v-if="order.misc" :misc="order.misc" />
-    <OrderAddress v-if="order.addressId" :id="order.addressId" />
+    <OrderMisc
+      v-if="order.misc"
+      :misc="order.misc"
+    />
+    <OrderAddress
+      v-if="order.addressId"
+      :id="order.addressId"
+    />
   </section>
 </template>
 

@@ -1,13 +1,22 @@
 <template>
   <div class="sign-form">
-    <router-link to="/" class="close close--white">
+    <router-link
+      to="/"
+      class="close close--white"
+    >
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </router-link>
     <div class="sign-form__title">
-      <AppTitle small>Авторизуйтесь на сайте</AppTitle>
+      <AppTitle small>
+        Авторизуйтесь на сайте
+      </AppTitle>
     </div>
     <form @submit.prevent="signIn($event)">
-      <div v-for="field in fields" :key="field.name" class="sign-form__input">
+      <div
+        v-for="field in fields"
+        :key="field.name"
+        class="sign-form__input"
+      >
         <AppInput
           v-model="field.value"
           :type="field.type"
@@ -18,7 +27,9 @@
           {{ field.text }}
         </AppInput>
       </div>
-      <AppButton type="submit">Авторизоваться</AppButton>
+      <AppButton type="submit">
+        Авторизоваться
+      </AppButton>
     </form>
   </div>
 </template>

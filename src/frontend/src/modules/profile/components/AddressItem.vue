@@ -3,7 +3,11 @@
     <div class="address-form__header">
       <b>Адрес №{{ address.id }}</b>
       <div class="address-form__edit">
-        <button type="button" class="icon" @click="editAddress()">
+        <button
+          type="button"
+          class="icon"
+          @click="editAddress()"
+        >
           <span class="visually-hidden">Изменить адрес</span>
         </button>
       </div>

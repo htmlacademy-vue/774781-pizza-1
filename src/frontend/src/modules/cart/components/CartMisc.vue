@@ -11,7 +11,7 @@
           width="39"
           height="60"
           :alt="name"
-        />
+        >
         <span>{{ name }}</span>
       </p>
 

@@ -4,18 +4,33 @@
       <MainLogo />
     </div>
     <div class="header__cart">
-      <router-link to="/cart">{{ totalPrice }} ₽</router-link>
+      <router-link to="/cart">
+        {{ totalPrice }} ₽
+      </router-link>
     </div>
     <div class="header__user">
-      <router-link v-if="!isAuthenticated" to="/login" class="header__login">
+      <router-link
+        v-if="!isAuthenticated"
+        to="/login"
+        class="header__login"
+      >
         <span>Войти</span>
       </router-link>
       <template v-else>
         <router-link to="/profile">
-          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          <img
+            :src="user.avatar"
+            :alt="user.name"
+            width="32"
+            height="32"
+          >
           <span>{{ user.name }}</span>
         </router-link>
-        <a @click.prevent="tryLogout()" href="#" class="header__logout">
+        <a
+          href="#"
+          class="header__logout"
+          @click.prevent="tryLogout()"
+        >
           <span>Выйти</span>
         </a>
       </template>

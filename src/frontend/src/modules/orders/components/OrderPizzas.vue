@@ -1,7 +1,14 @@
 <template>
   <ul class="order__list">
-    <li v-for="pizza in pizzas" :key="pizza.name" class="order__item">
-      <ProductItem class="cart-list__product" :product="pizza" />
+    <li
+      v-for="pizza in pizzas"
+      :key="pizza.name"
+      class="order__item"
+    >
+      <ProductItem
+        class="cart-list__product"
+        :product="pizza"
+      />
       <p class="order__price">
         {{ displayItemPrice(pizza.quantity, pizza.price) }}
       </p>

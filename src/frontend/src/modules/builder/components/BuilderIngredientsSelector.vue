@@ -1,6 +1,10 @@
 <template>
   <div class="sheet">
-    <AppTitle :level="2" small class="sheet__title">
+    <AppTitle
+      :level="2"
+      small
+      class="sheet__title"
+    >
       Выберите ингредиенты
     </AppTitle>
 
@@ -11,11 +15,11 @@
         <RadioButton
           v-for="{ id, name, value } in builder.sauces"
           :key="id"
-          class="ingredients__input"
-          name="sauces"
           :title="name"
           :value="value"
           :checked="id === currentPizza.sauceId"
+          class="ingredients__input"
+          name="sauces"
           @change="selectSauce(id)"
         />
       </div>

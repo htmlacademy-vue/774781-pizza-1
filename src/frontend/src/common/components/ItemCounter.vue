@@ -15,7 +15,7 @@
       class="counter__input"
       :value="counter"
       disabled
-    />
+    >
     <button
       type="button"
       class="counter__button counter__button--plus"

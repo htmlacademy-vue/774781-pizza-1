@@ -9,12 +9,19 @@
     </div>
 
     <div class="order__button">
-      <AppButton border type="button" @click="deleteOrder(orderId)">
+      <AppButton
+        border
+        type="button"
+        @click="deleteOrder(orderId)"
+      >
         Удалить
       </AppButton>
     </div>
     <div class="order__button">
-      <AppButton type="button" @click="repeatOrder(orderId)">
+      <AppButton
+        type="button"
+        @click="repeatOrder(orderId)"
+      >
         Повторить
       </AppButton>
     </div>

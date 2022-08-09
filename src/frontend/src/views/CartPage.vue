@@ -317,7 +317,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cart__title {
   margin-bottom: 15px;
 }
@@ -325,9 +325,5 @@ export default {
 .cart__additional {
   margin-top: 15px;
   margin-bottom: 25px;
-}
-
-.cart__empty {
-  padding: 20px 30px;
 }
 </style>

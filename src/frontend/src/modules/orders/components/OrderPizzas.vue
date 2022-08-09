@@ -42,3 +42,33 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.order__list {
+  @include clear-list;
+
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  margin-top: 24px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.order__item {
+  display: flex;
+
+  width: 310px;
+  margin-right: 33px;
+  margin-bottom: 32px;
+}
+
+.order__price {
+  @include b-s16-h19;
+
+  margin: 0;
+
+  white-space: nowrap;
+}
+</style>

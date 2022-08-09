@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .title {
   box-sizing: border-box;
   width: 100%;

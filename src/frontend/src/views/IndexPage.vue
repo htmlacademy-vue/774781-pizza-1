@@ -34,7 +34,7 @@
           </div>
 
           <div class="content__result">
-            <BuilderPriceCounter />
+            <BuilderAmount />
             <AppButton
               :disabled="unavailableAddOrderToCart"
               type="submit"
@@ -57,7 +57,7 @@ import {
   BuilderIngredientsSelector,
   BuilderDoughSelector,
   BuilderPizzaView,
-  BuilderPriceCounter,
+  BuilderAmount,
 } from "@/modules/builder/components";
 
 export default {
@@ -68,7 +68,7 @@ export default {
     BuilderSizeSelector,
     BuilderDoughSelector,
     BuilderPizzaView,
-    BuilderPriceCounter,
+    BuilderAmount,
   },
 
   computed: {

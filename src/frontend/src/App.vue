@@ -1,21 +1,42 @@
 <template>
   <div id="app">
-    <AppLayout>
+    <AppLayout v-if="!loading">
       <router-view />
     </AppLayout>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations, mapState, mapActions } from "vuex";
+import { SET_LOADING } from "@/store/mutation-types";
 
 export default {
   name: "App",
-  created() {
-    this.init();
+  computed: {
+    ...mapState(["loading"]),
+    ...mapState("auth", ["isAuthenticated"]),
   },
+
+  async created() {
+    window.onerror = function (msg, url, line, col, error) {
+      console.error(error);
+    };
+
+    this[SET_LOADING](true);
+    await this.fetchInitialData();
+
+    if (this.$jwt.getToken()) {
+      await this.tryLoginIfTokenExist();
+      await this.fetchUserData();
+    }
+
+    this[SET_LOADING](false);
+  },
+
   methods: {
-    ...mapActions(["init"]),
+    ...mapMutations([SET_LOADING]),
+    ...mapActions(["fetchInitialData", "fetchUserData"]),
+    ...mapActions("auth", ["tryLoginIfTokenExist"]),
   },
 };
 </script>

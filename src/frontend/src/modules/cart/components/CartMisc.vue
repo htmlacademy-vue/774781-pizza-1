@@ -1,7 +1,7 @@
 <template>
   <ul class="additional-list">
     <li
-      v-for="{ id, name, image, price, quantity } in misc"
+      v-for="{ id, name, image, price } in misc"
       :key="id"
       class="additional-list__item sheet"
     >
@@ -11,15 +11,15 @@
           width="39"
           height="60"
           :alt="name"
-        />
+        >
         <span>{{ name }}</span>
       </p>
 
       <div class="additional-list__wrapper">
         <ItemCounter
-          :counter="quantity"
+          :counter="currentMisc[id] || 0"
           class="additional-list__counter"
-          theme="orange"
+          orange
           @update:counter="changeQuantity(id, $event)"
         />
 
@@ -32,28 +32,24 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import { CHANGE_MISC_QUANTITY } from "@/store/mutations-types";
+import { mapState, mapMutations } from "vuex";
+import { CHANGE_MISC_QUANTITY } from "@/store/mutation-types";
+import { normalizeImagePath } from "@/common/utils";
 import { ItemCounter } from "@/common/components";
 
 export default {
-  name: "CartAdditionalList",
+  name: "CartMisc",
 
   components: {
     ItemCounter,
   },
 
   computed: {
-    ...mapGetters("cart", ["misc"]),
+    ...mapState("cart", ["misc", "currentMisc"]),
   },
 
   methods: {
-    normalizeImagePath(path) {
-      const imgPath = path.replace("/public/", "");
-
-      return require(`@/assets/${imgPath}`);
-    },
-
+    normalizeImagePath,
     changeQuantity(id, quantity) {
       this[CHANGE_MISC_QUANTITY]({ id, quantity });
     },

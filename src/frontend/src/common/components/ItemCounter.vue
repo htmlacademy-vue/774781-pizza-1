@@ -15,11 +15,11 @@
       class="counter__input"
       :value="counter"
       disabled
-    />
+    >
     <button
       type="button"
       class="counter__button counter__button--plus"
-      :class="themeClass"
+      :class="classes"
       :disabled="isLimit"
       @click="changeCount(1)"
     >
@@ -39,9 +39,9 @@ export default {
       type: [Number, String],
       required: true,
     },
-    theme: {
-      type: String,
-      default: null,
+    orange: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -49,13 +49,11 @@ export default {
     isNegative() {
       return this.counter <= counterLimit.MIN;
     },
-
     isLimit() {
       return this.counter >= counterLimit.MAX;
     },
-
-    themeClass() {
-      return this.theme && "counter__button--orange";
+    classes() {
+      return { "counter__button--orange": this.orange };
     },
   },
 
@@ -63,7 +61,6 @@ export default {
     update(counter) {
       this.$emit("update:counter", counter);
     },
-
     changeCount(multiplier) {
       if (multiplier > 0) {
         if (this.isLimit) {
@@ -83,7 +80,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .counter {
   display: flex;
 

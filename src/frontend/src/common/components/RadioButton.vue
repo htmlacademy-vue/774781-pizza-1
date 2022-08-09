@@ -6,7 +6,7 @@
       :value="value"
       :checked="checked"
       @change="$emit('change', value)"
-    />
+    >
     <span>{{ title }}</span>
   </label>
 </template>
@@ -14,23 +14,19 @@
 <script>
 export default {
   name: "RadioButton",
-
   props: {
     name: {
       type: String,
       required: true,
     },
-
     value: {
       type: String,
       required: true,
     },
-
     title: {
       type: String,
       required: true,
     },
-
     checked: {
       type: Boolean,
       default: false,

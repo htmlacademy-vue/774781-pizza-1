@@ -26,3 +26,8 @@ export const layoutName = {
   DEFAULT: "AppLayoutDefault",
   EMPTY: "AppLayoutEmpty",
 };
+
+export const deliveryType = {
+  SELF_DELIVERY: "self-delivery",
+  NEW_ADDRESS: "new-address",
+};

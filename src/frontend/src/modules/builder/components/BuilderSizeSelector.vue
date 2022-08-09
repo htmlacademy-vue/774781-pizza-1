@@ -1,10 +1,12 @@
 <template>
   <div class="sheet">
-    <h2 class="title title--small sheet__title">Выберите размер</h2>
+    <h2 class="title title--small sheet__title">
+      Выберите размер
+    </h2>
 
     <div class="sheet__content diameter">
       <label
-        v-for="{ id, value, name } in sizes"
+        v-for="{ id, value, name } in builder.sizes"
         :key="id"
         :class="`diameter__input diameter__input--${value}`"
       >
@@ -13,9 +15,9 @@
           name="diameter"
           :value="value"
           class="visually-hidden"
-          :checked="id === sizeId"
+          :checked="id === currentPizza.sizeId"
           @change="selectSize(id)"
-        />
+        >
         <span>{{ name }}</span>
       </label>
     </div>
@@ -23,25 +25,22 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import { SET_PIZZA_ENTITY } from "@/store/mutations-types";
+import { mapState, mapMutations } from "vuex";
+import { SET_SIZE } from "@/store/mutation-types";
 
 export default {
   name: "BuilderSizeSelector",
 
   computed: {
-    ...mapGetters("builder", ["sizes", "sizeId"]),
+    ...mapState("builder", ["builder", "currentPizza"]),
   },
 
   methods: {
     selectSize(id) {
-      this[SET_PIZZA_ENTITY]({
-        entity: "sizeId",
-        value: id,
-      });
+      this[SET_SIZE](id);
     },
 
-    ...mapMutations("builder", [SET_PIZZA_ENTITY]),
+    ...mapMutations("builder", [SET_SIZE]),
   },
 };
 </script>

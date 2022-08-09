@@ -1,13 +1,24 @@
 <template>
-  <label class="input" :class="classModifier">
-    <span :class="{ 'visually-hidden': isTitleHidden }"><slot /></span>
+  <label
+    class="input"
+    :class="classModifier"
+  >
+    <span :class="{ 'visually-hidden': visuallyHidden }"><slot /></span>
     <input
       :type="type"
       :name="name"
       :placeholder="placeholder"
       :value="value"
+      :disabled="disabled"
       @input="$emit('input', $event.target.value)"
-    />
+    >
+    <p
+      v-for="error in errors"
+      :key="error"
+      :style="{ color: 'red' }"
+    >
+      {{ error }}
+    </p>
   </label>
 </template>
 
@@ -20,30 +31,33 @@ export default {
       type: String,
       default: "text",
     },
-
     name: {
       type: String,
       required: true,
     },
-
     placeholder: {
       type: String,
       default: null,
     },
-
     value: {
       type: String,
       default: "",
     },
-
-    isTitleHidden: {
+    disabled: {
       type: Boolean,
       default: false,
     },
-
+    visuallyHidden: {
+      type: Boolean,
+      default: false,
+    },
     bigLabel: {
       type: Boolean,
       default: false,
+    },
+    errors: {
+      type: Array,
+      default: () => [],
     },
   },
 

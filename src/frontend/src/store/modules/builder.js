@@ -1,16 +1,32 @@
 import uniqueId from "lodash/uniqueId";
-import jsonPizza from "@/static/pizza.json";
 import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
+
 import {
-  ADD_BUILDER_ADDITIONAL_DATA,
+  NORMALIZE_BUILDER,
   CHANGE_INGREDIENT_QUANTITY,
-  ADD_INGREDIENT_QUANTITY,
-  SET_BUILDER,
-  SET_PIZZA_ENTITY,
-} from "@/store/mutations-types";
+  SET_BUILDER_INITIAL_DATA,
+  SET_SAUCE,
+  SET_DOUGH,
+  SET_SIZE,
+  SET_INGREDIENTS,
+  SET_PIZZA_NAME,
+  RESET_CURRENT_PIZZA,
+} from "@/store/mutation-types";
+
+const setupCurrentPizzaState = () => ({
+  id: uniqueId("currentPizza_"),
+  name: "",
+  doughId: null,
+  sauceId: null,
+  sizeId: null,
+  unitPrice: 0,
+  price: 0,
+  ingredients: {},
+  quantity: 1,
+});
 
 export default {
   namespaced: true,
@@ -22,29 +38,29 @@ export default {
       ingredients: [],
       sizes: [],
     },
-    currentPizza: {
-      id: uniqueId("currentPizza_"),
-      name: "",
-      doughId: null,
-      sauceId: null,
-      sizeId: null,
-      basePrice: 0,
-      price: 0,
-      ingredients: [],
-      quantity: 1,
-    },
+    currentPizza: setupCurrentPizzaState(),
   },
 
   mutations: {
-    [SET_BUILDER](state, { entity, value }) {
+    [SET_BUILDER_INITIAL_DATA](state, { entity, value }) {
       state.builder[entity] = value;
     },
-
-    [SET_PIZZA_ENTITY](state, { entity, value }) {
-      state.currentPizza[entity] = value;
+    [SET_INGREDIENTS](state, ingredients) {
+      state.currentPizza.ingredients = ingredients;
     },
-
-    [ADD_BUILDER_ADDITIONAL_DATA](state) {
+    [SET_DOUGH](state, id) {
+      state.currentPizza.doughId = id;
+    },
+    [SET_SAUCE](state, id) {
+      state.currentPizza.sauceId = id;
+    },
+    [SET_SIZE](state, id) {
+      state.currentPizza.sizeId = id;
+    },
+    [SET_PIZZA_NAME](state, name) {
+      state.currentPizza.name = name;
+    },
+    [NORMALIZE_BUILDER](state) {
       state.builder.dough = state.builder.dough.map((dough) => ({
         ...dough,
         value: doughValues[dough.name],
@@ -55,7 +71,6 @@ export default {
         (ingredient) => ({
           ...ingredient,
           modifier: ingredientModifiers[ingredient.name],
-          quantity: 0,
         })
       );
 
@@ -69,145 +84,131 @@ export default {
         value: sizesValues[size.multiplier],
       }));
     },
-
-    [ADD_INGREDIENT_QUANTITY](state, { id }) {
-      const ingredient = state.builder.ingredients.find(
-        (ingredient) => ingredient.id === id
-      );
-
-      this._vm.$set(ingredient, "quantity", ingredient.quantity + 1);
-    },
-
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
-      const ingredient = state.builder.ingredients.find(
+      const ingredientsArray = Object.entries(
+        state.currentPizza.ingredients
+      ).map((entrie) => ({
+        id: Number(entrie[0]),
+        quantity: entrie[1],
+      }));
+
+      const idx = ingredientsArray.findIndex(
         (ingredient) => ingredient.id === id
       );
 
-      this._vm.$set(ingredient, "quantity", quantity);
+      if (idx === -1) {
+        ingredientsArray.push({ id, quantity });
+      } else {
+        ingredientsArray.splice(idx, 1, {
+          id,
+          quantity,
+        });
+      }
+
+      state.currentPizza.ingredients = Object.fromEntries(
+        ingredientsArray.map((item) => [item.id, item.quantity])
+      );
+    },
+    [RESET_CURRENT_PIZZA](state) {
+      Object.assign(state.currentPizza, setupCurrentPizzaState());
     },
   },
 
   actions: {
-    fetchDough({ commit }) {
-      const { dough } = jsonPizza;
-      commit(SET_BUILDER, { entity: "dough", value: dough });
+    async fetchDough({ commit }) {
+      const dough = await this.$api.builder.dough();
+      commit(SET_BUILDER_INITIAL_DATA, { entity: "dough", value: dough });
     },
-
-    fetchSauces({ commit }) {
-      const { sauces } = jsonPizza;
-      commit(SET_BUILDER, { entity: "sauces", value: sauces });
+    async fetchSauces({ commit }) {
+      const sauces = await this.$api.builder.sauces();
+      commit(SET_BUILDER_INITIAL_DATA, { entity: "sauces", value: sauces });
     },
-
-    fetchIngredients({ commit }) {
-      const { ingredients } = jsonPizza;
-      commit(SET_BUILDER, { entity: "ingredients", value: ingredients });
-    },
-
-    fetchSizes({ commit }) {
-      const { sizes } = jsonPizza;
-      commit(SET_BUILDER, { entity: "sizes", value: sizes });
-    },
-
-    fetchBuilder({ dispatch }) {
-      dispatch("fetchDough");
-      dispatch("fetchSauces");
-      dispatch("fetchIngredients");
-      dispatch("fetchSizes");
-    },
-
-    initBuilder({ state, commit, dispatch, getters }) {
-      dispatch("fetchBuilder");
-      commit(ADD_BUILDER_ADDITIONAL_DATA);
-      commit(SET_PIZZA_ENTITY, {
-        entity: "doughId",
-        value: state.builder.dough[0].id,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "sauceId",
-        value: state.builder.sauces[0].id,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "sizeId",
-        value: state.builder.sizes[0].id,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
+    async fetchIngredients({ commit }) {
+      const ingredients = await this.$api.builder.ingredients();
+      commit(SET_BUILDER_INITIAL_DATA, {
         entity: "ingredients",
-        value: getters.selectedIngredients,
+        value: ingredients,
       });
+    },
+    async fetchSizes({ commit }) {
+      const sizes = await this.$api.builder.sizes();
+      commit(SET_BUILDER_INITIAL_DATA, { entity: "sizes", value: sizes });
+    },
+    fetchBuilder({ dispatch }) {
+      return Promise.all([
+        dispatch("fetchDough"),
+        dispatch("fetchSauces"),
+        dispatch("fetchIngredients"),
+        dispatch("fetchSizes"),
+      ]);
+    },
+    setCurrentPizzaDefaultValues({ state, commit }) {
+      commit(SET_DOUGH, state.builder.dough[0].id);
+      commit(SET_SAUCE, state.builder.sauces[0].id);
+      commit(SET_SIZE, state.builder.sizes[0].id);
+      commit(SET_INGREDIENTS, state.currentPizza.ingredients);
+    },
+    resetCurrentPizza({ commit, dispatch }) {
+      commit(RESET_CURRENT_PIZZA);
+      dispatch("setCurrentPizzaDefaultValues");
+    },
+    async initBuilder({ commit, dispatch }) {
+      await dispatch("fetchBuilder");
 
-      commit(SET_PIZZA_ENTITY, {
-        entity: "basePrice",
-        value: getters.builderPrice,
-      });
-
-      commit(SET_PIZZA_ENTITY, {
-        entity: "price",
-        value: getters.builderPrice,
-      });
+      commit(NORMALIZE_BUILDER);
+      dispatch("setCurrentPizzaDefaultValues");
     },
   },
 
   getters: {
-    builder: (state) => state.builder,
-    currentPizza: (state) => state.currentPizza,
-
-    dough: (_, { builder }) => builder.dough,
-    doughId: (_, { currentPizza }) => currentPizza.doughId,
-    selectedDough: (_, { dough, doughId }) =>
-      dough.find((d) => d.id === doughId),
+    selectedDough: ({ builder, currentPizza }) =>
+      builder.dough.find((d) => d.id === currentPizza.doughId),
 
     doughSize: (_, { selectedDough }) => selectedDough.size,
     doughPrice: (_, { selectedDough }) => selectedDough.price,
+    selectedSauce: ({ builder, currentPizza }) =>
+      builder.sauces.find((sauce) => sauce.id === currentPizza.sauceId),
 
-    sauces: (_, { builder }) => builder.sauces,
-    sauceId: (_, { currentPizza }) => currentPizza.sauceId,
-    selectedSauce: (_, { sauces, sauceId }) =>
-      sauces.find((sauce) => sauce.id === sauceId),
-
-    sausesNameEnum: (_, { sauces }) =>
-      sauces.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
+    sausesNameEnum: ({ builder }) =>
+      builder.sauces.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
 
     sauseName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
+    sizesNameEnum: ({ builder }) =>
+      builder.sizes.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
 
-    sizes: (_, { builder }) => builder.sizes,
-    sizesNameEnum: (_, { sizes }) =>
-      sizes.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
-
-    sizeId: (_, { currentPizza }) => currentPizza.sizeId,
-    selectedSize: (_, { sizes, sizeId }) =>
-      sizes.find((size) => size.id === sizeId),
+    selectedSize: ({ builder, currentPizza }) =>
+      builder.sizes.find((size) => size.id === currentPizza.sizeId),
 
     sizeMultiplier: (_, { selectedSize }) => selectedSize.multiplier,
+    hasPizzaName: ({ currentPizza }) => currentPizza.name.length > 0,
+    hasIngredients: ({ currentPizza }) =>
+      Object.values(currentPizza.ingredients).filter((quantity) => quantity > 0)
+        .length > 0,
 
-    pizzaName: (_, { currentPizza }) => currentPizza.name,
-    hasPizzaName: (_, { pizzaName }) => pizzaName.length > 0,
+    ingredientsNameEnum: ({ builder }) =>
+      builder.ingredients.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
 
-    ingredients: (_, { builder }) => builder.ingredients,
-    hasIngredients: (_, { ingredients }) =>
-      ingredients.filter(({ quantity }) => quantity >= 1).length > 0,
-
-    ingredientsPrice: (_, { ingredients }) =>
-      ingredients
+    ingredientsPrice: ({ builder, currentPizza }) =>
+      builder.ingredients
+        .map((ingredient) => ({
+          ...ingredient,
+          quantity: currentPizza.ingredients[ingredient.id] || 0,
+        }))
         .filter(({ quantity }) => quantity > 0)
         .reduce(
           (accumulator, { quantity, price }) => accumulator + price * quantity,
           0
         ),
-
-    ingredientsNameEnum: (_, { ingredients }) =>
-      ingredients.reduce((obj, item) => ({ ...obj, [item.id]: item.name }), {}),
-
-    selectedIngredients: (_, { ingredients }) =>
-      ingredients
-        .filter((ingredient) => ingredient.quantity > 0)
-        .map(({ id, quantity }) => ({
-          id,
-          quantity,
-        })),
 
     builderPrice: (
       _,

@@ -14,20 +14,17 @@ import { counterLimit } from "@/common/const";
 
 export default {
   name: "AppDrag",
-
   props: {
     transferData: {
       type: Object,
       required: true,
     },
   },
-
   computed: {
     isDraggable() {
       return this.transferData.quantity < counterLimit.MAX;
     },
   },
-
   methods: {
     onDrag({ dataTransfer }) {
       dataTransfer.effectAllowed = "move";

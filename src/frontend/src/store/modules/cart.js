@@ -1,38 +1,50 @@
-import jsonMisc from "@/static/misc";
 import {
-  ADD_PRODUCT,
+  ADD_PRODUCT_IN_CART,
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
   CHANGE_MISC_QUANTITY,
-  ADD_MISC_ADDITIONAL_DATA,
+  NORMALIZE_MISC,
   SET_MISC,
-} from "@/store/mutations-types";
+  SET_ADDRESS,
+  RESET_CART,
+} from "@/store/mutation-types";
+
+import { deliveryType } from "@/common/const";
+
+const setupCartState = () => ({
+  products: [],
+  currentMisc: {},
+  address: deliveryType.SELF_DELIVERY,
+});
 
 export default {
   namespaced: true,
 
   state: {
     misc: [],
-    products: [],
+    ...setupCartState(),
   },
 
   mutations: {
-    [ADD_PRODUCT](state, product) {
+    [RESET_CART](state) {
+      Object.assign(state, setupCartState());
+    },
+    [ADD_PRODUCT_IN_CART](state, product) {
       state.products.push(product);
     },
-
     [SET_MISC](state, misc) {
       state.misc = misc;
     },
-
-    [ADD_MISC_ADDITIONAL_DATA](state) {
+    [SET_ADDRESS](state, address) {
+      state.address = address;
+    },
+    [NORMALIZE_MISC](state) {
       state.misc = state.misc.map((misc) => ({
         ...misc,
         quantity: 0,
       }));
     },
-
-    [UPDATE_PRODUCT_PRICE](state, { id, quantity, basePrice }) {
+    [UPDATE_PRODUCT_PRICE](state, { id, quantity, unitPrice }) {
       const idx = state.products.findIndex((product) => product.id === id);
 
       if (quantity === 0) {
@@ -44,57 +56,66 @@ export default {
 
       state.products.splice(idx, 1, {
         ...product,
-        price: basePrice * quantity,
+        price: unitPrice * quantity,
       });
     },
-
     [CHANGE_PRODUCT_QUANTITY](state, { id, quantity }) {
       const product = state.products.find((product) => product.id === id);
 
       this._vm.$set(product, "quantity", quantity);
     },
-
     [CHANGE_MISC_QUANTITY](state, { id, quantity }) {
-      const misc = state.misc.find((misc) => misc.id === id);
+      const miscArray = Object.entries(state.currentMisc).map((entrie) => ({
+        id: Number(entrie[0]),
+        quantity: entrie[1],
+      }));
 
-      this._vm.$set(misc, "quantity", quantity);
+      const idx = miscArray.findIndex((ingredient) => ingredient.id === id);
+
+      if (idx === -1) {
+        miscArray.push({ id, quantity });
+      } else {
+        miscArray.splice(idx, 1, {
+          id,
+          quantity,
+        });
+      }
+
+      state.currentMisc = Object.fromEntries(
+        miscArray.map((item) => [item.id, item.quantity])
+      );
     },
   },
 
   getters: {
-    products: (state) => state.products,
-    hasProducts: (_, { products }) => products.length > 0,
-    productsPrice: (_, { products }) =>
+    hasProducts: ({ products }) => products.length > 0,
+    productsPrice: ({ products }) =>
       products
         .filter(({ price }) => price > 0)
         .reduce((accumulator, { price }) => accumulator + price, 0),
 
-    misc: (state) => state.misc,
-    miscPrice: (_, { misc }) =>
+    miscPrice: ({ misc, currentMisc }) =>
       misc
+        .map((misc) => ({
+          ...misc,
+          quantity: currentMisc[misc.id] || 0,
+        }))
         .filter(({ quantity }) => quantity > 0)
         .reduce(
           (accumulator, { quantity, price }) => accumulator + price * quantity,
           0
         ),
 
-    selectedMisc: (_, { misc }) =>
-      misc
-        .filter((misc) => misc.quantity > 0)
-        .map(({ id, quantity }) => ({
-          id,
-          quantity,
-        })),
-
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
+    selfDelivery: (state) => state.address === deliveryType.SELF_DELIVERY,
   },
 
   actions: {
-    fetchMisc({ commit }) {
-      const misc = jsonMisc;
+    async fetchMisc({ commit }) {
+      const misc = await this.$api.cart.misc();
 
       commit(SET_MISC, misc);
-      commit(ADD_MISC_ADDITIONAL_DATA);
+      commit(NORMALIZE_MISC);
     },
   },
 };

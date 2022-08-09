@@ -6,7 +6,7 @@
       width="56"
       height="56"
       :alt="product.name"
-    />
+    >
     <div class="product__text">
       <h2>{{ product.name }}</h2>
       <ul>
@@ -15,7 +15,7 @@
           {{ displayDoughTitle(product.doughId) }}
         </li>
         <li>Соус: {{ sausesNameEnum[product.sauceId].toLowerCase() }}</li>
-        <li>Начинка: {{ displayIngredients(product.ingredients) }}</li>
+        <li>Начинка: {{ ingredientNames }}</li>
       </ul>
     </div>
   </div>
@@ -36,19 +36,18 @@ export default {
 
   computed: {
     ...mapGetters("builder", [
-      "getIngredientNames",
       "sizesNameEnum",
       "sausesNameEnum",
       "ingredientsNameEnum",
     ]),
+    ingredientNames() {
+      return Object.keys(this.product.ingredients)
+        .map((id) => this.ingredientsNameEnum[id])
+        .join(", ");
+    },
   },
 
   methods: {
-    displayIngredients(ingredients) {
-      return ingredients
-        .map((ingredient) => this.ingredientsNameEnum[ingredient.id])
-        .join(", ");
-    },
     displayDoughTitle(doughId) {
       return doughId === 1 ? "на тонком тесте" : "на толстом тесте";
     },

@@ -1,40 +1,55 @@
 <template>
   <div class="popup">
-    <a href="#" @click.prevent="close()" class="close">
+    <a
+      href="#"
+      class="close"
+      @click.prevent="close()"
+    >
       <span class="visually-hidden">Закрыть попап</span>
     </a>
     <div class="popup__title">
-      <AppTitle :level="2">Спасибо за заказ</AppTitle>
+      <AppTitle :level="2">
+        Спасибо за заказ
+      </AppTitle>
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <a href="#" @click.prevent="close()" class="button">Отлично, я жду!</a>
+      <a
+        href="#"
+        class="button"
+        @click.prevent="close()"
+      >Отлично, я жду!</a>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState, mapMutations } from "vuex";
+import { SHOW_SUCCESS_POPUP } from "@/store/mutation-types";
 
 export default {
   name: "SuccessPopup",
 
   computed: {
     route() {
-      return this.isGuest ? "/" : "/orders";
+      return this.isAuthenticated ? "/orders" : "/";
     },
-    ...mapGetters("auth", ["isGuest"]),
+
+    ...mapState("auth", ["isAuthenticated"]),
   },
 
   methods: {
     close() {
+      this[SHOW_SUCCESS_POPUP](false);
       this.$router.push(this.route);
     },
+
+    ...mapMutations([SHOW_SUCCESS_POPUP]),
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .popup {
   @include pf_center-all;
 

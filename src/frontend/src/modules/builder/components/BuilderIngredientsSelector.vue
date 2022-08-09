@@ -1,6 +1,10 @@
 <template>
   <div class="sheet">
-    <AppTitle :level="2" size="small" class="sheet__title">
+    <AppTitle
+      :level="2"
+      small
+      class="sheet__title"
+    >
       Выберите ингредиенты
     </AppTitle>
 
@@ -9,54 +13,51 @@
         <p>Основной соус:</p>
 
         <RadioButton
-          v-for="{ id, name, value } in sauces"
+          v-for="{ id, name, value } in builder.sauces"
           :key="id"
-          class="ingredients__input"
-          name="sauces"
           :title="name"
           :value="value"
-          :checked="id === sauceId"
+          :checked="id === currentPizza.sauceId"
+          class="ingredients__input"
+          name="sauces"
           @change="selectSauce(id)"
         />
       </div>
 
-      <IngredientsList />
+      <BuilderIngredients />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import { SET_PIZZA_ENTITY } from "@/store/mutations-types";
+import { mapState, mapMutations } from "vuex";
+import { SET_SAUCE } from "@/store/mutation-types";
 import { RadioButton } from "@/common/components";
-import IngredientsList from "./IngredientsList.vue";
+import BuilderIngredients from "./BuilderIngredients.vue";
 
 export default {
   name: "BuilderIngredientsSelector",
 
   components: {
     RadioButton,
-    IngredientsList,
+    BuilderIngredients,
   },
 
   computed: {
-    ...mapGetters("builder", ["sauces", "sauceId"]),
+    ...mapState("builder", ["builder", "currentPizza"]),
   },
 
   methods: {
     selectSauce(id) {
-      this[SET_PIZZA_ENTITY]({
-        entity: "sauceId",
-        value: id,
-      });
+      this[SET_SAUCE](id);
     },
 
-    ...mapMutations("builder", [SET_PIZZA_ENTITY]),
+    ...mapMutations("builder", [SET_SAUCE]),
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .ingredients__sauce {
   display: flex;
   align-items: center;

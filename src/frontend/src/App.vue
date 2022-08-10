@@ -1,7 +1,14 @@
 <template>
   <div id="app">
     <AppLayout v-if="!loading">
-      <router-view />
+      <transition
+        name="view"
+        appear
+        enter-active-class="animate__animated animate__fadeIn animate__faster"
+        leave-active-class="animate__animated animate__fadeOut animate__faster"
+      >
+        <router-view />
+      </transition>
     </AppLayout>
   </div>
 </template>

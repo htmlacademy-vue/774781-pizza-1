@@ -38,11 +38,11 @@ export default {
     ...mapGetters("builder", [
       "sizesNameEnum",
       "sausesNameEnum",
-      "ingredientsNameEnum",
+      "ingredientsRuNameEnum",
     ]),
     ingredientNames() {
       return Object.keys(this.product.ingredients)
-        .map((id) => this.ingredientsNameEnum[id])
+        .map((id) => this.ingredientsRuNameEnum[id])
         .join(", ");
     },
   },

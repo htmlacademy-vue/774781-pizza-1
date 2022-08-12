@@ -4,16 +4,21 @@
       class="pizza"
       :class="classModifier"
     >
-      <div class="pizza__wrapper">
+      <transition-group
+        tag="div"
+        class="pizza__wrapper"
+        enter-active-class="animate__animated animate__zoomIn animate__faster"
+        leave-active-class="animate__animated animate__zoomOut animate__faster"
+      >
         <div
-          v-for="{ id, modifier } in builder.ingredients"
-          :key="modifier"
+          v-for="(quantity, id) in currentPizza.ingredients"
+          :key="id"
           class="pizza__filling"
           :class="
-            updateIngredientsClass(currentPizza.ingredients[id] || 0, modifier)
+            updateIngredientsClass(quantity, ingredientsNameEnum[id])
           "
         />
-      </div>
+      </transition-group>
     </div>
   </AppDrop>
 </template>
@@ -30,8 +35,8 @@ export default {
       return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
     },
 
-    ...mapGetters("builder", ["sauseName", "doughSize"]),
-    ...mapState("builder", ["builder", "currentPizza"]),
+    ...mapGetters("builder", ["sauseName", "doughSize", "ingredientsNameEnum"]),
+    ...mapState("builder", ["currentPizza"]),
   },
 
   methods: {

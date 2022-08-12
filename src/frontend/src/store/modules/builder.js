@@ -86,7 +86,10 @@ export default {
       }));
     },
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
-      Vue.set(state.currentPizza.ingredients, id, quantity)
+      quantity === 0
+        ?  Vue.delete(state.currentPizza.ingredients, id)
+        : Vue.set(state.currentPizza.ingredients, id, quantity)
+
     },
     [RESET_CURRENT_PIZZA](state) {
       Object.assign(state.currentPizza, setupCurrentPizzaState());
@@ -171,9 +174,15 @@ export default {
       Object.values(currentPizza.ingredients).filter((quantity) => quantity > 0)
         .length > 0,
 
-    ingredientsNameEnum: ({ builder }) =>
+    ingredientsRuNameEnum: ({ builder }) =>
       builder.ingredients.reduce(
         (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
+
+    ingredientsNameEnum: ({ builder }) =>
+      builder.ingredients.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.modifier }),
         {}
       ),
 

@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import uniqueId from "lodash/uniqueId";
 import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
@@ -85,29 +86,7 @@ export default {
       }));
     },
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
-      const ingredientsArray = Object.entries(
-        state.currentPizza.ingredients
-      ).map((entrie) => ({
-        id: Number(entrie[0]),
-        quantity: entrie[1],
-      }));
-
-      const idx = ingredientsArray.findIndex(
-        (ingredient) => ingredient.id === id
-      );
-
-      if (idx === -1) {
-        ingredientsArray.push({ id, quantity });
-      } else {
-        ingredientsArray.splice(idx, 1, {
-          id,
-          quantity,
-        });
-      }
-
-      state.currentPizza.ingredients = Object.fromEntries(
-        ingredientsArray.map((item) => [item.id, item.quantity])
-      );
+      Vue.set(state.currentPizza.ingredients, id, quantity)
     },
     [RESET_CURRENT_PIZZA](state) {
       Object.assign(state.currentPizza, setupCurrentPizzaState());

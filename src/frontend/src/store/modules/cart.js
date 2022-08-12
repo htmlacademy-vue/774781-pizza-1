@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import {
   ADD_PRODUCT_IN_CART,
   CHANGE_PRODUCT_QUANTITY,
@@ -61,29 +62,12 @@ export default {
     },
     [CHANGE_PRODUCT_QUANTITY](state, { id, quantity }) {
       const product = state.products.find((product) => product.id === id);
-
-      this._vm.$set(product, "quantity", quantity);
+      Vue.set(product, "quantity", quantity);
     },
     [CHANGE_MISC_QUANTITY](state, { id, quantity }) {
-      const miscArray = Object.entries(state.currentMisc).map((entrie) => ({
-        id: Number(entrie[0]),
-        quantity: entrie[1],
-      }));
-
-      const idx = miscArray.findIndex((ingredient) => ingredient.id === id);
-
-      if (idx === -1) {
-        miscArray.push({ id, quantity });
-      } else {
-        miscArray.splice(idx, 1, {
-          id,
-          quantity,
-        });
-      }
-
-      state.currentMisc = Object.fromEntries(
-        miscArray.map((item) => [item.id, item.quantity])
-      );
+      quantity === 0
+        ? Vue.delete(state.currentMisc, id)
+        : Vue.set(state.currentMisc, id, quantity)
     },
   },
 

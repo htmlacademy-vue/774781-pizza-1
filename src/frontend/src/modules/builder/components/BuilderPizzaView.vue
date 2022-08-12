@@ -12,7 +12,7 @@
       >
         <div
           v-for="(quantity, id) in currentPizza.ingredients"
-          :key="id"
+          :key="`ingredient-${id}`"
           class="pizza__filling"
           :class="
             updateIngredientsClass(quantity, ingredientsNameEnum[id])

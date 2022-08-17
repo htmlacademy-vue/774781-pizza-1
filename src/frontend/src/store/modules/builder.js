@@ -4,6 +4,7 @@ import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
+import quantity from "@/common/enums/quantity.js";
 
 import {
   NORMALIZE_BUILDER,
@@ -202,5 +203,20 @@ export default {
       _,
       { doughPrice, sausePrice, sizeMultiplier, ingredientsPrice }
     ) => (doughPrice + sausePrice + ingredientsPrice) * sizeMultiplier,
+
+    pizzaViewIngredients: ({ currentPizza }, { ingredientsNameEnum }) =>
+      Object.entries(currentPizza.ingredients).flatMap((ingredient) => {
+        const ingredients = [];
+
+        for (let i = 1; i <= ingredient[1]; i++) {
+          ingredients.push({
+            id: uniqueId("pizzaViewIngredients_"),
+            modifier: ingredientsNameEnum[ingredient[0]],
+            quantity: quantity[i]
+          })
+        }
+
+        return ingredients;
+      })
   },
 };

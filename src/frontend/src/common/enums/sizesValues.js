@@ -1,14 +1,5 @@
-import {
-  SIZE_SMALL_KEY,
-  SIZE_SMALL_VALUE,
-  SIZE_NORMAL_KEY,
-  SIZE_NORMAL_VALUE,
-  SIZE_BIG_KEY,
-  SIZE_BIG_VALUE,
-} from "@/common/const.js";
-
 export default {
-  [SIZE_SMALL_KEY]: SIZE_SMALL_VALUE,
-  [SIZE_NORMAL_KEY]: SIZE_NORMAL_VALUE,
-  [SIZE_BIG_KEY]: SIZE_BIG_VALUE,
+  1: "small",
+  2: "normal",
+  3: "big",
 };

@@ -1,12 +1,7 @@
 <template>
   <div id="app">
     <AppLayout v-if="!loading">
-      <transition
-        name="view"
-        appear
-        enter-active-class="animate__animated animate__fadeIn animate__faster"
-        leave-active-class="animate__animated animate__fadeOut animate__faster"
-      >
+      <transition name="slide">
         <router-view />
       </transition>
     </AppLayout>
@@ -19,6 +14,7 @@ import { SET_LOADING } from "@/store/mutation-types";
 
 export default {
   name: "App",
+
   computed: {
     ...mapState(["loading"]),
     ...mapState("auth", ["isAuthenticated"]),
@@ -50,4 +46,22 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/scss/app";
+
+.slide-enter-active {
+  animation: slide-in 0.6s;
+}
+
+.slide-leave-active {
+  animation: slide-in 0.6s reverse;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
 </style>

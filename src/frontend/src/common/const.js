@@ -5,6 +5,7 @@ export const counterLimit = {
 
 export const layoutName = {
   DEFAULT: "AppLayoutDefault",
+  WITH_SIDEBAR: "AppLayoutWithSidebar",
   EMPTY: "AppLayoutEmpty",
 };
 

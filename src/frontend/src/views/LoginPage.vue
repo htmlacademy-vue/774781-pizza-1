@@ -1,42 +1,44 @@
 <template>
-  <div class="sign-form">
-    <router-link
-      to="/"
-      class="close close--white"
-    >
-      <span class="visually-hidden">Закрыть форму авторизации</span>
-    </router-link>
-    <div class="sign-form__title">
-      <AppTitle small>
-        Авторизуйтесь на сайте
-      </AppTitle>
-    </div>
-    <form @submit.prevent="signIn($event)">
-      <div
-        v-for="field in fields"
-        :key="field.name"
-        class="sign-form__input"
+  <div class="main">
+    <div class="sign-form">
+      <router-link
+        to="/"
+        class="close close--white"
       >
-        <AppInput
-          v-model="field.value"
-          :type="field.type"
-          :name="field.name"
-          :placeholder="field.placeholder"
-          :errors="getFieldErrors(field.name, errors)"
-        >
-          {{ field.text }}
-        </AppInput>
+        <span class="visually-hidden">Закрыть форму авторизации</span>
+      </router-link>
+      <div class="sign-form__title">
+        <AppTitle small>
+          Авторизуйтесь на сайте
+        </AppTitle>
       </div>
-      <AppButton type="submit">
-        Авторизоваться
-      </AppButton>
-    </form>
+      <form @submit.prevent="signIn($event)">
+        <div
+          v-for="field in fields"
+          :key="field.name"
+          class="sign-form__input"
+        >
+          <AppInput
+            v-model="field.value"
+            :type="field.type"
+            :name="field.name"
+            :placeholder="field.placeholder"
+            :errors="getFieldErrors(field.name, errors)"
+          >
+            {{ field.text }}
+          </AppInput>
+        </div>
+        <AppButton type="submit">
+          Авторизоваться
+        </AppButton>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import { validateForm, getFieldErrors } from "@/services/form-validation";
+import { validateForm, getFieldErrors } from "@/services/formValidation";
 
 export default {
   name: "LoginPage",

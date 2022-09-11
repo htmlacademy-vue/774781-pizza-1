@@ -18,13 +18,13 @@ export default [
     path: "/profile",
     name: "ProfilePage",
     component: () => import("../views/ProfilePage.vue"),
-    meta: { layout: layoutName.DEFAULT, middlewares: [auth] },
+    meta: { layout: layoutName.WITH_SIDEBAR, middlewares: [auth] },
   },
   {
     path: "/orders",
     name: "OrdersPage",
     component: () => import("../views/OrdersPage.vue"),
-    meta: { layout: layoutName.DEFAULT, middlewares: [auth] },
+    meta: { layout: layoutName.WITH_SIDEBAR, middlewares: [auth] },
   },
   {
     path: "/login",
@@ -36,6 +36,6 @@ export default [
     path: "/success",
     name: "SuccessPopup",
     component: () => import("../views/SuccessPopup.vue"),
-    meta: { layout: layoutName.EMPTY, middlewares: [showSuccessPopup] },
+    meta: { layout: layoutName.DEFAULT, middlewares: [showSuccessPopup] },
   },
 ];

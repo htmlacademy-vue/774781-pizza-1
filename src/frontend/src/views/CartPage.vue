@@ -102,7 +102,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import { validateForm } from "@/services/form-validation";
+import { validateForm } from "@/services/formValidation";
 import {
   RESET_CART,
   SHOW_SUCCESS_POPUP,

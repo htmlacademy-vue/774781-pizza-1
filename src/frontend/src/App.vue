@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <AppLayout v-if="!loading">
-      <transition type="animation" name="slide-in-left" appear>
+      <transition
+        type="animation"
+        enter-active-class="slide-in-left"
+        appear
+      >
         <router-view />
       </transition>
     </AppLayout>

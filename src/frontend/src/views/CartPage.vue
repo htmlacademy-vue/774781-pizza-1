@@ -97,8 +97,11 @@
       </div>
     </main>
     <CartFooter v-if="hasProducts" />
-    <SuccessPopup v-if="showSuccessPopup" @close="closeSuccessPopup()" />
-    <button @click.prevent="SHOW_SUCCESS_POPUP(!showSuccessPopup)">SHOW SUCCESS POPUP</button>
+    <SuccessPopup
+      v-if="showSuccessPopup"
+      @close="closeSuccessPopup()"
+      @after-animation-end="changeRoute()"
+    />
   </form>
 </template>
 
@@ -219,10 +222,6 @@ export default {
         ?.failedRules;
     },
 
-    route() {
-      return this.isAuthenticated ? "/orders" : "/";
-    },
-
     ...mapState("address", ["addresses", "cartAddress"]),
     ...mapState("cart", ["cartPhone", "products", "currentMisc", "address", "showSuccessPopup"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
@@ -329,7 +328,6 @@ export default {
 
     closeSuccessPopup() {
       this[SHOW_SUCCESS_POPUP](false);
-      this.$router.push(this.route);
     },
 
     setAddress(event) {

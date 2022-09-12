@@ -1,5 +1,9 @@
 <template>
-  <transition name="fade" appear>
+  <transition
+    name="fade"
+    appear
+    @after-leave="$router.push(route);"
+  >
     <div class="popup">
       <a
         href="#"
@@ -26,12 +30,21 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "SuccessPopup",
 
+  computed: {
+    route() {
+      return this.isAuthenticated ? "/orders" : "/";
+    },
+    ...mapState("auth", ["isAuthenticated"]),
+  },
+
   methods: {
     close() {
-      this.$emit('close')
+      this.$emit('close');
     },
   },
 };

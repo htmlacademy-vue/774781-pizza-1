@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <transition name="fade" appear>
     <div class="popup">
       <a
         href="#"
@@ -22,31 +22,17 @@
         >Отлично, я жду!</a>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import { SHOW_SUCCESS_POPUP } from "@/store/mutation-types";
-
 export default {
   name: "SuccessPopup",
 
-  computed: {
-    route() {
-      return this.isAuthenticated ? "/orders" : "/";
-    },
-
-    ...mapState("auth", ["isAuthenticated"]),
-  },
-
   methods: {
     close() {
-      this[SHOW_SUCCESS_POPUP](false);
-      this.$router.push(this.route);
+      this.$emit('close')
     },
-
-    ...mapMutations([SHOW_SUCCESS_POPUP]),
   },
 };
 </script>

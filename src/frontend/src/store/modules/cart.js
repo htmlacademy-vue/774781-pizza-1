@@ -8,6 +8,7 @@ import {
   SET_MISC,
   SET_ADDRESS,
   RESET_CART,
+  SHOW_SUCCESS_POPUP,
 } from "@/store/mutation-types";
 
 import { deliveryType } from "@/common/const";
@@ -23,10 +24,14 @@ export default {
 
   state: {
     misc: [],
+    showSuccessPopup: false,
     ...setupCartState(),
   },
 
   mutations: {
+    [SHOW_SUCCESS_POPUP](state, isShow) {
+      state.showSuccessPopup = isShow;
+    },
     [RESET_CART](state) {
       Object.assign(state, setupCartState());
     },

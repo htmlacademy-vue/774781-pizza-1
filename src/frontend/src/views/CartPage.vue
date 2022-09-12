@@ -97,6 +97,8 @@
       </div>
     </main>
     <CartFooter v-if="hasProducts" />
+    <SuccessPopup v-if="showSuccessPopup" @close="closeSuccessPopup()" />
+    <button @click.prevent="SHOW_SUCCESS_POPUP(!showSuccessPopup)">SHOW SUCCESS POPUP</button>
   </form>
 </template>
 
@@ -118,6 +120,7 @@ import {
   CartFooter,
   CartEmpty,
   CartAddressForm,
+  SuccessPopup,
 } from "@/modules/cart/components";
 
 export default {
@@ -128,6 +131,7 @@ export default {
     CartFooter,
     CartEmpty,
     CartAddressForm,
+    SuccessPopup,
   },
 
   data() {
@@ -215,8 +219,12 @@ export default {
         ?.failedRules;
     },
 
+    route() {
+      return this.isAuthenticated ? "/orders" : "/";
+    },
+
     ...mapState("address", ["addresses", "cartAddress"]),
-    ...mapState("cart", ["cartPhone", "products", "currentMisc", "address"]),
+    ...mapState("cart", ["cartPhone", "products", "currentMisc", "address", "showSuccessPopup"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters(["displayedCartPhone"]),
     ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
@@ -256,11 +264,6 @@ export default {
   },
 
   methods: {
-    showSuccessPopup() {
-      this[SHOW_SUCCESS_POPUP](true);
-      this.$router.push("/success");
-    },
-
     async createOrder() {
       if (this.selectedNewAddress) {
         this.errors = validateForm([
@@ -321,15 +324,20 @@ export default {
         await this.fetchUserData();
       }
 
-      this.showSuccessPopup();
+      this[SHOW_SUCCESS_POPUP](true);
+    },
+
+    closeSuccessPopup() {
+      this[SHOW_SUCCESS_POPUP](false);
+      this.$router.push(this.route);
     },
 
     setAddress(event) {
       this[SET_ADDRESS](event.target.value);
     },
 
-    ...mapMutations([SET_CART_PHONE, SHOW_SUCCESS_POPUP]),
-    ...mapMutations("cart", [RESET_CART, SET_ADDRESS]),
+    ...mapMutations([SET_CART_PHONE]),
+    ...mapMutations("cart", [RESET_CART, SET_ADDRESS, SHOW_SUCCESS_POPUP]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
     ...mapActions(["fetchUserData"]),
     ...mapActions("orders", ["postOrder"]),

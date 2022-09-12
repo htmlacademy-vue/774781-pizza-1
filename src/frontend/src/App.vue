@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppLayout v-if="!loading">
-      <transition name="slide">
+      <transition type="animation" name="slide-in-left" appear>
         <router-view />
       </transition>
     </AppLayout>
@@ -46,22 +46,4 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/scss/app";
-
-.slide-enter-active {
-  animation: slide-in 0.6s;
-}
-
-.slide-leave-active {
-  animation: slide-in 0.6s reverse;
-}
-
-@keyframes slide-in {
-  from {
-    transform: translate3d(100%, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
 </style>

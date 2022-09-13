@@ -1,5 +1,5 @@
 import { layoutName } from "@/common/const.js";
-import { auth, isLoggedIn, showSuccessPopup } from "@/middlewares";
+import { auth, isLoggedIn } from "@/middlewares";
 
 export default [
   {
@@ -18,24 +18,18 @@ export default [
     path: "/profile",
     name: "ProfilePage",
     component: () => import("../views/ProfilePage.vue"),
-    meta: { layout: layoutName.DEFAULT, middlewares: [auth] },
+    meta: { layout: layoutName.WITH_SIDEBAR, middlewares: [auth] },
   },
   {
     path: "/orders",
     name: "OrdersPage",
     component: () => import("../views/OrdersPage.vue"),
-    meta: { layout: layoutName.DEFAULT, middlewares: [auth] },
+    meta: { layout: layoutName.WITH_SIDEBAR, middlewares: [auth] },
   },
   {
     path: "/login",
     name: "LoginPage",
     component: () => import("../views/LoginPage.vue"),
     meta: { layout: layoutName.EMPTY, middlewares: [isLoggedIn] },
-  },
-  {
-    path: "/success",
-    name: "SuccessPopup",
-    component: () => import("../views/SuccessPopup.vue"),
-    meta: { layout: layoutName.EMPTY, middlewares: [showSuccessPopup] },
   },
 ];

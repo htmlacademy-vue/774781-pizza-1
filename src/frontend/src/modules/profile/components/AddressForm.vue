@@ -89,7 +89,7 @@ import {
   SET_PROFILE_ADDRESS_ENTITY,
   START_EDIT_ADDRESS,
 } from "@/store/mutation-types";
-import { validateForm } from "@/services/form-validation";
+import { validateForm } from "@/services/formValidation";
 
 export default {
   name: "AddressForm",

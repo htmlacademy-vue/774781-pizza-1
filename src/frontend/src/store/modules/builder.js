@@ -1,8 +1,10 @@
+import Vue from 'vue';
 import uniqueId from "lodash/uniqueId";
 import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
 import sizesValues from "@/common/enums/sizesValues.js";
+import quantity from "@/common/enums/quantity.js";
 
 import {
   NORMALIZE_BUILDER,
@@ -85,29 +87,10 @@ export default {
       }));
     },
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
-      const ingredientsArray = Object.entries(
-        state.currentPizza.ingredients
-      ).map((entrie) => ({
-        id: Number(entrie[0]),
-        quantity: entrie[1],
-      }));
+      quantity === 0
+        ?  Vue.delete(state.currentPizza.ingredients, id)
+        : Vue.set(state.currentPizza.ingredients, id, quantity)
 
-      const idx = ingredientsArray.findIndex(
-        (ingredient) => ingredient.id === id
-      );
-
-      if (idx === -1) {
-        ingredientsArray.push({ id, quantity });
-      } else {
-        ingredientsArray.splice(idx, 1, {
-          id,
-          quantity,
-        });
-      }
-
-      state.currentPizza.ingredients = Object.fromEntries(
-        ingredientsArray.map((item) => [item.id, item.quantity])
-      );
     },
     [RESET_CURRENT_PIZZA](state) {
       Object.assign(state.currentPizza, setupCurrentPizzaState());
@@ -192,9 +175,15 @@ export default {
       Object.values(currentPizza.ingredients).filter((quantity) => quantity > 0)
         .length > 0,
 
-    ingredientsNameEnum: ({ builder }) =>
+    ingredientsRuNameEnum: ({ builder }) =>
       builder.ingredients.reduce(
         (obj, item) => ({ ...obj, [item.id]: item.name }),
+        {}
+      ),
+
+    ingredientsNameEnum: ({ builder }) =>
+      builder.ingredients.reduce(
+        (obj, item) => ({ ...obj, [item.id]: item.modifier }),
         {}
       ),
 
@@ -214,5 +203,20 @@ export default {
       _,
       { doughPrice, sausePrice, sizeMultiplier, ingredientsPrice }
     ) => (doughPrice + sausePrice + ingredientsPrice) * sizeMultiplier,
+
+    pizzaViewIngredients: ({ currentPizza }, { ingredientsNameEnum }) =>
+      Object.entries(currentPizza.ingredients).flatMap((ingredient) => {
+        const ingredients = [];
+
+        for (let i = 1; i <= ingredient[1]; i++) {
+          ingredients.push({
+            id: uniqueId("pizzaViewIngredients_"),
+            modifier: ingredientsNameEnum[ingredient[0]],
+            quantity: quantity[i]
+          })
+        }
+
+        return ingredients;
+      })
   },
 };

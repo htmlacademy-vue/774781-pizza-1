@@ -97,12 +97,17 @@
       </div>
     </main>
     <CartFooter v-if="hasProducts" />
+    <SuccessPopup
+      v-if="showSuccessPopup"
+      @close="closeSuccessPopup()"
+      @after-animation-end="changeRoute()"
+    />
   </form>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import { validateForm } from "@/services/form-validation";
+import { validateForm } from "@/services/formValidation";
 import {
   RESET_CART,
   SHOW_SUCCESS_POPUP,
@@ -118,6 +123,7 @@ import {
   CartFooter,
   CartEmpty,
   CartAddressForm,
+  SuccessPopup,
 } from "@/modules/cart/components";
 
 export default {
@@ -128,6 +134,7 @@ export default {
     CartFooter,
     CartEmpty,
     CartAddressForm,
+    SuccessPopup,
   },
 
   data() {
@@ -216,7 +223,7 @@ export default {
     },
 
     ...mapState("address", ["addresses", "cartAddress"]),
-    ...mapState("cart", ["cartPhone", "products", "currentMisc", "address"]),
+    ...mapState("cart", ["cartPhone", "products", "currentMisc", "address", "showSuccessPopup"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters(["displayedCartPhone"]),
     ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
@@ -256,11 +263,6 @@ export default {
   },
 
   methods: {
-    showSuccessPopup() {
-      this[SHOW_SUCCESS_POPUP](true);
-      this.$router.push("/success");
-    },
-
     async createOrder() {
       if (this.selectedNewAddress) {
         this.errors = validateForm([
@@ -321,15 +323,19 @@ export default {
         await this.fetchUserData();
       }
 
-      this.showSuccessPopup();
+      this[SHOW_SUCCESS_POPUP](true);
+    },
+
+    closeSuccessPopup() {
+      this[SHOW_SUCCESS_POPUP](false);
     },
 
     setAddress(event) {
       this[SET_ADDRESS](event.target.value);
     },
 
-    ...mapMutations([SET_CART_PHONE, SHOW_SUCCESS_POPUP]),
-    ...mapMutations("cart", [RESET_CART, SET_ADDRESS]),
+    ...mapMutations([SET_CART_PHONE]),
+    ...mapMutations("cart", [RESET_CART, SET_ADDRESS, SHOW_SUCCESS_POPUP]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
     ...mapActions(["fetchUserData"]),
     ...mapActions("orders", ["postOrder"]),

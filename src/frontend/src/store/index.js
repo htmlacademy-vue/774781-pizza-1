@@ -8,7 +8,6 @@ import {
   REPEAT_ORDER,
   SET_CART_PHONE,
   NORMALIZE_ORDERS,
-  SHOW_SUCCESS_POPUP,
 } from "@/store/mutation-types";
 
 Vue.use(Vuex);
@@ -16,7 +15,6 @@ Vue.use(Vuex);
 const state = {
   loading: false,
   cartPhone: "",
-  showSuccessPopup: false,
 };
 
 const getters = {
@@ -29,9 +27,6 @@ const getters = {
 const mutations = {
   [SET_LOADING](state, loading) {
     state.loading = loading;
-  },
-  [SHOW_SUCCESS_POPUP](state, isShow) {
-    state.showSuccessPopup = isShow;
   },
   [SET_CART_PHONE](state, phone) {
     state.cartPhone = phone;

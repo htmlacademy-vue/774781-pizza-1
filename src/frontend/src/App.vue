@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <AppLayout v-if="!loading">
-      <router-view />
+      <transition
+        type="animation"
+        enter-active-class="slide-in-left"
+        appear
+      >
+        <router-view />
+      </transition>
     </AppLayout>
   </div>
 </template>
@@ -12,6 +18,7 @@ import { SET_LOADING } from "@/store/mutation-types";
 
 export default {
   name: "App",
+
   computed: {
     ...mapState(["loading"]),
     ...mapState("auth", ["isAuthenticated"]),

@@ -1,31 +1,36 @@
 <template>
-  <div class="popup">
-    <a
-      href="#"
-      class="close"
-      @click.prevent="close()"
-    >
-      <span class="visually-hidden">Закрыть попап</span>
-    </a>
-    <div class="popup__title">
-      <AppTitle :level="2">
-        Спасибо за заказ
-      </AppTitle>
-    </div>
-    <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
-    <div class="popup__button">
+  <transition
+    name="fade"
+    appear
+    @after-leave="$router.push(route);"
+  >
+    <div class="popup">
       <a
         href="#"
-        class="button"
+        class="close"
         @click.prevent="close()"
-      >Отлично, я жду!</a>
+      >
+        <span class="visually-hidden">Закрыть попап</span>
+      </a>
+      <div class="popup__title">
+        <AppTitle :level="2">
+          Спасибо за заказ
+        </AppTitle>
+      </div>
+      <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
+      <div class="popup__button">
+        <a
+          href="#"
+          class="button"
+          @click.prevent="close()"
+        >Отлично, я жду!</a>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import { SHOW_SUCCESS_POPUP } from "@/store/mutation-types";
+import { mapState } from "vuex";
 
 export default {
   name: "SuccessPopup",
@@ -34,17 +39,13 @@ export default {
     route() {
       return this.isAuthenticated ? "/orders" : "/";
     },
-
     ...mapState("auth", ["isAuthenticated"]),
   },
 
   methods: {
     close() {
-      this[SHOW_SUCCESS_POPUP](false);
-      this.$router.push(this.route);
+      this.$emit('close');
     },
-
-    ...mapMutations([SHOW_SUCCESS_POPUP]),
   },
 };
 </script>

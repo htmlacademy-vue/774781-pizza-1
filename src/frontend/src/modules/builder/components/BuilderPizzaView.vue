@@ -4,22 +4,25 @@
       class="pizza"
       :class="classModifier"
     >
-      <div class="pizza__wrapper">
+      <transition-group
+        tag="div"
+        class="pizza__wrapper"
+        enter-active-class="animate__animated animate__zoomIn animate__faster"
+        leave-active-class="animate__animated animate__zoomOut animate__faster"
+      >
         <div
-          v-for="{ id, modifier } in builder.ingredients"
-          :key="modifier"
+          v-for="{ id, quantity, modifier } in pizzaViewIngredients"
+          :key="id"
           class="pizza__filling"
-          :class="
-            updateIngredientsClass(currentPizza.ingredients[id] || 0, modifier)
-          "
+          :class="getIngredientsClasses(quantity, modifier)"
         />
-      </div>
+      </transition-group>
     </div>
   </AppDrop>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutation-types";
 
 export default {
@@ -30,8 +33,7 @@ export default {
       return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
     },
 
-    ...mapGetters("builder", ["sauseName", "doughSize"]),
-    ...mapState("builder", ["builder", "currentPizza"]),
+    ...mapGetters("builder", ["sauseName", "doughSize", "pizzaViewIngredients"]),
   },
 
   methods: {
@@ -42,11 +44,10 @@ export default {
       });
     },
 
-    updateIngredientsClass(quantity, modifier) {
+    getIngredientsClasses(quantity, modifier) {
       return [
-        { [`pizza__filling--${modifier}`]: quantity > 0 },
-        { "pizza__filling--second": quantity === 2 },
-        { "pizza__filling--third": quantity === 3 },
+        `pizza__filling--${modifier}`,
+        quantity && `pizza__filling--${quantity}`,
       ];
     },
 

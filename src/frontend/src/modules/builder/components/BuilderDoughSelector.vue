@@ -10,7 +10,7 @@
 
     <div class="sheet__content dough">
       <label
-        v-for="{ id, name, description, value } in dough"
+        v-for="{ id, name, description, value } in types"
         :key="id"
         class="dough__input"
         :class="`dough__input--${value}`"
@@ -20,7 +20,7 @@
           name="dought"
           class="visually-hidden"
           :value="value"
-          :checked="id === currentDoughId"
+          :checked="id === selected"
           @change="$emit('select', id)"
         >
         <b>{{ name }}</b>
@@ -39,12 +39,12 @@ export default {
     AppTitle,
   },
   props: {
-    dough: {
+    types: {
       type: Array,
       required: true,
       default: () => [],
     },
-    currentDoughId: {
+    selected: {
       type: Number,
       required: true,
     }

@@ -61,7 +61,7 @@
           </div>
 
           <div class="content__result">
-            <BuilderAmount />
+            <BuilderAmount :price="builderPrice" />
             <AppButton
               :disabled="unavailableAddOrderToCart"
               type="submit"
@@ -116,7 +116,8 @@ export default {
       "builderPrice",
       "pizzaViewIngredients",
       "sauseName",
-      "doughSize"
+      "doughSize",
+      "builderPrice"
     ]),
   },
   methods: {

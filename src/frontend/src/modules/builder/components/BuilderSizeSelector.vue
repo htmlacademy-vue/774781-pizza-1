@@ -6,7 +6,7 @@
 
     <div class="sheet__content diameter">
       <label
-        v-for="{ id, value, name } in builder.sizes"
+        v-for="{ id, value, name } in sizes"
         :key="id"
         :class="`diameter__input diameter__input--${value}`"
       >
@@ -15,8 +15,8 @@
           name="diameter"
           :value="value"
           class="visually-hidden"
-          :checked="id === currentPizza.sizeId"
-          @change="selectSize(id)"
+          :checked="id === selected"
+          @change="$emit('select', id)"
         >
         <span>{{ name }}</span>
       </label>
@@ -25,23 +25,19 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import { SET_SIZE } from "@/store/mutation-types";
-
 export default {
   name: "BuilderSizeSelector",
-
-  computed: {
-    ...mapState("builder", ["builder", "currentPizza"]),
-  },
-
-  methods: {
-    selectSize(id) {
-      this[SET_SIZE](id);
+  props: {
+    sizes: {
+      type: Array,
+      required: true,
+      default: () => [],
     },
-
-    ...mapMutations("builder", [SET_SIZE]),
-  },
+    selected: {
+      type: Number,
+      required: true,
+    }
+  }
 };
 </script>
 

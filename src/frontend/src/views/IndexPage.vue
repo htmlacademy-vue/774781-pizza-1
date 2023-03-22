@@ -8,14 +8,18 @@
 
         <div class="content__dough">
           <BuilderDoughSelector
-            :dough="builder.dough"
-            :current-dough-id="currentPizza.doughId"
+            :types="builder.dough"
+            :selected="currentPizza.doughId"
             @select="selectDough($event)"
           />
         </div>
 
         <div class="content__diameter">
-          <BuilderSizeSelector />
+          <BuilderSizeSelector
+            :sizes="builder.sizes"
+            :selected="currentPizza.sizeId"
+            @select="selectSize($event)"
+          />
         </div>
 
         <div class="content__ingredients">
@@ -54,7 +58,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { SET_PIZZA_NAME, ADD_PRODUCT_IN_CART, SET_DOUGH } from "../store/mutation-types";
+import { SET_PIZZA_NAME, ADD_PRODUCT_IN_CART, SET_DOUGH, SET_SIZE } from "../store/mutation-types";
 import { AppTitle, AppInput, AppButton } from "../common/components";
 import {
   BuilderSizeSelector,
@@ -92,6 +96,9 @@ export default {
     selectDough(id) {
       this[SET_DOUGH](id);
     },
+    selectSize(id) {
+      this[SET_SIZE](id);
+    },
     addPizzaToCart() {
       this[ADD_PRODUCT_IN_CART]({
         ...this.currentPizza,
@@ -103,7 +110,7 @@ export default {
     setPizzaName(name) {
       this[SET_PIZZA_NAME](name);
     },
-    ...mapMutations("builder", [SET_PIZZA_NAME, SET_DOUGH]),
+    ...mapMutations("builder", [SET_PIZZA_NAME, SET_DOUGH, SET_SIZE]),
     ...mapMutations("cart", [ADD_PRODUCT_IN_CART]),
     ...mapActions("cart", ["addProductToCart"]),
     ...mapActions("builder", ["resetCurrentPizza"]),

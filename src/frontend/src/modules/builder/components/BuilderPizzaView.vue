@@ -1,5 +1,5 @@
 <template>
-  <AppDrop @drop="addIngredient($event)">
+  <AppDrop @drop="$emit('add-ingredient', $event)">
     <div
       class="pizza"
       :class="classModifier"
@@ -11,7 +11,7 @@
         leave-active-class="animate__animated animate__zoomOut animate__faster"
       >
         <div
-          v-for="{ id, quantity, modifier } in pizzaViewIngredients"
+          v-for="{ id, quantity, modifier } in ingredients"
           :key="id"
           class="pizza__filling"
           :class="getIngredientsClasses(quantity, modifier)"
@@ -22,36 +22,35 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutation-types";
-
 export default {
   name: "BuilderPizzaView",
-
+  props: {
+    ingredients: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    sauce: {
+      type: String,
+      required: true,
+    },
+    dough: {
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     classModifier() {
-      return `pizza--foundation--${this.doughSize}-${this.sauseName}`;
+      return `pizza--foundation--${this.dough}-${this.sauce}`;
     },
-
-    ...mapGetters("builder", ["sauseName", "doughSize", "pizzaViewIngredients"]),
   },
-
   methods: {
-    addIngredient({ id, quantity }) {
-      this[CHANGE_INGREDIENT_QUANTITY]({
-        id,
-        quantity: quantity + 1,
-      });
-    },
-
     getIngredientsClasses(quantity, modifier) {
       return [
         `pizza__filling--${modifier}`,
         quantity && `pizza__filling--${quantity}`,
       ];
     },
-
-    ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY]),
   },
 };
 </script>

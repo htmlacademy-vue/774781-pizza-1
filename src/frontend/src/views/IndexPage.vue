@@ -35,7 +35,7 @@
             <BuilderIngredientsSelector
               :ingredients="builder.ingredients"
               :current-ingredients="currentPizza.ingredients"
-              @change="changeQuantity($event)"
+              @change="changeIngredientsQuantity($event)"
             />
           </BuilderIngredientsSection>
         </div>
@@ -52,7 +52,12 @@
           </AppInput>
 
           <div class="content__constructor">
-            <BuilderPizzaView />
+            <BuilderPizzaView
+              :ingredients="pizzaViewIngredients"
+              :sauce="sauseName"
+              :dough="doughSize"
+              @add-ingredient="addIngredientOnPizza($event)"
+            />
           </div>
 
           <div class="content__result">
@@ -109,6 +114,9 @@ export default {
       "hasPizzaName",
       "hasIngredients",
       "builderPrice",
+      "pizzaViewIngredients",
+      "sauseName",
+      "doughSize"
     ]),
   },
   methods: {
@@ -121,8 +129,14 @@ export default {
     selectSauce(id) {
       this[SET_SAUCE](id);
     },
-    changeQuantity({ id, quantity }) {
+    changeIngredientsQuantity({ id, quantity }) {
       this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
+    },
+    addIngredientOnPizza({ id, quantity }) {
+      this[CHANGE_INGREDIENT_QUANTITY]({
+        id,
+        quantity: quantity + 1,
+      });
     },
     addPizzaToCart() {
       this[ADD_PRODUCT_IN_CART]({

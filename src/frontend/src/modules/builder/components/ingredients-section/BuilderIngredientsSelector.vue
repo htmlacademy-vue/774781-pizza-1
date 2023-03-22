@@ -4,12 +4,12 @@
 
     <ul class="ingredients__list">
       <li
-        v-for="{ id, name, modifier } in builder.ingredients"
+        v-for="{ id, name, modifier } in ingredients"
         :key="id"
         class="ingredients__item"
       >
         <AppDrag
-          :transfer-data="{ id, quantity: currentPizza.ingredients[id] || 0 }"
+          :transfer-data="{ id, quantity: currentIngredients[id] || 0 }"
         >
           <BuilderIngredientFilling
             :name="name"
@@ -18,8 +18,8 @@
 
           <ItemCounter
             class="ingredients__counter"
-            :counter="currentPizza.ingredients[id] || 0"
-            @update:counter="changeQuantity(id, $event)"
+            :counter="currentIngredients[id] || 0"
+            @update:counter="$emit('change', { id, quantity: $event })"
           />
         </AppDrag>
       </li>
@@ -28,29 +28,26 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import { CHANGE_INGREDIENT_QUANTITY } from "@/store/mutation-types";
-import { ItemCounter } from "@/common/components";
-import BuilderIngredientFilling from "./BuilderIngredientFilling.vue";
+import ItemCounter from "../../../../common/components/ItemCounter.vue";
+import BuilderIngredientFilling from "./BuilderIngredientsFilling.vue";
 
 export default {
-  name: "BuilderIngredients",
-
+  name: "BuilderIngredientsSelector",
   components: {
     BuilderIngredientFilling,
     ItemCounter,
   },
-
-  computed: {
-    ...mapState("builder", ["builder", "currentPizza"]),
-  },
-
-  methods: {
-    changeQuantity(id, quantity) {
-      this[CHANGE_INGREDIENT_QUANTITY]({ id, quantity });
+  props: {
+    ingredients: {
+      type: Array,
+      required: true,
+      default: () => [],
     },
-
-    ...mapMutations("builder", [CHANGE_INGREDIENT_QUANTITY]),
+    currentIngredients: {
+      type: Object,
+      required: true,
+      default: () => ({}),
+    },
   },
 };
 </script>

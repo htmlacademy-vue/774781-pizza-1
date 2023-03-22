@@ -7,7 +7,11 @@
         </AppTitle>
 
         <div class="content__dough">
-          <BuilderDoughSelector />
+          <BuilderDoughSelector
+            :dough="builder.dough"
+            :current-dough-id="currentPizza.doughId"
+            @select="selectDough($event)"
+          />
         </div>
 
         <div class="content__diameter">
@@ -50,42 +54,44 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { SET_PIZZA_NAME, ADD_PRODUCT_IN_CART } from "@/store/mutation-types";
-
+import { SET_PIZZA_NAME, ADD_PRODUCT_IN_CART, SET_DOUGH } from "../store/mutation-types";
+import { AppTitle, AppInput, AppButton } from "../common/components";
 import {
   BuilderSizeSelector,
   BuilderIngredientsSelector,
   BuilderDoughSelector,
   BuilderPizzaView,
   BuilderAmount,
-} from "@/modules/builder/components";
+} from "../modules/builder/components";
 
 export default {
   name: "IndexPage",
-
   components: {
+    AppTitle,
+    AppInput,
+    AppButton,
     BuilderIngredientsSelector,
     BuilderSizeSelector,
     BuilderDoughSelector,
     BuilderPizzaView,
     BuilderAmount,
   },
-
   computed: {
     unavailableAddOrderToCart() {
       return !this.hasPizzaName || !this.hasIngredients;
     },
-
     ...mapState("cart", ["products"]),
-    ...mapState("builder", ["currentPizza"]),
+    ...mapState("builder", ["builder", "currentPizza"]),
     ...mapGetters("builder", [
       "hasPizzaName",
       "hasIngredients",
       "builderPrice",
     ]),
   },
-
   methods: {
+    selectDough(id) {
+      this[SET_DOUGH](id);
+    },
     addPizzaToCart() {
       this[ADD_PRODUCT_IN_CART]({
         ...this.currentPizza,
@@ -94,12 +100,10 @@ export default {
       });
       this.resetCurrentPizza();
     },
-
     setPizzaName(name) {
       this[SET_PIZZA_NAME](name);
     },
-
-    ...mapMutations("builder", [SET_PIZZA_NAME]),
+    ...mapMutations("builder", [SET_PIZZA_NAME, SET_DOUGH]),
     ...mapMutations("cart", [ADD_PRODUCT_IN_CART]),
     ...mapActions("cart", ["addProductToCart"]),
     ...mapActions("builder", ["resetCurrentPizza"]),

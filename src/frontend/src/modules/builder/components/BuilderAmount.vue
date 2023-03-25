@@ -1,5 +1,5 @@
 <template>
-  <p>Итого: {{ price }} ₽</p>
+  <p v-if="price">Итого: {{ price }} ₽</p>
 </template>
 
 <script>

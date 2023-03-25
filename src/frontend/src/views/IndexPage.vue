@@ -54,7 +54,7 @@
           <div class="content__constructor">
             <BuilderPizzaView
               :ingredients="pizzaViewIngredients"
-              :sauce="sauseName"
+              :sauce="sauceName"
               :dough="doughSize"
               @add-ingredient="addIngredientOnPizza($event)"
             />
@@ -115,7 +115,7 @@ export default {
       "hasIngredients",
       "builderPrice",
       "pizzaViewIngredients",
-      "sauseName",
+      "sauceName",
       "doughSize",
       "builderPrice"
     ]),

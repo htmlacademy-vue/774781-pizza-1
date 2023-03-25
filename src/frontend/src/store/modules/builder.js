@@ -158,7 +158,7 @@ export default {
         {}
       ),
 
-    sauseName: (_, { selectedSauce }) => selectedSauce.value,
+    sauceName: (_, { selectedSauce }) => selectedSauce.value,
     sausePrice: (_, { selectedSauce }) => selectedSauce.price,
     sizesNameEnum: ({ builder }) =>
       builder.sizes.reduce(

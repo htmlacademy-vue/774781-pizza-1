@@ -5,13 +5,11 @@
 <script>
 export default {
   name: "BuilderIngredientsFilling",
-
   props: {
     name: {
       type: String,
       required: true,
     },
-
     modifier: {
       type: String,
       required: true,

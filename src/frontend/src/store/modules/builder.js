@@ -159,7 +159,7 @@ export default {
       ),
 
     sauceName: (_, { selectedSauce }) => selectedSauce.value,
-    sausePrice: (_, { selectedSauce }) => selectedSauce.price,
+    saucePrice: (_, { selectedSauce }) => selectedSauce.price,
     sizesNameEnum: ({ builder }) =>
       builder.sizes.reduce(
         (obj, item) => ({ ...obj, [item.id]: item.name }),
@@ -201,8 +201,8 @@ export default {
 
     builderPrice: (
       _,
-      { doughPrice, sausePrice, sizeMultiplier, ingredientsPrice }
-    ) => (doughPrice + sausePrice + ingredientsPrice) * sizeMultiplier,
+      { doughPrice, saucePrice, sizeMultiplier, ingredientsPrice }
+    ) => (doughPrice + saucePrice + ingredientsPrice) * sizeMultiplier,
 
     pizzaViewIngredients: ({ currentPizza }, { ingredientsNameEnum }) =>
       Object.entries(currentPizza.ingredients).flatMap((ingredient) => {

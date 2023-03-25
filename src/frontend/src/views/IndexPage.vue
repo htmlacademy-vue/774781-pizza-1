@@ -152,7 +152,6 @@ export default {
     },
     ...mapMutations("builder", [SET_PIZZA_NAME, SET_DOUGH, SET_SIZE, SET_SAUCE, CHANGE_INGREDIENT_QUANTITY]),
     ...mapMutations("cart", [ADD_PRODUCT_IN_CART]),
-    ...mapActions("cart", ["addProductToCart"]),
     ...mapActions("builder", ["resetCurrentPizza"]),
   },
 };

@@ -14,7 +14,7 @@
           {{ sizesNameEnum[product.sizeId] }},
           {{ displayDoughTitle(product.doughId) }}
         </li>
-        <li>Соус: {{ sausesNameEnum[product.sauceId].toLowerCase() }}</li>
+        <li>Соус: {{ saucesNameEnum[product.sauceId].toLowerCase() }}</li>
         <li>Начинка: {{ ingredientNames }}</li>
       </ul>
     </div>

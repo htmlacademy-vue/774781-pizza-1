@@ -100,7 +100,7 @@
     <SuccessPopup
       v-if="showSuccessPopup"
       @close="closeSuccessPopup()"
-      @after-animation-end="changeRoute()"
+      @after-animation-end="$router.push('/orders')"
     />
   </form>
 </template>
@@ -136,34 +136,27 @@ export default {
     CartAddressForm,
     SuccessPopup,
   },
-
   data() {
     return {
       errors: [],
     };
   },
-
   computed: {
     selfDeliveryType() {
       return deliveryType.SELF_DELIVERY;
     },
-
     newAddressType() {
       return deliveryType.NEW_ADDRESS;
     },
-
     selectedNewAddress() {
       return this.address === this.newAddressType;
     },
-
     selectedSelfDelivery() {
       return this.address === this.selfDeliveryType;
     },
-
     selectedSavedAddress() {
       return !this.selectedNewAddress && !this.selectedSelfDelivery;
     },
-
     contactPhone: {
       get() {
         return this.displayedCartPhone;
@@ -172,7 +165,6 @@ export default {
         this[SET_CART_PHONE](value);
       },
     },
-
     selectedAddress: {
       get() {
         return this.address;
@@ -181,7 +173,6 @@ export default {
         this[SET_ADDRESS](value);
       },
     },
-
     street: {
       get() {
         return this.cartAddress.street;
@@ -190,7 +181,6 @@ export default {
         this[SET_CART_ADDRESS_ENTITY]({ entity: "street", value });
       },
     },
-
     building: {
       get() {
         return this.cartAddress.building;
@@ -199,7 +189,6 @@ export default {
         this[SET_CART_ADDRESS_ENTITY]({ entity: "building", value });
       },
     },
-
     flat: {
       get() {
         return this.cartAddress.flat;
@@ -208,28 +197,24 @@ export default {
         this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value });
       },
     },
-
     savedAddresses() {
       return this.isAuthenticated ? this.addresses : null;
     },
-
     streetErrors() {
       return this.errors.find((error) => error.name === "street")?.failedRules;
     },
-
     buildingErrors() {
       return this.errors.find((error) => error.name === "building")
         ?.failedRules;
     },
-
+    ...mapState(["cartPhone"]),
     ...mapState("address", ["addresses", "cartAddress"]),
-    ...mapState("cart", ["cartPhone", "products", "currentMisc", "address", "showSuccessPopup"]),
+    ...mapState("cart", ["products", "currentMisc", "address", "showSuccessPopup"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters(["displayedCartPhone"]),
     ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
     ...mapGetters("auth", ["userId"]),
   },
-
   watch: {
     selectedAddress(name) {
       const address = this.addresses.find((address) => address.name === name);
@@ -261,7 +246,6 @@ export default {
       }
     },
   },
-
   methods: {
     async createOrder() {
       if (this.selectedNewAddress) {
@@ -325,15 +309,9 @@ export default {
 
       this[SHOW_SUCCESS_POPUP](true);
     },
-
     closeSuccessPopup() {
       this[SHOW_SUCCESS_POPUP](false);
     },
-
-    setAddress(event) {
-      this[SET_ADDRESS](event.target.value);
-    },
-
     ...mapMutations([SET_CART_PHONE]),
     ...mapMutations("cart", [RESET_CART, SET_ADDRESS, SHOW_SUCCESS_POPUP]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),

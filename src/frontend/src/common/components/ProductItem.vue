@@ -37,7 +37,7 @@ export default {
   computed: {
     ...mapGetters("builder", [
       "sizesNameEnum",
-      "sausesNameEnum",
+      "saucesNameEnum",
       "ingredientsRuNameEnum",
     ]),
     ingredientNames() {

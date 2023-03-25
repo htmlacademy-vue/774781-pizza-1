@@ -152,7 +152,7 @@ export default {
     selectedSauce: ({ builder, currentPizza }) =>
       builder.sauces.find((sauce) => sauce.id === currentPizza.sauceId),
 
-    sausesNameEnum: ({ builder }) =>
+    saucesNameEnum: ({ builder }) =>
       builder.sauces.reduce(
         (obj, item) => ({ ...obj, [item.id]: item.name }),
         {}

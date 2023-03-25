@@ -13,9 +13,7 @@
         class="cart-list__counter"
         orange
         :counter="product.quantity"
-        @update:counter="
-          updateProductQuantity($event, product.id, product.unitPrice)
-        "
+        @update:counter="$emit('update-count', { quantity: $event, id: product.id, unitPrice: product.unitPrice })"
       />
 
       <div class="cart-list__price">
@@ -26,7 +24,7 @@
         <button
           type="button"
           class="cart-list__edit"
-          @click="changeSelectedPizza(product.id)"
+          @click="$emit('edit', product.id)"
         >
           Изменить
         </button>
@@ -36,50 +34,19 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
 import { ItemCounter, ProductItem } from "@/common/components";
-import {
-  CHANGE_PRODUCT_QUANTITY,
-  UPDATE_PRODUCT_PRICE,
-  EDIT_PIZZA,
-  RESET_CART,
-} from "@/store/mutation-types";
 
 export default {
   name: "CartProducts",
-
   components: {
     ProductItem,
     ItemCounter,
   },
-
-  computed: {
-    ...mapState("cart", ["products"]),
-    ...mapGetters("cart", ["hasProducts"]),
-  },
-
-  methods: {
-    updateProductQuantity(quantity, id, unitPrice) {
-      this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
-      this[UPDATE_PRODUCT_PRICE]({ quantity, id, unitPrice });
-
-      if (!this.hasProducts) {
-        this[RESET_CART]();
-      }
+  props: {
+    products: {
+      type: Array,
+      required: true,
     },
-
-    changeSelectedPizza(id) {
-      this[EDIT_PIZZA](id);
-      this.$router.push("/");
-    },
-
-    ...mapMutations("cart", [
-      CHANGE_PRODUCT_QUANTITY,
-      UPDATE_PRODUCT_PRICE,
-      RESET_CART,
-    ]),
-
-    ...mapMutations([EDIT_PIZZA]),
   },
 };
 </script>

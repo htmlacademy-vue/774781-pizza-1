@@ -15,7 +15,11 @@
         <CartEmpty v-if="!hasProducts" />
 
         <template v-else>
-          <CartProducts />
+          <CartProducts
+            :products="products"
+            @update-count="updateProductQuantity($event)"
+            @edit="changeSelectedPizza($event)"
+          />
 
           <div class="cart__additional">
             <CartMisc />
@@ -114,6 +118,9 @@ import {
   SET_CART_PHONE,
   SET_ADDRESS,
   SET_CART_ADDRESS_ENTITY,
+  CHANGE_PRODUCT_QUANTITY,
+  UPDATE_PRODUCT_PRICE,
+  EDIT_PIZZA,
 } from "@/store/mutation-types";
 
 import { deliveryType } from "@/common/const";
@@ -247,6 +254,18 @@ export default {
     },
   },
   methods: {
+    updateProductQuantity({ quantity, id, unitPrice }) {
+      this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
+      this[UPDATE_PRODUCT_PRICE]({ quantity, id, unitPrice });
+
+      if (!this.hasProducts) {
+        this[RESET_CART]();
+      }
+    },
+    changeSelectedPizza(id) {
+      this[EDIT_PIZZA](id);
+      this.$router.push("/");
+    },
     async createOrder() {
       if (this.selectedNewAddress) {
         this.errors = validateForm([
@@ -312,8 +331,14 @@ export default {
     closeSuccessPopup() {
       this[SHOW_SUCCESS_POPUP](false);
     },
-    ...mapMutations([SET_CART_PHONE]),
-    ...mapMutations("cart", [RESET_CART, SET_ADDRESS, SHOW_SUCCESS_POPUP]),
+    ...mapMutations([SET_CART_PHONE, EDIT_PIZZA]),
+    ...mapMutations("cart", [
+      RESET_CART,
+      SET_ADDRESS,
+      SHOW_SUCCESS_POPUP,
+      CHANGE_PRODUCT_QUANTITY,
+      UPDATE_PRODUCT_PRICE,
+    ]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
     ...mapActions(["fetchUserData"]),
     ...mapActions("orders", ["postOrder"]),

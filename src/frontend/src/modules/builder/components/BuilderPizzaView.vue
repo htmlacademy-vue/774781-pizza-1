@@ -7,8 +7,8 @@
       <transition-group
         tag="div"
         class="pizza__wrapper"
-        enter-active-class="animate__animated animate__zoomIn animate__faster"
-        leave-active-class="animate__animated animate__zoomOut animate__faster"
+        enter-active-class="zoom-in"
+        leave-active-class="zoom-out"
       >
         <div
           v-for="{ id, quantity, modifier } in ingredients"

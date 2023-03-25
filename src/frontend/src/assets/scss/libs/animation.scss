@@ -20,6 +20,25 @@
   }
 }
 
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoom-in {
+  animation: zoom-in 0.3s;
+}
+
+.zoom-out {
+  animation: zoom-in 0.3s reverse;
+}
+
 .slide-in-left {
   animation: slide-in-left 0.6s;
 }

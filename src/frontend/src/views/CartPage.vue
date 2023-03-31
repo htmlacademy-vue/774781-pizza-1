@@ -100,7 +100,12 @@
         </template>
       </div>
     </main>
-    <CartFooter v-if="hasProducts" />
+    <CartFooter
+      v-if="hasProducts"
+      :total-price="totalPrice"
+      :is-available-create-order="availableCreateOrder"
+      @go-to-index-page="goToIndexPage()"
+    />
     <SuccessPopup
       v-if="showSuccessPopup"
       @close="closeSuccessPopup()"
@@ -149,6 +154,9 @@ export default {
     };
   },
   computed: {
+    availableCreateOrder() {
+      return this.hasCartPhone;
+    },
     selfDeliveryType() {
       return deliveryType.SELF_DELIVERY;
     },
@@ -218,8 +226,8 @@ export default {
     ...mapState("address", ["addresses", "cartAddress"]),
     ...mapState("cart", ["products", "currentMisc", "address", "showSuccessPopup"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
-    ...mapGetters(["displayedCartPhone"]),
-    ...mapGetters("cart", ["hasProducts", "selfDelivery"]),
+    ...mapGetters(["displayedCartPhone", "hasCartPhone"]),
+    ...mapGetters("cart", ["hasProducts", "selfDelivery", "totalPrice"]),
     ...mapGetters("auth", ["userId"]),
   },
   watch: {
@@ -254,6 +262,9 @@ export default {
     },
   },
   methods: {
+    goToIndexPage() {
+      this.$router.push("/");
+    },
     updateProductQuantity({ quantity, id, unitPrice }) {
       this[CHANGE_PRODUCT_QUANTITY]({ quantity, id });
       this[UPDATE_PRODUCT_PRICE]({ quantity, id, unitPrice });

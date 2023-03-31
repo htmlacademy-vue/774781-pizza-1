@@ -5,7 +5,7 @@
         tag="a"
         border
         arrow
-        @click="toIndexPage()"
+        @click="$emit('go-to-index-page')"
       >
         Хочу еще одну
       </AppButton>
@@ -20,7 +20,7 @@
     <div class="footer__submit">
       <AppButton
         type="submit"
-        :disabled="unavailableCreateOrder"
+        :disabled="isAvailableCreateOrder"
       >
         Оформить заказ
       </AppButton>
@@ -29,24 +29,19 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "CartFooter",
-
-  computed: {
-    unavailableCreateOrder() {
-      return !this.hasCartPhone;
+  props: {
+    totalPrice: {
+      type: Number,
+      required: true,
+      default: 0,
     },
-
-    ...mapGetters(["hasCartPhone"]),
-    ...mapGetters("cart", ["totalPrice"]),
-  },
-
-  methods: {
-    toIndexPage() {
-      this.$router.push("/");
-    },
+    isAvailableCreateOrder: {
+      type: Boolean,
+      required: true,
+      default: false,
+    }
   },
 };
 </script>

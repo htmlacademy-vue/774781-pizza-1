@@ -9,7 +9,7 @@
         class="ingredients__item"
       >
         <AppDrag
-          :transfer-data="{ id, quantity: currentIngredients[id] || 0 }"
+          :transfer-data="{ id, quantity: currentIngredients[id] }"
         >
           <BuilderIngredientFilling
             :name="name"
@@ -18,7 +18,7 @@
 
           <ItemCounter
             class="ingredients__counter"
-            :counter="currentIngredients[id] || 0"
+            :counter="currentIngredients[id]"
             @update:counter="$emit('change', { id, quantity: $event })"
           />
         </AppDrag>

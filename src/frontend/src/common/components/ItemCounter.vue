@@ -33,18 +33,17 @@ import { counterLimit } from "@/common/const.js";
 
 export default {
   name: "ItemCounter",
-
   props: {
     counter: {
       type: [Number, String],
       required: true,
+      default: 0,
     },
     orange: {
       type: Boolean,
       default: false,
     },
   },
-
   computed: {
     isNegative() {
       return this.counter <= counterLimit.MIN;
@@ -56,7 +55,6 @@ export default {
       return { "counter__button--orange": this.orange };
     },
   },
-
   methods: {
     update(counter) {
       this.$emit("update:counter", counter);

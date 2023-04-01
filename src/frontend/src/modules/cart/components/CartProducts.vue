@@ -13,7 +13,7 @@
         class="cart-list__counter"
         orange
         :counter="product.quantity"
-        @update:counter="$emit('update-count', { quantity: $event, id: product.id, unitPrice: product.unitPrice })"
+        @update:counter="$emit('update-quantity', { quantity: $event, id: product.id, unitPrice: product.unitPrice })"
       />
 
       <div class="cart-list__price">

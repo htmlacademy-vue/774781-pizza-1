@@ -20,7 +20,7 @@
     <div class="footer__submit">
       <AppButton
         type="submit"
-        :disabled="isAvailableCreateOrder"
+        :disabled="!isAvailableCreateOrder"
       >
         Оформить заказ
       </AppButton>

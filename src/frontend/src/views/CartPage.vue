@@ -106,7 +106,7 @@
       :is-available-create-order="availableCreateOrder"
       @go-to-index-page="goToIndexPage()"
     />
-    <SuccessPopup
+    <CartSuccessPopup
       v-if="showSuccessPopup"
       @close="closeSuccessPopup()"
       @after-animation-end="$router.push('/orders')"
@@ -135,7 +135,7 @@ import {
   CartFooter,
   CartEmpty,
   CartAddressForm,
-  SuccessPopup,
+  CartSuccessPopup,
 } from "@/modules/cart/components";
 
 export default {
@@ -146,7 +146,7 @@ export default {
     CartFooter,
     CartEmpty,
     CartAddressForm,
-    SuccessPopup,
+    CartSuccessPopup,
   },
   data() {
     return {

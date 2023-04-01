@@ -33,7 +33,7 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "SuccessPopup",
+  name: "CartSuccessPopup",
 
   computed: {
     route() {

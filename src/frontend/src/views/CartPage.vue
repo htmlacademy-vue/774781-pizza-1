@@ -31,9 +31,10 @@
                 <span class="cart-form__label">Получение заказа:</span>
 
                 <select
-                  v-model="selectedAddress"
+                  :value="address"
                   name="test"
                   class="select"
+                  @input="setAddress($event)"
                 >
                   <option :value="selfDeliveryType">Заберу сам</option>
                   <option :value="newAddressType">Новый адрес</option>
@@ -48,11 +49,12 @@
               </label>
 
               <AppInput
-                v-model="contactPhone"
+                :value="displayedCartPhone"
                 big-label
                 name="tel"
                 type="text"
                 placeholder="+7 999-999-99-99"
+                @input="setPhone($event)"
               >
                 Контактный телефон:
               </AppInput>
@@ -65,10 +67,11 @@
 
                 <div class="cart-form__input">
                   <AppInput
-                    v-model="street"
-                    name="street"
+                    :value="cartAddress.street"
                     :errors="streetErrors"
                     :disabled="selectedSavedAddress"
+                    name="street"
+                    @input="setStreet($event)"
                   >
                     Улица*
                   </AppInput>
@@ -76,10 +79,11 @@
 
                 <div class="cart-form__input cart-form__input--small">
                   <AppInput
-                    v-model="building"
-                    name="house"
+                    :value="cartAddress.building"
                     :errors="buildingErrors"
                     :disabled="selectedSavedAddress"
+                    name="house"
+                    @input="setBuilding($event)"
                   >
                     Дом*
                   </AppInput>
@@ -87,9 +91,10 @@
 
                 <div class="cart-form__input cart-form__input--small">
                   <AppInput
-                    v-model="flat"
+                    :value="cartAddress.flat"
                     :disabled="selectedSavedAddress"
                     name="apartment"
+                    @input="setFlat($event)"
                   >
                     Квартира
                   </AppInput>
@@ -100,12 +105,14 @@
         </template>
       </div>
     </main>
+
     <CartFooter
       v-if="hasProducts"
       :total-price="totalPrice"
       :is-available-create-order="availableCreateOrder"
       @add-another-pizza="routeToIndexPage()"
     />
+
     <CartSuccessPopup
       v-if="showSuccessPopup"
       @close="closeSuccessPopup()"
@@ -172,46 +179,6 @@ export default {
     selectedSavedAddress() {
       return !this.selectedNewAddress && !this.selectedSelfDelivery;
     },
-    contactPhone: {
-      get() {
-        return this.displayedCartPhone;
-      },
-      set(value) {
-        this[SET_CART_PHONE](value);
-      },
-    },
-    selectedAddress: {
-      get() {
-        return this.address;
-      },
-      set(value) {
-        this[SET_ADDRESS](value);
-      },
-    },
-    street: {
-      get() {
-        return this.cartAddress.street;
-      },
-      set(value) {
-        this[SET_CART_ADDRESS_ENTITY]({ entity: "street", value });
-      },
-    },
-    building: {
-      get() {
-        return this.cartAddress.building;
-      },
-      set(value) {
-        this[SET_CART_ADDRESS_ENTITY]({ entity: "building", value });
-      },
-    },
-    flat: {
-      get() {
-        return this.cartAddress.flat;
-      },
-      set(value) {
-        this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value });
-      },
-    },
     savedAddresses() {
       return this.isAuthenticated ? this.addresses : null;
     },
@@ -231,7 +198,7 @@ export default {
     ...mapGetters("auth", ["userId"]),
   },
   watch: {
-    selectedAddress(name) {
+    address(name) {
       const address = this.addresses.find((address) => address.name === name);
 
       if (address !== undefined) {
@@ -262,6 +229,21 @@ export default {
     },
   },
   methods: {
+    setFlat(value) {
+      this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value });
+    },
+    setBuilding(value) {
+      this[SET_CART_ADDRESS_ENTITY]({ entity: "building", value });
+    },
+    setAddress(value) {
+      this[SET_ADDRESS](value);
+    },
+    setPhone(value) {
+      this[SET_CART_PHONE](value)
+    },
+    setStreet(value) {
+      this[SET_CART_ADDRESS_ENTITY]({ entity: "street", value });
+    },
     routeOnSuccessOrderCreation() {
       this.$router.push(this.isAuthenticated ? "/orders" : "/");
     },

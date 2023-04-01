@@ -17,12 +17,16 @@
         <template v-else>
           <CartProducts
             :products="products"
-            @update-count="updateProductQuantity($event)"
+            @update-quantity="updateProductQuantity($event)"
             @edit="changeSelectedPizza($event)"
           />
 
           <div class="cart__additional">
-            <CartMisc />
+            <CartMisc
+              :misc="misc"
+              :current="currentMisc"
+              @update-quantity="changeMiscQuantity()"
+            />
           </div>
 
           <div class="cart__form">
@@ -133,6 +137,7 @@ import {
   CHANGE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_PRICE,
   EDIT_PIZZA,
+  CHANGE_MISC_QUANTITY,
 } from "@/store/mutation-types";
 
 import { deliveryType } from "@/common/const";
@@ -191,7 +196,7 @@ export default {
     },
     ...mapState(["cartPhone"]),
     ...mapState("address", ["addresses", "cartAddress"]),
-    ...mapState("cart", ["products", "currentMisc", "address", "showSuccessPopup"]),
+    ...mapState("cart", ["products", "misc", "currentMisc", "address", "showSuccessPopup"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters(["displayedCartPhone", "hasCartPhone"]),
     ...mapGetters("cart", ["hasProducts", "selfDelivery", "totalPrice"]),
@@ -229,6 +234,9 @@ export default {
     },
   },
   methods: {
+    changeMiscQuantity({ id, quantity }) {
+      this[CHANGE_MISC_QUANTITY]({ id, quantity });
+    },
     setFlat(value) {
       this[SET_CART_ADDRESS_ENTITY]({ entity: "flat", value });
     },
@@ -334,6 +342,7 @@ export default {
       SHOW_SUCCESS_POPUP,
       CHANGE_PRODUCT_QUANTITY,
       UPDATE_PRODUCT_PRICE,
+      CHANGE_MISC_QUANTITY,
     ]),
     ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
     ...mapActions(["fetchUserData"]),

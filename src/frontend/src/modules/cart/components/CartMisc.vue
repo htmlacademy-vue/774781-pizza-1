@@ -17,10 +17,10 @@
 
       <div class="additional-list__wrapper">
         <ItemCounter
-          :counter="currentMisc[id] || 0"
+          :counter="current[id]"
           class="additional-list__counter"
           orange
-          @update:counter="changeQuantity(id, $event)"
+          @update:counter="$emit('update-quantity', { id, quantity: $event })"
         />
 
         <div class="additional-list__price">
@@ -32,29 +32,28 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import { CHANGE_MISC_QUANTITY } from "@/store/mutation-types";
 import { normalizeImagePath } from "@/common/utils";
 import { ItemCounter } from "@/common/components";
 
 export default {
   name: "CartMisc",
-
   components: {
     ItemCounter,
   },
-
-  computed: {
-    ...mapState("cart", ["misc", "currentMisc"]),
+  props: {
+    misc: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    current: {
+      type: Object,
+      required: true,
+      default: () => ({}),
+    }
   },
-
   methods: {
     normalizeImagePath,
-    changeQuantity(id, quantity) {
-      this[CHANGE_MISC_QUANTITY]({ id, quantity });
-    },
-
-    ...mapMutations("cart", [CHANGE_MISC_QUANTITY]),
   },
 };
 </script>

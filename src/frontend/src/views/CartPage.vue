@@ -104,12 +104,12 @@
       v-if="hasProducts"
       :total-price="totalPrice"
       :is-available-create-order="availableCreateOrder"
-      @go-to-index-page="goToIndexPage()"
+      @add-another-pizza="routeToIndexPage()"
     />
     <CartSuccessPopup
       v-if="showSuccessPopup"
       @close="closeSuccessPopup()"
-      @after-animation-end="$router.push('/orders')"
+      @success-action="routeOnSuccessOrderCreation()"
     />
   </form>
 </template>
@@ -262,7 +262,10 @@ export default {
     },
   },
   methods: {
-    goToIndexPage() {
+    routeOnSuccessOrderCreation() {
+      this.$router.push(this.isAuthenticated ? "/orders" : "/");
+    },
+    routeToIndexPage() {
       this.$router.push("/");
     },
     updateProductQuantity({ quantity, id, unitPrice }) {

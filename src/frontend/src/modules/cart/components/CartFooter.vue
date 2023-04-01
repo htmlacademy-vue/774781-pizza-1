@@ -5,7 +5,7 @@
         tag="a"
         border
         arrow
-        @click="$emit('go-to-index-page')"
+        @click="$emit('add-another-pizza')"
       >
         Хочу еще одну
       </AppButton>

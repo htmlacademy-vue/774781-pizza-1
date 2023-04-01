@@ -2,7 +2,7 @@
   <transition
     name="fade"
     appear
-    @after-leave="$router.push(route);"
+    @after-leave="$emit('success-action')"
   >
     <div class="popup">
       <a
@@ -30,18 +30,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "CartSuccessPopup",
-
-  computed: {
-    route() {
-      return this.isAuthenticated ? "/orders" : "/";
-    },
-    ...mapState("auth", ["isAuthenticated"]),
-  },
-
   methods: {
     close() {
       this.$emit('close');

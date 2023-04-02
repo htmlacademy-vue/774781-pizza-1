@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import AddressItem from "./AddressItem.vue";
-import AddressForm from "./AddressForm.vue";
+import ProfileAddressItem from "./ProfileAddressItem.vue";
+import ProfileAddressForm from "./ProfileAddressForm.vue";
 
 export default {
-  name: "AddressItemController",
+  name: "ProfileAddressController",
   props: {
     address: {
       type: Object,
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     displayedComponent() {
-      return this.showForm ? AddressForm : AddressItem;
+      return this.showForm ? ProfileAddressForm : ProfileAddressItem;
     },
   },
 };

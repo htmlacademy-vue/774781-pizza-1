@@ -26,7 +26,7 @@ import {
 } from "@/store/mutation-types";
 
 export default {
-  name: "AddressItem",
+  name: "ProfileAddressItem",
   props: {
     address: {
       type: Object,

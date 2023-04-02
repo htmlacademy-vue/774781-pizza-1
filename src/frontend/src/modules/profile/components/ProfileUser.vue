@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "UserProfile",
+  name: "ProfileUser",
   props: {
     name: {
       type: String,

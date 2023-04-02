@@ -6,7 +6,7 @@
       </AppTitle>
     </div>
 
-    <UserProfile
+    <ProfileUser
       v-if="user"
       :name="user.name"
       :avatar="user.avatar"
@@ -19,7 +19,7 @@
         :key="address.id"
         class="layout__address"
       >
-        <AddressItemController
+        <ProfileAddressController
           :address="address"
           :user-id="user.id"
         />
@@ -30,7 +30,7 @@
       v-if="showCreateNewAddressForm"
       class="layout__address"
     >
-      <AddressForm
+      <ProfileAddressForm
         :is-delete-visible="false"
         :address="profileAddress"
         :user-id="user.id"
@@ -56,18 +56,16 @@
 <script>
 import { mapState, mapGetters, mapMutations } from "vuex";
 import { SHOW_CREATE_NEW_ADDRESS_FORM } from "@/store/mutation-types";
-import {
-  UserProfile,
-  AddressItemController,
-  AddressForm,
-} from "@/modules/profile/components";
+import ProfileUser from "@/modules/profile/components/ProfileUser.vue";
+import ProfileAddressController from "@/modules/profile/components/ProfileAddressController.vue";
+import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.vue";
 
 export default {
   name: "ProfilePage",
   components: {
-    UserProfile,
-    AddressItemController,
-    AddressForm,
+    ProfileUser,
+    ProfileAddressController,
+    ProfileAddressForm,
   },
   computed: {
     ...mapState("address", [

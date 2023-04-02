@@ -92,7 +92,7 @@ import {
 import { validateForm } from "@/services/formValidation";
 
 export default {
-  name: "AddressForm",
+  name: "ProfileAddressForm",
   props: {
     isDeleteVisible: {
       type: Boolean,

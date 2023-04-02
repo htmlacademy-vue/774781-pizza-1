@@ -31,12 +31,12 @@ export default {
     },
     profileAddress: setupProfileAddressState(),
     startedEditAddress: false,
-    showCreateNewAddressForm: false,
+    isNewAddressFormCreationVisible: false,
   },
 
   getters: {
-    availableShowCreateNewAddressForm: (state) =>
-      !state.startedEditAddress && !state.showCreateNewAddressForm,
+    isNewAddressFormCreationAvailable: (state) =>
+      !state.startedEditAddress && !state.isNewAddressFormCreationVisible,
   },
 
   mutations: {
@@ -56,7 +56,7 @@ export default {
       state.startedEditAddress = value;
     },
     [SHOW_CREATE_NEW_ADDRESS_FORM](state, value) {
-      state.showCreateNewAddressForm = value;
+      state.isNewAddressFormCreationVisible = value;
     },
     [RESET_PROFILE_ADDRESS](state) {
       Object.assign(state.profileAddress, setupProfileAddressState());

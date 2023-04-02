@@ -27,7 +27,7 @@
     </template>
 
     <div
-      v-if="showCreateNewAddressForm"
+      v-if="isNewAddressFormCreationVisible"
       class="layout__address"
     >
       <ProfileAddressForm
@@ -42,10 +42,8 @@
       <AppButton
         border
         type="button"
-        :disabled="
-          showCreateNewAddressForm || !availableShowCreateNewAddressForm
-        "
-        @click="SHOW_CREATE_NEW_ADDRESS_FORM(true)"
+        :disabled="!isNewAddressFormCreationAvailable"
+        @click="toggleNewAddressFormCreation()"
       >
         Добавить новый адрес
       </AppButton>
@@ -71,14 +69,17 @@ export default {
     ...mapState("address", [
       "addresses",
       "profileAddress",
-      "showCreateNewAddressForm",
+      "isNewAddressFormCreationVisible",
     ]),
     ...mapState("auth", ["user"]),
-    ...mapGetters("address", ["availableShowCreateNewAddressForm"]),
+    ...mapGetters("address", ["isNewAddressFormCreationAvailable"]),
   },
   methods: {
     closeAddressForm() {
       this[SHOW_CREATE_NEW_ADDRESS_FORM](false);
+    },
+    toggleNewAddressFormCreation() {
+      this[SHOW_CREATE_NEW_ADDRESS_FORM](true);
     },
     ...mapMutations("address", [SHOW_CREATE_NEW_ADDRESS_FORM]),
   },

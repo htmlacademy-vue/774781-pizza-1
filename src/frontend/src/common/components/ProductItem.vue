@@ -26,14 +26,12 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "ProductItem",
-
   props: {
     product: {
       type: Object,
       required: true,
     },
   },
-
   computed: {
     ...mapGetters("builder", [
       "sizesNameEnum",

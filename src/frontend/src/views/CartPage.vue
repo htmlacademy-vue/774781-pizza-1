@@ -25,7 +25,7 @@
             <CartMisc
               :misc="misc"
               :current="currentMisc"
-              @update-quantity="changeMiscQuantity()"
+              @update-quantity="changeMiscQuantity($event)"
             />
           </div>
 
@@ -113,7 +113,7 @@
     <CartFooter
       v-if="hasProducts"
       :total-price="totalPrice"
-      :is-available-create-order="availableCreateOrder"
+      :is-available-create-order="isAvailableCreateOrder"
       @add-another-pizza="routeToIndexPage()"
     />
 
@@ -166,7 +166,7 @@ export default {
     };
   },
   computed: {
-    availableCreateOrder() {
+    isAvailableCreateOrder() {
       return this.hasCartPhone;
     },
     selfDeliveryType() {

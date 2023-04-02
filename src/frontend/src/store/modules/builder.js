@@ -3,7 +3,7 @@ import uniqueId from "lodash/uniqueId";
 import { doughValues, doughSizes } from "@/common/enums/dough.js";
 import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
 import saucesValues from "@/common/enums/saucesValues.js";
-import sizesValues from "@/common/enums/sizesValues.js";
+import { sizeValues } from "../../common/enums/sizesValues";
 import quantity from "@/common/enums/quantity.js";
 
 import {
@@ -83,7 +83,7 @@ export default {
 
       state.builder.sizes = state.builder.sizes.map((size) => ({
         ...size,
-        value: sizesValues[size.multiplier],
+        value: sizeValues[size.multiplier],
       }));
     },
     [CHANGE_INGREDIENT_QUANTITY](state, { id, quantity }) {
@@ -152,20 +152,8 @@ export default {
     selectedSauce: ({ builder, currentPizza }) =>
       builder.sauces.find((sauce) => sauce.id === currentPizza.sauceId),
 
-    saucesNameEnum: ({ builder }) =>
-      builder.sauces.reduce(
-        (obj, item) => ({ ...obj, [item.id]: item.name }),
-        {}
-      ),
-
     sauceName: (_, { selectedSauce }) => selectedSauce.value,
     saucePrice: (_, { selectedSauce }) => selectedSauce.price,
-    sizesNameEnum: ({ builder }) =>
-      builder.sizes.reduce(
-        (obj, item) => ({ ...obj, [item.id]: item.name }),
-        {}
-      ),
-
     selectedSize: ({ builder, currentPizza }) =>
       builder.sizes.find((size) => size.id === currentPizza.sizeId),
 
@@ -174,12 +162,6 @@ export default {
     hasIngredients: ({ currentPizza }) =>
       Object.values(currentPizza.ingredients).filter((quantity) => quantity > 0)
         .length > 0,
-
-    ingredientsRuNameEnum: ({ builder }) =>
-      builder.ingredients.reduce(
-        (obj, item) => ({ ...obj, [item.id]: item.name }),
-        {}
-      ),
 
     ingredientsNameEnum: ({ builder }) =>
       builder.ingredients.reduce(

@@ -11,10 +11,10 @@
       <h2>{{ product.name }}</h2>
       <ul>
         <li>
-          {{ sizesNameEnum[product.sizeId] }},
+          {{ displaySizeName(product.sizeId) }},
           {{ displayDoughTitle(product.doughId) }}
         </li>
-        <li>Соус: {{ saucesNameEnum[product.sauceId].toLowerCase() }}</li>
+        <li>Соус: {{ displaySauceName(product.sauceId) }}</li>
         <li>Начинка: {{ ingredientNames }}</li>
       </ul>
     </div>
@@ -22,7 +22,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { sizeNames } from '../enums/sizesValues';
+import { sauceNames } from '../enums/saucesValues';
+import { ingredientNames } from '../enums/ingredientModifiers';
 
 export default {
   name: "ProductItem",
@@ -33,22 +35,23 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("builder", [
-      "sizesNameEnum",
-      "saucesNameEnum",
-      "ingredientsRuNameEnum",
-    ]),
     ingredientNames() {
       return Object.keys(this.product.ingredients)
-        .map((id) => this.ingredientsRuNameEnum[id])
+        .map((id) => ingredientNames[id])
         .join(", ");
     },
   },
 
   methods: {
-    displayDoughTitle(doughId) {
-      return doughId === 1 ? "на тонком тесте" : "на толстом тесте";
+    displayDoughTitle(id) {
+      return id === 1 ? "на тонком тесте" : "на толстом тесте";
     },
+    displaySizeName(id) {
+      return sizeNames[id];
+    },
+    displaySauceName(id) {
+      return sauceNames[id].toLowerCase();
+    }
   },
 };
 </script>

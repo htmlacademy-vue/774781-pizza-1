@@ -2,7 +2,7 @@
   <transition
     name="fade"
     appear
-    @after-leave="$emit('success-action')"
+    @after-leave="routeOnSuccessOrderCreation()"
   >
     <div class="popup">
       <a
@@ -32,9 +32,19 @@
 <script>
 export default {
   name: "CartSuccessPopup",
+  props: {
+    isAuthenticated: {
+      type: Boolean,
+      required: true,
+      default: false,
+    }
+  },
   methods: {
     close() {
-      this.$emit('close');
+      this.$emit('input');
+    },
+    routeOnSuccessOrderCreation() {
+      this.$router.push(this.isAuthenticated ? "/orders" : "/");
     },
   },
 };

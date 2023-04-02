@@ -1,5 +1,8 @@
 <template>
-  <div v-if="types.length" class="sheet">
+  <div
+    v-if="types.length"
+    class="sheet"
+  >
     <AppTitle
       :level="2"
       small

@@ -1,5 +1,8 @@
 <template>
-  <div v-if="sizes.length" class="sheet">
+  <div
+    v-if="sizes.length"
+    class="sheet"
+  >
     <h2 class="title title--small sheet__title">
       Выберите размер
     </h2>

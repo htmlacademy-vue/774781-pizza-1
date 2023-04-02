@@ -119,8 +119,8 @@
 
     <CartSuccessPopup
       v-if="showSuccessPopup"
-      @close="closeSuccessPopup()"
-      @success-action="routeOnSuccessOrderCreation()"
+      :is-authenticated="isAuthenticated"
+      @input="closeSuccessPopup()"
     />
   </form>
 </template>
@@ -251,9 +251,6 @@ export default {
     },
     setStreet(value) {
       this[SET_CART_ADDRESS_ENTITY]({ entity: "street", value });
-    },
-    routeOnSuccessOrderCreation() {
-      this.$router.push(this.isAuthenticated ? "/orders" : "/");
     },
     routeToIndexPage() {
       this.$router.push("/");

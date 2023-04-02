@@ -6,7 +6,12 @@
       </AppTitle>
     </div>
 
-    <UserProfile />
+    <UserProfile
+      v-if="user"
+      :name="user.name"
+      :avatar="user.avatar"
+      :phone="user.phone"
+    />
 
     <template v-if="addresses.length">
       <div
@@ -55,23 +60,20 @@ import {
 
 export default {
   name: "ProfilePage",
-
   components: {
     UserProfile,
     AddressItemController,
     AddressForm,
   },
-
   computed: {
     ...mapState("address", [
       "addresses",
       "profileAddress",
       "showCreateNewAddressForm",
     ]),
-
+    ...mapState("auth", ["user"]),
     ...mapGetters("address", ["availableShowCreateNewAddressForm"]),
   },
-
   methods: {
     ...mapMutations("address", [SHOW_CREATE_NEW_ADDRESS_FORM]),
   },

@@ -24,7 +24,6 @@ import { MainLogo } from "@/common/components";
 
 export default {
   name: "AppSidebar",
-
   components: {
     MainLogo,
   },

@@ -1,31 +1,37 @@
 <template>
-  <div
-    v-if="user"
-    class="user"
-  >
+  <div class="user">
     <img
-      :src="user.avatar"
+      :src="avatar"
       alt="Василий Ложкин"
       width="72"
       height="72"
     >
     <div class="user__name">
-      <span>{{ user.name }}</span>
+      <span>{{ name }}</span>
     </div>
     <p class="user__phone">
-      Контактный телефон: <span>{{ user.phone }}</span>
+      Контактный телефон: <span>{{ phone }}</span>
     </p>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "UserProfile",
-  computed: {
-    ...mapState("auth", ["user"]),
-  },
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+      required: true,
+    }
+  }
 };
 </script>
 

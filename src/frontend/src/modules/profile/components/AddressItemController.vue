@@ -13,7 +13,6 @@ import AddressForm from "./AddressForm.vue";
 
 export default {
   name: "AddressItemController",
-
   props: {
     address: {
       type: Object,
@@ -21,13 +20,11 @@ export default {
       default: () => ({}),
     },
   },
-
   data() {
     return {
       showForm: false,
     };
   },
-
   computed: {
     displayedComponent() {
       return this.showForm ? AddressForm : AddressItem;

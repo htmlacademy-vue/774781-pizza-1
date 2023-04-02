@@ -44,16 +44,13 @@ import { MainLogo } from "@/common/components";
 
 export default {
   name: "AppLayoutHeader",
-
   components: {
     MainLogo,
   },
-
   computed: {
     ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters("cart", ["totalPrice"]),
   },
-
   methods: {
     async tryLogout() {
       await this.logout();

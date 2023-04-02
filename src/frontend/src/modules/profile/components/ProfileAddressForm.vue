@@ -1,7 +1,7 @@
 <template>
   <form
     class="address-form address-form--opened sheet"
-    @submit.prevent="saveAddress()"
+    @submit.prevent="$emit('save')"
   >
     <div class="address-form__header">
       <b>Адрес №{{ profileAddress.id }}</b>
@@ -68,10 +68,10 @@
 
     <div class="address-form__buttons">
       <AppButton
-        v-if="isDeleteVisible"
+        v-if="deleteButton"
         transparent
         type="button"
-        @click="deleteSelectedAddress()"
+        @click="$emit('delete')"
       >
         Удалить
       </AppButton>
@@ -83,33 +83,22 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
-import {
-  RESET_PROFILE_ADDRESS,
-  SET_PROFILE_ADDRESS_ENTITY,
-  START_EDIT_ADDRESS,
-} from "@/store/mutation-types";
-import { validateForm } from "@/services/formValidation";
+import { mapState, mapMutations } from "vuex";
+import { SET_PROFILE_ADDRESS_ENTITY } from "@/store/mutation-types";
 
 export default {
   name: "ProfileAddressForm",
   props: {
-    isDeleteVisible: {
+    deleteButton: {
       type: Boolean,
-      default: true,
+      default: false,
     },
-    userId: {
-      type: [Number, String],
+    errors: {
+      type: Array,
       required: true,
-    }
+      default: () => [],
+    },
   },
-
-  data() {
-    return {
-      errors: [],
-    };
-  },
-
   computed: {
     name: {
       get() {
@@ -119,7 +108,6 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "name", value });
       },
     },
-
     street: {
       get() {
         return this.profileAddress.street;
@@ -128,7 +116,6 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "street", value });
       },
     },
-
     building: {
       get() {
         return this.profileAddress.building;
@@ -137,7 +124,6 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "building", value });
       },
     },
-
     flat: {
       get() {
         return this.profileAddress.flat;
@@ -146,7 +132,6 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "flat", value });
       },
     },
-
     comment: {
       get() {
         return this.profileAddress.comment;
@@ -155,91 +140,21 @@ export default {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "comment", value });
       },
     },
-
     nameErrors() {
       return this.errors.find((error) => error.name === "name")?.failedRules;
     },
-
     streetErrors() {
       return this.errors.find((error) => error.name === "street")?.failedRules;
     },
-
     buildingErrors() {
       return this.errors.find((error) => error.name === "building")
         ?.failedRules;
     },
-
-    ...mapState("address", ["startedEditAddress", "profileAddress"]),
+    ...mapState("address", ["profileAddress"]),
   },
   methods: {
-    closeForm() {
-      this[START_EDIT_ADDRESS](false);
-      this[RESET_PROFILE_ADDRESS]();
-      this.$emit("close");
-    },
-
-    async saveAddress() {
-      this.errors = validateForm([
-        {
-          name: "name",
-          value: this.profileAddress.name,
-          rules: ["required"],
-        },
-        {
-          name: "street",
-          value: this.profileAddress.street,
-          rules: ["required"],
-        },
-        {
-          name: "building",
-          value: this.profileAddress.building,
-          rules: ["required"],
-        },
-      ]);
-
-      if (this.errors.length > 0) {
-        return;
-      }
-
-      const newAddress = {
-        name: this.profileAddress.name,
-        userId: this.userId,
-        street: this.profileAddress.street,
-        building: this.profileAddress.building,
-        flat: this.profileAddress.flat,
-        comment: this.profileAddress.comment,
-      };
-
-      if (this.startedEditAddress) {
-        await this.putAddress({
-          id: this.profileAddress.id,
-          address: newAddress,
-        });
-      } else {
-        await this.postAddress(newAddress);
-      }
-
-      await this.fetchAddresses();
-      this.closeForm();
-    },
-
-    async deleteSelectedAddress() {
-      await this.deleteAddress(this.profileAddress.id);
-      await this.fetchAddresses();
-      this.closeForm();
-    },
-
     ...mapMutations("address", [
       SET_PROFILE_ADDRESS_ENTITY,
-      START_EDIT_ADDRESS,
-      RESET_PROFILE_ADDRESS,
-    ]),
-
-    ...mapActions("address", [
-      "postAddress",
-      "putAddress",
-      "fetchAddresses",
-      "deleteAddress",
     ]),
   },
 };

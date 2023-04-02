@@ -1,17 +1,19 @@
 <template>
   <section class="sheet order">
     <OrderHeader
-      :order-id="order.id"
-      :order-price="order.price"
+      :id="id"
+      :price="price"
+      @delete="$emit('delete', $event)"
+      @repeat="$emit('repeat', $event)"
     />
-    <OrderPizzas :pizzas="order.pizzas" />
+    <OrderPizzas :pizzas="pizzas" />
     <OrderMisc
-      v-if="order.misc"
-      :misc="order.misc"
+      v-if="misc"
+      :misc="misc"
     />
     <OrderAddress
-      v-if="order.addressId"
-      :id="order.addressId"
+      v-if="addressId"
+      :id="addressId"
     />
   </section>
 </template>
@@ -30,12 +32,29 @@ export default {
     OrderMisc,
     OrderAddress,
   },
-
   props: {
-    order: {
-      type: Object,
+    id: {
+      type: [Number, String],
       required: true,
-      default: () => ({}),
+    },
+    price: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    pizzas: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    misc: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    addressId: {
+      type: Number,
+      default: null,
     },
   },
 };

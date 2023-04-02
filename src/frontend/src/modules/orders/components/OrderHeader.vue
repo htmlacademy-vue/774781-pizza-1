@@ -1,18 +1,18 @@
 <template>
   <div class="order__wrapper">
     <div class="order__number">
-      <b>Заказ #{{ orderId }}</b>
+      <b>Заказ #{{ id }}</b>
     </div>
 
     <div class="order__sum">
-      <span>Сумма заказа: {{ orderPrice }} ₽</span>
+      <span>Сумма заказа: {{ price }} ₽</span>
     </div>
 
     <div class="order__button">
       <AppButton
         border
         type="button"
-        @click="deleteOrder(orderId)"
+        @click="$emit('delete', id)"
       >
         Удалить
       </AppButton>
@@ -20,7 +20,7 @@
     <div class="order__button">
       <AppButton
         type="button"
-        @click="repeatOrder(orderId)"
+        @click="$emit('repeat', id)"
       >
         Повторить
       </AppButton>
@@ -29,31 +29,17 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
-import { REPEAT_ORDER } from "@/store/mutation-types";
-
 export default {
   name: "OrderHeader",
   props: {
-    orderId: {
+    id: {
       type: String,
       required: true,
     },
-
-    orderPrice: {
+    price: {
       type: Number,
       required: true,
     },
-  },
-
-  methods: {
-    repeatOrder(id) {
-      this[REPEAT_ORDER](id);
-      this.$router.push("/cart");
-    },
-
-    ...mapMutations([REPEAT_ORDER]),
-    ...mapActions("orders", ["deleteOrder"]),
   },
 };
 </script>

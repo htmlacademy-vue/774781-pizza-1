@@ -2,8 +2,9 @@
   <component
     :is="displayedComponent"
     :address="address"
-    @edit-address="showForm = true"
-    @close-address-form="showForm = false"
+    :user-id="userId"
+    @edit="showForm = true"
+    @close="showForm = false"
   />
 </template>
 
@@ -19,6 +20,10 @@ export default {
       required: true,
       default: () => ({}),
     },
+    userId: {
+      type: [Number, String],
+      required: true,
+    }
   },
   data() {
     return {

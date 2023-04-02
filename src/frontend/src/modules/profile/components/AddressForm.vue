@@ -68,7 +68,7 @@
 
     <div class="address-form__buttons">
       <AppButton
-        v-if="showDeleteButton"
+        v-if="isDeleteVisible"
         transparent
         type="button"
         @click="deleteSelectedAddress()"
@@ -94,10 +94,14 @@ import { validateForm } from "@/services/formValidation";
 export default {
   name: "AddressForm",
   props: {
-    showDeleteButton: {
+    isDeleteVisible: {
       type: Boolean,
       default: true,
     },
+    userId: {
+      type: [Number, String],
+      required: true,
+    }
   },
 
   data() {
@@ -165,14 +169,13 @@ export default {
         ?.failedRules;
     },
 
-    ...mapState("auth", ["user"]),
     ...mapState("address", ["startedEditAddress", "profileAddress"]),
   },
   methods: {
     closeForm() {
       this[START_EDIT_ADDRESS](false);
       this[RESET_PROFILE_ADDRESS]();
-      this.$emit("close-address-form");
+      this.$emit("close");
     },
 
     async saveAddress() {
@@ -200,7 +203,7 @@ export default {
 
       const newAddress = {
         name: this.profileAddress.name,
-        userId: this.user.id,
+        userId: this.userId,
         street: this.profileAddress.street,
         building: this.profileAddress.building,
         flat: this.profileAddress.flat,

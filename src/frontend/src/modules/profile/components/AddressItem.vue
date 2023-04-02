@@ -49,7 +49,7 @@ export default {
     editAddress() {
       this[SHOW_CREATE_NEW_ADDRESS_FORM](false);
       this[SET_PROFILE_ADDRESS](this.address);
-      this.$emit("edit-address", this.address.id);
+      this.$emit("edit", this.address.id);
       this[START_EDIT_ADDRESS](true);
     },
 

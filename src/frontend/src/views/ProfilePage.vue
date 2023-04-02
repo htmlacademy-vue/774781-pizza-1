@@ -19,7 +19,10 @@
         :key="address.id"
         class="layout__address"
       >
-        <AddressItemController :address="address" />
+        <AddressItemController
+          :address="address"
+          :user-id="user.id"
+        />
       </div>
     </template>
 
@@ -28,9 +31,10 @@
       class="layout__address"
     >
       <AddressForm
-        :show-delete-button="false"
+        :is-delete-visible="false"
         :address="profileAddress"
-        @close-address-form="SHOW_CREATE_NEW_ADDRESS_FORM(false)"
+        :user-id="user.id"
+        @close="closeAddressForm()"
       />
     </div>
 
@@ -75,6 +79,9 @@ export default {
     ...mapGetters("address", ["availableShowCreateNewAddressForm"]),
   },
   methods: {
+    closeAddressForm() {
+      this[SHOW_CREATE_NEW_ADDRESS_FORM](false);
+    },
     ...mapMutations("address", [SHOW_CREATE_NEW_ADDRESS_FORM]),
   },
 };

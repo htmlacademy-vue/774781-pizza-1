@@ -141,14 +141,12 @@ import {
 } from "@/store/mutation-types";
 
 import { deliveryType } from "@/common/const";
-import {
-  CartProducts,
-  CartMisc,
-  CartFooter,
-  CartEmpty,
-  CartAddressForm,
-  CartSuccessPopup,
-} from "@/modules/cart/components";
+import CartProducts from "@/modules/cart/components/CartProducts.vue";
+import CartMisc from "@/modules/cart/components/CartMisc.vue";
+import CartFooter from "@/modules/cart/components/CartFooter.vue";
+import CartEmpty from "@/modules/cart/components/CartEmpty.vue";
+import CartAddressForm from "@/modules/cart/components/CartAddressForm.vue";
+import CartSuccessPopup from "@/modules/cart/components/CartSuccessPopup.vue";
 
 export default {
   name: "CartPage",

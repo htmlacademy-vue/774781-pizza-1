@@ -193,7 +193,7 @@ export default {
         ?.failedRules;
     },
     ...mapState(["cartPhone"]),
-    ...mapState("address", ["addresses", "cartAddress"]),
+    ...mapState("profile", ["addresses", "cartAddress"]),
     ...mapState("cart", ["products", "misc", "currentMisc", "address", "showSuccessPopup"]),
     ...mapState("auth", ["user", "isAuthenticated"]),
     ...mapGetters(["displayedCartPhone", "hasCartPhone"]),
@@ -339,7 +339,7 @@ export default {
       UPDATE_PRODUCT_PRICE,
       CHANGE_MISC_QUANTITY,
     ]),
-    ...mapMutations("address", [SET_CART_ADDRESS_ENTITY]),
+    ...mapMutations("profile", [SET_CART_ADDRESS_ENTITY]),
     ...mapActions(["fetchUserData"]),
     ...mapActions("orders", ["postOrder"]),
   },

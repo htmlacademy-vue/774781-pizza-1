@@ -58,7 +58,7 @@ export default {
       return `${this.address.street}, д. ${this.address.building}${this.flat}`;
     },
     ...mapState("orders", ["orders"]),
-    ...mapState("address", ["addresses"]),
+    ...mapState("profile", ["addresses"]),
   },
   methods: {
     repeatOrder(id) {

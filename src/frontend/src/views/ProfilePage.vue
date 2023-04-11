@@ -88,14 +88,14 @@ export default {
     };
   },
   computed: {
-    ...mapState("address", [
+    ...mapState("profile", [
       "addresses",
       "profileAddress",
       "isNewAddressFormCreationVisible",
       "startedEditAddress",
     ]),
     ...mapState("auth", ["user"]),
-    ...mapGetters("address", ["isNewAddressFormCreationAvailable"]),
+    ...mapGetters("profile", ["isNewAddressFormCreationAvailable"]),
   },
   methods: {
     toggleNewAddressForm(state) {
@@ -159,13 +159,13 @@ export default {
       await this.fetchAddresses();
       this.closeEditAddressForm();
     },
-    ...mapMutations("address", [
+    ...mapMutations("profile", [
       SHOW_CREATE_NEW_ADDRESS_FORM,
       START_EDIT_ADDRESS,
       SET_PROFILE_ADDRESS,
       RESET_PROFILE_ADDRESS,
     ]),
-    ...mapActions("address", [
+    ...mapActions("profile", [
       "postAddress",
       "putAddress",
       "fetchAddresses",

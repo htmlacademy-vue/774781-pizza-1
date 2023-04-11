@@ -19,7 +19,6 @@ const setupProfileAddressState = () => ({
 
 export default {
   namespaced: true,
-
   state: {
     addresses: [],
     cartAddress: {
@@ -33,12 +32,10 @@ export default {
     startedEditAddress: false,
     isNewAddressFormCreationVisible: false,
   },
-
   getters: {
     isNewAddressFormCreationAvailable: (state) =>
       !state.startedEditAddress && !state.isNewAddressFormCreationVisible,
   },
-
   mutations: {
     [SET_ADDRESSES](state, addresses) {
       state.addresses = addresses;
@@ -62,7 +59,6 @@ export default {
       Object.assign(state.profileAddress, setupProfileAddressState());
     },
   },
-
   actions: {
     async fetchAddresses({ commit }) {
       const addresses = await this.$api.address.get();

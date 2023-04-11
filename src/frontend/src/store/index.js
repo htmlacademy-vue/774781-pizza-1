@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { builder, auth, cart, orders, address } from "./modules";
+import { builder, auth, cart, orders, profile } from "./modules";
 import VuexPlugins from "@/plugins/vuexPlugins";
 import {
   EDIT_PIZZA,
@@ -160,7 +160,7 @@ const actions = {
   },
   async fetchUserData({ dispatch }) {
     await dispatch("getOrders");
-    await dispatch("address/fetchAddresses");
+    await dispatch("profile/fetchAddresses");
   },
 };
 
@@ -175,6 +175,6 @@ export default new Vuex.Store({
     auth,
     cart,
     orders,
-    address,
+    profile,
   },
 });

@@ -150,10 +150,10 @@ export default {
       return this.errors.find((error) => error.name === "building")
         ?.failedRules;
     },
-    ...mapState("address", ["profileAddress"]),
+    ...mapState("profile", ["profileAddress"]),
   },
   methods: {
-    ...mapMutations("address", [
+    ...mapMutations("profile", [
       SET_PROFILE_ADDRESS_ENTITY,
     ]),
   },

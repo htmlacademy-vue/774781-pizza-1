@@ -29,8 +29,13 @@
 </template>
 
 <script>
+import AppButton from '../../../common/components/AppButton.vue';
+
 export default {
   name: "CartFooter",
+  components: {
+    AppButton,
+  },
   props: {
     totalPrice: {
       type: Number,

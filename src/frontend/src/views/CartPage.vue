@@ -142,6 +142,7 @@ import {
 
 import { deliveryType } from "../common/const";
 import AppTitle from "../common/components/AppTitle.vue";
+import AppInput from "../common/components/AppInput.vue";
 import CartProducts from "../modules/cart/components/CartProducts.vue";
 import CartMisc from "../modules/cart/components/CartMisc.vue";
 import CartFooter from "../modules/cart/components/CartFooter.vue";
@@ -152,6 +153,7 @@ import CartSuccessPopup from "../modules/cart/components/CartSuccessPopup.vue";
 export default {
   name: "CartPage",
   components: {
+    AppInput,
     AppTitle,
     CartProducts,
     CartMisc,

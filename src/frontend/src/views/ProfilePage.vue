@@ -71,6 +71,8 @@ import {
   START_EDIT_ADDRESS
 } from "../store/mutation-types";
 
+import AppButton from "../common/components/AppButton.vue";
+import AppTitle from "../common/components/AppTitle.vue";
 import ProfileUser from "../modules/profile/components/ProfileUser.vue";
 import ProfileAddressForm from "../modules/profile/components/ProfileAddressForm.vue";
 import ProfileAddressItem from "../modules/profile/components/ProfileAddressItem.vue";
@@ -78,6 +80,8 @@ import ProfileAddressItem from "../modules/profile/components/ProfileAddressItem
 export default {
   name: "ProfilePage",
   components: {
+    AppButton,
+    AppTitle,
     ProfileAddressItem,
     ProfileUser,
     ProfileAddressForm,

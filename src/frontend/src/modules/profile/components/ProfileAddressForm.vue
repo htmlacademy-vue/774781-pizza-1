@@ -85,9 +85,15 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import { SET_PROFILE_ADDRESS_ENTITY } from "../../../store/mutation-types";
+import AppButton from "../../../common/components/AppButton.vue";
+import AppInput from "../../../common/components/AppInput.vue";
 
 export default {
   name: "ProfileAddressForm",
+  components: {
+    AppButton,
+    AppInput,
+  },
   props: {
     deleteButton: {
       type: Boolean,

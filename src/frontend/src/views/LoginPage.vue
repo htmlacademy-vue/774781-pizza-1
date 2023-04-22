@@ -39,9 +39,17 @@
 <script>
 import { mapActions } from "vuex";
 import { validateForm, getFieldErrors } from "../services/formValidation";
+import AppTitle from "../common/components/AppTitle.vue";
+import AppButton from "../common/components/AppButton.vue";
+import AppInput from "../common/components/AppInput.vue";
 
 export default {
   name: "LoginPage",
+  components: {
+    AppInput,
+    AppButton,
+    AppTitle,
+  },
   data() {
     return {
       errors: [],

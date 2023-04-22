@@ -32,6 +32,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
 import { REPEAT_ORDER } from "../store/mutation-types";
+import AppTitle from "../common/components/AppTitle.vue";
 import OrderHeader from "../modules/orders/components/OrderHeader.vue";
 import OrderPizzas from "../modules/orders/components/OrderPizzas.vue";
 import OrderMisc from "../modules/orders/components/OrderMisc.vue";
@@ -41,6 +42,7 @@ import OrderItem from "../modules/orders/components/OrderItem.vue";
 export default {
   name: "OrdersPage",
   components: {
+    AppTitle,
     OrderItem,
     OrderHeader,
     OrderPizzas,

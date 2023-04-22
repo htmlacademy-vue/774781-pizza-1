@@ -1,9 +1,8 @@
 <template>
   <component
     :is="tag"
-    :type="type"
+    :type="buttonType"
     class="button"
-    :disabled="disabled"
     :class="classes"
     v-on="$listeners"
   >
@@ -14,7 +13,6 @@
 <script>
 export default {
   name: "AppButton",
-  inheritAttrs: false,
   props: {
     tag: {
       type: String,
@@ -24,11 +22,7 @@ export default {
       type: String,
       default: null,
     },
-    border: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
+    bordered: {
       type: Boolean,
       default: false,
     },
@@ -40,18 +34,24 @@ export default {
       type: Boolean,
       default: false,
     },
-    white: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
+    buttonType() {
+      if (this.tag !== 'button') {
+        return;
+      }
+
+      if (this.type === null) {
+        return 'submit';
+      }
+
+      return this.type;
+    },
     classes() {
       return {
-        "button--border": this.border,
+        "button--border": this.bordered,
         "button--arrow": this.arrow,
         "button--transparent": this.transparent,
-        "button--white": this.white,
       };
     },
   },

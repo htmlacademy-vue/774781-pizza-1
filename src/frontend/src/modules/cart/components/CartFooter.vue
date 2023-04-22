@@ -3,7 +3,7 @@
     <div class="footer__more">
       <AppButton
         tag="a"
-        border
+        bordered
         arrow
         @click="$emit('add-another-pizza')"
       >

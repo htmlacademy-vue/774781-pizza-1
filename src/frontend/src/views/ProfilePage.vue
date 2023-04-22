@@ -50,7 +50,7 @@
 
     <div class="layout__button">
       <AppButton
-        border
+        bordered
         type="button"
         :disabled="!isNewAddressFormCreationAvailable"
         @click="toggleNewAddressForm(true)"

@@ -10,7 +10,7 @@
 
     <div class="order__button">
       <AppButton
-        border
+        bordered
         type="button"
         @click="$emit('delete', id)"
       >

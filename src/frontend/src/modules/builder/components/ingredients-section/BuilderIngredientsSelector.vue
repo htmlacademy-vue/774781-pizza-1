@@ -53,37 +53,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.ingredients__filling {
-  width: 100%;
-
-  p {
-    @include r-s16-h19;
-
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-}
-
-.ingredients__list {
-  @include clear-list;
-
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.ingredients__item {
-  width: 100px;
-  min-height: 40px;
-  margin-right: 17px;
-  margin-bottom: 35px;
-}
-
-.ingredients__counter {
-  width: 54px;
-  margin-top: 10px;
-  margin-left: 36px;
-}
-</style>

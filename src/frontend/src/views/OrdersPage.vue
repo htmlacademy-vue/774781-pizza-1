@@ -70,3 +70,5 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" src="../assets/scss/blocks/order.scss"></style>

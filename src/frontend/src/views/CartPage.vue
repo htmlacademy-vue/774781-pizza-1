@@ -348,13 +348,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.cart__title {
-  margin-bottom: 15px;
-}
-
-.cart__additional {
-  margin-top: 15px;
-  margin-bottom: 25px;
-}
-</style>
+<style lang="scss" src="../assets/scss/blocks/cart.scss"></style>

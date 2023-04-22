@@ -25,3 +25,5 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" src="../../../../assets/scss/blocks/ingredients.scss"></style>

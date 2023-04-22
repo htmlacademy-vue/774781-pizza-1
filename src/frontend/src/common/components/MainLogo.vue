@@ -4,7 +4,7 @@
     class="logo"
   >
     <img
-      src="@/assets/img/logo.svg"
+      src="../../assets/img/logo.svg"
       alt="V!U!E! Pizza logo"
       width="90"
       height="40"

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { MainLogo } from "@/common/components";
+import MainLogo from '../common/components/MainLogo.vue';
 
 export default {
   name: "AppSidebar",

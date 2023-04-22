@@ -84,7 +84,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { SET_PROFILE_ADDRESS_ENTITY } from "@/store/mutation-types";
+import { SET_PROFILE_ADDRESS_ENTITY } from "../../../store/mutation-types";
 
 export default {
   name: "ProfileAddressForm",

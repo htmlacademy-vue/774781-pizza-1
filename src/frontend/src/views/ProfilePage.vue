@@ -63,17 +63,17 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { validateForm } from "@/services/formValidation";
+import { validateForm } from "../services/formValidation";
 import {
   RESET_PROFILE_ADDRESS,
   SET_PROFILE_ADDRESS,
   SHOW_CREATE_NEW_ADDRESS_FORM,
   START_EDIT_ADDRESS
-} from "@/store/mutation-types";
+} from "../store/mutation-types";
 
-import ProfileUser from "@/modules/profile/components/ProfileUser.vue";
-import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.vue";
-import ProfileAddressItem from "@/modules/profile/components/ProfileAddressItem.vue";
+import ProfileUser from "../modules/profile/components/ProfileUser.vue";
+import ProfileAddressForm from "../modules/profile/components/ProfileAddressForm.vue";
+import ProfileAddressItem from "../modules/profile/components/ProfileAddressItem.vue";
 
 export default {
   name: "ProfilePage",

@@ -16,7 +16,12 @@
 </template>
 
 <script>
+import AppTitle from '../../../../common/components/AppTitle.vue';
+
 export default {
   name: "BuilderIngredientsSection",
+  components: {
+    AppTitle,
+  }
 };
 </script>

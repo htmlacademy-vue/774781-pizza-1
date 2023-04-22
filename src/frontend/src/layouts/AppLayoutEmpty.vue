@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import { layoutName } from "@/common/const.js";
-
 export default {
-  name: layoutName.EMPTY,
+  name: 'AppLayoutEmpty',
 };
 </script>

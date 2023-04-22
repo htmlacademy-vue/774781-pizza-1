@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { RadioButton } from "../../../../common/components";
+import RadioButton from '../../../../common/components/RadioButton.vue';
 
 export default {
   name: "BuilderSauceSelector",

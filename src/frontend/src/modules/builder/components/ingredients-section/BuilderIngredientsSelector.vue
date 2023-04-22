@@ -28,14 +28,16 @@
 </template>
 
 <script>
+import AppDrag from "../../../../common/components/AppDrag.vue";
 import ItemCounter from "../../../../common/components/ItemCounter.vue";
 import BuilderIngredientFilling from "./BuilderIngredientsFilling.vue";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: {
-    BuilderIngredientFilling,
+    AppDrag,
     ItemCounter,
+    BuilderIngredientFilling,
   },
   props: {
     ingredients: {

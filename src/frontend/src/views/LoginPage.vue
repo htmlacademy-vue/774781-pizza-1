@@ -38,11 +38,10 @@
 
 <script>
 import { mapActions } from "vuex";
-import { validateForm, getFieldErrors } from "@/services/formValidation";
+import { validateForm, getFieldErrors } from "../services/formValidation";
 
 export default {
   name: "LoginPage",
-
   data() {
     return {
       errors: [],
@@ -64,17 +63,14 @@ export default {
       ],
     };
   },
-
   computed: {
     email() {
       return this.fields.find((field) => field.name === "email").value;
     },
-
     password() {
       return this.fields.find((field) => field.name === "pass").value;
     },
   },
-
   methods: {
     getFieldErrors,
     async signIn() {
@@ -103,7 +99,6 @@ export default {
       this.fetchUserData();
       this.$router.push("/");
     },
-
     ...mapActions("auth", ["login"]),
     ...mapActions(["fetchUserData"]),
   },

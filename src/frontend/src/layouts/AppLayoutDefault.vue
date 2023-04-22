@@ -6,10 +6,13 @@
 </template>
 
 <script>
-import { layoutName } from "@/common/const.js";
+import AppLayoutHeader from './AppLayoutHeader.vue';
 
 export default {
-  name: layoutName.DEFAULT,
+  name: 'AppLayoutDefault',
+  components: {
+    AppLayoutHeader
+  }
 };
 </script>
 

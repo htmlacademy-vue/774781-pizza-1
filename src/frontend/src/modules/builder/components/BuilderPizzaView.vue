@@ -22,8 +22,13 @@
 </template>
 
 <script>
+import AppDrop from '../../../common/components/AppDrop.vue';
+
 export default {
   name: "BuilderPizzaView",
+  components: {
+    AppDrop
+  },
   props: {
     ingredients: {
       type: Array,

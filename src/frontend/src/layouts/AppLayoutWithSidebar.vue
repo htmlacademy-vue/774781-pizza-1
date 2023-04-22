@@ -13,12 +13,11 @@
 </template>
 
 <script>
-import { layoutName } from "@/common/const.js";
-import AppSidebar from "@/layouts/AppSidebar.vue";
-import AppLayoutHeader from "@/layouts/AppLayoutHeader.vue";
+import AppSidebar from "./AppSidebar.vue";
+import AppLayoutHeader from "./AppLayoutHeader.vue";
 
 export default {
-  name: layoutName.WITH_SIDEBAR,
+  name: 'AppLayoutWithSidebar',
   components: {
     AppLayoutHeader,
     AppSidebar,

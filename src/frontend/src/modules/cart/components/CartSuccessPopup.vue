@@ -30,8 +30,13 @@
 </template>
 
 <script>
+import AppTitle from '../../../common/components/AppTitle.vue';
+
 export default {
   name: "CartSuccessPopup",
+  components: {
+    AppTitle
+  },
   props: {
     isAuthenticated: {
       type: Boolean,

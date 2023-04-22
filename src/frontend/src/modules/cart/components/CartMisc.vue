@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import { normalizeImagePath } from "@/common/utils";
-import { ItemCounter } from "@/common/components";
+import { normalizeImagePath } from "../../../common/utils";
+import ItemCounter from "../../../common/components/ItemCounter.vue";
 
 export default {
   name: "CartMisc",

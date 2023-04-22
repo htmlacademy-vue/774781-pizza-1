@@ -1,35 +1,34 @@
-import { layoutName } from "@/common/const.js";
-import { auth, isLoggedIn } from "@/middlewares";
+import { auth, isLoggedIn } from "../middlewares";
 
 export default [
   {
     path: "/",
     name: "IndexPage",
     component: () => import("../views/IndexPage.vue"),
-    meta: { layout: layoutName.DEFAULT },
+    meta: { layout: 'AppLayoutDefault' },
   },
   {
     path: "/cart",
     name: "CartPage",
     component: () => import("../views/CartPage.vue"),
-    meta: { layout: layoutName.DEFAULT },
+    meta: { layout: 'AppLayoutDefault' },
   },
   {
     path: "/profile",
     name: "ProfilePage",
     component: () => import("../views/ProfilePage.vue"),
-    meta: { layout: layoutName.WITH_SIDEBAR, middlewares: [auth] },
+    meta: { layout: 'AppLayoutWithSidebar', middlewares: [auth] },
   },
   {
     path: "/orders",
     name: "OrdersPage",
     component: () => import("../views/OrdersPage.vue"),
-    meta: { layout: layoutName.WITH_SIDEBAR, middlewares: [auth] },
+    meta: { layout: 'AppLayoutWithSidebar', middlewares: [auth] },
   },
   {
     path: "/login",
     name: "LoginPage",
     component: () => import("../views/LoginPage.vue"),
-    meta: { layout: layoutName.EMPTY, middlewares: [isLoggedIn] },
+    meta: { layout: 'AppLayoutEmpty', middlewares: [isLoggedIn] },
   },
 ];

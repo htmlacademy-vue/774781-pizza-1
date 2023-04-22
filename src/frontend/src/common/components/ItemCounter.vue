@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { counterLimit } from "@/common/const.js";
+import { counterLimit } from "../../common/const.js";
 
 export default {
   name: "ItemCounter",

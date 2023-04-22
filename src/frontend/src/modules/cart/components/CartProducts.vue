@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import { ItemCounter, ProductItem } from "@/common/components";
+import ItemCounter from "../../../common/components/ItemCounter.vue";
+import ProductItem from "../../../common/components/ProductItem.vue";
 
 export default {
   name: "CartProducts",

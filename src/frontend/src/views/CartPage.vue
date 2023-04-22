@@ -127,7 +127,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import { validateForm } from "@/services/formValidation";
+import { validateForm } from "../services/formValidation";
 import {
   RESET_CART,
   SHOW_SUCCESS_POPUP,
@@ -138,19 +138,21 @@ import {
   UPDATE_PRODUCT_PRICE,
   EDIT_PIZZA,
   CHANGE_MISC_QUANTITY,
-} from "@/store/mutation-types";
+} from "../store/mutation-types";
 
-import { deliveryType } from "@/common/const";
-import CartProducts from "@/modules/cart/components/CartProducts.vue";
-import CartMisc from "@/modules/cart/components/CartMisc.vue";
-import CartFooter from "@/modules/cart/components/CartFooter.vue";
-import CartEmpty from "@/modules/cart/components/CartEmpty.vue";
-import CartAddressForm from "@/modules/cart/components/CartAddressForm.vue";
-import CartSuccessPopup from "@/modules/cart/components/CartSuccessPopup.vue";
+import { deliveryType } from "../common/const";
+import AppTitle from "../common/components/AppTitle.vue";
+import CartProducts from "../modules/cart/components/CartProducts.vue";
+import CartMisc from "../modules/cart/components/CartMisc.vue";
+import CartFooter from "../modules/cart/components/CartFooter.vue";
+import CartEmpty from "../modules/cart/components/CartEmpty.vue";
+import CartAddressForm from "../modules/cart/components/CartAddressForm.vue";
+import CartSuccessPopup from "../modules/cart/components/CartSuccessPopup.vue";
 
 export default {
   name: "CartPage",
   components: {
+    AppTitle,
     CartProducts,
     CartMisc,
     CartFooter,

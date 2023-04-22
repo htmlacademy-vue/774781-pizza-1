@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { displayItemPrice } from "@/common/utils";
-import { ProductItem } from "@/common/components";
+import { displayItemPrice } from "../../../common/utils";
+import ProductItem from "../../../common/components/ProductItem.vue";
 
 export default {
   name: "OrderPizzas",

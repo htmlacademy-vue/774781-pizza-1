@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { normalizeImagePath, displayItemPrice } from "@/common/utils";
+import { normalizeImagePath, displayItemPrice } from "../../../common/utils";
 
 export default {
   name: "OrderMisc",

@@ -1,7 +1,7 @@
 <template>
   <div class="product">
     <img
-      src="@/assets/img/product.svg"
+      src="../../assets/img/product.svg"
       class="product__img"
       width="56"
       height="56"
@@ -55,4 +55,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scr="../../assets/scss/blocks/product.scss" scoped></style>
+<style lang="scss" src="../../assets/scss/blocks/product.scss" scoped></style>

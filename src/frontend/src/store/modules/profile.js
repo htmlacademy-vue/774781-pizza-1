@@ -6,7 +6,7 @@ import {
   SET_PROFILE_ADDRESS,
   RESET_PROFILE_ADDRESS,
   SHOW_CREATE_NEW_ADDRESS_FORM,
-} from "@/store/mutation-types";
+} from "../mutation-types";
 
 const setupProfileAddressState = () => ({
   id: "",

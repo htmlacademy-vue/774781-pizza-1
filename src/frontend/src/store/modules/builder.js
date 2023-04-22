@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import uniqueId from "lodash/uniqueId";
-import { doughValues, doughSizes } from "@/common/enums/dough.js";
-import ingredientModifiers from "@/common/enums/ingredientModifiers.js";
-import saucesValues from "@/common/enums/saucesValues.js";
+import ingredientModifiers from "../../common/enums/ingredientModifiers.js";
+import saucesValues from "../../common/enums/saucesValues.js";
+import { doughValues, doughSizes } from "../../common/enums/dough.js";
 import { sizeValues } from "../../common/enums/sizesValues";
-import quantity from "@/common/enums/quantity.js";
+import quantity from "../../common/enums/quantity.js";
 
 import {
   NORMALIZE_BUILDER,
@@ -32,7 +32,6 @@ const setupCurrentPizzaState = () => ({
 
 export default {
   namespaced: true,
-
   state: {
     builder: {
       dough: [],
@@ -42,7 +41,6 @@ export default {
     },
     currentPizza: setupCurrentPizzaState(),
   },
-
   mutations: {
     [SET_BUILDER_INITIAL_DATA](state, { entity, value }) {
       state.builder[entity] = value;
@@ -96,7 +94,6 @@ export default {
       Object.assign(state.currentPizza, setupCurrentPizzaState());
     },
   },
-
   actions: {
     async fetchDough({ commit }) {
       const dough = await this.$api.builder.dough();
@@ -137,12 +134,10 @@ export default {
     },
     async initBuilder({ commit, dispatch }) {
       await dispatch("fetchBuilder");
-
       commit(NORMALIZE_BUILDER);
       dispatch("setCurrentPizzaDefaultValues");
     },
   },
-
   getters: {
     selectedDough: ({ builder, currentPizza }) =>
       builder.dough.find((d) => d.id === currentPizza.doughId),
@@ -181,10 +176,8 @@ export default {
           0
         ),
 
-    builderPrice: (
-      _,
-      { doughPrice, saucePrice, sizeMultiplier, ingredientsPrice }
-    ) => (doughPrice + saucePrice + ingredientsPrice) * sizeMultiplier,
+    builderPrice: (_, { doughPrice, saucePrice, sizeMultiplier, ingredientsPrice }) =>
+      (doughPrice + saucePrice + ingredientsPrice) * sizeMultiplier,
 
     pizzaViewIngredients: ({ currentPizza }, { ingredientsNameEnum }) =>
       Object.entries(currentPizza.ingredients).flatMap((ingredient) => {

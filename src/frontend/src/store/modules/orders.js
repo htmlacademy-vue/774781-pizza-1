@@ -1,12 +1,10 @@
-import { SET_ORDERS, DELETE_ORDER } from "@/store/mutation-types";
+import { SET_ORDERS, DELETE_ORDER } from "../mutation-types";
 
 export default {
   namespaced: true,
-
   state: {
     orders: [],
   },
-
   mutations: {
     [SET_ORDERS](state, orders) {
       state.orders = orders;
@@ -16,7 +14,6 @@ export default {
       state.orders.splice(idx, 1);
     },
   },
-
   actions: {
     async postOrder(_, order) {
       await this.$api.orders.post(order);

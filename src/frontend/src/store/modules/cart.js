@@ -9,9 +9,9 @@ import {
   SET_ADDRESS,
   RESET_CART,
   SHOW_SUCCESS_POPUP,
-} from "@/store/mutation-types";
+} from "../mutation-types";
 
-import { deliveryType } from "@/common/const";
+import { deliveryType } from "../../common/const";
 
 const setupCartState = () => ({
   products: [],
@@ -21,13 +21,11 @@ const setupCartState = () => ({
 
 export default {
   namespaced: true,
-
   state: {
     misc: [],
     showSuccessPopup: false,
     ...setupCartState(),
   },
-
   mutations: {
     [SHOW_SUCCESS_POPUP](state, isShow) {
       state.showSuccessPopup = isShow;
@@ -75,7 +73,6 @@ export default {
         : Vue.set(state.currentMisc, id, quantity)
     },
   },
-
   getters: {
     hasProducts: ({ products }) => products.length > 0,
     productsPrice: ({ products }) =>
@@ -98,7 +95,6 @@ export default {
     totalPrice: (_, { productsPrice, miscPrice }) => productsPrice + miscPrice,
     selfDelivery: (state) => state.address === deliveryType.SELF_DELIVERY,
   },
-
   actions: {
     async fetchMisc({ commit }) {
       const misc = await this.$api.cart.misc();

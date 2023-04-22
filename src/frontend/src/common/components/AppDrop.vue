@@ -18,7 +18,6 @@ export default {
       }
 
       const payload = dataTransfer.getData("payload");
-
       if (payload) {
         const transferData = JSON.parse(dataTransfer.getData("payload"));
         this.$emit("drop", transferData);

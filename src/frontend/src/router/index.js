@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import routes from "@/router/routes";
-import store from "@/store";
-import { middlewarePipeline } from "@/middlewares";
+import routes from "./routes";
+import store from "../store";
+import { middlewarePipeline } from "../middlewares";
 
 Vue.use(Router);
 

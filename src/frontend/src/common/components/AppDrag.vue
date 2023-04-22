@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { counterLimit } from "@/common/const";
+import { counterLimit } from "../../common/const";
 
 export default {
   name: "AppDrag",

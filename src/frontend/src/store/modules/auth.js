@@ -1,17 +1,14 @@
-import { SET_AUTHENTICATION, SET_USER } from "@/store/mutation-types";
+import { SET_AUTHENTICATION, SET_USER } from "../mutation-types";
 
 export default {
   namespaced: true,
-
   state: {
     user: null,
     isAuthenticated: false,
   },
-
   getters: {
     userId: (state) => (state.user ? state.user.id : null),
   },
-
   mutations: {
     [SET_AUTHENTICATION](state, value) {
       state.isAuthenticated = value;
@@ -20,7 +17,6 @@ export default {
       state.user = userData;
     },
   },
-
   actions: {
     async logout({ commit }, sendRequest = true) {
       if (sendRequest) {

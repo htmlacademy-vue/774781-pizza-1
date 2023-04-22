@@ -8,7 +8,7 @@ import {
   REPEAT_ORDER,
   SET_CART_PHONE,
   NORMALIZE_ORDERS,
-} from "@/store/mutation-types";
+} from "./mutation-types";
 
 Vue.use(Vuex);
 

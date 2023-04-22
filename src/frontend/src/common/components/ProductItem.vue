@@ -41,7 +41,6 @@ export default {
         .join(", ");
     },
   },
-
   methods: {
     displayDoughTitle(id) {
       return id === 1 ? "на тонком тесте" : "на толстом тесте";
@@ -56,25 +55,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.product {
-  display: flex;
-  align-items: center;
-}
-
-.product__text {
-  margin-left: 15px;
-
-  h2 {
-    @include b-s18-h21;
-
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-
-  ul {
-    @include clear-list;
-    @include l-s11-h13;
-  }
-}
-</style>
+<style lang="scss" scr="../../assets/scss/blocks/product.scss" scoped></style>

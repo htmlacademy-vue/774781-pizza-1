@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { builder, auth, cart, orders, profile } from "./modules";
-import VuexPlugins from "@/plugins/vuexPlugins";
+import VuexPlugins from "../plugins/vuexPlugins";
 import {
   EDIT_PIZZA,
   SET_LOADING,

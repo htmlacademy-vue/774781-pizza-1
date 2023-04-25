@@ -1,9 +1,11 @@
 <template>
   <label
     class="input"
-    :class="classModifier"
+    :class="{ 'input--big-label': largeTitle }"
   >
-    <span :class="{ 'visually-hidden': visuallyHidden }"><slot /></span>
+    <span :class="{ 'visually-hidden': visuallyHidden }">
+      <slot />
+    </span>
     <input
       :type="type"
       :name="name"
@@ -12,13 +14,15 @@
       :disabled="disabled"
       @input="$emit('input', $event.target.value)"
     >
-    <p
-      v-for="error in errors"
-      :key="error"
-      :style="{ color: 'red' }"
-    >
-      {{ error }}
-    </p>
+    <template v-if="errors.length">
+      <span
+        v-for="error in errors"
+        :key="error"
+        :style="{ color: 'red' }"
+      >
+        {{ error }}
+      </span>
+    </template>
   </label>
 </template>
 
@@ -26,6 +30,10 @@
 export default {
   name: "AppInput",
   props: {
+    value: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
       default: "text",
@@ -33,14 +41,11 @@ export default {
     name: {
       type: String,
       required: true,
+      default: "name",
     },
     placeholder: {
       type: String,
       default: null,
-    },
-    value: {
-      type: String,
-      default: "",
     },
     disabled: {
       type: Boolean,
@@ -50,20 +55,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    bigLabel: {
+    largeTitle: {
       type: Boolean,
       default: false,
     },
     errors: {
       type: Array,
       default: () => [],
-    },
-  },
-  computed: {
-    classModifier() {
-      return {
-        "input--big-label": this.bigLabel,
-      };
     },
   },
 };

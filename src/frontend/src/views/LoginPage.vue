@@ -14,18 +14,25 @@
       </div>
       <form @submit.prevent="signIn($event)">
         <div
-          v-for="field in fields"
-          :key="field.name"
           class="sign-form__input"
         >
           <AppInput
-            v-model="field.value"
-            :type="field.type"
-            :name="field.name"
-            :placeholder="field.placeholder"
-            :errors="getFieldErrors(field.name, errors)"
+            v-model="email"
+            type="email"
+            name="email"
+            placeholder="example@mail.ru"
+            :errors="formValidation.errors.get('email')"
           >
-            {{ field.text }}
+            E-mail
+          </AppInput>
+          <AppInput
+            v-model="password"
+            type="password"
+            name="password"
+            placeholder="***********"
+            :errors="formValidation.errors.get('password')"
+          >
+            Пароль
           </AppInput>
         </div>
         <AppButton type="submit">
@@ -38,7 +45,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { validateForm, getFieldErrors } from "../services/formValidation";
+import formValidation from '../common/mixins/form-validation.js';
 import AppTitle from "../common/components/AppTitle.vue";
 import AppButton from "../common/components/AppButton.vue";
 import AppInput from "../common/components/AppInput.vue";
@@ -50,39 +57,16 @@ export default {
     AppButton,
     AppTitle,
   },
+  mixins: [formValidation],
   data() {
     return {
-      errors: [],
-      fields: [
-        {
-          name: "email",
-          type: "email",
-          placeholder: "example@mail.ru",
-          value: "user@example.com",
-          text: "E-mail",
-        },
-        {
-          type: "password",
-          name: "pass",
-          placeholder: "***********",
-          value: "user@example.com",
-          text: "Пароль",
-        },
-      ],
+      email: 'user@example.com',
+      password: 'user@example.com',
     };
   },
-  computed: {
-    email() {
-      return this.fields.find((field) => field.name === "email").value;
-    },
-    password() {
-      return this.fields.find((field) => field.name === "pass").value;
-    },
-  },
   methods: {
-    getFieldErrors,
     async signIn() {
-      this.errors = validateForm([
+      this.formValidation.errors = this.validateForm([
         {
           name: "email",
           value: this.email,
@@ -95,7 +79,7 @@ export default {
         },
       ]);
 
-      if (this.errors.length > 0) {
+      if (this.formValidation.errors.size > 0) {
         return;
       }
 
@@ -104,7 +88,7 @@ export default {
         password: this.password,
       });
 
-      this.fetchUserData();
+      await this.fetchUserData();
       this.$router.push("/");
     },
     ...mapActions("auth", ["login"]),

@@ -23,7 +23,7 @@
           v-if="startedEditAddress"
           delete-button
           :address="address"
-          :errors="errors"
+          :errors="formValidation.errors"
           @save="saveAddress()"
           @delete="deleteSelectedAddress(address.id)"
           @close="toggleNewAddressFormCreating(false)"
@@ -42,7 +42,7 @@
     >
       <ProfileAddressForm
         :address="profileAddress"
-        :errors="errors"
+        :errors="formValidation.errors"
         @save="saveAddress()"
         @close="toggleNewAddressForm(false)"
       />
@@ -63,7 +63,6 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { validateForm } from "../services/formValidation";
 import {
   RESET_PROFILE_ADDRESS,
   SET_PROFILE_ADDRESS,
@@ -71,6 +70,7 @@ import {
   START_EDIT_ADDRESS
 } from "../store/mutation-types";
 
+import formValidation from '../common/mixins/form-validation';
 import AppButton from "../common/components/AppButton.vue";
 import AppTitle from "../common/components/AppTitle.vue";
 import ProfileUser from "../modules/profile/components/ProfileUser.vue";
@@ -86,6 +86,7 @@ export default {
     ProfileUser,
     ProfileAddressForm,
   },
+  mixins: [formValidation],
   data() {
     return {
       errors: [],
@@ -121,7 +122,7 @@ export default {
       this[START_EDIT_ADDRESS](true);
     },
     async saveAddress() {
-      this.errors = validateForm([
+      this.formValidation.errors = this.validateForm([
         {
           name: "name",
           value: this.profileAddress.name,
@@ -138,7 +139,8 @@ export default {
           rules: ["required"],
         },
       ]);
-      if (this.errors.length > 0) {
+
+      if (this.formValidation.errors.size > 0) {
         return;
       }
 

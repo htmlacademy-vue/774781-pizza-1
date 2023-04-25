@@ -54,7 +54,7 @@
 
               <AppInput
                 :value="displayedCartPhone"
-                big-label
+                large-title
                 name="tel"
                 type="text"
                 placeholder="+7 999-999-99-99"
@@ -72,7 +72,7 @@
                 <div class="cart-form__input">
                   <AppInput
                     :value="cartAddress.street"
-                    :errors="streetErrors"
+                    :errors="formValidation.errors.get('street')"
                     :disabled="selectedSavedAddress"
                     name="street"
                     @input="setStreet($event)"
@@ -84,7 +84,7 @@
                 <div class="cart-form__input cart-form__input--small">
                   <AppInput
                     :value="cartAddress.building"
-                    :errors="buildingErrors"
+                    :errors="formValidation.errors.get('building')"
                     :disabled="selectedSavedAddress"
                     name="house"
                     @input="setBuilding($event)"
@@ -127,7 +127,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-import { validateForm } from "../services/formValidation";
+import formValidation from '../common/mixins/form-validation.js';
 import {
   RESET_CART,
   SHOW_SUCCESS_POPUP,
@@ -162,11 +162,7 @@ export default {
     CartAddressForm,
     CartSuccessPopup,
   },
-  data() {
-    return {
-      errors: [],
-    };
-  },
+  mixins: [formValidation],
   computed: {
     isAvailableCreateOrder() {
       return this.hasCartPhone;
@@ -188,13 +184,6 @@ export default {
     },
     savedAddresses() {
       return this.isAuthenticated ? this.addresses : null;
-    },
-    streetErrors() {
-      return this.errors.find((error) => error.name === "street")?.failedRules;
-    },
-    buildingErrors() {
-      return this.errors.find((error) => error.name === "building")
-        ?.failedRules;
     },
     ...mapState(["cartPhone"]),
     ...mapState("profile", ["addresses", "cartAddress"]),
@@ -267,11 +256,11 @@ export default {
     },
     changeSelectedPizza(id) {
       this[EDIT_PIZZA](id);
-      this.$router.push("/");
+      this.routeToIndexPage();
     },
     async createOrder() {
       if (this.selectedNewAddress) {
-        this.errors = validateForm([
+        this.formValidation.errors = this.validateForm([
           {
             name: "street",
             value: this.cartAddress.street,
@@ -284,7 +273,7 @@ export default {
           },
         ]);
 
-        if (this.errors.length > 0) {
+        if (this.formValidation.errors.size > 0) {
           return;
         }
       }

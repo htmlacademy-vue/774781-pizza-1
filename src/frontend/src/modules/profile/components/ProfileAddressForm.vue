@@ -15,7 +15,7 @@
           name="addr-name"
           placeholder="Введите название адреса"
           required
-          :errors="nameErrors"
+          :errors="errors.get('name')"
         >
           Название адреса*
         </AppInput>
@@ -27,7 +27,7 @@
           name="addr-street"
           placeholder="Введите название улицы"
           required
-          :errors="streetErrors"
+          :errors="errors.get('street')"
         >
           Улица*
         </AppInput>
@@ -39,7 +39,7 @@
           name="addr-house"
           placeholder="Введите номер дома"
           required
-          :errors="buildingErrors"
+          :errors="errors.get('building')"
         >
           Дом*
         </AppInput>
@@ -100,9 +100,9 @@ export default {
       default: false,
     },
     errors: {
-      type: Array,
+      type: Map,
       required: true,
-      default: () => [],
+      default: () => new Map(),
     },
   },
   computed: {
@@ -145,16 +145,6 @@ export default {
       set(value) {
         this[SET_PROFILE_ADDRESS_ENTITY]({ entity: "comment", value });
       },
-    },
-    nameErrors() {
-      return this.errors.find((error) => error.name === "name")?.failedRules;
-    },
-    streetErrors() {
-      return this.errors.find((error) => error.name === "street")?.failedRules;
-    },
-    buildingErrors() {
-      return this.errors.find((error) => error.name === "building")
-        ?.failedRules;
     },
     ...mapState("profile", ["profileAddress"]),
   },

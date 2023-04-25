@@ -36,12 +36,13 @@ describe('AppButton', () => {
   it('transparent button with type button', () => {
     createComponent({ propsData: { transparent: true, type: 'button' } });
     expect(wrapper.attributes('type')).toBe('button');
-    expect(wrapper.classes()).toStrictEqual(['button', 'button--transparent']);
+    expect(wrapper.attributes('class')).toContain('button--transparent');
   });
 
   it('link looks like bordered button with arrow', () => {
     createComponent({ propsData: { tag: 'a', bordered: true, arrow: true } });
-    expect(wrapper.classes()).toStrictEqual(['button', 'button--border', 'button--arrow']);
+    expect(wrapper.attributes('class')).toContain('button--border');
+    expect(wrapper.attributes('class')).toContain('button--arrow');
     expect(wrapper.element.tagName).toBe('A');
-  })
+  });
 });

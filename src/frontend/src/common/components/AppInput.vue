@@ -12,9 +12,13 @@
       :placeholder="placeholder"
       :value="value"
       :disabled="disabled"
+      :required="required"
       @input="$emit('input', $event.target.value)"
     >
-    <template v-if="errors.length">
+    <span
+      v-if="errors.length"
+      class="input__errors"
+    >
       <span
         v-for="error in errors"
         :key="error"
@@ -22,7 +26,7 @@
       >
         {{ error }}
       </span>
-    </template>
+    </span>
   </label>
 </template>
 
@@ -33,6 +37,18 @@ export default {
     value: {
       type: String,
       required: true,
+    },
+    visuallyHidden: {
+      type: Boolean,
+      default: false,
+    },
+    largeTitle: {
+      type: Boolean,
+      default: false,
+    },
+    errors: {
+      type: Array,
+      default: () => [],
     },
     type: {
       type: String,
@@ -51,18 +67,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    visuallyHidden: {
+    required: {
       type: Boolean,
-      default: false,
-    },
-    largeTitle: {
-      type: Boolean,
-      default: false,
-    },
-    errors: {
-      type: Array,
-      default: () => [],
-    },
+      default: false
+    }
   },
 };
 </script>

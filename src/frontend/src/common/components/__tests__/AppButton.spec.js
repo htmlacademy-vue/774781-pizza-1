@@ -33,16 +33,28 @@ describe('AppButton', () => {
     expect(wrapper.attributes('type')).toBe('submit');
   });
 
-  it('transparent button with type button', () => {
-    createComponent({ propsData: { transparent: true, type: 'button' } });
+  it('button type is button', () => {
+    createComponent({ propsData: { type: 'button' } });
     expect(wrapper.attributes('type')).toBe('button');
+  });
+
+  it('transparent button', () => {
+    createComponent({ propsData: { transparent: true } });
     expect(wrapper.attributes('class')).toContain('button--transparent');
   });
 
-  it('link looks like bordered button with arrow', () => {
-    createComponent({ propsData: { tag: 'a', bordered: true, arrow: true } });
-    expect(wrapper.attributes('class')).toContain('button--border');
+  it('button with icon', () => {
+    createComponent({ propsData: { arrow: true } });
     expect(wrapper.attributes('class')).toContain('button--arrow');
+  });
+
+  it('bordered button', () => {
+    createComponent({ propsData: { bordered: true } });
+    expect(wrapper.attributes('class')).toContain('button--border');
+  });
+
+  it('button with tag link', () => {
+    createComponent({ propsData: { tag: 'a' } });
     expect(wrapper.element.tagName).toBe('A');
   });
 });

@@ -20,7 +20,7 @@
           :counter="current[id]"
           class="additional-list__counter"
           orange
-          @update:counter="$emit('update-quantity', { id, quantity: $event })"
+          @update="$emit('update-quantity', { id, quantity: $event })"
         />
 
         <div class="additional-list__price">

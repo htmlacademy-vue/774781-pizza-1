@@ -3,8 +3,8 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      :disabled="isNegative"
-      @click="changeCount(-1)"
+      :disabled="isMin"
+      @click="decrease()"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -20,8 +20,8 @@
       type="button"
       class="counter__button counter__button--plus"
       :class="classes"
-      :disabled="isLimit"
-      @click="changeCount(1)"
+      :disabled="isMax"
+      @click="increase()"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -45,10 +45,10 @@ export default {
     },
   },
   computed: {
-    isNegative() {
+    isMin() {
       return this.counter <= counterLimit.MIN;
     },
-    isLimit() {
+    isMax() {
       return this.counter >= counterLimit.MAX;
     },
     classes() {
@@ -57,23 +57,22 @@ export default {
   },
   methods: {
     update(counter) {
-      this.$emit("update:counter", counter);
+      this.$emit("update", counter);
     },
-    changeCount(multiplier) {
-      if (multiplier > 0) {
-        if (this.isLimit) {
-          return;
-        }
-
-        this.update(this.counter + 1);
-      } else {
-        if (this.isNegative) {
-          return;
-        }
-
-        this.update(this.counter - 1);
+    increase() {
+      if (this.isMax) {
+        return;
       }
+
+      this.update(this.counter + 1);
     },
+    decrease() {
+      if (this.isMin) {
+        return;
+      }
+
+      this.update(this.counter - 1);
+    }
   },
 };
 </script>

@@ -19,7 +19,7 @@
           <ItemCounter
             class="ingredients__counter"
             :counter="currentIngredients[id]"
-            @update:counter="$emit('change', { id, quantity: $event })"
+            @update="$emit('change', { id, quantity: $event })"
           />
         </AppDrag>
       </li>

@@ -10,11 +10,8 @@
     <div class="product__text">
       <h2>{{ product.name }}</h2>
       <ul>
-        <li>
-          {{ displaySizeName(product.sizeId) }},
-          {{ displayDoughTitle(product.doughId) }}
-        </li>
-        <li>Соус: {{ displaySauceName(product.sauceId) }}</li>
+        <li>{{ sizeNames[product.sizeId] }}, {{ doughNames[product.doughId] }}</li>
+        <li>Соус: {{ sauceNames[product.sauceId].toLowerCase() }}</li>
         <li>Начинка: {{ ingredientNames }}</li>
       </ul>
     </div>
@@ -22,6 +19,7 @@
 </template>
 
 <script>
+import { onDough } from '../enums/dough';
 import { sizeNames } from '../enums/sizesValues';
 import { sauceNames } from '../enums/saucesValues';
 import { ingredientNames } from '../enums/ingredientModifiers';
@@ -40,16 +38,14 @@ export default {
         .map((id) => ingredientNames[id])
         .join(", ");
     },
-  },
-  methods: {
-    displayDoughTitle(id) {
-      return id === 1 ? "на тонком тесте" : "на толстом тесте";
+    sizeNames() {
+      return sizeNames;
     },
-    displaySizeName(id) {
-      return sizeNames[id];
+    sauceNames() {
+      return sauceNames;
     },
-    displaySauceName(id) {
-      return sauceNames[id].toLowerCase();
+    doughNames() {
+      return onDough;
     }
   },
 };

@@ -26,7 +26,7 @@ describe('ProductItem', () => {
   it('renders product name', () => {
     createComponent({ propsData: { product } });
     const title = wrapper.find('h2');
-    expect(title.text()).toBe('Луковая');
+    expect(title.text()).toBe(product.name);
   });
 
   it('renders product sauce', () => {

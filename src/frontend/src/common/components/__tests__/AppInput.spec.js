@@ -8,7 +8,19 @@ describe('AppInput', () => {
     type: 'text',
     placeholder: 'Test',
     errors: ['Error'],
-    required: true
+    required: true,
+    largeTitle: true,
+    visuallyHidden: false,
+  };
+
+  const disabledPropsData = {
+    value: 'testValue',
+    name: 'testName',
+    type: 'text',
+    placeholder: 'Test',
+    errors: ['Error'],
+    visuallyHidden: true,
+    disabled: true,
   };
 
   let wrapper;
@@ -20,19 +32,19 @@ describe('AppInput', () => {
     wrapper.destroy();
   });
 
-  it('It sets the initial model value', () => {
+  it('set value', () => {
     createComponent({ propsData });
     expect(wrapper.find('input').element.value).toBe(propsData.value);
   });
 
-  it('It emits an input event when typing', () => {
+  it('emit input event', () => {
     createComponent({ propsData });
     let input = wrapper.find('input');
     input.trigger('input');
     expect(wrapper.emitted().input).toBeTruthy();
   });
 
-  it('emits the current input value when typing', () => {
+  it('emitted event payload', () => {
     createComponent({ propsData });
     let input = wrapper.find('input');
     input.element.value = 'test';
@@ -56,6 +68,25 @@ describe('AppInput', () => {
     createComponent({ propsData });
     let input = wrapper.find('input');
     expect(input.attributes('placeholder')).toBe(propsData.placeholder);
+  });
+
+  it('input disable is prop disable', () => {
+    createComponent({ propsData: disabledPropsData });
+    let input = wrapper.find('input');
+    expect(input.attributes('disabled')).toBeTruthy();
+  });
+
+  it('label has large font size', () => {
+    createComponent({ propsData });
+    let label = wrapper.find('label');
+    expect(label.attributes('class')).toContain('input--big-label');
+  });
+
+  it('label is hidden', () => {
+    createComponent({ propsData: disabledPropsData });
+    let label = wrapper.find('label > span');
+    console.log(label.html());
+    expect(label.attributes('class')).toContain('visually-hidden');
   });
 
   it('has error message', () => {

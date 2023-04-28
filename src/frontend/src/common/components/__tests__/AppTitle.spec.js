@@ -11,7 +11,7 @@ describe('AppTitle', () => {
     wrapper.destroy();
   });
 
-  it('renders out the slot content', () => {
+  it('renders slot content', () => {
     createComponent({ slots: { default: 'content' } });
     expect(wrapper.html()).toContain('content');
   });
@@ -21,15 +21,18 @@ describe('AppTitle', () => {
     expect(wrapper.element.tagName).toBe('H1');
   });
 
-  it('title level 5 with small size', () => {
-    createComponent({ propsData: { level: 5, small: true } });
-    expect(wrapper.attributes('class')).toContain('title--small');
+  it('heading level is prop level', () => {
+    createComponent({ propsData: { level: 5 } });
     expect(wrapper.element.tagName).toBe('H5');
   });
 
-  it('title level 2 with big size', () => {
-    createComponent({ propsData: { level: 2, big: true } });
+  it('small font size', () => {
+    createComponent({ propsData: { small: true } });
+    expect(wrapper.attributes('class')).toContain('title--small');
+  });
+
+  it('large font size', () => {
+    createComponent({ propsData: { big: true } });
     expect(wrapper.attributes('class')).toContain('title--big');
-    expect(wrapper.element.tagName).toBe('H2');
   });
 });

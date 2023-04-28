@@ -17,43 +17,43 @@ describe('AppButton', () => {
     wrapper.destroy();
   });
 
-  it('renders out the slot content', () => {
+  it('render slot content', () => {
     createComponent({ slots: { default: 'content' } });
     expect(wrapper.html()).toContain('content');
   });
 
-  it('raises the click event on click', () => {
+  it('click event fired', () => {
     createComponent({ listeners });
     wrapper.find('button').trigger('click');
     expect(listeners.click).toHaveBeenCalled();
   });
 
-  it('button type is submit', () => {
+  it('type is submit', () => {
     createComponent();
     expect(wrapper.attributes('type')).toBe('submit');
   });
 
-  it('button type is button', () => {
+  it('type is button', () => {
     createComponent({ propsData: { type: 'button' } });
     expect(wrapper.attributes('type')).toBe('button');
   });
 
-  it('transparent button', () => {
+  it('theme is transparent', () => {
     createComponent({ propsData: { transparent: true } });
     expect(wrapper.attributes('class')).toContain('button--transparent');
   });
 
-  it('button with icon', () => {
-    createComponent({ propsData: { arrow: true } });
-    expect(wrapper.attributes('class')).toContain('button--arrow');
-  });
-
-  it('bordered button', () => {
+  it('theme is bordered', () => {
     createComponent({ propsData: { bordered: true } });
     expect(wrapper.attributes('class')).toContain('button--border');
   });
 
-  it('button with tag link', () => {
+  it('has icon', () => {
+    createComponent({ propsData: { arrow: true } });
+    expect(wrapper.attributes('class')).toContain('button--arrow');
+  });
+
+  it('tag <a>', () => {
     createComponent({ propsData: { tag: 'a' } });
     expect(wrapper.element.tagName).toBe('A');
   });

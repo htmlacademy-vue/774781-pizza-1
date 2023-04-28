@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import ItemCounter from '../ItemCounter.vue';
 import { counterLimit } from '../../const';
 
@@ -11,7 +11,7 @@ describe('ItemCounter', () => {
 
   let wrapper;
   const createComponent = options => {
-    wrapper = mount(ItemCounter, options);
+    wrapper = shallowMount(ItemCounter, options);
   };
 
   beforeEach(() => {

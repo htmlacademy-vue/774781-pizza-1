@@ -16,7 +16,7 @@ import {
   SET_INGREDIENTS,
   SET_PIZZA_NAME,
   RESET_CURRENT_PIZZA,
-} from "@/store/mutation-types";
+} from "../mutation-types";
 
 const setupCurrentPizzaState = () => ({
   id: uniqueId("currentPizza_"),

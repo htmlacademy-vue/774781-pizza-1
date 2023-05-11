@@ -38,12 +38,12 @@ describe('AppButton', () => {
     expect(wrapper.attributes('type')).toBe('button');
   });
 
-  it('theme is transparent', () => {
+  it('transparent style', () => {
     createComponent({ propsData: { transparent: true } });
     expect(wrapper.attributes('class')).toContain('button--transparent');
   });
 
-  it('theme is bordered', () => {
+  it('bordered style', () => {
     createComponent({ propsData: { bordered: true } });
     expect(wrapper.attributes('class')).toContain('button--border');
   });
@@ -53,7 +53,7 @@ describe('AppButton', () => {
     expect(wrapper.attributes('class')).toContain('button--arrow');
   });
 
-  it('tag <a>', () => {
+  it('is an anchor', () => {
     createComponent({ propsData: { tag: 'a' } });
     expect(wrapper.element.tagName).toBe('A');
   });
